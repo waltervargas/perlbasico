@@ -1,0 +1,29 @@
+=head0 Aspectos esenciales de Perl
+
+=head1 Introducción
+
+Perl tiene unos 23 años hasta ahora. El lenguaje ha evolucionado desde una
+herramienta simple para la administración de sistemas tomando cosas de shell 
+scripting y C (Perl 1) hasta convertirse en un poderoso lenguaje de propósito 
+general (Perl 5), consistente, coherente, cambiando el paradigma de programación 
+en general con la intensión de mantenerse por otros 25 años. (Perl 6) 
+
+Aun así, la mayoría de los programas en el mundo, escritos en Perl 5, aprovechan
+muy poco las características del lenguaje. Usted C<puede> escribir programas en Perl 5 como si estuviera en Perl 4 (o Perl 3 o 2 o 1), pero los programas que 
+aprovechan todo el increíble poder del mundo de Perl 5 que la comunidad ha 
+inventado, y mejorado, son mas cortos, rápidos, mas poderosos, y fáciles de 
+mantener que sus alternativas en anteriores versiones. 
+
+=head1 Instalando Perl
+
+=begin sidebar
+
+Normalmente los sistemas operativos tipo Unix, se distribuyen con una versión de Perl. Si usted desea tener una versión en específico de Perl, entonces le sugerimos el uso de PerlBrew.
+
+Acontinuación, se indica como instalar Perl en una máquina con Debian Lenny. 
+
+=begin programlisting
+
+    aptitude install perl
+
+=end programlisting
