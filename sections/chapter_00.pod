@@ -206,46 +206,98 @@ El éxito del ejemplo anterior supone, por supuesto, que Perl se ha instalado
 correctamente en su máquina, lo que significa que se encuentra en la ruta 
 de comandos correcta. 
 
+Por otro lado, no es necesario que el script se encuentre en el C<PATH>, si lo desea puede utilizar el modificador B<-S> para hacer que Perl busque el script en los directorios declarados en el PATH. Esta técnica se usa tipicamente para emular B<#!> en algunas plataformas en donde no esta soportado. Ejemplo: 
+
+=begin screen
+
+    $ perl -S prueba.pl 
+
+=end screen
+
+=head2 Encontrar Perl Implícitamente
+
+Z<Encontrar Perl Implícitamente>
+
+En lugar de pasar el script al interprete de Perl explicitamente, usted puede asegurarse que su script es capaz de encontrar el interprete de Perl por el mismo. Lo que significa que podrá correr el script como un comando mas del sistema: 
+
+=begin screen
+
+    $ prueba.pl
+
+=end screen
+
+Si usted tiene el nombre del script sin la extensión, puede ejecutar el script de la siguiente manera: 
+
+=begin screen
+
+    $ prueba
+
+=end screen
+
+El ejemplo anterior parece mas bien un comando del sistema, que es la idea. También puede pasar argumentos a los scripts de Perl, del mismo modo que a los comandos del sistema, Ejemplo: 
+
+=begin screen
+
+    $ prueba hola mundo! 
+
+=end screen
+
+Asegurarse que el script puede encontrar el interprete de Perl por el mismo, depende del sistema operativo. 
+
 
 
 =head1 Escribiendo Código: Encontrando los módulos de Perl. 
+
 Z<Escribiendo Código: Encontrando los módulos de Perl>
 
 =head1 Ejecutando Código: Usando los switches de la linea de comandos. 
+
 Z<Ejecutando Código: Usando los switches de la linea de comandos>
 
 =head1 Ejecutando Código: Usando el switch -w para las alertas. 
+
 Z<Ejecutando Código: Usando el switch -w para las alertas>
 
 =head1 Ejecutando Código: Usando el switch -e para ejecutar código desde la linea de comandos. 
+
 Z<Ejecutando Código: Usando el switch -e para ejecutar código desde la linea de comandos>
 
 =head1 Ejecutando Código: Usando el switch -c para chequear la sintaxis. 
+
 Z<Ejecutando Código: Usando el switch -c para chequear la sintaxis>
 
 =head1 Ejecutando Código: Ejecución Interactiva. 
+
 Z<Ejecutando Código: Ejecución Interactiva>
 
 =head1 Habilidades Básicas: Entrada y Salida de Texto. 
+
 Z<Habilidades Básicas: Entrada y Salida de Texto>
 
 =head1 Habilidades Básicas: Usando la función Print.   
+
 Z<Habilidades Básicas: Usando la función Print>
 
 =head1 Habilidades Básicas: Formateando el Texto.  
+
 Z<Habilidades Básicas: Formateando el Texto>
 
 =head1 Habilidades Básicas: Comentando tu código.  
+
 Z<Habilidades Básicas: Comentando tu código>
 
 =head1 Habilidades Básicas: Lectura de datos de la entrada estándar.
+
 Z<Habilidades Básicas: Lectura de datos de la entrada estándar>
   
 =head1 Habilidades Básicas: Uso de la variable por defecto $_. 
+
 Z<Habilidades Básicas: Uso de la variable por defecto $_>
 
 =head1 Habilidades Básicas: Limpieza los datos leídos de la entrada estándar. 
+
 Z<Habilidades Básicas: Limpieza los datos leídos de la entrada estándar>
 
 =head1 Habilidades Básicas: Fundamentos básicos del diseño de programas en Perl. 
+
 Z<Habilidades Básicas: Fundamentos básicos del diseño de programas en Perl>
