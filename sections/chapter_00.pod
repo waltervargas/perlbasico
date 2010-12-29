@@ -244,6 +244,41 @@ El ejemplo anterior parece mas bien un comando del sistema, que es la idea. Tamb
 
 Asegurarse que el script puede encontrar el interprete de Perl por el mismo, depende del sistema operativo. 
 
+En sistemas operativos tipo Unix, se puede indicar en la primera linea del script la ruta absoluta al interprete de Perl (debe tener en cuenta, que si invoca explícitamente el interprete de Perl como se indico anteriormente, no necesita esta linea.). Ejemplo: 
+
+=begin programlisting
+
+    #!/usr/bin/perl
+
+=end programlisting
+
+Si utiliza este enfoque, esta linea, con la sintaxis especial B<#!>, debe ser la primera linea del script. Esta linea se refiere a la ruta del interprete de Perl en la mayoría de los sistemas operativos tipo Unix, cabe destacar que podría estar ubicado en un lugar diferente en la máquina, como B</usr/local/bin/perl> (tenga en cuenta que en muchas máquinas, las rutas B</usr/bin/perl> y B</usr/local/bin/perl> están referenciadas a ser la misma ruta).
+
+Es posible, que para utilizar Perl 5 en algunos sistemas, tenga que usar una linea parecida a esta: 
+
+=begin programlisting
+
+    #!/usr/bin/perl5
+
+=end programlisting
+
+Tambien le recomendamos que utilice el parámetro B<-w> para asegurarse que Perl muestre advertencias en caso de encontrarlas al interpretar su código.
+
+=begin programlisting
+
+    #!/usr/bin/perl -w 
+
+=end programlisting
+
+Actualmente, el interprete de Perl chequea su código cuando se carga por primera vez, de manera que obtendrá advertencias inmediatamente a menos que cargue el código en un tiempo posterior, que se puede hacer con la sentencia B<require>.  
+
+Debido a que muchos sistemas operativos basados en Unix, toman en cuenta solo los primeros 32 carácteres de la linea B<#!>, puede tener problemas si su ruta de acceso a Perl es muy larga. Ejemplo: 
+
+=begin programlisting
+
+    #!/home/elsanto/Perl/perl5/perl5.10.1/bin/perl5.10.1 
+
+=end programlisting
 
 
 =head1 Escribiendo Código: Encontrando los módulos de Perl. 
