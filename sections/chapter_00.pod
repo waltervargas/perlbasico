@@ -154,10 +154,59 @@ Este script solo devuelve un valor de 1, y es una linea que verá en los módulos 
 
 En general, el código en Perl se compone de estados y declaraciones. Las declaraciones son necesarias sólo para los formatos y subrutinas, aunque también se pueden declara otros elementos tales como las variables, estas las veremos en un capítulo mas adelante. 
 
-Las declaraciones vienen en dos formas: simples y compuestas
+Las declaraciones vienen en dos formas: simples y compuestas. 
+
+=head2 Declaraciones simples
+
+Una declaración simple es una expresión que realiza alguna acción específica. En el código, una declaración simple termina con un punto y coma B<;> como el siguiente, en donde se utiliza la función de impresión para mostrar la cadena B<Hola!>, seguido por el carácter de nueva linea B<\n> utilizado para saltar a la linea siguiente.
+
+=begin programlisting
+
+    print "Hola! \n";
+
+=end programlisting  
+
+=head2 Declaraciones compuestas
+
+Las sentencias compuestas están formadas de expresiones y bloques. Los bloques están delimitados con llaves en Perl, B<{ y }>, y puede escribir varias instrucciones simples. Los bloques también tienen su propio ámbito (el ámbito de acción de los elementos como una variable indican en qué parte del programa se pueden utilizar estas variables). No se debe colocar punto y coma después de la llave de cierre. En el siguiente ejemplo se utiliza un bloque para crear un compuesto para la sentencia de ciclo repetitivo, que es el más básico de los ciclos repetitivos en Perl.
+
+=begin programlisting
+
+    for ($loop_index = 1; $loop_index <=5; $loop_index++) {
+        print "Hello";
+        print "there!\n";
+    }    
+
+=end programlisting  
+
+Si escribe cualquiera de las secuencias de comandos anteriores en un
+archivo como por ejemplo prueba.pl, entonces habrá creado un script en Perl. 
+El siguiente paso es asegurarse de que puede unir el script y el interprete de 
+Perl para ejecutar la secuencia de comandos. 
 
 =head1 Escribiendo Código: Encontrando el interprete de Perl. 
 Z<Escribiendo Código: Encontrando el interprete de Perl>
+
+Puede asegurarse de que su script en Perl, encuentre el interprete de Perl 
+de dos formas posibles: explicita e implicita. 
+
+=head2 Econtrar Perl Explícitamente
+
+La manera explicita de que el script encuentre al interprete de Perl, es pasar
+el script al interprete de Perl de manera explicita en la linea de comandos, 
+como se puede ver en el siguiente ejemplo: 
+
+=begin screen
+
+    $ perl prueba.pl
+
+=end screen
+
+El éxito del ejemplo anterior supone, por supuesto, que Perl se ha instalado 
+correctamente en su máquina, lo que significa que se encuentra en la ruta 
+de comandos correcta. 
+
+
 
 =head1 Escribiendo Código: Encontrando los módulos de Perl. 
 Z<Escribiendo Código: Encontrando los módulos de Perl>
