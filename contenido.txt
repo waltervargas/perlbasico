@@ -219,10 +219,6 @@ El curso tiene una duración de 40 Horas teórico-prácticas
 				1. Creando tablas de despacho de subrutinas. 
 				1. Redefinir una subrutina.	
 
-== Inversión: ==
-
-La inversión total para el Curso de Desarrollo con Perl Nivel Básico es de: Diecisiete Mil Seiscientos Sesenta y Cuatro Bolívares (Bs.17.664,48)
-
 = Condiciones Generales =
 
  * Este curso esta planteado de la siguiente forma: 4 horas diarias durante 2 semanas, de Lunes a Viernes 
