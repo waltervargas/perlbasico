@@ -1,0 +1,236 @@
+#acl CovetelGroup:read,write,admin All:read
+= Curso de Desarrollo con Perl: Nivel Básico =
+
+== Descripción ==
+
+Un curso de desarrollo con el lenguaje de programación Perl a nivel básico.
+
+== Objetivo ==
+
+ * Que el alumno aprenda a usar el lenguaje de programación Perl en diferentes circunstancias. 
+ * Que lo ponga en práctica en casos reales.
+ * Que aprenda a identificar problemas posibles con un programa y a solucionarlos.  
+
+== Dirigido A: ==
+
+ * Estudiantes y profesionales interesados en aprender un nuevo lenguaje de programación. Específicamente, puede ir dirigido a:
+	* Estudiantes de carreras técnicas o científicas.
+	* Profesionales que trabajen en un entorno de tecnologías de la información.
+
+== Duración del Curso: ==
+
+El curso tiene una duración de 40 Horas teórico-prácticas
+
+== Requerimientos Previo: ==
+ * Esto curso está dirigido a personas ya con experiencia en programación en otros lenguajes.
+ * Conocer a un nivel básico el uso del editor de textos VIM.
+ * Conocer y tener habilidades con la consola de GNU/Linux.
+
+== Contenido Programático: ==
+	1. '''Aspectos esenciales de Perl. '''
+		1. Detalles de la instalación de Perl. 
+		1. Escribiendo Código: Creando archivos de código. 
+ 		1. Escribiendo Código: Declaraciones.
+		1. Escribiendo Código: Encontrando el interprete de Perl. 
+		1. Escribiendo Código: Encontrando los módulos de Perl. 
+		1. Ejecutando Código: Usando los switches de la linea de comandos. 
+		1. Ejecutando Código: Usando el switch -w para las alertas. 
+		1. Ejecutando Código: Usando el switch -e para ejecutar código desde la linea de comandos. 
+		1. Ejecutando Código: Usando el switch -c para chequear la sintaxis. 
+		1. Ejecutando Código: Ejecución Interactiva. 
+		1. Habilidades Básicas: Entrada y Salida de Texto. 
+		1. Habilidades Básicas: Usando la función Print.   
+		1. Habilidades Básicas: Formateando el Texto.  
+		1. Habilidades Básicas: Comentando tu código.  
+		1. Habilidades Básicas: Lectura de datos de la entrada estándar.  
+		1. Habilidades Básicas: Uso de la variable por defecto '''$_'''. 
+		1. Habilidades Básicas: Limpieza los datos leídos de la entrada estándar. 
+		1. Habilidades Básicas: Fundamentos básicos del diseño de programas en Perl. 
+	1. '''Variables Escalares y Listas. '''
+		1. Fundamentos Teóricos
+			1. Variables Escalares.
+			1. Listas. 
+			1. Contexto Escalar. 
+			1. Contexto de Lista. 
+		1. Soluciones Inmediatas. 
+			1. Que es una variable escalar. 
+			1. Nombres de las variables escalares. 
+			1. Declarando Escalares.
+			1. Uso de números en las variables escalares. 
+			1. Trabajar con el valor no definido '''undef'''.
+			1. Declarando una constante. 
+			1. Manejo de los valores de la verdad en Perl.
+			1. Conversión entre binario y decimal. 
+			1. Conversión entre decimal y octal. 
+			1. Conversión entre decimal y hexadecimal. 
+			1. Dar a un escalar un valor por defecto. 
+			1. Números de Redondeo. 
+			1. Uso de cadenas en variables escalares. 
+			1. Es una cadena o un número ? 
+			1. Todo sobre las conversiones entre cadenas y números.
+			1. Usando la interpolación de variables. 
+			1. Usando interpolaciones avanzadas.  
+			1. Manejo de las comillas y palabras desnudas '''(barwords)'''
+			1. Que es una lista ?
+			1. Referencia a elementos de una lista por sus indices.
+			1. Asignando listas a otras listas. 
+			1. Unir los elementos de una lista en una cadena.
+			1. Dividir una cadena en una lista. 
+			1. Uso de '''map''' para trabajar con cada elemento de la lista. 
+			1. Usar '''grep''' para encontrar elementos de la lista que se ajusten a sus criterios.
+			1. Ordenar listas.
+			1. Invertir una lista.
+			1. Forzar contexto escalar.
+	1. '''Arreglos y Hashes.'''
+		1. Fundamentos Teóricos.
+			1. Todo sobre los Arreglos.
+			1. Todo sobre los Hashes. 
+		1. Soluciones Inmediatas.
+			1. Creando arreglos. 
+			1. Usar arreglos. 
+			1. '''Pushing and Popping'''.
+			1. '''Shifting and Unshifting'''. 
+		1. Encontrar la longitud de un arreglo. 
+			1. De crecimiento o disminución de un arreglo. 
+			1. Vaciar un arreglo. 
+			1. Fusionar y anexar arreglos. 
+			1. Extraer un grupo elementos de un arreglo '''(Array Slice)'''. 
+			1. Lectura de argumentos de la linea de comandos. '''(@ARGV)'''
+			1. Creando Hashes.
+			1. Usando Hashes. 
+			1. Agregando elementos a un Hash. 
+			1. ¿ Tiene un Hash una clave particular ?
+			1. Eliminación de un elemento de un Hash. 
+			1. Recorrer un Hash.
+			1. Impresión de un Hash. 
+			1. Revertir las claves y los valores en un Hash. 
+			1. Ordenar un Hash.
+			1. Fusionar dos Hash.
+			1. Uso de Hashes y Arreglos en listas de asignación. 
+			1. Reservar la asignación de memoria para un Hash. 
+	1. '''Operadores y Precedencia. '''
+		1. Fundamentos teóricos. 
+			1. Funciones Vs. Operadores en Perl. 
+			1. Precedencia de Operadores.
+		1. Soluciones Inmediatas. 
+			1. Máxima Prioridad: Términos y operadores de lista. 
+			1. Uso de los operadores de flecha. 
+			1. Manejo de los operadores de Auto-Incremento y Auto-Decremento. '''-- ++'''
+			1. Manejo de Exponentes '''**'''. 
+			1. Uso de operadores unarios simbólicos. '''!,-,~,\'''
+			1. Uso de operadores de unión. '''=~ !~'''
+			1. Manejo de operadores de Multiplicación y División '''* /'''
+			1. Manejo de módulo y repeticiones '''% x'''
+			1. Manejo de Suma, Resta, y Concatenación: '''+, -, .'''
+			1. Uso de los operadores de desplazamiento. '''<< >>'''
+			1. Uso de operadores unarios. 
+			1. Trabar con operadores de archivos. 
+			1. Uso de operadores relacionales. 
+			1. Uso de operadores de igualdad. 
+			1. La comparación de los valores de punto flotante. 
+			1. El operador '''&'''
+			1. El operador '''|'''
+			1. El operador '''^'''
+			1. Operadores bit a bit de cadenas. 
+			1. El operador '''&&'''
+			1. El operador '''||'''
+			1. Uso del operador de rango '''..'''
+			1. Uso del operador condicional '''?:'''
+			1. Manejo de Asignaciones '''=, +=, -= , **=, <<=, etc'''
+			1. Uso del operador coma ''','''
+			1. Uso del operador lógico '''not'''
+			1. Uso del operador lógico '''and'''
+			1. Uso del operador lógico '''or'''
+			1. Uso del operador lógico or exclusivo '''xor'''
+			1. Operadores de cita. 
+			1. El operador de entrada/salida de archivos  '''< >'''
+			1. Operadores de C que no están en Perl.
+	1. '''Sentencias Condicionales y Bucles.'''
+		1. Fundamentos Teóricos.
+			1. Sentencias Condicionales.	
+			1. Sentencias de bucles. 
+		1. Soluciones Inmediatas. 
+			1. Sentencias simples y compuestas en Perl. 
+			1. Uso de la sentencia IF. 
+			1. La sentencia inversa de IF: '''unless'''. 
+			1. Trabajando con For.
+			1. Trabajando con Foreach. 
+			1. Recorrer elementos con While. 
+			1. El bloque '''continue''' en un bucle While. 
+			1. El bucle inverso a While: '''until'''
+			1. El bloque '''continue''' en un bucle Until. 
+			1. Recorrer elementos con '''map'''
+			1. Buscar elementos con '''grep'''
+			1. Modificar declaraciones con '''if, unless, until, while, foreach'''
+			1. Crear un bucle del tipo '''do while''' con la sentencia '''do'''
+			1. Saltar al siguiente bucle con '''next'''
+			1. Poner fin a un ciclo con el comando '''last'''
+			1. Rehacer iteraciones con el comando '''redo'''
+			1. Creación de una sentencia '''switch'''
+			1. Uso de '''goto'''. 
+			1. Ejecutando código con la función '''eval'''.
+			1. Finalizando un programa con la sentencia '''exit'''.
+			1. Usando la sentencia '''die'''. 
+	1. '''Expresiones Regulares. '''
+			1. Uso de expresiones regulares. 
+			1. Creando expresiones regulares.	
+			1. Partes de una expresión regular. 
+				1. El Punto "."
+				1. La barra inversa o contrabarra "\"
+				1. Los corchetes "[ ]"
+				1. La barra "|"
+				1. El signo de dólar "$"
+				1. El acento circunflejo "^"
+				1. Los paréntesis "()"
+				1. El signo de interrogación "?"
+				1. Las llaves "{}"
+				1. El asterisco "1."
+				1. El signo de suma "+"
+				1. Grupos anónimos
+	1. '''Subrutinas. '''
+			1. Fundamentos Teóricos.
+				1. Ajuste del Alcance. 
+				1. Devolución de valores. 
+			1. Soluciones Inmediatas. 
+				1. Declarando Subrutinas.	
+				1. Usando Subrutinas prototipo. 
+				1. Definición de Subrutinas. 
+				1. Llamadas a subrutinas.
+				1. Comprobar si una subrutina existe antes de llamarla. 
+				1. Leer los argumentos pasados a una subrutina. 
+				1. Uso de un número variable de argumentos. 
+				1. Devolución de valores desde subrutinas (Funciones).
+				1. Configuración de los valores por defecto para los argumentos. 
+				1. Indicar una falla, devolviendo '''undef'''. 
+				1. Ajuste del alcance con '''my'''.
+				1. Exigir variables de ámbito léxico. 
+				1. Creación de variables temporales con '''local'''.
+				1. Cual es la diferencia entre '''my''' y '''local'''.
+				1. Creando variables persistentes (estáticas).
+				1. Llamar subrutinas recursivamente. 
+				1. Paso de valores por referencia. 
+				1. Devolver valores por referencia. 
+				1. Pasar la tabla de símbolos. 
+				1. Comprobando el contexto requerido con '''wantarray'''
+				1. Creando funciones '''inline'''
+				1. Simulando nombres de parámetros. 
+				1. Subrutinas estructurales del lenguaje. 
+				1. Creando subrutinas anónimas. 
+				1. Creando tablas de despacho de subrutinas. 
+				1. Redefinir una subrutina.	
+
+== Inversión: ==
+
+La inversión total para el Curso de Desarrollo con Perl Nivel Básico es de: Diecisiete Mil Seiscientos Sesenta y Cuatro Bolívares (Bs.17.664,48)
+
+= Condiciones Generales =
+
+ * Este curso esta planteado de la siguiente forma: 4 horas diarias durante 2 semanas, de Lunes a Viernes 
+ * Este paquete no incluyen productos de adicionales de asesoría que pudieran salir por otros convenios.
+ * La transferencia tecnológica sera In-Situ.
+ * La institución prestará toda la logística necesaria para realizar las pruebas durante el curso.
+ * El cliente deberá hacer un adelanto sobre el monto del producto de un 30 %
+ * Cualquier requerimiento adicional que el cliente solicite a Covetel R.S., sera presentado en otra propuesta aparte.
+ * Los pagos deberán realizarlos a nombre de Asoc. Cooperativa Venezolana de Tecnologías Libres R.S. 
+  * Cuenta Corriente Banco Banfoandes No. 0007-0024-09-0070084768
+  * Cuenta Corriente Banco Mercantil  No. 0105-0093-16-1093095946 
