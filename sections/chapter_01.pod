@@ -239,6 +239,45 @@ si el valor no se puede determinar.
 
 Z<Listas>
 
+Una matriz es una lista de variables escalares. Se puede utilizar una matriz para almacenar una lista con información, de manera que funcione como una pila o para actuar como un contenedor de estructuras de datos mas complejas. Los valores escalares pueden ser cualquiera de los tipos de datos que se pueden almacenar en una variable escalar: número, cadena o referencia. 
+
+Una matriz se puede definir de varias formas diferentes, y al igual que las variables escalares las matrices pueden ser generadas y devueltas mediante funciones e instrucciones. El método mas básico consiste en definir una matriz vacía: 
+
+=begin programlisting
+
+    @array = ();
+
+=end programlisting
+
+En Perl no es necesario definir variables antes de utilizarlas; se pueden definir en el momento en que se desee comenzar a utilizarlas. El ejemplo anterior es, por tanto, un ejemplo de como se define una matriz. 
+
+Las variables escalares individuales de una matriz se denominan elementos y a cada elemento se le asigna un número. Se puede utilizar una matriz como una lista indexada de información escalar. Por ejemplo, se puede utilizar una matriz como una lista de días de la semana, comenzando por el día Lunes: 
+
+=begin programlisting
+
+    @dias = (
+        "Lunes",   "Martes", "Miercoles", "Jueves",
+        "Viernes", "Sabado", "Domingo"
+    );
+
+=end programlisting
+
+Este es el formato largo para definir previamente el contenido de una matriz. Los siguientes ejemplos también llenan la matriz con la misma información
+
+=begin programlisting
+
+    @dias = qw/Lunes Martes Miercoles Jueves Viernes Sabado Domingo/;
+
+    $dias[0] = "Lunes";
+    $dias[1] = "Martes";
+    ...
+    $dias[6] = "Domingo";
+
+=end programlisting
+
+El primer ejemplo utiliza el operador B<qw> para entrecomillar de forma automática las palabras que no lleven comillas, y los espacios separan las palabras individuales en distintos elementos de la matriz. Observe que el operador B<qw> devuelve una matriz que, a continuación, Perl asigna a la matriz que se esta creando. Mas adelante veremos que el mismo operador se puede utilizar para proporcionar listas a otras funciones sin tener que crear una matriz con nombre.
+
+
 =head2  Contexto Escalar. 
 
 Z<Contexto Escalar>
