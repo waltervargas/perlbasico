@@ -1,0 +1,25 @@
+=encoding utf8
+
+=head0 Varables Escalares y Listas
+
+Z<Varables Escalares y Listas>
+
+=head1  Fundamentos Teóricos
+
+Z<Fundamentos Teóricos>
+
+=head2  Variables Escalares.
+
+Z<Variables Escalares>
+
+=head2  Listas. 
+
+Z<Listas>
+
+=head2  Contexto Escalar. 
+
+Z<Contexto Escalar>
+
+=head2  Contexto de Lista. 
+
+Z<Contexto de Lista>
