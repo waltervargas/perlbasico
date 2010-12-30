@@ -8,7 +8,7 @@ Z<Varables Escalares y Listas>
 
 Z<Fundamentos Teóricos>
 
-=head1 Variables
+=head2 Variables
 
 Z<Variables>
 
@@ -276,6 +276,25 @@ Este es el formato largo para definir previamente el contenido de una matriz. Lo
 =end programlisting
 
 El primer ejemplo utiliza el operador B<qw> para entrecomillar de forma automática las palabras que no lleven comillas, y los espacios separan las palabras individuales en distintos elementos de la matriz. Observe que el operador B<qw> devuelve una matriz que, a continuación, Perl asigna a la matriz que se esta creando. Mas adelante veremos que el mismo operador se puede utilizar para proporcionar listas a otras funciones sin tener que crear una matriz con nombre.
+
+=head2 Contexto    
+
+Z<Contexto> 
+
+El contexto de una función o instrucción se define como el valor de retorno esperado. Esto nos permite usar una única función que devuelva diferentes valores, dependiendo de lo que el usuario espera recibir. Por ejemplo, las dos llamadas siguientes de la función B<getpwent> devuelven una lista o un escalar, dependiendo de lo que se use en la asignación. 
+
+=begin programlisting
+
+    $name = getpwent(); # Contexto escalar
+
+    ($name, $passwd, $uid, $gid) = getpwent(); # Contexto de Lista.
+
+=end programlisting
+
+En el primer caso, el usuario espera que la función devuelva un valor escalar, porque quiere asigna el valor devuelto a un escalar. En el segundo caso el usuario espera que el valor devuelto sea una lista, de nuevo porque ha especificado que la información devuelta sea insertada en una lista de escalares. 
+
+Esto puede ser confuso, puesto que la mayoría de los otros lenguajes admiten un solo tipo de valor de retorno. De hecho, es muy práctico, porque reduce la cantidad de código requerido para conseguir diferentes resultados.
+
 
 
 =head2  Contexto Escalar. 
