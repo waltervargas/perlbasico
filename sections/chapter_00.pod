@@ -285,6 +285,34 @@ Debido a que muchos sistemas operativos basados en Unix, toman en cuenta solo lo
 
 Z<Escribiendo Código: Encontrando los módulos de Perl>
 
+Con los años, Perl se ha extendido con la creación de módulos escritos en Perl, estos módulos poseen lineas de código preescritas que van desde manejar un cursor en la plantalla, hasta la creación al vuelo de documentos XHTML. 
+
+Los módulos que vienen oficialmente con Perl reciben el nombre de I<módulos estándar>. En B<CPAN> puede encontrar hasta la fecha otros 19053 módulos adicionales.
+
+Si instala los módulos correctamente, Perl los encontrará de forma automátca cando se incluyan en el código con declaraciones tales como B<use> y B<require>. 
+
+Las rutas para acceder a los módulos de Perl  se encuentran en la lista B<@INC>. En el siguiente ejemplo, se muestra el contenido de la lista B<@INC>. 
+
+=begin screen
+
+    $ perl -e 'print "@INC"'
+
+	$VAR1 = '/Library/Perl/Updates/5.10.0/darwin-thread-multi-2level';
+	$VAR2 = '/Library/Perl/Updates/5.10.0';
+	$VAR3 = '/System/Library/Perl/5.10.0/darwin-thread-multi-2level';
+	$VAR4 = '/System/Library/Perl/5.10.0';
+	$VAR5 = '/Library/Perl/5.10.0/darwin-thread-multi-2level';
+	$VAR6 = '/Library/Perl/5.10.0';
+	$VAR7 = '/Network/Library/Perl/5.10.0/darwin-thread-multi-2level';
+	$VAR8 = '/Network/Library/Perl/5.10.0';
+	$VAR9 = '/Network/Library/Perl';
+	$VAR10 = '/System/Library/Perl/Extras/5.10.0/darwin-thread-multi-2level';
+	$VAR11 = '/System/Library/Perl/Extras/5.10.0';
+	$VAR12 = '.';
+
+=end screen
+
+
 =head1 Ejecutando Código: Usando los switches de la linea de comandos. 
 
 Z<Ejecutando Código: Usando los switches de la linea de comandos>
