@@ -8,6 +8,82 @@ Z<Varables Escalares y Listas>
 
 Z<Fundamentos Teóricos>
 
+=head1 Variables
+
+Z<Variables>
+
+X<Variables>
+
+Las variables se utilizan para almacenar información en una ubicación 
+determinada. Existen varios tipos de variables y cada una de ellas se puede 
+utilizar para un tipo determinado de información. Perl admite 3 tipos de 
+variables principales: 
+
+=over 
+
+=item Escalares
+
+=item Matries
+
+=item Hash
+
+=back
+
+Las varibles B<escalares> almacenan información simple, como números y cadenas 
+de texto. 
+
+Las B<matrices> almacenan listas de números y cadenas en las que cada elemento 
+de la lista esta identificado por un número. 
+
+Las variables B<hash> tambien almacenan listas de números y cadenas, pero los 
+elementos individuaes son identificados mediante cadenas que reciben el nombre
+de llaves.
+ 
+A diferencia de otros lenguajes, los distintos tipos de variables en Perl se identifican mediante un carácter especial, de este modo B<$var> es una variable 
+escalar, B<@var> es una matriz y B<%var> es un hash. Cada tipo de variable, 
+tiene su propio espacio de nombres. Esto significa que, en el ejemplo siguiente,
+cada una de las variables es una variable independiente, que contiene un 
+fragmento de información diferente: 
+
+=begin programlisting
+
+    $var = "Hola Mundo";
+    @var = qw/Walter Alejandro/;
+    print $var, "\n"; 
+
+=end programlisting
+
+El resultado sera el siguiente: 
+
+=begin screen
+
+    Hola Mundo
+
+=end screen
+
+Pero el resultado de: 
+
+=begin programlisting
+
+    print @var, "\n";
+
+=end programlisting
+
+Seria el siguiente: 
+
+=begin screen
+
+    Walter Vargas
+
+=end screen
+
+=begin sidebar
+
+Un nombre de variable debe comenzar con una letra y puede contener cualquier
+combinación de letras, números y carácteres de subrayado B<_>. Cualquier otro carácter sera tratado como un operador de Perl. 
+
+=end sidebar
+
 =head2  Variables Escalares.
 
 Z<Variables Escalares>
