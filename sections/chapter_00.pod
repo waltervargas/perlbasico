@@ -1,3 +1,5 @@
+=encoding utf8
+
 =head0 Aspectos esenciales de Perl
 
 =head1 Introducción
@@ -295,7 +297,7 @@ Las rutas para acceder a los módulos de Perl  se encuentran en la lista B<@INC>.
 
 =begin screen
 
-    $ perl -e 'print "@INC"'
+    $ perl -MData::Dumper -e 'print Dumper @INC'
 
 	$VAR1 = '/Library/Perl/Updates/5.10.0/darwin-thread-multi-2level';
 	$VAR2 = '/Library/Perl/Updates/5.10.0';
