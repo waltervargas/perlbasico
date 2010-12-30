@@ -29,14 +29,14 @@ variables principales:
 
 =back
 
-Las varibles B<escalares> almacenan información simple, como números y cadenas 
+Las variables B<escalares> almacenan información simple, como números y cadenas 
 de texto. 
 
 Las B<matrices> almacenan listas de números y cadenas en las que cada elemento 
 de la lista esta identificado por un número. 
 
-Las variables B<hash> tambien almacenan listas de números y cadenas, pero los 
-elementos individuaes son identificados mediante cadenas que reciben el nombre
+Las variables B<hash> también almacenan listas de números y cadenas, pero los 
+elementos individuos son identificados mediante cadenas que reciben el nombre
 de llaves.
  
 A diferencia de otros lenguajes, los distintos tipos de variables en Perl se identifican mediante un carácter especial, de este modo B<$var> es una variable 
@@ -80,13 +80,160 @@ Seria el siguiente:
 =begin sidebar
 
 Un nombre de variable debe comenzar con una letra y puede contener cualquier
-combinación de letras, números y carácteres de subrayado B<_>. Cualquier otro carácter sera tratado como un operador de Perl. 
+combinación de letras, números y caracteres de subrayado B<_>. Cualquier otro carácter sera tratado como un operador de Perl. 
 
 =end sidebar
 
 =head2  Variables Escalares.
 
 Z<Variables Escalares>
+
+Una variable escalar es la forma mas básica de contenedor de datos disponible 
+en Perl. Los demás tipos de datos de Perl utilizan el tipo escalar como tipo de 
+datos básico. Por ejemplo, una matriz es una matriz de escalares y una variable
+hash esta compuesta por valores escalares. Las variables escalares solo pueden 
+contener unidades indivisibles de información tal que: una variable escalar 
+puede almacenar números, cadenas o referencias. 
+
+Una variable escalar no puede contener valores múltiples. Mas adelante, en 
+este capítulo vamos a ver sobre B<referencias>
+
+Perl trata las cadenas de caracteres y los números de forma casi idéntica. 
+No existe ninguna forma de definir una variable escalar para que contenga un 
+número o una cadena; una variable escalar contiene, simplemente, un valor. 
+Perl decidirá en el momento en que se utilice la variable si el valor debe 
+interpretarse como un número o una cadena. 
+Esto también se aplica a las referencias.
+
+Una referencia puede apuntar a otra variable escalar, a una matriz o a una 
+variable hash, o incluso a un objeto. Para definir o asignar un valor a una 
+variable escalar, se debe especificar el valor y el nombre de variable mediante 
+un signo igual (el operador B<=>). Por ejemplo: 
+
+=begin programlisting
+
+    $age = 26;
+
+=end programlisting
+
+De esta forma se almacenaría el valor 26 en la variable B<$age>. El valor 
+asignado a la variable se denomina literal, puesto que se trata de un valor 
+estático (no computado). Por su parte, la siguiente instrucción: 
+
+=begin programlisting
+
+    $pi = 3.1415126; 
+
+=end programlisting
+
+Significa que la variable B<$pi> debería ser un valor de coma flotante. 
+Perl tratará de la misma forma la variable B<$age> y la variable B<$pi>. 
+
+Tampoco existe una manera de especificar la precisión de un número. En teoría, 
+todos los números se almacenan como valores de coma flotante (que equivalen a 
+los valores de tipo double en C). Sin embargo, Perl también hará suposiciones 
+cuidadosas e inteligentes basadas en el valor de la variable como resultado de
+una determinada expresión. La aritmética con enteros da lugar a valores enteros,
+mientras que los valores de coma flotante traduce los resultados a coma flotante
+cuando se visualizan. Por otra parte, también se puede especificar un número de 
+coma flotante utilizando una notación científica: 
+
+=begin programlisting
+
+    $speed_of_light = 2.997e08;
+
+=end programlisting
+
+Para las cadenas, Perl utiliza distintas comillas para definir el formato de 
+las cadenas. Por ejemplo, tanto las comillas simples como las dobles sirven para
+definir una cadena: 
+
+=begin programlisting
+
+    $nombre = "Walter";
+    $fullname = "Walter A. Vargas M.";
+    $book = "Perl complete reference";
+
+=end programlisting
+
+La diferencia esta en que las comillas dobles definen una cadena con 
+B<interpolación>; es decir; el contenido de la cadena puede ser evaluado. Por lo 
+tanto las siguientes instrucciones proporcionan resultados diferentes: 
+
+=begin programlisting
+
+    $nombre = 'Walter A Vargas';
+    $msg = 'Hola $nombre';
+    $realmsg = "Hola $nombre";
+
+=end programlisting
+
+El valor de B<$msg> se visualizara de la siguiente forma: 
+
+=begin screen
+
+    Hola $nombre\n
+
+=end screen
+
+Sin salto de linea (el carácter \n), mientras que el valor B<$realmsg> se visualizara de la siguiente forma: 
+
+=begin screen
+
+    Hola Walter A Vargas
+
+=end screen
+
+Incluyendo el carácter de salto de linea. 
+
+Es muy importante entender esta distinción, ya que afectara a muchas de las 
+operaciones e instrucciones que se ejecuten en Perl, sin mencionar la legibilidad de las cadenas que se muestren. 
+
+También merece la pena señalar, tal y como dijimos anteriormente, que las 
+variables escalares se pasan de un formato a otro automáticamente, con el fin 
+de conseguir los resultados deseados. Por ejemplo: 
+
+=begin programlisting
+
+    $valor = '123';
+    print $valor + 1, "\n";
+
+=end programlisting
+
+Este código, mostraría el valor 124. Perl convierte automáticamente el valor de
+la cadena en un número antes de aplicar el operador y suma uno al valor. 
+El salto de linea, representado mediante el carácter B<\n>, ya esta especificado como una cadena y, por lo tanto, no es necesario convertirlo, pero sí es interpretado.
+
+Existen varios caracteres de barra invertida B<\> que son interpretados y el 
+lector, probablemente, ya conocerá muchos de ellos. 
+
+Por cierto, es posible asignar una única palabra a las variables escalares sin 
+comillas: 
+
+=begin programlisting
+
+    $nombre = Walter
+
+=end programlisting
+
+Sin embargo, este tipo de instrucción es ambiguo y no se recomienda utilizarlo.
+Si la variable Walter estuviera definida como una función, el valor de la variable B<$nombre> sería el resultado obtenido de una llamada a la función Walter. 
+Ademas esto no esta permitido cuando se usa el pragma B<strict>.
+
+No es necesario definir previamente las variables; se crearan de forma 
+automática cuando se utilicen por primera vez. Su valor inicial será nulo, 
+ya sea "" para una cadena o 0 (cero) para un número. Dependiendo del lugar en que se use, una variable escalar (y otros tipos de variables) se interpretara de 
+forma automática como cadena, número o como un valor booleano (true o false, 
+verdadero o falso). Los distintos operadores y funciones necesitan y generan 
+distintos valores escalares. Perl también incluye un valor especial para las 
+variables escalares. 
+
+El valor definido B<undef> se puede utilizar para identificar determinadas 
+condiciones de error y la existencia o no de información de matrices o variables hash. El valor undef se utiliza normalmente como valor de retorno de una función que, de otra manera, proporcionaría un valor de 0, que podría ser autentico. 
+Por ejemplo, el valor de un puntero de archivos en un descriptor de archivos 
+podría ser cero, por lo tanto que la función B<tell> genera el valor B<undef> 
+si el valor no se puede determinar. 
+
 
 =head2  Listas. 
 

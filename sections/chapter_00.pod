@@ -2,27 +2,27 @@
 
 =head0 Aspectos esenciales de Perl
 
-=head1 IntroducciÛn
+=head1 Introducci√≥n
 
-Perl tiene unos 23 aÒos hasta ahora. El lenguaje ha evolucionado desde una
-herramienta simple para la administraciÛn de sistemas tomando cosas de shell 
-scripting y C (Perl 1) hasta convertirse en un poderoso lenguaje de propÛsito 
-general (Perl 5), consistente, coherente, cambiando el paradigma de programaciÛn 
-en general con la intensiÛn de mantenerse por otros 25 aÒos. (Perl 6) 
+Perl tiene unos 23 a√±os hasta ahora. El lenguaje ha evolucionado desde una
+herramienta simple para la administraci√≥n de sistemas tomando cosas de shell 
+scripting y C (Perl 1) hasta convertirse en un poderoso lenguaje de prop√≥sito 
+general (Perl 5), consistente, coherente, cambiando el paradigma de programaci√≥n 
+en general con la intensi√≥n de mantenerse por otros 25 a√±os. (Perl 6) 
 
-Aun asÌ, la mayorÌa de los programas en el mundo, escritos en Perl 5, aprovechan
-muy poco las caracterÌsticas del lenguaje. Usted C<puede> escribir programas en Perl 5 como si estuviera en Perl 4 (o Perl 3 o 2 o 1), pero los programas que 
-aprovechan todo el increÌble poder del mundo de Perl 5 que la comunidad ha 
-inventado, y mejorado, son mas cortos, r·pidos, mas poderosos, y f·ciles de 
+Aun as√≠, la mayor√≠a de los programas en el mundo, escritos en Perl 5, aprovechan
+muy poco las caracter√≠sticas del lenguaje. Usted C<puede> escribir programas en Perl 5 como si estuviera en Perl 4 (o Perl 3 o 2 o 1), pero los programas que 
+aprovechan todo el incre√≠ble poder del mundo de Perl 5 que la comunidad ha 
+inventado, y mejorado, son mas cortos, r√°pidos, mas poderosos, y f√°ciles de 
 mantener que sus alternativas en anteriores versiones. 
 
 =head1 Instalando Perl
 
 =begin sidebar
 
-Normalmente los sistemas operativos tipo Unix, se distribuyen con una versiÛn de Perl. Si usted desea tener una versiÛn en especÌfico de Perl, entonces le sugerimos el uso de PerlBrew.
+Normalmente los sistemas operativos tipo Unix, se distribuyen con una versi√≥n de Perl. Si usted desea tener una versi√≥n en espec√≠fico de Perl, entonces le sugerimos el uso de PerlBrew.
 
-AcontinuaciÛn, se indica como instalar Perl en una m·quina con Debian Lenny. 
+Acontinuaci√≥n, se indica como instalar Perl en una m√°quina con Debian Lenny. 
 
 =begin programlisting
 
@@ -31,11 +31,11 @@ AcontinuaciÛn, se indica como instalar Perl en una m·quina con Debian Lenny.
 =end programlisting
 
 
-=head1 Detalles de la instalaciÛn de Perl.
-Z<Detalles de la instalaciÛn de Perl.>
-X<instalaciÛn>
+=head1 Detalles de la instalaci√≥n de Perl.
+Z<Detalles de la instalaci√≥n de Perl.>
+X<instalaci√≥n>
 
-Cuando un supervisor requiera informaciÛn acerca de cuales modificaciones del compilador se aplicaron a la versiÛn de Perl instalada originalmente, con el fin de estar seguro de que los cambios que han sido realizados son coherentes, usamos el siguiente comando:
+Cuando un supervisor requiera informaci√≥n acerca de cuales modificaciones del compilador se aplicaron a la versi√≥n de Perl instalada originalmente, con el fin de estar seguro de que los cambios que han sido realizados son coherentes, usamos el siguiente comando:
 
 =begin screen 
 
@@ -97,53 +97,53 @@ Cuando un supervisor requiera informaciÛn acerca de cuales modificaciones del co
 
 =begin sidebar
 
-Se puede encontrar una gran cantidad de informaciÛn acerca de cÛmo su copia de 
-Perl fue construida mediante el modificador -V. Por ejemplo, el ˙ltimo elemento
-en el cÛdigo anterior muestra las entradas actuales en la matriz C<@INC>, que 
-especifica la ruta a los mÛdulos de Perl.
+Se puede encontrar una gran cantidad de informaci√≥n acerca de c√≥mo su copia de 
+Perl fue construida mediante el modificador -V. Por ejemplo, el √∫ltimo elemento
+en el c√≥digo anterior muestra las entradas actuales en la matriz C<@INC>, que 
+especifica la ruta a los m√≥dulos de Perl.
 
 =end sidebar
 
 
-=head1 Escribiendo CÛdigo: Creando archivos de cÛdigo. 
-Z<Escribiendo CÛdigo: Creando archivos de cÛdigo>
+=head1 Escribiendo C√≥digo: Creando archivos de c√≥digo. 
+Z<Escribiendo C√≥digo: Creando archivos de c√≥digo>
 
-Los Scripts en Perl son sÛlo archivos de texto simple, compuestos por los estados
-y las declaraciones del lenguaje, seg˙n sea necesario (Se debe declarar en
-formato ˙nico y subrutinas en Perl). Para crear un script en Perl, usted debe 
+Los Scripts en Perl son s√≥lo archivos de texto simple, compuestos por los estados
+y las declaraciones del lenguaje, seg√∫n sea necesario (Se debe declarar en
+formato √∫nico y subrutinas en Perl). Para crear un script en Perl, usted debe 
 tener un editor o procesador de texto que le permita guardar archivos en formato de texto plano.
 
-Guardar en formato de texto simple es un logro que va m·s all· de muchos 
+Guardar en formato de texto simple es un logro que va m√°s all√° de muchos 
 procesadores de palabras. Es posible que tenga problemas con 
 los procesadores de palabras como Open Office, por ejemplo, aunque se pueden 
-guardar archivos de texto sin formato con el programa mediante el menu Archivo|Guardar como. La regla general es que si usted puede abrir el archivo usando la lÌnea de comandos y no ve ning˙n car·cter extraÒo, es un archivo de texto plano. 
+guardar archivos de texto sin formato con el programa mediante el menu Archivo|Guardar como. La regla general es que si usted puede abrir el archivo usando la l√≠nea de comandos y no ve ning√∫n car√°cter extra√±o, es un archivo de texto plano. 
 En Unix, usted tiene muchos editores para elegir. La prueba real, por 
 supuesto, es si Perl puede leer e interpretar la secuencia de comandos que 
-usted escribiÛ.
+usted escribi√≥.
 
 Tenga en cuenta que una gran diferencia entre los archivos de texto de Unix y 
-MS-DOS/Windows, es que los archivos de Unix utilizan un car·cter ˙nico al final 
-de cada lÌnea, y los archivos MS-DOS/Windows utilizar dos (es decir, 
-un retorno de carro y una lÌnea de alimentaciÛn). Esta diferencia no 
+MS-DOS/Windows, es que los archivos de Unix utilizan un car√°cter √∫nico al final 
+de cada l√≠nea, y los archivos MS-DOS/Windows utilizar dos (es decir, 
+un retorno de carro y una l√≠nea de alimentaci√≥n). Esta diferencia no 
 preocupa en Perl, por lo que puede moverse entre las secuencias de comandos 
-de los sistemas operativos con libertad, sin embargo, esta diferencia podrÌa 
+de los sistemas operativos con libertad, sin embargo, esta diferencia podr√≠a 
 molestar al editor que se utilice para trabajar con las secuencias de comandos.
 
-Las extensiones de los archivos puede ser ˙tiles cuando usted vuelva a revisar largas listas de archivos guardados dentro de tres o mas aÒos y se preguntan quÈ 
-tipo de extensiÛn son. Por esta razÛn, vamos a utilizar la extensiÛn .pl para 
-los scripts en este curso. SÛlo debe tener en cuenta que no tiene que usar esta 
-extensiÛn o cualquier otra para que los programas funcionen. 
-Esencialmente, usted es deber· nombrar los ejemplos desarrollados en este curso 
-seg˙n las indicaciones del instructor.
+Las extensiones de los archivos puede ser √∫tiles cuando usted vuelva a revisar largas listas de archivos guardados dentro de tres o mas a√±os y se preguntan qu√© 
+tipo de extensi√≥n son. Por esta raz√≥n, vamos a utilizar la extensi√≥n .pl para 
+los scripts en este curso. S√≥lo debe tener en cuenta que no tiene que usar esta 
+extensi√≥n o cualquier otra para que los programas funcionen. 
+Esencialmente, usted es deber√° nombrar los ejemplos desarrollados en este curso 
+seg√∫n las indicaciones del instructor.
 
-=head1 Escribiendo CÛdigo: Declaraciones.
-Z<Escribiendo CÛdigo: Declaraciones>
+=head1 Escribiendo C√≥digo: Declaraciones.
+Z<Escribiendo C√≥digo: Declaraciones>
 
-øCu·l es la menor secuencia de comandos legal que puede escribir? 
+¬øCu√°l es la menor secuencia de comandos legal que puede escribir? 
 
-Si no le importa, la secuencia de comandos no hace nada en absoluto, en realidad se puede pasar el intÈrprete Perl en un archivo de longitud cero, y este no se quejar·. (Tenga en cuenta que esto depende de su interprete de Perl, y su sistema operativo puede no ser compatible con archivos de longitud cero).
+Si no le importa, la secuencia de comandos no hace nada en absoluto, en realidad se puede pasar el int√©rprete Perl en un archivo de longitud cero, y este no se quejar√°. (Tenga en cuenta que esto depende de su interprete de Perl, y su sistema operativo puede no ser compatible con archivos de longitud cero).
 
-Probablemente la secuencia m·s corta de comandos legales para Perl que se puede 
+Probablemente la secuencia m√°s corta de comandos legales para Perl que se puede 
 escribir para hacer algo, aunque no mucho, es la siguiente:
 
 =begin programlisting
@@ -152,15 +152,15 @@ escribir para hacer algo, aunque no mucho, es la siguiente:
 
 =end programlisting
 
-Este script solo devuelve un valor de 1, y es una linea que ver· en los mÛdulos de Perl y sirve para indicar la carga con Èxito del mÛdulo.
+Este script solo devuelve un valor de 1, y es una linea que ver√° en los m√≥dulos de Perl y sirve para indicar la carga con √©xito del m√≥dulo.
 
-En general, el cÛdigo en Perl se compone de estados y declaraciones. Las declaraciones son necesarias sÛlo para los formatos y subrutinas, aunque tambiÈn se pueden declara otros elementos tales como las variables, estas las veremos en un capÌtulo mas adelante. 
+En general, el c√≥digo en Perl se compone de estados y declaraciones. Las declaraciones son necesarias s√≥lo para los formatos y subrutinas, aunque tambi√©n se pueden declara otros elementos tales como las variables, estas las veremos en un cap√≠tulo mas adelante. 
 
 Las declaraciones vienen en dos formas: simples y compuestas. 
 
 =head2 Declaraciones simples
 
-Una declaraciÛn simple es una expresiÛn que realiza alguna acciÛn especÌfica. En el cÛdigo, una declaraciÛn simple termina con un punto y coma B<;> como el siguiente, en donde se utiliza la funciÛn de impresiÛn para mostrar la cadena B<Hola!>, seguido por el car·cter de nueva linea B<\n> utilizado para saltar a la linea siguiente.
+Una declaraci√≥n simple es una expresi√≥n que realiza alguna acci√≥n espec√≠fica. En el c√≥digo, una declaraci√≥n simple termina con un punto y coma B<;> como el siguiente, en donde se utiliza la funci√≥n de impresi√≥n para mostrar la cadena B<Hola!>, seguido por el car√°cter de nueva linea B<\n> utilizado para saltar a la linea siguiente.
 
 =begin programlisting
 
@@ -170,7 +170,7 @@ Una declaraciÛn simple es una expresiÛn que realiza alguna acciÛn especÌfica. En
 
 =head2 Declaraciones compuestas
 
-Las sentencias compuestas est·n formadas de expresiones y bloques. Los bloques est·n delimitados con llaves en Perl, B<{ y }>, y puede escribir varias instrucciones simples. Los bloques tambiÈn tienen su propio ·mbito (el ·mbito de acciÛn de los elementos como una variable indican en quÈ parte del programa se pueden utilizar estas variables). No se debe colocar punto y coma despuÈs de la llave de cierre. En el siguiente ejemplo se utiliza un bloque para crear un compuesto para la sentencia de ciclo repetitivo, que es el m·s b·sico de los ciclos repetitivos en Perl.
+Las sentencias compuestas est√°n formadas de expresiones y bloques. Los bloques est√°n delimitados con llaves en Perl, B<{ y }>, y puede escribir varias instrucciones simples. Los bloques tambi√©n tienen su propio √°mbito (el √°mbito de acci√≥n de los elementos como una variable indican en qu√© parte del programa se pueden utilizar estas variables). No se debe colocar punto y coma despu√©s de la llave de cierre. En el siguiente ejemplo se utiliza un bloque para crear un compuesto para la sentencia de ciclo repetitivo, que es el m√°s b√°sico de los ciclos repetitivos en Perl.
 
 =begin programlisting
 
@@ -182,17 +182,17 @@ Las sentencias compuestas est·n formadas de expresiones y bloques. Los bloques e
 =end programlisting  
 
 Si escribe cualquiera de las secuencias de comandos anteriores en un
-archivo como por ejemplo prueba.pl, entonces habr· creado un script en Perl. 
+archivo como por ejemplo prueba.pl, entonces habr√° creado un script en Perl. 
 El siguiente paso es asegurarse de que puede unir el script y el interprete de 
 Perl para ejecutar la secuencia de comandos. 
 
-=head1 Escribiendo CÛdigo: Encontrando el interprete de Perl. 
-Z<Escribiendo CÛdigo: Encontrando el interprete de Perl>
+=head1 Escribiendo C√≥digo: Encontrando el interprete de Perl. 
+Z<Escribiendo C√≥digo: Encontrando el interprete de Perl>
 
 Puede asegurarse de que su script en Perl, encuentre el interprete de Perl 
 de dos formas posibles: explicita e implicita. 
 
-=head2 Econtrar Perl ExplÌcitamente
+=head2 Econtrar Perl Expl√≠citamente
 
 La manera explicita de que el script encuentre al interprete de Perl, es pasar
 el script al interprete de Perl de manera explicita en la linea de comandos, 
@@ -204,11 +204,11 @@ como se puede ver en el siguiente ejemplo:
 
 =end screen
 
-El Èxito del ejemplo anterior supone, por supuesto, que Perl se ha instalado 
-correctamente en su m·quina, lo que significa que se encuentra en la ruta 
+El √©xito del ejemplo anterior supone, por supuesto, que Perl se ha instalado 
+correctamente en su m√°quina, lo que significa que se encuentra en la ruta 
 de comandos correcta. 
 
-Por otro lado, no es necesario que el script se encuentre en el C<PATH>, si lo desea puede utilizar el modificador B<-S> para hacer que Perl busque el script en los directorios declarados en el PATH. Esta tÈcnica se usa tipicamente para emular B<#!> en algunas plataformas en donde no esta soportado. Ejemplo: 
+Por otro lado, no es necesario que el script se encuentre en el C<PATH>, si lo desea puede utilizar el modificador B<-S> para hacer que Perl busque el script en los directorios declarados en el PATH. Esta t√©cnica se usa tipicamente para emular B<#!> en algunas plataformas en donde no esta soportado. Ejemplo: 
 
 =begin screen
 
@@ -216,11 +216,11 @@ Por otro lado, no es necesario que el script se encuentre en el C<PATH>, si lo d
 
 =end screen
 
-=head2 Encontrar Perl ImplÌcitamente
+=head2 Encontrar Perl Impl√≠citamente
 
-Z<Encontrar Perl ImplÌcitamente>
+Z<Encontrar Perl Impl√≠citamente>
 
-En lugar de pasar el script al interprete de Perl explicitamente, usted puede asegurarse que su script es capaz de encontrar el interprete de Perl por el mismo. Lo que significa que podr· correr el script como un comando mas del sistema: 
+En lugar de pasar el script al interprete de Perl explicitamente, usted puede asegurarse que su script es capaz de encontrar el interprete de Perl por el mismo. Lo que significa que podr√° correr el script como un comando mas del sistema: 
 
 =begin screen
 
@@ -228,7 +228,7 @@ En lugar de pasar el script al interprete de Perl explicitamente, usted puede as
 
 =end screen
 
-Si usted tiene el nombre del script sin la extensiÛn, puede ejecutar el script de la siguiente manera: 
+Si usted tiene el nombre del script sin la extensi√≥n, puede ejecutar el script de la siguiente manera: 
 
 =begin screen
 
@@ -236,7 +236,7 @@ Si usted tiene el nombre del script sin la extensiÛn, puede ejecutar el script d
 
 =end screen
 
-El ejemplo anterior parece mas bien un comando del sistema, que es la idea. TambiÈn puede pasar argumentos a los scripts de Perl, del mismo modo que a los comandos del sistema, Ejemplo: 
+El ejemplo anterior parece mas bien un comando del sistema, que es la idea. Tambi√©n puede pasar argumentos a los scripts de Perl, del mismo modo que a los comandos del sistema, Ejemplo: 
 
 =begin screen
 
@@ -246,7 +246,7 @@ El ejemplo anterior parece mas bien un comando del sistema, que es la idea. Tamb
 
 Asegurarse que el script puede encontrar el interprete de Perl por el mismo, depende del sistema operativo. 
 
-En sistemas operativos tipo Unix, se puede indicar en la primera linea del script la ruta absoluta al interprete de Perl (debe tener en cuenta, que si invoca explÌcitamente el interprete de Perl como se indico anteriormente, no necesita esta linea.). Ejemplo: 
+En sistemas operativos tipo Unix, se puede indicar en la primera linea del script la ruta absoluta al interprete de Perl (debe tener en cuenta, que si invoca expl√≠citamente el interprete de Perl como se indico anteriormente, no necesita esta linea.). Ejemplo: 
 
 =begin programlisting
 
@@ -254,7 +254,7 @@ En sistemas operativos tipo Unix, se puede indicar en la primera linea del scrip
 
 =end programlisting
 
-Si utiliza este enfoque, esta linea, con la sintaxis especial B<#!>, debe ser la primera linea del script. Esta linea se refiere a la ruta del interprete de Perl en la mayorÌa de los sistemas operativos tipo Unix, cabe destacar que podrÌa estar ubicado en un lugar diferente en la m·quina, como B</usr/local/bin/perl> (tenga en cuenta que en muchas m·quinas, las rutas B</usr/bin/perl> y B</usr/local/bin/perl> est·n referenciadas a ser la misma ruta).
+Si utiliza este enfoque, esta linea, con la sintaxis especial B<#!>, debe ser la primera linea del script. Esta linea se refiere a la ruta del interprete de Perl en la mayor√≠a de los sistemas operativos tipo Unix, cabe destacar que podr√≠a estar ubicado en un lugar diferente en la m√°quina, como B</usr/local/bin/perl> (tenga en cuenta que en muchas m√°quinas, las rutas B</usr/bin/perl> y B</usr/local/bin/perl> est√°n referenciadas a ser la misma ruta).
 
 Es posible, que para utilizar Perl 5 en algunos sistemas, tenga que usar una linea parecida a esta: 
 
@@ -264,7 +264,7 @@ Es posible, que para utilizar Perl 5 en algunos sistemas, tenga que usar una lin
 
 =end programlisting
 
-Tambien le recomendamos que utilice el par·metro B<-w> para asegurarse que Perl muestre advertencias en caso de encontrarlas al interpretar su cÛdigo.
+Tambien le recomendamos que utilice el par√°metro B<-w> para asegurarse que Perl muestre advertencias en caso de encontrarlas al interpretar su c√≥digo.
 
 =begin programlisting
 
@@ -272,9 +272,9 @@ Tambien le recomendamos que utilice el par·metro B<-w> para asegurarse que Perl 
 
 =end programlisting
 
-Actualmente, el interprete de Perl chequea su cÛdigo cuando se carga por primera vez, de manera que obtendr· advertencias inmediatamente a menos que cargue el cÛdigo en un tiempo posterior, que se puede hacer con la sentencia B<require>.  
+Actualmente, el interprete de Perl chequea su c√≥digo cuando se carga por primera vez, de manera que obtendr√° advertencias inmediatamente a menos que cargue el c√≥digo en un tiempo posterior, que se puede hacer con la sentencia B<require>.  
 
-Debido a que muchos sistemas operativos basados en Unix, toman en cuenta solo los primeros 32 car·cteres de la linea B<#!>, puede tener problemas si su ruta de acceso a Perl es muy larga. Ejemplo: 
+Debido a que muchos sistemas operativos basados en Unix, toman en cuenta solo los primeros 32 car√°cteres de la linea B<#!>, puede tener problemas si su ruta de acceso a Perl es muy larga. Ejemplo: 
 
 =begin programlisting
 
@@ -283,17 +283,17 @@ Debido a que muchos sistemas operativos basados en Unix, toman en cuenta solo lo
 =end programlisting
 
 
-=head1 Escribiendo CÛdigo: Encontrando los mÛdulos de Perl. 
+=head1 Escribiendo C√≥digo: Encontrando los m√≥dulos de Perl. 
 
-Z<Escribiendo CÛdigo: Encontrando los mÛdulos de Perl>
+Z<Escribiendo C√≥digo: Encontrando los m√≥dulos de Perl>
 
-Con los aÒos, Perl se ha extendido con la creaciÛn de mÛdulos escritos en Perl, estos mÛdulos poseen lineas de cÛdigo preescritas que van desde manejar un cursor en la plantalla, hasta la creaciÛn al vuelo de documentos XHTML. 
+Con los a√±os, Perl se ha extendido con la creaci√≥n de m√≥dulos escritos en Perl, estos m√≥dulos poseen lineas de c√≥digo preescritas que van desde manejar un cursor en la plantalla, hasta la creaci√≥n al vuelo de documentos XHTML. 
 
-Los mÛdulos que vienen oficialmente con Perl reciben el nombre de I<mÛdulos est·ndar>. En B<CPAN> puede encontrar hasta la fecha otros 19053 mÛdulos adicionales.
+Los m√≥dulos que vienen oficialmente con Perl reciben el nombre de I<m√≥dulos est√°ndar>. En B<CPAN> puede encontrar hasta la fecha otros 19053 m√≥dulos adicionales.
 
-Si instala los mÛdulos correctamente, Perl los encontrar· de forma autom·tca cando se incluyan en el cÛdigo con declaraciones tales como B<use> y B<require>. 
+Si instala los m√≥dulos correctamente, Perl los encontrar√° de forma autom√°tca cando se incluyan en el c√≥digo con declaraciones tales como B<use> y B<require>. 
 
-Las rutas para acceder a los mÛdulos de Perl  se encuentran en la lista B<@INC>. En el siguiente ejemplo, se muestra el contenido de la lista B<@INC>. 
+Las rutas para acceder a los m√≥dulos de Perl  se encuentran en la lista B<@INC>. En el siguiente ejemplo, se muestra el contenido de la lista B<@INC>. 
 
 =begin screen
 
@@ -315,54 +315,54 @@ Las rutas para acceder a los mÛdulos de Perl  se encuentran en la lista B<@INC>.
 =end screen
 
 
-=head1 Ejecutando CÛdigo: Usando los switches de la linea de comandos. 
+=head1 Ejecutando C√≥digo: Usando los switches de la linea de comandos. 
 
-Z<Ejecutando CÛdigo: Usando los switches de la linea de comandos>
+Z<Ejecutando C√≥digo: Usando los switches de la linea de comandos>
 
-=head1 Ejecutando CÛdigo: Usando el switch -w para las alertas. 
+=head1 Ejecutando C√≥digo: Usando el switch -w para las alertas. 
 
-Z<Ejecutando CÛdigo: Usando el switch -w para las alertas>
+Z<Ejecutando C√≥digo: Usando el switch -w para las alertas>
 
-=head1 Ejecutando CÛdigo: Usando el switch -e para ejecutar cÛdigo desde la linea de comandos. 
+=head1 Ejecutando C√≥digo: Usando el switch -e para ejecutar c√≥digo desde la linea de comandos. 
 
-Z<Ejecutando CÛdigo: Usando el switch -e para ejecutar cÛdigo desde la linea de comandos>
+Z<Ejecutando C√≥digo: Usando el switch -e para ejecutar c√≥digo desde la linea de comandos>
 
-=head1 Ejecutando CÛdigo: Usando el switch -c para chequear la sintaxis. 
+=head1 Ejecutando C√≥digo: Usando el switch -c para chequear la sintaxis. 
 
-Z<Ejecutando CÛdigo: Usando el switch -c para chequear la sintaxis>
+Z<Ejecutando C√≥digo: Usando el switch -c para chequear la sintaxis>
 
-=head1 Ejecutando CÛdigo: EjecuciÛn Interactiva. 
+=head1 Ejecutando C√≥digo: Ejecuci√≥n Interactiva. 
 
-Z<Ejecutando CÛdigo: EjecuciÛn Interactiva>
+Z<Ejecutando C√≥digo: Ejecuci√≥n Interactiva>
 
-=head1 Habilidades B·sicas: Entrada y Salida de Texto. 
+=head1 Habilidades B√°sicas: Entrada y Salida de Texto. 
 
-Z<Habilidades B·sicas: Entrada y Salida de Texto>
+Z<Habilidades B√°sicas: Entrada y Salida de Texto>
 
-=head1 Habilidades B·sicas: Usando la funciÛn Print.   
+=head1 Habilidades B√°sicas: Usando la funci√≥n Print.   
 
-Z<Habilidades B·sicas: Usando la funciÛn Print>
+Z<Habilidades B√°sicas: Usando la funci√≥n Print>
 
-=head1 Habilidades B·sicas: Formateando el Texto.  
+=head1 Habilidades B√°sicas: Formateando el Texto.  
 
-Z<Habilidades B·sicas: Formateando el Texto>
+Z<Habilidades B√°sicas: Formateando el Texto>
 
-=head1 Habilidades B·sicas: Comentando tu cÛdigo.  
+=head1 Habilidades B√°sicas: Comentando tu c√≥digo.  
 
-Z<Habilidades B·sicas: Comentando tu cÛdigo>
+Z<Habilidades B√°sicas: Comentando tu c√≥digo>
 
-=head1 Habilidades B·sicas: Lectura de datos de la entrada est·ndar.
+=head1 Habilidades B√°sicas: Lectura de datos de la entrada est√°ndar.
 
-Z<Habilidades B·sicas: Lectura de datos de la entrada est·ndar>
+Z<Habilidades B√°sicas: Lectura de datos de la entrada est√°ndar>
   
-=head1 Habilidades B·sicas: Uso de la variable por defecto $_. 
+=head1 Habilidades B√°sicas: Uso de la variable por defecto $_. 
 
-Z<Habilidades B·sicas: Uso de la variable por defecto $_>
+Z<Habilidades B√°sicas: Uso de la variable por defecto $_>
 
-=head1 Habilidades B·sicas: Limpieza los datos leÌdos de la entrada est·ndar. 
+=head1 Habilidades B√°sicas: Limpieza los datos le√≠dos de la entrada est√°ndar. 
 
-Z<Habilidades B·sicas: Limpieza los datos leÌdos de la entrada est·ndar>
+Z<Habilidades B√°sicas: Limpieza los datos le√≠dos de la entrada est√°ndar>
 
-=head1 Habilidades B·sicas: Fundamentos b·sicos del diseÒo de programas en Perl. 
+=head1 Habilidades B√°sicas: Fundamentos b√°sicos del dise√±o de programas en Perl. 
 
-Z<Habilidades B·sicas: Fundamentos b·sicos del diseÒo de programas en Perl>
+Z<Habilidades B√°sicas: Fundamentos b√°sicos del dise√±o de programas en Perl>
