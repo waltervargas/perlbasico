@@ -1,0 +1,7 @@
+
+=encoding utf8
+
+=head0 Listas de Perl.
+
+=head1 Fundamentos Teóricos.
+
