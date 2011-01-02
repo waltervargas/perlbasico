@@ -159,11 +159,11 @@ y su sistema operativo puede no ser compatible con archivos de longitud cero).
 Probablemente la secuencia más corta de comandos legales para Perl que se puede
 escribir para hacer algo, aunque no mucho, es la siguiente:
 
-=begin screen
+=begin programlisting
 
  1
 
-=end screen
+=end programlisting
 
 Este script solo devuelve un valor de 1, y es una linea que verá en los módulos
 de Perl y sirve para indicar la carga con éxito del módulo.
@@ -185,7 +185,7 @@ la linea siguiente.
 
 =begin programlisting
 
-    print "Hola! \n";
+    print "Hola!\n";
 
 =end programlisting  
 
@@ -276,7 +276,7 @@ comandos del sistema, Ejemplo:
 
 =begin screen
 
-    $ prueba hola mundo! 
+    $ prueba hola mundo
 
 =end screen
 
@@ -335,6 +335,15 @@ de acceso a Perl es muy larga. Ejemplo:
 
 =end programlisting
 
+En el infortunado caso de que este utilizando un Unix que no soporte más de 32
+caracteres,  puede hacer un enlace simbolico para acortar el nombre:
+
+=begin screen
+
+ $ ln /home/elsanto/Perl/perl5/perl5.10.1/bin/perl5.10.1 /usr/bin/miperl510
+
+=end screen
+
 
 =head1 Escribiendo Código: Encontrando los módulos de Perl. 
 
@@ -357,20 +366,18 @@ B<@INC>. En el siguiente ejemplo, se muestra el contenido de la lista B<@INC>.
 
 =begin screen
 
-    $ perl -MData::Dumper -e 'print Dumper @INC'
-
-	$VAR1 = '/Library/Perl/Updates/5.10.0/darwin-thread-multi-2level';
-	$VAR2 = '/Library/Perl/Updates/5.10.0';
-	$VAR3 = '/System/Library/Perl/5.10.0/darwin-thread-multi-2level';
-	$VAR4 = '/System/Library/Perl/5.10.0';
-	$VAR5 = '/Library/Perl/5.10.0/darwin-thread-multi-2level';
-	$VAR6 = '/Library/Perl/5.10.0';
-	$VAR7 = '/Network/Library/Perl/5.10.0/darwin-thread-multi-2level';
-	$VAR8 = '/Network/Library/Perl/5.10.0';
-	$VAR9 = '/Network/Library/Perl';
-	$VAR10 = '/System/Library/Perl/Extras/5.10.0/darwin-thread-multi-2level';
-	$VAR11 = '/System/Library/Perl/Extras/5.10.0';
-	$VAR12 = '.';
+    $ perl -MData::Dumper -e 'print Dumper \@INC'
+    $VAR1 = [
+              '/etc/perl',
+              '/usr/local/lib/perl/5.10.1',
+              '/usr/local/share/perl/5.10.1',
+              '/usr/lib/perl5',
+              '/usr/share/perl5',
+              '/usr/lib/perl/5.10',
+              '/usr/share/perl/5.10',
+              '/usr/local/lib/site_perl',
+              '.'
+            ];
 
 =end screen
 
