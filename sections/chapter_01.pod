@@ -894,3 +894,57 @@ Usando la función defined:
 =end programlisting
 
 
+			1. Conversión entre binario y decimal. 
+
+=head2 Conversión entre binario y decimal    
+
+Z<Conversión entre binario y decimal> 
+
+Supongamos que usted está trabajando en su nueva calculadora binaria en perl, y
+el jefe está muy contento con su progreso. Sin embargo, has llegado a un
+pequeño inconveniente, ¿cómo mostrar los números binarios?
+
+Esta no es una forma intrínseca para convertir de decimal a binario en Perl.
+Sin embargo, puedes usar las funciones pack y unpack para convertir los números
+en una cadena de dígitos binarios y viceversa. 
+
+=head3 Decimal a binario    
+
+Z<Decimal a binario> 
+
+Para convertir un número decimal a una cadena de dígitos binarios, primero se 
+debe hacer B<pack> usando la plantilla B<network byte order> (tambien llamado
+B<big-endian order>, lo que significa que el bit mas significante va de
+primero) y luego debes hacer B<unpack> de el resultado bit a bit, de la siguiente
+manera: 
+
+
+=begin programlisting
+
+    $decimal = 4;
+    $binario = unpack("B32", pack("N", $decimal));
+    print $binario;
+
+=end programlisting
+
+=begin screen
+
+    00000000000000000000000000000100
+
+=end screen
+
+=head3 Binario a decimal    
+
+Z<Binario a decimal> 
+
+Para convertir una cadena binaria a un número decimal, debes hacer justamente
+el procedimiento inverso al punto anterior. Ejemplo: 
+
+=begin programlisting
+
+    $decimal = 4;
+    $binario = unpack("B32", pack("N", $decimal));
+    $newdecimal = unpack("N", pack("B32",$binario));
+    print $newdecimal;
+    
+=end programlisting
