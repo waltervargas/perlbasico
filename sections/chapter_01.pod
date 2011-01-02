@@ -39,7 +39,8 @@ Las variables B<hash> también almacenan listas de números y cadenas, pero los
 elementos individuos son identificados mediante cadenas que reciben el nombre
 de llaves.
  
-A diferencia de otros lenguajes, los distintos tipos de variables en Perl se identifican mediante un carácter especial, de este modo B<$var> es una variable 
+A diferencia de otros lenguajes, los distintos tipos de variables en Perl se
+identifican mediante un carácter especial, de este modo B<$var> es una variable 
 escalar, B<@var> es una matriz y B<%var> es un hash. Cada tipo de variable, 
 tiene su propio espacio de nombres. Esto significa que, en el ejemplo siguiente,
 cada una de las variables es una variable independiente, que contiene un 
@@ -80,7 +81,8 @@ Seria el siguiente:
 =begin sidebar
 
 Un nombre de variable debe comenzar con una letra y puede contener cualquier
-combinación de letras, números y caracteres de subrayado B<_>. Cualquier otro carácter sera tratado como un operador de Perl. 
+combinación de letras, números y caracteres de subrayado B<_>. Cualquier otro
+carácter sera tratado como un operador de Perl. 
 
 =end sidebar
 
@@ -176,7 +178,8 @@ El valor de B<$msg> se visualizara de la siguiente forma:
 
 =end screen
 
-Sin salto de linea (el carácter \n), mientras que el valor B<$realmsg> se visualizara de la siguiente forma: 
+Sin salto de linea (el carácter \n), mientras que el valor B<$realmsg> se
+visualizara de la siguiente forma: 
 
 =begin screen
 
@@ -187,7 +190,8 @@ Sin salto de linea (el carácter \n), mientras que el valor B<$realmsg> se visua
 Incluyendo el carácter de salto de linea. 
 
 Es muy importante entender esta distinción, ya que afectara a muchas de las 
-operaciones e instrucciones que se ejecuten en Perl, sin mencionar la legibilidad de las cadenas que se muestren. 
+operaciones e instrucciones que se ejecuten en Perl, sin mencionar la
+legibilidad de las cadenas que se muestren. 
 
 También merece la pena señalar, tal y como dijimos anteriormente, que las 
 variables escalares se pasan de un formato a otro automáticamente, con el fin 
@@ -202,7 +206,9 @@ de conseguir los resultados deseados. Por ejemplo:
 
 Este código, mostraría el valor 124. Perl convierte automáticamente el valor de
 la cadena en un número antes de aplicar el operador y suma uno al valor. 
-El salto de linea, representado mediante el carácter B<\n>, ya esta especificado como una cadena y, por lo tanto, no es necesario convertirlo, pero sí es interpretado.
+El salto de linea, representado mediante el carácter B<\n>, ya esta
+especificado como una cadena y, por lo tanto, no es necesario convertirlo, pero
+sí es interpretado.
 
 Existen varios caracteres de barra invertida B<\> que son interpretados y el 
 lector, probablemente, ya conocerá muchos de ellos. 
@@ -217,20 +223,25 @@ comillas:
 =end programlisting
 
 Sin embargo, este tipo de instrucción es ambiguo y no se recomienda utilizarlo.
-Si la variable Walter estuviera definida como una función, el valor de la variable B<$nombre> sería el resultado obtenido de una llamada a la función Walter. 
-Ademas esto no esta permitido cuando se usa el pragma B<strict>.
+Si la variable Walter estuviera definida como una función, el valor de la
+variable B<$nombre> sería el resultado obtenido de una llamada a la función
+Walter.  Ademas esto no esta permitido cuando se usa el pragma B<strict>.
 
 No es necesario definir previamente las variables; se crearan de forma 
 automática cuando se utilicen por primera vez. Su valor inicial será nulo, 
-ya sea "" para una cadena o 0 (cero) para un número. Dependiendo del lugar en que se use, una variable escalar (y otros tipos de variables) se interpretara de 
-forma automática como cadena, número o como un valor booleano (true o false, 
+ya sea "" para una cadena o 0 (cero) para un número. Dependiendo del lugar en
+que se use, una variable escalar (y otros tipos de variables) se interpretara
+de forma automática como cadena, número o como un valor booleano (true o false, 
 verdadero o falso). Los distintos operadores y funciones necesitan y generan 
 distintos valores escalares. Perl también incluye un valor especial para las 
 variables escalares. 
 
 El valor definido B<undef> se puede utilizar para identificar determinadas 
-condiciones de error y la existencia o no de información de matrices o variables hash. El valor undef se utiliza normalmente como valor de retorno de una función que, de otra manera, proporcionaría un valor de 0, que podría ser autentico. 
-Por ejemplo, el valor de un puntero de archivos en un descriptor de archivos 
+condiciones de error y la existencia o no de información de matrices o
+variables hash. El valor undef se utiliza normalmente como valor de retorno de
+una función que, de otra manera, proporcionaría un valor de 0, que podría ser
+autentico.  Por ejemplo, el valor de un puntero de archivos en un descriptor de
+archivos 
 podría ser cero, por lo tanto que la función B<tell> genera el valor B<undef> 
 si el valor no se puede determinar. 
 
@@ -239,9 +250,16 @@ si el valor no se puede determinar.
 
 Z<Listas>
 
-Una matriz es una lista de variables escalares. Se puede utilizar una matriz para almacenar una lista con información, de manera que funcione como una pila o para actuar como un contenedor de estructuras de datos mas complejas. Los valores escalares pueden ser cualquiera de los tipos de datos que se pueden almacenar en una variable escalar: número, cadena o referencia. 
+Una matriz es una lista de variables escalares. Se puede utilizar una matriz
+para almacenar una lista con información, de manera que funcione como una pila
+o para actuar como un contenedor de estructuras de datos mas complejas. Los
+valores escalares pueden ser cualquiera de los tipos de datos que se pueden
+almacenar en una variable escalar: número, cadena o referencia. 
 
-Una matriz se puede definir de varias formas diferentes, y al igual que las variables escalares las matrices pueden ser generadas y devueltas mediante funciones e instrucciones. El método mas básico consiste en definir una matriz vacía: 
+Una matriz se puede definir de varias formas diferentes, y al igual que las
+variables escalares las matrices pueden ser generadas y devueltas mediante
+funciones e instrucciones. El método mas básico consiste en definir una matriz
+vacía: 
 
 =begin programlisting
 
@@ -249,9 +267,14 @@ Una matriz se puede definir de varias formas diferentes, y al igual que las vari
 
 =end programlisting
 
-En Perl no es necesario definir variables antes de utilizarlas; se pueden definir en el momento en que se desee comenzar a utilizarlas. El ejemplo anterior es, por tanto, un ejemplo de como se define una matriz. 
+En Perl no es necesario definir variables antes de utilizarlas; se pueden
+definir en el momento en que se desee comenzar a utilizarlas. El ejemplo
+anterior es, por tanto, un ejemplo de como se define una matriz. 
 
-Las variables escalares individuales de una matriz se denominan elementos y a cada elemento se le asigna un número. Se puede utilizar una matriz como una lista indexada de información escalar. Por ejemplo, se puede utilizar una matriz como una lista de días de la semana, comenzando por el día Lunes: 
+Las variables escalares individuales de una matriz se denominan elementos y a
+cada elemento se le asigna un número. Se puede utilizar una matriz como una
+lista indexada de información escalar. Por ejemplo, se puede utilizar una
+matriz como una lista de días de la semana, comenzando por el día Lunes: 
 
 =begin programlisting
 
@@ -262,7 +285,8 @@ Las variables escalares individuales de una matriz se denominan elementos y a ca
 
 =end programlisting
 
-Este es el formato largo para definir previamente el contenido de una matriz. Los siguientes ejemplos también llenan la matriz con la misma información
+Este es el formato largo para definir previamente el contenido de una matriz.
+Los siguientes ejemplos también llenan la matriz con la misma información
 
 =begin programlisting
 
@@ -275,13 +299,23 @@ Este es el formato largo para definir previamente el contenido de una matriz. Lo
 
 =end programlisting
 
-El primer ejemplo utiliza el operador B<qw> para entrecomillar de forma automática las palabras que no lleven comillas, y los espacios separan las palabras individuales en distintos elementos de la matriz. Observe que el operador B<qw> devuelve una matriz que, a continuación, Perl asigna a la matriz que se esta creando. Mas adelante veremos que el mismo operador se puede utilizar para proporcionar listas a otras funciones sin tener que crear una matriz con nombre.
+El primer ejemplo utiliza el operador B<qw> para entrecomillar de forma
+automática las palabras que no lleven comillas, y los espacios separan las
+palabras individuales en distintos elementos de la matriz. Observe que el
+operador B<qw> devuelve una matriz que, a continuación, Perl asigna a la matriz
+que se esta creando. Mas adelante veremos que el mismo operador se puede
+utilizar para proporcionar listas a otras funciones sin tener que crear una
+matriz con nombre.
 
 =head2 Contexto    
 
 Z<Contexto> 
 
-El contexto de una función o instrucción se define como el valor de retorno esperado. Esto nos permite usar una única función que devuelva diferentes valores, dependiendo de lo que el usuario espera recibir. Por ejemplo, las dos llamadas siguientes de la función B<getpwent> devuelven una lista o un escalar, dependiendo de lo que se use en la asignación. 
+El contexto de una función o instrucción se define como el valor de retorno
+esperado. Esto nos permite usar una única función que devuelva diferentes
+valores, dependiendo de lo que el usuario espera recibir. Por ejemplo, las dos
+llamadas siguientes de la función B<getpwent> devuelven una lista o un escalar,
+dependiendo de lo que se use en la asignación. 
 
 =begin programlisting
 
@@ -291,9 +325,17 @@ El contexto de una función o instrucción se define como el valor de retorno es
 
 =end programlisting
 
-En el primer caso, el usuario espera que la función devuelva un valor escalar, porque quiere asignar el valor devuelto a un escalar. En el segundo caso el usuario espera que el valor devuelto sea una lista, de nuevo porque ha especificado que la información devuelta sea insertada en una lista de escalares. 
+En el primer caso, el usuario espera que la función devuelva un valor escalar,
+porque quiere asignar el valor devuelto a un escalar. En el segundo caso el
+usuario espera que el valor devuelto sea una lista, de nuevo porque ha
+especificado que la información devuelta sea insertada en una lista de
+escalares. 
 
-Esto puede ser confuso, puesto que la mayoría de los otros lenguajes admiten un solo tipo de valor de retorno. De hecho, es muy práctico, porque reduce la cantidad de código requerido para conseguir diferentes resultados. Aqui hay otro ejemplo, de nuevo tomando las funciones internas de Perl, que muestra la flexibilidad que esto permite: 
+Esto puede ser confuso, puesto que la mayoría de los otros lenguajes admiten un
+solo tipo de valor de retorno. De hecho, es muy práctico, porque reduce la
+cantidad de código requerido para conseguir diferentes resultados. Aqui hay
+otro ejemplo, de nuevo tomando las funciones internas de Perl, que muestra la
+flexibilidad que esto permite: 
 
 =begin programlisting
 
@@ -301,7 +343,8 @@ Esto puede ser confuso, puesto que la mayoría de los otros lenguajes admiten un
 
 =end programlisting
 
-En este ejemplo el valor de $timestr consiste en una cadena compuesta por la fecha y hora actuales. Por otra parte, podríamos usar la instrucción: 
+En este ejemplo el valor de $timestr consiste en una cadena compuesta por la
+fecha y hora actuales. Por otra parte, podríamos usar la instrucción: 
 
 =begin programlisting
 
@@ -310,7 +353,8 @@ En este ejemplo el valor de $timestr consiste en una cadena compuesta por la fec
 
 =end programlisting
 
-Ahora las variables individuales contienen los valores correspondientes devueltos por localtime. 
+Ahora las variables individuales contienen los valores correspondientes
+devueltos por localtime. 
 
 =head1 Soluciones Inmediatas
 
@@ -321,12 +365,22 @@ Z<Soluciones Inmediatas>
 
 Z<¿Que es una variable escalar?> 
 
-Una variable escalar es el nombre que se le asigna un espacio de datos en memoria, y los datos almacenados en ese espacio de datos pueden ser un número o una cadena de caracteres.
+Una variable escalar es el nombre que se le asigna un espacio de datos en
+memoria, y los datos almacenados en ese espacio de datos pueden ser un número o
+una cadena de caracteres.
 
-Tip: De hecho una variable escalar puede además almacenar otro tipo de dato en Perl: el tipo de datos indefinido, que , técnicamente hablando, no es ni un numero ni una cadena de caracteres (mas adelante se trabajará con el tipo indefinido 
-B<undef>).
+Tip: De hecho una variable escalar puede además almacenar otro tipo de dato en
+Perl: el tipo de datos indefinido, que , técnicamente hablando, no es ni un
+numero ni una cadena de caracteres (mas adelante se trabajará con el tipo
+indefinido B<undef>).
 
-Las variables escalares son indefinidas en Perl (excepto las referencias, que están fuertemente tipificadas), a diferencia de lenguajes como C, que insisten en que se declare un tipo, tales como int o float, para cada variable. Perl determina que tipo de dato es un escalar, un número, string, y así sucesivamente, basado en el contexto de la operación. Puedes crear variables escalares solo por referencias, un proceso llamado I<autovivification> (que podremos ver mas adelante) en Perl. Los siguientes son algunos ejemplos:
+Las variables escalares son indefinidas en Perl (excepto las referencias, que
+están fuertemente tipificadas), a diferencia de lenguajes como C, que insisten
+en que se declare un tipo, tales como int o float, para cada variable. Perl
+determina que tipo de dato es un escalar, un número, string, y así
+sucesivamente, basado en el contexto de la operación. Puedes crear variables
+escalares solo por referencias, un proceso llamado I<autovivification> (que
+podremos ver mas adelante) en Perl. Los siguientes son algunos ejemplos:
 
 =begin programlisting
 
@@ -336,13 +390,17 @@ Las variables escalares son indefinidas en Perl (excepto las referencias, que es
 
 =end programlisting
 
-Los escalares creados así son globales, lo que significa, que son accesibles desde cualquier parte en el script actual (mas correctamente, en el paquete actual), pero puedes también localizarlos usando las palabras claves B<my> y B<local>. Te mostrare como localizarlos cuando cubramos el alcance de las variables y discutamos las subrutinas.
+Los escalares creados así son globales, lo que significa, que son accesibles
+desde cualquier parte en el script actual (mas correctamente, en el paquete
+actual), pero puedes también localizarlos usando las palabras claves B<my> y
+B<local>. Te mostrare como localizarlos cuando cubramos el alcance de las
+variables y discutamos las subrutinas.
 
 =head2 Nombres de las variables escalares    
 
 Z<Nombres de las variables escalares> 
 
-El nombre que usaras para una variable escalar puede contener letras, números y 
+El nombre que usaras para una variable escalar puede contener letras, números y
 subrayado. Tales nombres deben comenzar con el símbolo B<$>, que evita que se 
 produzcan conflictos con palabras reservadas de Perl. El nombre de una variable
 escalar puede ser extenso; aunque la longitud depende de la plataforma, el 
@@ -351,15 +409,21 @@ nombre de la variable puede ser de al menos 255 caracteres de longitud.
 =begin sidebar
 
 Los nombres de las variables escalares tambien pueden contener comillas simples,
-aunque en la practica esta obsoleto (esta característica sigue estando disponible, pero se considera anticuada). 
+aunque en la practica esta obsoleto (esta característica sigue estando
+disponible, pero se considera anticuada). 
 
 =end sidebar
 
-Es importante destacar que los nombres de las variables escalares son sensibles a las mayúsculas y minúsculas, en este sentido B<$variable1> no es lo mismo que B<$Variable1>. 
+Es importante destacar que los nombres de las variables escalares son sensibles
+a las mayúsculas y minúsculas, en este sentido B<$variable1> no es lo mismo que
+B<$Variable1>. 
 
-Después de iniciar con $, puedes comenzar el nombre de una variable con cualquier letra o un subrayado. De hecho, puedes comenzar el nombre de la variable con 
-un número y estar compuesto todo por números. Se puede incluso usar caracteres no alfanuméricos y sin subrayado en los nombres de las variables. Si haces esto, 
-pensaras que el nombre de la variable puede ser solo un carácter despues de B<$>.
+Después de iniciar con $, puedes comenzar el nombre de una variable con
+cualquier letra o un subrayado. De hecho, puedes comenzar el nombre de la
+variable con un número y estar compuesto todo por números. Se puede incluso
+usar caracteres no alfanuméricos y sin subrayado en los nombres de las
+variables. Si haces esto, pensaras que el nombre de la variable puede ser solo
+un carácter despues de B<$>.
 
 El símbolo $ es llamado B<prefijo de-referenciador>. Aquí puedes ver todos los 
 prefijos de-referenciadores en Perl y para que se usan: 
@@ -374,7 +438,8 @@ prefijos de-referenciadores en Perl y para que se usan:
 
 =item * B<&> subrutinas
 
-=item * B<Typeglobs> Por ejemplo, *myvar se encuentra para cualquier tipo de myvar tales como @myvar, %myvar y así sucesivamente. 
+=item * B<Typeglobs> Por ejemplo, *myvar se encuentra para cualquier tipo de
+myvar tales como @myvar, %myvar y así sucesivamente. 
 
 =back
 
@@ -383,19 +448,28 @@ prefijos de-referenciadores en Perl y para que se usan:
 Z<Declarando Variables> 
 
 
-En Perl a diferencia de otros lenguajes de programación, no necesitas declarar 
-las variables escalares antes para usarlas. La primera vez que uses la variable, Perl la creará si todavía no existe. 
+En Perl a diferencia de otros lenguajes de programación, no necesitas declarar
+las variables escalares antes para usarlas. La primera vez que uses la
+variable, Perl la creará si todavía no existe. 
 
 =begin sidebar
 
-Ten en cuenta la posibilidad de cometer errores de ortografía al momento de nombrar la misma variable en otra parte del código. Podrías equivocarte al momento de nombrarla y crear una totalmente nueva, sin tener ningún valor asignado. Perl no considera esas equivocaciones de nombramiento como un error, por lo tanto conseguirlos realizando un debug puede ser muy difícil.
+Ten en cuenta la posibilidad de cometer errores de ortografía al momento de
+nombrar la misma variable en otra parte del código. Podrías equivocarte al
+momento de nombrarla y crear una totalmente nueva, sin tener ningún valor
+asignado. Perl no considera esas equivocaciones de nombramiento como un error,
+por lo tanto conseguirlos realizando un debug puede ser muy difícil.
 
 =end sidebar
 
-Sin embargo, los escalares creados de esta manera están disponibles para todo el código a través del paquete actual, esto significa, que si no divides tu código en paquetes, estarán disponibles en cualquier lugar en el script. Tales variables escalares son llamadas globales y tienen alcance global; el alcance de una variable es todo el código desde donde puedas acceder a esta.
+Sin embargo, los escalares creados de esta manera están disponibles para todo
+el código a través del paquete actual, esto significa, que si no divides tu
+código en paquetes, estarán disponibles en cualquier lugar en el script. Tales
+variables escalares son llamadas globales y tienen alcance global; el alcance
+de una variable es todo el código desde donde puedas acceder a esta.
 
-Normalmente se limita el alcance de las variables, sin embargo, esto llegará 
-a a ser una consideración cuando comencemos a dividir el código dentro de 
+Normalmente se limita el alcance de las variables, sin embargo, esto llegará a
+a ser una consideración cuando comencemos a dividir el código dentro de 
 bloque para crear subrutinas. Puedes declarar variables con alcance restringido
 de dos maneras: usando las palabras reservadas B<my> y B<local>.
 
@@ -403,7 +477,8 @@ de dos maneras: usando las palabras reservadas B<my> y B<local>.
 
 Z<Usando operadores de asignación sobre escalares> 
 
-¿ Como introduces datos en una variable escalar ?, para hacer esto, se utiliza el operador de asignación B<=>. Ejemplo: 
+¿ Como introduces datos en una variable escalar ?, para hacer esto, se utiliza
+el operador de asignación B<=>. Ejemplo: 
 
 =begin programlisting
 
@@ -419,7 +494,8 @@ Asignar strings es exactamente igual:
 
 =end programlisting
 
-Además de las asignaciones sencillas usted asignar un valor a multiples variables en la misma declaración: 
+Además de las asignaciones sencillas usted asignar un valor a multiples
+variables en la misma declaración: 
 
 =begin programlisting
 
@@ -432,7 +508,9 @@ En este caso a cada escalar se le asigna el mismo valor 1.
 Puedes asignar a cualquier B<lvalue> usando el operador de asignación B<=>. Si no
 tiene idea de que es un lvalue, hecha un vistazo al siguiente tópico. 
 
-Puedes usar diferentes operadores adicionales en las asignaciones a escalares. Por supuesto, también puedes realizar sumas, restas, multiplicaciones y otras como estas: 
+Puedes usar diferentes operadores adicionales en las asignaciones a escalares.
+Por supuesto, también puedes realizar sumas, restas, multiplicaciones y otras
+como estas: 
 
 =begin programlisting
 
@@ -442,8 +520,9 @@ Puedes usar diferentes operadores adicionales en las asignaciones a escalares. P
 
 =end programlisting
 
-De hecho al igual que en C, puedes combinar operadores como +, -, y * con el 
-operador de asignación, lo que significa que puedes escribir los ejemplos anteriores de la siguiente manera: 
+De hecho al igual que en C, puedes combinar operadores como +, -, y * con el
+operador de asignación, lo que significa que puedes escribir los ejemplos
+anteriores de la siguiente manera: 
 
 =begin programlisting
 
@@ -482,8 +561,10 @@ necesarios para continuar con los siguientes temas.
 
 Z<¿Que es un lvalue?> 
 
-Un B<lvalue> es un elemento que sirve como un objeto de una asignación. El 
-término lvalue originalmente significa I<left value> (valor a la izquierda), esto es para referirse a un valor que aparece a la izquierda, como el siguiente: 
+Un B<lvalue> es un elemento que sirve como un objeto de una asignación. El
+término lvalue originalmente significa I<left value> (valor a la izquierda),
+esto es para referirse a un valor que aparece a la izquierda, como el
+siguiente: 
 
 =begin programlisting
 
@@ -515,7 +596,8 @@ operación de asignación:
 
 Z<Usando números en variables escalares> 
 
-Perl soporta una variedad de formatos numéricos, como se muestran en la siguiente lista: 
+Perl soporta una variedad de formatos numéricos, como se muestran en la
+siguiente lista: 
 
 =over 
 
@@ -533,7 +615,9 @@ Perl soporta una variedad de formatos numéricos, como se muestran en la siguien
 
 =back
 
-Note en particular el formato numérico subrayado, el cual te permite dar formato a dígitos en un número en grupos de tres para fácil reconocimiento de números como el 1,234,567, de la forma que se muestra en el siguiente ejemplo: 
+Note en particular el formato numérico subrayado, el cual te permite dar
+formato a dígitos en un número en grupos de tres para fácil reconocimiento de
+números como el 1,234,567, de la forma que se muestra en el siguiente ejemplo: 
 
 =begin programlisting
 
@@ -541,17 +625,30 @@ Note en particular el formato numérico subrayado, el cual te permite dar format
 
 =end programlisting
 
-Pongamos mucha antención a este punto: I<precisión numérica>. Porque Perl es un lenguaje multiplataforma, y por esto la precisión de los valores numéricos difieren para diferentes máquina (desafortunadamente, no hay manera de listar el tipo de precisión numérica con el que cuenta), podrias conseguir diferencias con el mismo código sobre diferentes máquinas. Esto es una de las cosas para tener en cuenta.
+Pongamos mucha antención a este punto: I<precisión numérica>. Porque Perl es un
+lenguaje multiplataforma, y por esto la precisión de los valores numéricos
+difieren para diferentes máquina (desafortunadamente, no hay manera de listar
+el tipo de precisión numérica con el que cuenta), podrias conseguir diferencias
+con el mismo código sobre diferentes máquinas. Esto es una de las cosas para
+tener en cuenta.
 
-La siguiente información puede ser útil cuando estes pensando sobre la presición numérica: Perl usa doubles para todos los calculos numéricos y para almacenar números internamente. Los tipos Doubles son usualmente almacenados en 8 bytes y tienen un rango de -179769313486232E308-324 hasta 179769313486232E308 para valores positivos nada mal el rango de los valores posibles. 
+La siguiente información puede ser útil cuando estes pensando sobre la
+presición numérica: Perl usa doubles para todos los calculos numéricos y para
+almacenar números internamente. Los tipos Doubles son usualmente almacenados en
+8 bytes y tienen un rango de -179769313486232E308-324 hasta 179769313486232E308
+para valores positivos nada mal el rango de los valores posibles. 
 
 =head2 Trabajando con el valor undef    
 
 Z<Trabajando con el valor undef> 
 
-¿ Que pasaría si usted usa una variable escalar antes de darle un valor ?, pues nada serio, y definitivamente nada fatal. Las variables tienen el valor especial B<undef> antes de la primera asignación. 
+¿ Que pasaría si usted usa una variable escalar antes de darle un valor ?, pues
+nada serio, y definitivamente nada fatal. Las variables tienen el valor
+especial B<undef> antes de la primera asignación. 
 
-Como B<undef> automaticamente actua como el cero (0) cuando se usa en el contexto numérico, es fácil hacer un acumulador numérico que inicie vacío, por ejemplo: 
+Como B<undef> automaticamente actua como el cero (0) cuando se usa en el
+contexto numérico, es fácil hacer un acumulador numérico que inicie vacío, por
+ejemplo: 
 
  =begin programlisting
  
@@ -564,14 +661,20 @@ Como B<undef> automaticamente actua como el cero (0) cuando se usa en el context
  
  =end programlisting
  
-Supongamos que usted ha decidido usar la función sysread para leer el texto 
-de unos archivos y pasarlo a la aplicación que esta escribiendo en Perl. Se sabe que sysread retorna un escalar indicando cuantos bytes se están leyendo. Pero ¿que pasa al final de archivo?, ¿que clase de valor retornará sysread?, ¿porque la función retorna un escalar, debe ser un número o un string, cierto?
+Supongamos que usted ha decidido usar la función sysread para leer el texto de
+unos archivos y pasarlo a la aplicación que esta escribiendo en Perl. Se sabe
+que sysread retorna un escalar indicando cuantos bytes se están leyendo. Pero
+¿que pasa al final de archivo?, ¿que clase de valor retornará sysread?, ¿porque
+la función retorna un escalar, debe ser un número o un string, cierto?
 
-Pues no, aparte de números y strings, las variables escalares pueden incluso 
-mantener el valor indefinido de Perl, llamado como ya digímos anteriormente B<undef>. Este valor es retornado por algunas funciones, y puedes comprobarlo usando 
-una función llamada B<defined>. Si examinas el valor B<undef> directamente, 
-este es interpretado como un cero (0) en un contexto numérico y como un string 
-vacio B<""> en el contexto de cadenas de caracteres. También puedes asignar a las variables el valor undef usando la función B<undef>. Este ejemplo da a la variable B<$variable1> el valor 5: 
+Pues no, aparte de números y strings, las variables escalares pueden incluso
+mantener el valor indefinido de Perl, llamado como ya digímos anteriormente
+B<undef>. Este valor es retornado por algunas funciones, y puedes comprobarlo
+usando una función llamada B<defined>. Si examinas el valor B<undef>
+directamente, este es interpretado como un cero (0) en un contexto numérico y
+como un string vacio B<""> en el contexto de cadenas de caracteres. También
+puedes asignar a las variables el valor undef usando la función B<undef>. Este
+ejemplo da a la variable B<$variable1> el valor 5: 
 
 =begin programlisting
 
@@ -579,7 +682,8 @@ vacio B<""> en el contexto de cadenas de caracteres. También puedes asignar a l
 
 =end programlisting
 
-Y usando la función B<undef> sobre la variable, se puede convertir en variable no definida. 
+Y usando la función B<undef> sobre la variable, se puede convertir en variable
+no definida. 
 
 =begin programlisting
 
@@ -611,24 +715,14 @@ En este caso, este código muestra el siguiente mensaje:
 
 =end screen
 
-Varios operadores retornan undef cuando los argumentos están fuera del rango 
+Varios operadores retornan undef cuando los argumentos están fuera del rango
 esperado o no tienen sentido. 
 
-Cuando se tienen activadas las advertencias en Perl, generalmente Perl advierte sobre el uso no adecuado del valor undef, por ejemplo, si intenta copiar el valor undef de una variable a otra, esto no va a causar ningún problema, pero si intenta imprimir un valor undef, generalmente va a causar una advertencia. 
+Cuando se tienen activadas las advertencias en Perl, generalmente Perl advierte
+sobre el uso no adecuado del valor undef, por ejemplo, si intenta copiar el
+valor undef de una variable a otra, esto no va a causar ningún problema, pero
+si intenta imprimir un valor undef, generalmente va a causar una advertencia. 
 
-Resumiendo, las variables no definidas que poseen el valor B<undef>, en contexto escalar es interpretado como cero (0) y en contexto de cadena de caracteres es interpretado como vacío B<"">.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Resumiendo, las variables no definidas que poseen el valor B<undef>, en
+contexto escalar es interpretado como cero (0) y en contexto de cadena de
+caracteres es interpretado como vacío B<"">.
