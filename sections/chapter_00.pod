@@ -20,7 +20,9 @@ mantener que sus alternativas en anteriores versiones.
 
 =begin sidebar
 
-Normalmente los sistemas operativos tipo Unix, se distribuyen con una versión de Perl. Si usted desea tener una versión en específico de Perl, entonces le sugerimos el uso de PerlBrew.
+Normalmente los sistemas operativos tipo Unix, se distribuyen con una versión
+de Perl. Si usted desea tener una versión en específico de Perl, entonces le
+sugerimos el uso de PerlBrew.
 
 Acontinuación, se indica como instalar Perl en una máquina con Debian Lenny. 
 
@@ -35,7 +37,10 @@ Acontinuación, se indica como instalar Perl en una máquina con Debian Lenny.
 Z<Detalles de la instalación de Perl.>
 X<instalación>
 
-Cuando un supervisor requiera información acerca de cuales modificaciones del compilador se aplicaron a la versión de Perl instalada originalmente, con el fin de estar seguro de que los cambios que han sido realizados son coherentes, usamos el siguiente comando:
+Cuando un supervisor requiera información acerca de cuales modificaciones del
+compilador se aplicaron a la versión de Perl instalada originalmente, con el
+fin de estar seguro de que los cambios que han sido realizados son coherentes,
+usamos el siguiente comando:
 
 =begin screen 
 
@@ -116,7 +121,10 @@ tener un editor o procesador de texto que le permita guardar archivos en formato
 Guardar en formato de texto simple es un logro que va más allá de muchos 
 procesadores de palabras. Es posible que tenga problemas con 
 los procesadores de palabras como Open Office, por ejemplo, aunque se pueden 
-guardar archivos de texto sin formato con el programa mediante el menu Archivo|Guardar como. La regla general es que si usted puede abrir el archivo usando la línea de comandos y no ve ningún carácter extraño, es un archivo de texto plano. 
+guardar archivos de texto sin formato con el programa mediante el menu
+Archivo|Guardar como. La regla general es que si usted puede abrir el archivo
+usando la línea de comandos y no ve ningún carácter extraño, es un archivo de
+texto plano. 
 En Unix, usted tiene muchos editores para elegir. La prueba real, por 
 supuesto, es si Perl puede leer e interpretar la secuencia de comandos que 
 usted escribió.
@@ -129,10 +137,11 @@ preocupa en Perl, por lo que puede moverse entre las secuencias de comandos
 de los sistemas operativos con libertad, sin embargo, esta diferencia podría 
 molestar al editor que se utilice para trabajar con las secuencias de comandos.
 
-Las extensiones de los archivos puede ser útiles cuando usted vuelva a revisar largas listas de archivos guardados dentro de tres o mas años y se preguntan qué 
-tipo de extensión son. Por esta razón, vamos a utilizar la extensión .pl para 
-los scripts en este curso. Sólo debe tener en cuenta que no tiene que usar esta 
-extensión o cualquier otra para que los programas funcionen. 
+Las extensiones de los archivos puede ser útiles cuando usted vuelva a revisar
+largas listas de archivos guardados dentro de tres o mas años y se preguntan
+qué tipo de extensión son. Por esta razón, vamos a utilizar la extensión .pl
+para los scripts en este curso. Sólo debe tener en cuenta que no tiene que usar
+esta extensión o cualquier otra para que los programas funcionen. 
 Esencialmente, usted es deberá nombrar los ejemplos desarrollados en este curso 
 según las indicaciones del instructor.
 
@@ -141,26 +150,37 @@ Z<Escribiendo Código: Declaraciones>
 
 ¿Cuál es la menor secuencia de comandos legal que puede escribir? 
 
-Si no le importa, la secuencia de comandos no hace nada en absoluto, en realidad se puede pasar el intérprete Perl en un archivo de longitud cero, y este no se quejará. (Tenga en cuenta que esto depende de su interprete de Perl, y su sistema operativo puede no ser compatible con archivos de longitud cero).
+Si no le importa, la secuencia de comandos no hace nada en absoluto, en
+realidad se puede pasar el intérprete Perl en un archivo de longitud cero, y
+este no se quejará. (Tenga en cuenta que esto depende de su interprete de Perl,
+y su sistema operativo puede no ser compatible con archivos de longitud cero).
 
 Probablemente la secuencia más corta de comandos legales para Perl que se puede 
 escribir para hacer algo, aunque no mucho, es la siguiente:
 
-=begin programlisting
+=begin screen
 
-    1;
+    perl -e ''
 
-=end programlisting
+=end screen
 
-Este script solo devuelve un valor de 1, y es una linea que verá en los módulos de Perl y sirve para indicar la carga con éxito del módulo.
+Este script solo devuelve un valor de 1, y es una linea que verá en los módulos
+de Perl y sirve para indicar la carga con éxito del módulo.
 
-En general, el código en Perl se compone de estados y declaraciones. Las declaraciones son necesarias sólo para los formatos y subrutinas, aunque también se pueden declara otros elementos tales como las variables, estas las veremos en un capítulo mas adelante. 
+En general, el código en Perl se compone de estados y declaraciones. Las
+declaraciones son necesarias sólo para los formatos y subrutinas, aunque
+también se pueden declara otros elementos tales como las variables, estas las
+veremos en un capítulo mas adelante. 
 
 Las declaraciones vienen en dos formas: simples y compuestas. 
 
 =head2 Declaraciones simples
 
-Una declaración simple es una expresión que realiza alguna acción específica. En el código, una declaración simple termina con un punto y coma B<;> como el siguiente, en donde se utiliza la función de impresión para mostrar la cadena B<Hola!>, seguido por el carácter de nueva linea B<\n> utilizado para saltar a la linea siguiente.
+Una declaración simple es una expresión que realiza alguna acción específica.
+En el código, una declaración simple termina con un punto y coma B<;> como el
+siguiente, en donde se utiliza la función de impresión para mostrar la cadena
+B<Hola!>, seguido por el carácter de nueva linea B<\n> utilizado para saltar a
+la linea siguiente.
 
 =begin programlisting
 
@@ -170,7 +190,14 @@ Una declaración simple es una expresión que realiza alguna acción específica
 
 =head2 Declaraciones compuestas
 
-Las sentencias compuestas están formadas de expresiones y bloques. Los bloques están delimitados con llaves en Perl, B<{ y }>, y puede escribir varias instrucciones simples. Los bloques también tienen su propio ámbito (el ámbito de acción de los elementos como una variable indican en qué parte del programa se pueden utilizar estas variables). No se debe colocar punto y coma después de la llave de cierre. En el siguiente ejemplo se utiliza un bloque para crear un compuesto para la sentencia de ciclo repetitivo, que es el más básico de los ciclos repetitivos en Perl.
+Las sentencias compuestas están formadas de expresiones y bloques. Los bloques
+están delimitados con llaves en Perl, B<{ y }>, y puede escribir varias
+instrucciones simples. Los bloques también tienen su propio ámbito (el ámbito
+de acción de los elementos como una variable indican en qué parte del programa
+se pueden utilizar estas variables). No se debe colocar punto y coma después de
+la llave de cierre. En el siguiente ejemplo se utiliza un bloque para crear un
+compuesto para la sentencia de ciclo repetitivo, que es el más básico de los
+ciclos repetitivos en Perl.
 
 =begin programlisting
 
@@ -208,7 +235,10 @@ El éxito del ejemplo anterior supone, por supuesto, que Perl se ha instalado
 correctamente en su máquina, lo que significa que se encuentra en la ruta 
 de comandos correcta. 
 
-Por otro lado, no es necesario que el script se encuentre en el C<PATH>, si lo desea puede utilizar el modificador B<-S> para hacer que Perl busque el script en los directorios declarados en el PATH. Esta técnica se usa tipicamente para emular B<#!> en algunas plataformas en donde no esta soportado. Ejemplo: 
+Por otro lado, no es necesario que el script se encuentre en el C<PATH>, si lo
+desea puede utilizar el modificador B<-S> para hacer que Perl busque el script
+en los directorios declarados en el PATH. Esta técnica se usa tipicamente para
+emular B<#!> en algunas plataformas en donde no esta soportado. Ejemplo: 
 
 =begin screen
 
@@ -220,7 +250,10 @@ Por otro lado, no es necesario que el script se encuentre en el C<PATH>, si lo d
 
 Z<Encontrar Perl Implícitamente>
 
-En lugar de pasar el script al interprete de Perl explicitamente, usted puede asegurarse que su script es capaz de encontrar el interprete de Perl por el mismo. Lo que significa que podrá correr el script como un comando mas del sistema: 
+En lugar de pasar el script al interprete de Perl explicitamente, usted puede
+asegurarse que su script es capaz de encontrar el interprete de Perl por el
+mismo. Lo que significa que podrá correr el script como un comando mas del
+sistema: 
 
 =begin screen
 
@@ -228,7 +261,8 @@ En lugar de pasar el script al interprete de Perl explicitamente, usted puede as
 
 =end screen
 
-Si usted tiene el nombre del script sin la extensión, puede ejecutar el script de la siguiente manera: 
+Si usted tiene el nombre del script sin la extensión, puede ejecutar el script
+de la siguiente manera: 
 
 =begin screen
 
@@ -236,7 +270,9 @@ Si usted tiene el nombre del script sin la extensión, puede ejecutar el script 
 
 =end screen
 
-El ejemplo anterior parece mas bien un comando del sistema, que es la idea. También puede pasar argumentos a los scripts de Perl, del mismo modo que a los comandos del sistema, Ejemplo: 
+El ejemplo anterior parece mas bien un comando del sistema, que es la idea.
+También puede pasar argumentos a los scripts de Perl, del mismo modo que a los
+comandos del sistema, Ejemplo: 
 
 =begin screen
 
@@ -244,9 +280,13 @@ El ejemplo anterior parece mas bien un comando del sistema, que es la idea. Tamb
 
 =end screen
 
-Asegurarse que el script puede encontrar el interprete de Perl por el mismo, depende del sistema operativo. 
+Asegurarse que el script puede encontrar el interprete de Perl por el mismo,
+depende del sistema operativo. 
 
-En sistemas operativos tipo Unix, se puede indicar en la primera linea del script la ruta absoluta al interprete de Perl (debe tener en cuenta, que si invoca explícitamente el interprete de Perl como se indico anteriormente, no necesita esta linea.). Ejemplo: 
+En sistemas operativos tipo Unix, se puede indicar en la primera linea del
+script la ruta absoluta al interprete de Perl (debe tener en cuenta, que si
+invoca explícitamente el interprete de Perl como se indico anteriormente, no
+necesita esta linea.). Ejemplo: 
 
 =begin programlisting
 
@@ -254,9 +294,16 @@ En sistemas operativos tipo Unix, se puede indicar en la primera linea del scrip
 
 =end programlisting
 
-Si utiliza este enfoque, esta linea, con la sintaxis especial B<#!>, debe ser la primera linea del script. Esta linea se refiere a la ruta del interprete de Perl en la mayoría de los sistemas operativos tipo Unix, cabe destacar que podría estar ubicado en un lugar diferente en la máquina, como B</usr/local/bin/perl> (tenga en cuenta que en muchas máquinas, las rutas B</usr/bin/perl> y B</usr/local/bin/perl> están referenciadas a ser la misma ruta).
+Si utiliza este enfoque, esta linea, con la sintaxis especial B<#!>, debe ser
+la primera linea del script. Esta linea se refiere a la ruta del interprete de
+Perl en la mayoría de los sistemas operativos tipo Unix, cabe destacar que
+podría estar ubicado en un lugar diferente en la máquina, como
+B</usr/local/bin/perl> (tenga en cuenta que en muchas máquinas, las rutas
+B</usr/bin/perl> y B</usr/local/bin/perl> están referenciadas a ser la misma
+ruta).
 
-Es posible, que para utilizar Perl 5 en algunos sistemas, tenga que usar una linea parecida a esta: 
+Es posible, que para utilizar Perl 5 en algunos sistemas, tenga que usar una
+linea parecida a esta: 
 
 =begin programlisting
 
@@ -264,7 +311,8 @@ Es posible, que para utilizar Perl 5 en algunos sistemas, tenga que usar una lin
 
 =end programlisting
 
-Tambien le recomendamos que utilice el parámetro B<-w> para asegurarse que Perl muestre advertencias en caso de encontrarlas al interpretar su código.
+Tambien le recomendamos que utilice el parámetro B<-w> para asegurarse que Perl
+muestre advertencias en caso de encontrarlas al interpretar su código.
 
 =begin programlisting
 
@@ -272,9 +320,14 @@ Tambien le recomendamos que utilice el parámetro B<-w> para asegurarse que Perl
 
 =end programlisting
 
-Actualmente, el interprete de Perl chequea su código cuando se carga por primera vez, de manera que obtendrá advertencias inmediatamente a menos que cargue el código en un tiempo posterior, que se puede hacer con la sentencia B<require>.  
+Actualmente, el interprete de Perl chequea su código cuando se carga por
+primera vez, de manera que obtendrá advertencias inmediatamente a menos que
+cargue el código en un tiempo posterior, que se puede hacer con la sentencia
+B<require>.  
 
-Debido a que muchos sistemas operativos basados en Unix, toman en cuenta solo los primeros 32 carácteres de la linea B<#!>, puede tener problemas si su ruta de acceso a Perl es muy larga. Ejemplo: 
+Debido a que muchos sistemas operativos basados en Unix, toman en cuenta solo
+los primeros 32 carácteres de la linea B<#!>, puede tener problemas si su ruta
+de acceso a Perl es muy larga. Ejemplo: 
 
 =begin programlisting
 
@@ -287,13 +340,20 @@ Debido a que muchos sistemas operativos basados en Unix, toman en cuenta solo lo
 
 Z<Escribiendo Código: Encontrando los módulos de Perl>
 
-Con los años, Perl se ha extendido con la creación de módulos escritos en Perl, estos módulos poseen lineas de código preescritas que van desde manejar un cursor en la plantalla, hasta la creación al vuelo de documentos XHTML. 
+Con los años, Perl se ha extendido con la creación de módulos escritos en Perl,
+estos módulos poseen lineas de código preescritas que van desde manejar un
+cursor en la plantalla, hasta la creación al vuelo de documentos XHTML. 
 
-Los módulos que vienen oficialmente con Perl reciben el nombre de I<módulos estándar>. En B<CPAN> puede encontrar hasta la fecha otros 19053 módulos adicionales.
+Los módulos que vienen oficialmente con Perl reciben el nombre de I<módulos
+estándar>. En B<CPAN> puede encontrar hasta la fecha otros 19053 módulos
+adicionales.
 
-Si instala los módulos correctamente, Perl los encontrará de forma automátca cando se incluyan en el código con declaraciones tales como B<use> y B<require>. 
+Si instala los módulos correctamente, Perl los encontrará de forma automátca
+cando se incluyan en el código con declaraciones tales como B<use> y
+B<require>. 
 
-Las rutas para acceder a los módulos de Perl  se encuentran en la lista B<@INC>. En el siguiente ejemplo, se muestra el contenido de la lista B<@INC>. 
+Las rutas para acceder a los módulos de Perl  se encuentran en la lista
+B<@INC>. En el siguiente ejemplo, se muestra el contenido de la lista B<@INC>. 
 
 =begin screen
 
