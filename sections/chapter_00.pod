@@ -231,7 +231,7 @@ como se puede ver en el siguiente ejemplo:
 
 =end screen
 
-El éxito del ejemplo anterior supone, por supuesto, que Perl se ha instalado 
+El éxito del ejemplo anterior supone, que Perl se ha instalado 
 correctamente en su máquina, lo que significa que se encuentra en la ruta 
 de comandos correcta. 
 
