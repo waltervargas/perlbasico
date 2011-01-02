@@ -726,3 +726,64 @@ si intenta imprimir un valor undef, generalmente va a causar una advertencia.
 Resumiendo, las variables no definidas que poseen el valor B<undef>, en
 contexto escalar es interpretado como cero (0) y en contexto de cadena de
 caracteres es interpretado como vacío B<"">.
+
+
+=head2 Declarando una constante    
+
+Z<Declarando una constante> 
+
+A muchos programadores les gusta usar constantes para evitar usar números
+mágicos en el código (por ejemplo, $variable = 23477, el cual dice muy poco
+acerca de donde proviene el valor). Usar constantes ayuda a centralizar todos
+aquellos números juntos en tu código para una fácil modificación. Supongamos, qu 
+recibes un email de un programador de C++, preguntando ¿por que no usas
+constantes en tu código Perl?.  ¿puedes hacerlo?.
+
+Resulta que Perl no tiene ningún tipo definido para las constantes numéricas,
+pero tu puedes crear esos tipos por su cuenta. Para hacerlo, usas un B<typeglob>,
+que es un tipo de dato que se puede representar como cualquier otra variable.
+El prefijo de-referenciador para los B<typeglobs> es *.
+
+Para crear una constante, asignas una referencia a una typeglob de la siguiente
+manera. Aquí, eh creado una constante llamada MAXFILES para contener un máximo
+número de archivos (eh capitalizado MAXFILES según la convencion de nombres de
+constantes en C y C++):
+
+=begin programlisting
+
+    *MAXFILES = \100;
+
+=end programlisting
+
+Se puede acceder a esta constante usando B<$MAXFILES>, al igual que con
+cualquier variable escalar: 
+
+=begin programlisting
+
+    *MAXFILES = \100;
+    print "$MAXFILES \n";
+
+=end programlisting
+
+Si tratas de asignar un nuevo valor a B<$MAXFILES>, recibiras un error: 
+
+=begin programlisting
+
+    *MAXFILES = \100;
+    print "$MAXFILES \n";
+    $MAXFILES = 101; 
+
+=end programlisting
+
+=begin screen
+
+    100
+    Modification of a read-only value attempted at prueba.pl line 3.
+
+=end screen
+
+Este ejemplo ilustra una manera de crear y trabajar con constantes en Perl
+usando el método con typeglobs. 
+
+Existe una manera mas fácil y elegante de usar constantes en Perl, y es através
+del pragma B<constant>
