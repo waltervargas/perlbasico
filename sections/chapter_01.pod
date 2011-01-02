@@ -787,3 +787,110 @@ usando el método con typeglobs.
 
 Existe una manera mas fácil y elegante de usar constantes en Perl, y es através
 del pragma B<constant>
+
+El pragma B<constant> le dice al compilador que el identificador dado tiene un
+valor constante. Ejemplo: 
+
+=begin programlisting
+
+    use constant DEBUGGING => 0;
+    use constant ONE_YEAR => 365.2425 * 24 * 60 * 60; 
+
+    if (DEBUGGING){
+        # hacer algo. 
+    }
+
+=end programlisting
+
+Si necesita definir una lista considerable de constantes, entonces puede usar
+la siguiente forma: 
+
+=begin programlisting
+
+	use constant {
+	    SEC   => 0,
+	    MIN   => 1,
+	    HOUR  => 2,
+	    MDAY  => 3,
+	    MON   => 4,
+	    YEAR  => 5,
+	    WDAY  => 6,
+	    YDAY  => 7,
+	    ISDST => 8,
+	};    
+
+=end programlisting
+
+Si requiere mas información sobre el uso del pragma constant, le recomendamos
+revisar el manual B<perldoc constant>
+
+=head2 Manejo de los valores de la verdad en Perl    
+
+Z<Manejo de los valores de la verdad en Perl> 
+
+=head3 La verdad y la mentira en Perl    
+
+Z<La verdad y la mentira en Perl> 
+
+El número 0, las cadenas B<'0'> y B<''>, la lista vacía B<()>, y el valor
+B<undef> son todos falsos en el contexto booleano. Cualquier otro valor es
+verdadero. La negación de un valor verdadero por los operadores B<!> o B<not>
+retornan un valor falso especial. Cuando se evalua como una cadena, este valor
+es tratado como B<''>, pero en el contexto numérico, es tratado como 0.  
+
+Puedes almacenar valores verdaderos y falsos de dos maneras, utilizando
+escalares, correspondientes a los dos contextos escalares. El contexto numérico
+y el contexto de cadena. Hay una cosa que debemos recordar: en el contexto
+numérico - 0 es falso y cualquier otro valor es verdadero; y en el contexto de
+cadenas, la cadena vacía '' es falsa y cualquier otro valor (incluyendo valores negativos) es verdadero.
+
+El hecho de que cualquier valor distinto de cero es verdadero es especialmente
+útil en construcciones tales como bucles. Por ejemplo, este valor mantiene este
+bucle while pasando por <> y siempre retorna algo, incluso si el usuario 
+introduce una línea vacía (en este caso, <> retorna un carácter de nueva linea):
+
+=begin programlisting
+
+    while (<>) {
+        print;
+    }
+
+=end programlisting
+
+Los programadores a menudo se basan en el hecho de que cualquier cadena
+diferente de B<cero (0)> o de B<vacio ('')> es verdadera. Se puede encontrar
+esto muy frecuentemente en el código, por ejemplo, verifico el valor a dividir
+para así evitar la división por cero. 
+
+=begin programlisting
+
+    if ($bt){
+        $result - $top / $buttom; 
+    } else {
+        $result = 0;
+    }
+
+=end programlisting
+
+Un punto para tomar en cuenta, sin embargo, es no probar contra valores falsos
+cuando se esta evaluando el valor B<undef>. Algunas funciones retornan B<undef>
+cuando no hay mas datos que leer, para evaluar esto, podemos usar la función
+B<defined>. Por ejemplo: 
+
+Sin hacer uso de la función defined: 
+
+=begin programlisting
+
+    print "Se obtuvo un valor" if ($value = returnvalue($index)); 
+
+=end programlisting
+
+Usando la función defined: 
+
+=begin programlisting
+    
+    print "Se obtuvo un valor" if defined($value = returnvalue($index)); 
+
+=end programlisting
+
+
