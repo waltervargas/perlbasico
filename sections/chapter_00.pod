@@ -5,16 +5,18 @@
 =head1 Introducción
 
 Perl tiene unos 23 años hasta ahora. El lenguaje ha evolucionado desde una
-herramienta simple para la administración de sistemas tomando cosas de shell 
-scripting y C (Perl 1) hasta convertirse en un poderoso lenguaje de propósito 
-general (Perl 5), consistente, coherente, cambiando el paradigma de programación 
-en general con la intensión de mantenerse por otros 25 años. (Perl 6) 
+herramienta simple para la administración de sistemas tomando cosas de shell
+scripting y C (Perl 1) hasta convertirse en un poderoso lenguaje de propósito
+general (Perl 5), consistente, coherente, cambiando el paradigma de
+programación en general con la intensión de mantenerse por otros 25 años. (Perl
+6) 
 
-Aun así, la mayoría de los programas en el mundo, escritos en Perl 5, aprovechan
-muy poco las características del lenguaje. Usted C<puede> escribir programas en Perl 5 como si estuviera en Perl 4 (o Perl 3 o 2 o 1), pero los programas que 
-aprovechan todo el increíble poder del mundo de Perl 5 que la comunidad ha 
-inventado, y mejorado, son mas cortos, rápidos, mas poderosos, y fáciles de 
-mantener que sus alternativas en anteriores versiones. 
+Aun así, la mayoría de los programas en el mundo, escritos en Perl 5,
+aprovechan muy poco las características del lenguaje. Usted C<puede> escribir
+programas en Perl 5 como si estuviera en Perl 4 (o Perl 3 o 2 o 1), pero los
+programas que aprovechan todo el increíble poder del mundo de Perl 5 que la
+comunidad ha inventado, y mejorado, son mas cortos, rápidos, mas poderosos, y
+fáciles de mantener que sus alternativas en anteriores versiones. 
 
 =head1 Instalando Perl
 
@@ -24,7 +26,7 @@ Normalmente los sistemas operativos tipo Unix, se distribuyen con una versión
 de Perl. Si usted desea tener una versión en específico de Perl, entonces le
 sugerimos el uso de PerlBrew.
 
-Acontinuación, se indica como instalar Perl en una máquina con Debian Lenny. 
+A continuación, se indica como instalar Perl en una máquina con Debian Lenny. 
 
 =begin programlisting
 
@@ -102,9 +104,9 @@ usamos el siguiente comando:
 
 =begin sidebar
 
-Se puede encontrar una gran cantidad de información acerca de cómo su copia de 
+Se puede encontrar una gran cantidad de información acerca de cómo su copia de
 Perl fue construida mediante el modificador -V. Por ejemplo, el último elemento
-en el código anterior muestra las entradas actuales en la matriz C<@INC>, que 
+en el código anterior muestra las entradas actuales en la matriz C<@INC>, que
 especifica la ruta a los módulos de Perl.
 
 =end sidebar
@@ -113,36 +115,35 @@ especifica la ruta a los módulos de Perl.
 =head1 Escribiendo Código: Creando archivos de código. 
 Z<Escribiendo Código: Creando archivos de código>
 
-Los Scripts en Perl son sólo archivos de texto simple, compuestos por los estados
-y las declaraciones del lenguaje, según sea necesario (Se debe declarar en
-formato único y subrutinas en Perl). Para crear un script en Perl, usted debe 
-tener un editor o procesador de texto que le permita guardar archivos en formato de texto plano.
+Los Scripts en Perl son sólo archivos de texto simple, compuestos por los
+estados y las declaraciones del lenguaje, según sea necesario (Se debe declarar
+en formato único y subrutinas en Perl). Para crear un script en Perl, usted
+debe tener un editor o procesador de texto que le permita guardar archivos en
+formato de texto plano.
 
-Guardar en formato de texto simple es un logro que va más allá de muchos 
-procesadores de palabras. Es posible que tenga problemas con 
-los procesadores de palabras como Open Office, por ejemplo, aunque se pueden 
-guardar archivos de texto sin formato con el programa mediante el menu
-Archivo|Guardar como. La regla general es que si usted puede abrir el archivo
-usando la línea de comandos y no ve ningún carácter extraño, es un archivo de
-texto plano. 
-En Unix, usted tiene muchos editores para elegir. La prueba real, por 
-supuesto, es si Perl puede leer e interpretar la secuencia de comandos que 
-usted escribió.
+Guardar en formato de texto simple es un logro que va más allá de muchos
+procesadores de palabras. Es posible que tenga problemas con los procesadores
+de palabras como Open Office, por ejemplo, aunque se pueden guardar archivos de
+texto sin formato con el programa mediante el menu Archivo|Guardar como. La
+regla general es que si usted puede abrir el archivo usando la línea de
+comandos y no ve ningún carácter extraño, es un archivo de texto plano.  En
+Unix, usted tiene muchos editores para elegir. La prueba real, por supuesto, es
+si Perl puede leer e interpretar la secuencia de comandos que usted escribió.
 
-Tenga en cuenta que una gran diferencia entre los archivos de texto de Unix y 
-MS-DOS/Windows, es que los archivos de Unix utilizan un carácter único al final 
-de cada línea, y los archivos MS-DOS/Windows utilizar dos (es decir, 
-un retorno de carro y una línea de alimentación). Esta diferencia no 
-preocupa en Perl, por lo que puede moverse entre las secuencias de comandos 
-de los sistemas operativos con libertad, sin embargo, esta diferencia podría 
-molestar al editor que se utilice para trabajar con las secuencias de comandos.
+Tenga en cuenta que una gran diferencia entre los archivos de texto de Unix y
+MS-DOS/Windows, es que los archivos de Unix utilizan un carácter único al final
+de cada línea, y los archivos MS-DOS/Windows utilizar dos (es decir, un retorno
+de carro y una línea de alimentación). Esta diferencia no preocupa en Perl, por
+lo que puede moverse entre las secuencias de comandos de los sistemas
+operativos con libertad, sin embargo, esta diferencia podría molestar al editor
+que se utilice para trabajar con las secuencias de comandos.
 
 Las extensiones de los archivos puede ser útiles cuando usted vuelva a revisar
 largas listas de archivos guardados dentro de tres o mas años y se preguntan
 qué tipo de extensión son. Por esta razón, vamos a utilizar la extensión .pl
 para los scripts en este curso. Sólo debe tener en cuenta que no tiene que usar
-esta extensión o cualquier otra para que los programas funcionen. 
-Esencialmente, usted es deberá nombrar los ejemplos desarrollados en este curso 
+esta extensión o cualquier otra para que los programas funcionen.
+Esencialmente, usted es deberá nombrar los ejemplos desarrollados en este curso
 según las indicaciones del instructor.
 
 =head1 Escribiendo Código: Declaraciones.
@@ -155,12 +156,12 @@ realidad se puede pasar el intérprete Perl en un archivo de longitud cero, y
 este no se quejará. (Tenga en cuenta que esto depende de su interprete de Perl,
 y su sistema operativo puede no ser compatible con archivos de longitud cero).
 
-Probablemente la secuencia más corta de comandos legales para Perl que se puede 
+Probablemente la secuencia más corta de comandos legales para Perl que se puede
 escribir para hacer algo, aunque no mucho, es la siguiente:
 
 =begin screen
 
-    perl -e ''
+ 1
 
 =end screen
 
@@ -208,21 +209,21 @@ ciclos repetitivos en Perl.
 
 =end programlisting  
 
-Si escribe cualquiera de las secuencias de comandos anteriores en un
-archivo como por ejemplo prueba.pl, entonces habrá creado un script en Perl. 
-El siguiente paso es asegurarse de que puede unir el script y el interprete de 
+Si escribe cualquiera de las secuencias de comandos anteriores en un archivo
+como por ejemplo prueba.pl, entonces habrá creado un script en Perl.  El
+siguiente paso es asegurarse de que puede unir el script y el interprete de
 Perl para ejecutar la secuencia de comandos. 
 
 =head1 Escribiendo Código: Encontrando el interprete de Perl. 
 Z<Escribiendo Código: Encontrando el interprete de Perl>
 
-Puede asegurarse de que su script en Perl, encuentre el interprete de Perl 
-de dos formas posibles: explicita e implicita. 
+Puede asegurarse de que su script en Perl, encuentre el interprete de Perl de
+dos formas posibles: explicita e implicita. 
 
 =head2 Econtrar Perl Explícitamente
 
 La manera explicita de que el script encuentre al interprete de Perl, es pasar
-el script al interprete de Perl de manera explicita en la linea de comandos, 
+el script al interprete de Perl de manera explicita en la linea de comandos,
 como se puede ver en el siguiente ejemplo: 
 
 =begin screen
@@ -231,9 +232,8 @@ como se puede ver en el siguiente ejemplo:
 
 =end screen
 
-El éxito del ejemplo anterior supone, que Perl se ha instalado 
-correctamente en su máquina, lo que significa que se encuentra en la ruta 
-de comandos correcta. 
+El éxito del ejemplo anterior supone, que Perl se ha instalado correctamente en
+su máquina, lo que significa que se encuentra en la ruta de comandos correcta. 
 
 Por otro lado, no es necesario que el script se encuentre en el C<PATH>, si lo
 desea puede utilizar el modificador B<-S> para hacer que Perl busque el script
