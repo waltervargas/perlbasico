@@ -1,8 +1,10 @@
 =encoding utf8
 
-=head0 Aspectos esenciales de Perl
+=head0 Introducción
 
-=head1 Introducción
+=head1 Sobre Perl    
+
+Z<Sobre Perl> 
 
 Perl tiene unos 23 años hasta ahora. El lenguaje ha evolucionado desde una
 herramienta simple para la administración de sistemas tomando cosas de shell
@@ -18,365 +20,212 @@ programas que aprovechan todo el increíble poder del mundo de Perl 5 que la
 comunidad ha inventado, y mejorado, son mas cortos, rápidos, mas poderosos, y
 fáciles de mantener que sus alternativas en anteriores versiones. 
 
-=head1 Instalando Perl
+=head1 ¿ Porque Larry creo Perl ?
 
-=begin sidebar
+Z<¿ Porque Larry creo Perl ?> 
 
-Normalmente los sistemas operativos tipo Unix, se distribuyen con una versión
-de Perl. Si usted desea tener una versión en específico de Perl, entonces le
-sugerimos el uso de PerlBrew.
+Larry crea Perl a mediados de 1980,  cuando intentaba producir reportes sobre 
+la información ordenada jerárquicamente en archivos de  la red de noticias 
+USENET para un sistema de reporte de bugs,  y awk no dio la talla. Entonces
+Larry, como buen programador perezoso que es,  decide hacer una herramienta que
+pueda usar para resolver este problema y que pueda volver a usar para otro
+problema similar en otro lugar,  en otro tiempo. 
 
-A continuación, se indica como instalar Perl en una máquina con Debian Lenny. 
+=head1 ¿ Porque Larry simplemente no uso otro lenguaje ?    
+
+Z<¿ Porque Larry simplemente no uso otro lenguaje ?> 
+
+En este momento hay gran variedad de lenguajes, pero en esa época Larry no
+encontró un lenguaje que se adaptara a sus necesidades. 
+
+Si uno de los lenguajes de hoy, hubiese existido para la época,  pues tal vez
+Larry lo hubiera usado para resolver el problema. 
+
+Necesitaba algo con la rapidez de codificación disponible en B<Shell> o B<AWK>
+y con algo del poder de las herramientas como B<grep>, B<cut>, B<sort>, y
+B<sed>,  sin tener que recurrir a un lenguaje como B<C>.
+
+Perl, intenta llenar la brecha entre los lenguajes de bajo nivel como C, C++, y
+Assembler,  y los lenguajes de alto nivel de la época como Shell Scripting. La
+programación a bajo nivel, usualmente es difícil y fea de escribir, pero rápida
+y sin limitaciones, es difícil superar la velocidad de un programa bien escrito
+a bajo nivel en una máquina dada. Y no hay mucho que se pueda hacer. 
+
+En el otro extremo, la programación convencional de alto nivel, tiende a ser
+lenta,  dura, fea y limitada. Hay varias cosas que no puedes hacer con
+programación en shell o batch. 
+
+Perl es fácil, casi ilimitado, muy rápido y solo un poco feo.
+
+=head2 Características principales de Perl    
+
+Z<Caracteristicas principales de Perl> 
+
+=head3 Perl es fácil    
+
+Z<Perl es fácil> 
+
+Cuando nos referimos que Perl es fácil, hablamos de que es fácil de usar, no es
+especialmente fácil de aprender. Si usted conduce un carro, que paso semanas o
+meses aprendiendo a conducir, entonces luego va a ser fácil de conducir. De
+igual manera cuando pase la misma o mas cantidad de horas aprendiendo Perl,
+entonces despues va a ser muy fácil de usar.  
+
+=head3 Perl es casí ilimitado
+
+Z<Perl es casí ilimitado> 
+
+Hay muy pocas cosas que no podrás hacer con Perl. Seguramente usted no deseará
+escribir un controlador de algún dispositivo de interrupción a nivel de
+micro-kernel (A pesar de que ya alguien hizo esto). Pero la mayoria de las
+cosas que la gente común y no tan común necesita,  la mayoria del tiempo son
+buenas tareas para Perl, desde scripts muy pequeños, hasta aplicaciones de
+nivel industrial. 
+
+=head3 Perl es sobre todo rápido    
+
+Z<Perl es sobre todo rápido> 
+
+Esto es porque no hay nadie en el desarrollo que no lo utilice, de modo que
+entonces todos queremos que Perl sea rápido. Si alguien quiere añadir una nueva
+característica que sea genial, pero que introduzca lentitud a otros aspectos,
+es casí seguro que Larry va a rechazar la nueva característica hasta que no se
+encuentre una manera de escribirla de manera eficiente. 
+
+=head3 Perl es un poco feo    
+
+Z<Perl es un poco feo> 
+
+Esto es cierto, el camello se ha convertido en el simbolo de Perl, desde la
+cubierta del legendario libro B<The Camel Book>, conocido tambien como
+B<Programming Perl by Larry Wall, Tom Christianesen,  and Jon Orwant>. 
+Los camellos tambien son un poco feos, pero trabajan duro, incluso en
+condiciones difíciles. Los camellos siempre están ahí siempre para hacer el
+trabajo a pesar de todas las dificultades, incluso cuando se ven y huelen mal e
+incluse le escupen. Perl es un poco así.
+
+
+=head1 ¿ Perl es fácil o difícil ?  
+
+Z<Perl es fácil o difícil ?> 
+
+Perl es fácil de usar, pero a veces difícil de aprender. Esto por su puesto es
+una gereralización. En el diseño de Perl, Larry tuvo que hacer muchas
+consideraciones. Cuando ha tenido la oportunidad de hacer algo más fácil para
+el programador a costa de ser más difícil para el estudiante, ha decidido casi
+todo el tiempo a favor del programador. Esto es así, porque usted va a aprender
+Perl una sola vez, pero lo vas a usar una y otra vez. Perl posee cualquier
+cantidad de comodidades que le permiten al programador ahorrar tiempo. Por
+ejemplo,  la mayoria de las funciones tienen un valor predeterminado,  con
+frecuencia,  el valor por defecto es justamente la manera en la que usted desea
+usar la función. De esta manera,  podrás encontra lineas de código en Perl como
+las siguientes: 
 
 =begin programlisting
 
-    aptitude install perl
+    while (<>) { 
+        chomp;
+        print join("\t", (split /:/)[0, 2, 1, 5] ), "\n";
+    }
 
 =end programlisting
 
-
-=head1 Detalles de la instalación de Perl.
-Z<Detalles de la instalación de Perl.>
-X<instalación>
-
-Cuando un supervisor requiera información acerca de cuales modificaciones del
-compilador se aplicaron a la versión de Perl instalada originalmente, con el
-fin de estar seguro de que los cambios que han sido realizados son coherentes,
-usamos el siguiente comando:
-
-=begin screen 
-
-    $ perl -V
-    Summary of my perl5 (revision 5 version 10 subversion 1) configuration:
-   
-    Platform:
-    osname=linux, osvers=2.6.32.25-dsa-ia32, archname=i486-linux-gnu-thread-multi
-    uname='linux murphy 2.6.32.25-dsa-ia32 #1 smp fri oct 29 10:49:58 cest 2010 i686 gnulinux '
-    config_args='-Dusethreads -Duselargefiles -Dccflags=-DDEBIAN -Dcccdlflags=-fPIC -Darchname=i486-linux-gnu -Dprefix=/usr -Dprivlib=/usr/share/perl/5.10 -Darchlib=/usr/lib/perl/5.10 -Dvendorprefix=/usr -Dvendorlib=/usr/share/perl5 -Dvendorarch=/usr/lib/perl5 -Dsiteprefix=/usr/local -Dsitelib=/usr/local/share/perl/5.10.1 -Dsitearch=/usr/local/lib/perl/5.10.1 -Dman1dir=/usr/share/man/man1 -Dman3dir=/usr/share/man/man3 -Dsiteman1dir=/usr/local/man/man1 -Dsiteman3dir=/usr/local/man/man3 -Dman1ext=1 -Dman3ext=3perl -Dpager=/usr/bin/sensible-pager -Uafs -Ud_csh -Ud_ualarm -Uusesfio -Uusenm -DDEBUGGING=-g -Doptimize=-O2 -Duseshrplib -Dlibperl=libperl.so.5.10.1 -Dd_dosuid -des'
-    hint=recommended, useposix=true, d_sigaction=define
-    useithreads=define, usemultiplicity=define
-    useperlio=define, d_sfio=undef, uselargefiles=define, usesocks=undef
-    use64bitint=undef, use64bitall=undef, uselongdouble=undef
-    usemymalloc=n, bincompat5005=undef
-    Compiler:
-    cc='cc', ccflags ='-D_REENTRANT -D_GNU_SOURCE -DDEBIAN -fno-strict-aliasing -pipe -fstack-protector -I/usr/local/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64',
-    optimize='-O2 -g',
-    cppflags='-D_REENTRANT -D_GNU_SOURCE -DDEBIAN -fno-strict-aliasing -pipe -fstack-protector -I/usr/local/include'
-    ccversion='', gccversion='4.4.5', gccosandvers=''
-    intsize=4, longsize=4, ptrsize=4, doublesize=8, byteorder=1234
-    d_longlong=define, longlongsize=8, d_longdbl=define, longdblsize=12
-    ivtype='long', ivsize=4, nvtype='double', nvsize=8, Off_t='off_t', lseeksize=8
-    alignbytes=4, prototype=define
-    Linker and Libraries:
-    ld='cc', ldflags =' -fstack-protector -L/usr/local/lib'
-    libpth=/usr/local/lib /lib /usr/lib /usr/lib64
-    libs=-lgdbm -lgdbm_compat -ldb -ldl -lm -lpthread -lc -lcrypt
-    perllibs=-ldl -lm -lpthread -lc -lcrypt
-    libc=/lib/libc-2.11.2.so, so=so, useshrplib=true, libperl=libperl.so.5.10.1
-    gnulibc_version='2.11.2'
-    Dynamic Linking:
-    dlsrc=dl_dlopen.xs, dlext=so, d_dlsymun=undef, ccdlflags='-Wl,-E'
-    cccdlflags='-fPIC', lddlflags='-shared -O2 -g -L/usr/local/lib -fstack-protector'
+En su totalidad, sin usar los atajos y los valores por defecto de Perl, este
+trozo de código seria aproximadamente 10 o 12 veces mas largo, entonces tomaria
+mas tiempo para escribirlo y leerlo. Va a ser mas duro de mantener y depurar
+cuando tenga mas variables. 
 
 
-    Characteristics of this binary (from libperl): 
-    Compile-time options: MULTIPLICITY PERL_DONT_CREATE_GVSV
-                        PERL_IMPLICIT_CONTEXT PERL_MALLOC_WRAP USE_ITHREADS
-                        USE_LARGE_FILES USE_PERLIO USE_REENTRANT_API
-    Locally applied patches:
-        DEBPKG:debian/arm_thread_stress_timeout - http://bugs.debian.org/501970 Raise the timeout of ext/threads/shared/t/stress.t to accommodate slower build hosts
-        DEBPKG:debian/cpan_config_path - Set location of CPAN::Config to /etc/perl as /usr may not be writable.
-        DEBPKG:debian/cpan_definstalldirs - Provide a sensible INSTALLDIRS default for modules installed from CPAN.
+=head1 ¿ Como se hizo Perl tan popular ?    
 
-  Built under linux
-  Compiled at Nov  2 2010 09:24:47
-  @INC:
-    /etc/perl
-    /usr/local/lib/perl/5.10.1
-    /usr/local/share/perl/5.10.1
-    /usr/lib/perl5
-    /usr/share/perl5
-    /usr/lib/perl/5.10
-    /usr/share/perl/5.10
-    /usr/local/lib/site_perl
+Z<¿ Como se hizo Perl tan popular ?> 
 
-=end screen
+Despues de jugar un rato con Perl, agregando cosas aquí y allá, Larry se lanzó
+a la comunidad de lectores de la Usenet,  comunmente conocidad como B<La Red>.
+Los usuarios de esta flota fugitiva que trabajaban en sistemas en todo el
+mundo (decenas de miles de ellos), le dieron retroalimentación, pidiendo a
+Larry, maneras de hacer esto, aquello o lo otro, muchos de los cuales Larry
+nunca había imaginado en su hasta el momento poco manejo de Perl. 
 
-=begin sidebar
+Pero como resultado, Perl creció, y creció y creció. Creció en características.
+Creció en portabilidad. Lo que antes era un lenguaje poco disponible en solo un
+par de sistema tipo Unix,  ahora tiene miles de páginas de documentación en
+linea gratis, docenas de libros, y miles de listas de correo en cientos de
+idiomas con un número incontable de lectores, e implementaciones en varios
+sistemas de uso cotidiano hoy en día, y adicionalmente un curso como este. 
 
-Se puede encontrar una gran cantidad de información acerca de cómo su copia de
-Perl fue construida mediante el modificador -V. Por ejemplo, el último elemento
-en el código anterior muestra las entradas actuales en la matriz C<@INC>, que
-especifica la ruta a los módulos de Perl.
+=head1 ¿ Que esta pasando con Perl ahora ?    
 
-=end sidebar
+Z<¿ Que esta pasando con Perl ahora ?> 
 
+Durante estos días, Larry Wall no escribe código, pero el sigue guiando el
+desarrollo y toma las desiciones importantes. Perl es mayormente mantenido por
+un grupo de resistentes y valientes personas llamadas B<The Perl 5 Porters>.
+Puede suscribirse a la lista de correo en L<perl5-porters@perl.org> para seguir
+el trabajo de esta gente y sus debates. Al momento de escribir esta
+documentación,  muchas cosas estan pasando con Perl. Durante los últimos años,
+muchas personas han estado trabajando en la próxima versión de Perl: Perl 6.
 
-=head1 Escribiendo Código: Creando archivos de código. 
-Z<Escribiendo Código: Creando archivos de código>
+No tire a un lado Perl 5, este sigue siendo la versión actual y estable. No se
+espera una version estable de Perl 6 durante un rato largo. Perl 5 hace todo lo
+de siempre, y siempre sera así. Perl 5 no va a desaparecer cuando Perl 6 salga.
+Y la gente puede seguir usando Perl 5 durante muchos años mas. 
 
-Los Scripts en Perl son sólo archivos de texto simple, compuestos por los
-estados y las declaraciones del lenguaje, según sea necesario (Se debe declarar
-en formato único y subrutinas en Perl). Para crear un script en Perl, usted
-debe tener un editor o procesador de texto que le permita guardar archivos en
-formato de texto plano.
+=head1 ¿ Que es CPAN ?    
 
-Guardar en formato de texto simple es un logro que va más allá de muchos
-procesadores de palabras. Es posible que tenga problemas con los procesadores
-de palabras como Open Office, por ejemplo, aunque se pueden guardar archivos de
-texto sin formato con el programa mediante el menu Archivo|Guardar como. La
-regla general es que si usted puede abrir el archivo usando la línea de
-comandos y no ve ningún carácter extraño, es un archivo de texto plano.  En
-Unix, usted tiene muchos editores para elegir. La prueba real, por supuesto, es
-si Perl puede leer e interpretar la secuencia de comandos que usted escribió.
+Z<¿ Que es CPAN ?> 
 
-Tenga en cuenta que una gran diferencia entre los archivos de texto de Unix y
-MS-DOS/Windows, es que los archivos de Unix utilizan un carácter único al final
-de cada línea, y los archivos MS-DOS/Windows utilizar dos (es decir, un retorno
-de carro y una línea de alimentación). Esta diferencia no preocupa en Perl, por
-lo que puede moverse entre las secuencias de comandos de los sistemas
-operativos con libertad, sin embargo, esta diferencia podría molestar al editor
-que se utilice para trabajar con las secuencias de comandos.
+CPAN es B<Comprehensive Perl Archive Network>, su primera parada para Perl.
+Posee el código fuente de Perl, listo para instalar y los B<ports> para todos
+los sistemas no Unix, ejemplos, documentación, y extensiones del lenguaje. 
 
-Las extensiones de los archivos puede ser útiles cuando usted vuelva a revisar
-largas listas de archivos guardados dentro de tres o mas años y se preguntan
-qué tipo de extensión son. Por esta razón, vamos a utilizar la extensión .pl
-para los scripts en este curso. Sólo debe tener en cuenta que no tiene que usar
-esta extensión o cualquier otra para que los programas funcionen.
-Esencialmente, usted es deberá nombrar los ejemplos desarrollados en este curso
-según las indicaciones del instructor.
+CPAN es replicado en cientos de máquinas al rededor del mundo, comenzando en
+L<http://search.cpan.org> o L<http://kobesearch.cpan.org> para navegar o buscar
+un paquete. Si no tienes acceso a la red, todo CPAN puede caber en 8 o 10 GB.
+Es importante mencionar que debido a los cambios diarios en CPAN, un mirror con
+dos años sin actualizares es definitivamente una antiguedad. 
 
-=head1 Escribiendo Código: Declaraciones.
-Z<Escribiendo Código: Declaraciones>
+=head1 ¿ Como hacer un programa en Perl ?    
 
-¿Cuál es la menor secuencia de comandos legal que puede escribir? 
+Z<¿ Como hacer un programa en Perl ?> 
 
-Si no le importa, la secuencia de comandos no hace nada en absoluto, en
-realidad se puede pasar el intérprete Perl en un archivo de longitud cero, y
-este no se quejará. (Tenga en cuenta que esto depende de su interprete de Perl,
-y su sistema operativo puede no ser compatible con archivos de longitud cero).
+Ya es tiempo de hacer esta pregunta (aunque usted no la halla hecho aun), Los
+programas de Perl son archivos de texto plano, usted puede crearlos y editarlos
+en su editor de textos preferido,  yo personalmente prefiero B<VIM>. (Usted no
+necesita entornos de desarrollo especiales, aunque hay disponibles editores
+comerciales de varios proveedores. Nunca hemos utilizado uno de estos lo
+suficiente como para recomendarlo). Por lo general debería usar un editor de
+texto pensado para programadores, en lugar de un editor de textos
+convencional. ¿ Cual es la diferencia ? Bueno, un editor pensado para
+programadores le va a permitir hacer cosas que necesitan los programadores,
+como sangrado automático o subrayado de bloques de código, o indicar
+automáticamente la llave de cierre de un bloque de código. En sistemas
+operativos tipo Unix, los editores de texto mas populares son B<Emacs> y
+B<Vim>. BBEdit y TextMate son buenos para Mac OS X, mucha gente ha hablado muy
+bien sobre UltraEdit y PFE en Windows. La página del manual perlfaq2 tiene una
+lista de otros editores que también pueden usarse.
 
-Probablemente la secuencia más corta de comandos legales para Perl que se puede
-escribir para hacer algo, aunque no mucho, es la siguiente:
+=head1 Un programa simple    
+
+Z<Un programa simple> 
+
+Según la regla mas antigua de los libros de computación, cualquier libro sobre
+algún lenguaje de programación que tenga raices Unix, va a comenzar con 
+B<Hola, Mundo>,  por ejempo en Perl seria así: 
 
 =begin programlisting
 
- 1
+    #!/usr/bin/perl 
+    print "Hello, world!\n";
 
 =end programlisting
 
-Este script solo devuelve un valor de 1, y es una linea que verá en los módulos
-de Perl y sirve para indicar la carga con éxito del módulo.
+=head1 Sobre los ejercicios y sus respuestas
 
-En general, el código en Perl se compone de estados y declaraciones. Las
-declaraciones son necesarias sólo para los formatos y subrutinas, aunque
-también se pueden declara otros elementos tales como las variables, estas las
-veremos en un capítulo mas adelante. 
+Los ejercicios se encuentran al final de cada capítulo,  una vez que se
+desarrolle cada capítulo,  se tomaran 45 a 50 minutos para resolver los
+ejercicios correspondientes a cada capítulo. 
 
-Las declaraciones vienen en dos formas: simples y compuestas. 
+=head1 Evaluación Inicial    
 
-=head2 Declaraciones simples
-
-Una declaración simple es una expresión que realiza alguna acción específica.
-En el código, una declaración simple termina con un punto y coma B<;> como el
-siguiente, en donde se utiliza la función de impresión para mostrar la cadena
-B<Hola!>, seguido por el carácter de nueva linea B<\n> utilizado para saltar a
-la linea siguiente.
-
-=begin programlisting
-
-    print "Hola!\n";
-
-=end programlisting  
-
-=head2 Declaraciones compuestas
-
-Las sentencias compuestas están formadas de expresiones y bloques. Los bloques
-están delimitados con llaves en Perl, B<{ y }>, y puede escribir varias
-instrucciones simples. Los bloques también tienen su propio ámbito (el ámbito
-de acción de los elementos como una variable indican en qué parte del programa
-se pueden utilizar estas variables). No se debe colocar punto y coma después de
-la llave de cierre. En el siguiente ejemplo se utiliza un bloque para crear un
-compuesto para la sentencia de ciclo repetitivo, que es el más básico de los
-ciclos repetitivos en Perl.
-
-=begin programlisting
-
-    for ($loop_index = 1; $loop_index <=5; $loop_index++) {
-        print "Hello";
-        print "there!\n";
-    }    
-
-=end programlisting  
-
-Si escribe cualquiera de las secuencias de comandos anteriores en un archivo
-como por ejemplo prueba.pl, entonces habrá creado un script en Perl.  El
-siguiente paso es asegurarse de que puede unir el script y el interprete de
-Perl para ejecutar la secuencia de comandos. 
-
-=head1 Escribiendo Código: Encontrando el interprete de Perl. 
-Z<Escribiendo Código: Encontrando el interprete de Perl>
-
-Puede asegurarse de que su script en Perl, encuentre el interprete de Perl de
-dos formas posibles: explicita e implicita. 
-
-=head2 Econtrar Perl Explícitamente
-
-La manera explicita de que el script encuentre al interprete de Perl, es pasar
-el script al interprete de Perl de manera explicita en la linea de comandos,
-como se puede ver en el siguiente ejemplo: 
-
-=begin screen
-
-    $ perl prueba.pl
-
-=end screen
-
-El éxito del ejemplo anterior supone, que Perl se ha instalado correctamente en
-su máquina, lo que significa que se encuentra en la ruta de comandos correcta. 
-
-Por otro lado, no es necesario que el script se encuentre en el C<PATH>, si lo
-desea puede utilizar el modificador B<-S> para hacer que Perl busque el script
-en los directorios declarados en el PATH. Esta técnica se usa tipicamente para
-emular B<#!> en algunas plataformas en donde no esta soportado. Ejemplo: 
-
-=begin screen
-
-    $ perl -S prueba.pl 
-
-=end screen
-
-=head2 Encontrar Perl Implícitamente
-
-Z<Encontrar Perl Implícitamente>
-
-En lugar de pasar el script al interprete de Perl explicitamente, usted puede
-asegurarse que su script es capaz de encontrar el interprete de Perl por el
-mismo. Lo que significa que podrá correr el script como un comando mas del
-sistema: 
-
-=begin screen
-
-    $ prueba.pl
-
-=end screen
-
-Si usted tiene el nombre del script sin la extensión, puede ejecutar el script
-de la siguiente manera: 
-
-=begin screen
-
-    $ prueba
-
-=end screen
-
-El ejemplo anterior parece mas bien un comando del sistema, que es la idea.
-También puede pasar argumentos a los scripts de Perl, del mismo modo que a los
-comandos del sistema, Ejemplo: 
-
-=begin screen
-
-    $ prueba hola mundo
-
-=end screen
-
-Asegurarse que el script puede encontrar el interprete de Perl por el mismo,
-depende del sistema operativo. 
-
-En sistemas operativos tipo Unix, se puede indicar en la primera linea del
-script la ruta absoluta al interprete de Perl (debe tener en cuenta, que si
-invoca explícitamente el interprete de Perl como se indico anteriormente, no
-necesita esta linea.). Ejemplo: 
-
-=begin programlisting
-
-    #!/usr/bin/perl
-
-=end programlisting
-
-Si utiliza este enfoque, esta linea, con la sintaxis especial B<#!>, debe ser
-la primera linea del script. Esta linea se refiere a la ruta del interprete de
-Perl en la mayoría de los sistemas operativos tipo Unix, cabe destacar que
-podría estar ubicado en un lugar diferente en la máquina, como
-B</usr/local/bin/perl> (tenga en cuenta que en muchas máquinas, las rutas
-B</usr/bin/perl> y B</usr/local/bin/perl> están referenciadas a ser la misma
-ruta).
-
-Es posible, que para utilizar Perl 5 en algunos sistemas, tenga que usar una
-linea parecida a esta: 
-
-=begin programlisting
-
-    #!/usr/bin/perl5
-
-=end programlisting
-
-Tambien le recomendamos que utilice el parámetro B<-w> para asegurarse que Perl
-muestre advertencias en caso de encontrarlas al interpretar su código.
-
-=begin programlisting
-
-    #!/usr/bin/perl -w 
-
-=end programlisting
-
-Actualmente, el interprete de Perl chequea su código cuando se carga por
-primera vez, de manera que obtendrá advertencias inmediatamente a menos que
-cargue el código en un tiempo posterior, que se puede hacer con la sentencia
-B<require>.  
-
-Debido a que muchos sistemas operativos basados en Unix, toman en cuenta solo
-los primeros 32 carácteres de la linea B<#!>, puede tener problemas si su ruta
-de acceso a Perl es muy larga. Ejemplo: 
-
-=begin programlisting
-
-    #!/home/elsanto/Perl/perl5/perl5.10.1/bin/perl5.10.1 
-
-=end programlisting
-
-En el infortunado caso de que este utilizando un Unix que no soporte más de 32
-caracteres,  puede hacer un enlace simbolico para acortar el nombre:
-
-=begin screen
-
- $ ln /home/elsanto/Perl/perl5/perl5.10.1/bin/perl5.10.1 /usr/bin/miperl510
-
-=end screen
-
-
-=head1 Escribiendo Código: Encontrando los módulos de Perl. 
-
-Z<Escribiendo Código: Encontrando los módulos de Perl>
-
-Con los años, Perl se ha extendido con la creación de módulos escritos en Perl,
-estos módulos poseen lineas de código preescritas que van desde manejar un
-cursor en la plantalla, hasta la creación al vuelo de documentos XHTML. 
-
-Los módulos que vienen oficialmente con Perl reciben el nombre de I<módulos
-estándar>. En B<CPAN> puede encontrar hasta la fecha otros 19053 módulos
-adicionales.
-
-Si instala los módulos correctamente, Perl los encontrará de forma automátca
-cando se incluyan en el código con declaraciones tales como B<use> y
-B<require>. 
-
-Las rutas para acceder a los módulos de Perl  se encuentran en la lista
-B<@INC>. En el siguiente ejemplo, se muestra el contenido de la lista B<@INC>. 
-
-=begin screen
-
-    $ perl -MData::Dumper -e 'print Dumper \@INC'
-    $VAR1 = [
-              '/etc/perl',
-              '/usr/local/lib/perl/5.10.1',
-              '/usr/local/share/perl/5.10.1',
-              '/usr/lib/perl5',
-              '/usr/share/perl5',
-              '/usr/lib/perl/5.10',
-              '/usr/share/perl/5.10',
-              '/usr/local/lib/site_perl',
-              '.'
-            ];
-
-=end screen
+Z<Evaluación Inicial> 
