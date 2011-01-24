@@ -161,7 +161,7 @@ Z<¿ Que esta pasando con Perl ahora ?>
 Durante estos días, Larry Wall no escribe código, pero el sigue guiando el
 desarrollo y toma las desiciones importantes. Perl es mayormente mantenido por
 un grupo de resistentes y valientes personas llamadas B<The Perl 5 Porters>.
-Puede suscribirse a la lista de correo en L<perl5-porters@perl.org> para seguir
+Puede suscribirse a la lista de correo en B<perl5-porters@perl.org> para seguir
 el trabajo de esta gente y sus debates. Al momento de escribir esta
 documentación,  muchas cosas estan pasando con Perl. Durante los últimos años,
 muchas personas han estado trabajando en la próxima versión de Perl: Perl 6.
@@ -180,7 +180,7 @@ Posee el código fuente de Perl, listo para instalar y los B<ports> para todos
 los sistemas no Unix, ejemplos, documentación, y extensiones del lenguaje. 
 
 CPAN es replicado en cientos de máquinas al rededor del mundo, comenzando en
-L<http://search.cpan.org> o L<http://kobesearch.cpan.org> para navegar o buscar
+B<http://search.cpan.org> o B<http://kobesearch.cpan.org> para navegar o buscar
 un paquete. Si no tienes acceso a la red, todo CPAN puede caber en 8 o 10 GB.
 Es importante mencionar que debido a los cambios diarios en CPAN, un mirror con
 dos años sin actualizares es definitivamente una antiguedad. 
@@ -225,7 +225,3 @@ B<Hola, Mundo>,  por ejempo en Perl seria así:
 Los ejercicios se encuentran al final de cada capítulo,  una vez que se
 desarrolle cada capítulo,  se tomaran 45 a 50 minutos para resolver los
 ejercicios correspondientes a cada capítulo. 
-
-=head1 Evaluación Inicial    
-
-Z<Evaluación Inicial> 
