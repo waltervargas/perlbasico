@@ -1,0 +1,414 @@
+<html>
+<body>
+<link rel='stylesheet' href='style.css' type='text/css'>
+
+<h1>Datos Escalares</h1>
+
+<h2>Números</h2>
+
+<p>Aunque los números y las cadenas con frecuencia se pueden tratar como escalares, es útil observarlos inicialmente por separado. Vamos a ver primero los números y luego pasamos a las cadenas.</p>
+
+<h3>Todos los números internamente tienen el mismo formato</h3>
+
+<p><a name="Todos los números internamente tienen el mismo formato"></p>
+
+<p>Como vera en los próximos párrafos, se puede especificar tanto números enteros (como 255 o 2001) y números de coma flotante (números reales con puntos decimales, como 3.1416 o 1.35 x 1025). Pero internamente, Perl calcula valores punto flotantes de doble precisión. Esto significa que no hay valores enteros internamente en Perl. Una constante entera en Perl es tratada como su valor equivalente en coma flotante. Probablemente no se dará cuenta de la conversión, deje de buscar las distintas operaciones con enteros (en oposición a las operaciones de punto flotante), porque simplemente no existen. <font class="footnote"> (footnote: Existe un pragma llamado Integer, que permite realizar operaciones con enteros en lugar de punto flotante, pero es otra cosa, y no es de lo que estamos hablando en este punto)</font></p>
+
+<h3>Literales de punto flotante</h3>
+
+<p><a name="Literales de punto flotante"></p>
+
+<p>Un literal es la forma en que un valor se representa en el código fuente en Perl. Un literal no es el resultado de una operación de calculo o de una operación de I/O. Es datos escritos directamente en el código fuente.</p>
+
+<p>Un literal de coma flotante, ya debe serle familiar. Números con y sin punto flotante también son permitidos (incluyendo el prefijo opcional mas y menos), y de remate el indicador de notación exponencial E.</p>
+
+<div class="programlisting">
+
+<pre><code>    1.25 
+    255.000 
+    255.0 
+    7.25e45 
+    &minus;6.5e24
+    &minus;12e-24 
+    &minus;1.2E-23</code></pre>
+
+</div>
+
+<h3>Literales Enteros</h3>
+
+<p><a name="Literales Enteros"></p>
+
+<p>Los literales enteros son muy sencillos de expresar, ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    0
+    2001
+    -40
+    42
+    469
+    61298040283768</code></pre>
+
+</div>
+
+<p>El último número es un poco difícil de leer, Perl permite underscores para mayor claridad con los literales enteros, de modo que puede escribir ese último número de la siguiente manera:</p>
+
+<div class="programlisting">
+
+<pre><code>    61_298_040_283_768</code></pre>
+
+</div>
+
+<p>Este es el mismo número, solo que se ve un poco diferente para nosotros, los humanos. Podría pensar que se deberían usar comas en lugar de esto, pero las comas ya tienen un propósito mas importante en Perl.</p>
+
+<h3>Literales enteros no decimales</h3>
+
+<p><a name="Literales enteros no decimales"></p>
+
+<p>Como en otros lenguajes de programación Perl permite especificar números que no son de base 10 (decimal). Literales de base 8 (Octal) deben comenzar con un 0, los literales de base 16 (Hexadecimal) deben comenzar con 0x y los literales binarios (base 2) deben comenzar con 0b.* Los dígitos hexadecimales de la A hasta la F, representan los valores de los dígitos convencionales del 10 al 15.</p>
+
+<div class="programlisting">
+
+<pre><code>    0377        # 377 octal, same as 255 decimal
+    0xff        # FF hex, also 255 decimal
+    0b11111111 # also 255 decimal</code></pre>
+
+</div>
+
+<p>Estos tres números, son la misma cosa para Perl, aunque para nosotros, los humanos tengan un aspecto diferente. No hay ninguna diferencia con respecto a Perl en escribir 255.000 o 0xFF. Así que elija la representación que tenga mas sentido para usted.</p>
+
+<h3>Operadores numéricos</h3>
+
+<p><a name="Operadores numéricos"></p>
+
+<p>Perl provee operadores típicos de suma, resta, multiplicación y división. Ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    2 + 3       # 2 plus 3, or 5
+    5.1 &minus; 2.4 # 5.1 minus 2.4, or 2.7
+    3 * 12      # 3 times 12 = 36
+    14 / 2      # 14 divided by 2, or 7</code></pre>
+
+</div>
+
+<p>Perl también soporta el operador de módulo (%). El valor de la expresión 10 % 3 es el resto de la división de 10 entre 3, que es 1. Adicionalmente Perl provee el valor por potenciación tipo FORTRAN (**) que todos anhelaron en C y Pascal. El operador esta representado por el doble asterisco (**), entonces podemos tener 2 ** 3 que es dos elevado a la tercera potencia. <font class="footnote"> (footnote: El resultado de una operación de módulo cuando uno o mas valores negativos están involucrados puede variar dependiendo de la implementación de Perl, tenga cuidado)</font></p>
+
+<h2>Strings o Cadenas de Caracteres</h2>
+
+<p><a name="Strings o Cadenas de Caracteres"></p>
+
+<p>Las cadenas son secuencias de caracteres (como hola). Las cadenas pueden contener cualquier combinación de los caracteres. La cadena mas corta posible no tiene caracteres. La cadena mas larga llena toda la memoria, aunque no podría hacer mucho con esto.</p>
+
+<p>Una cadena típica, son secuencias de letras, números y signos de puntación contenidos en el rango ASCII 32 al 126.</p>
+
+<p>Como los números, las cadenas tienen una representación literal, que es la forma en que se representa una cadena en un programa en Perl. Los literales de cadenas vienen en dos formatos diferentes. Cadenas encerradas en comillas simples y cadenas encerradas en comillas dobles.</p>
+
+<h3>Cadenas en comillas simples</h3>
+
+<p><a name="Cadenas en comillas simples"></p>
+
+<p>Las comillas simples, no son parte de la cadena, estan alli para que Perl identifique el principio y el final de la cadena. Cualquier caracter que no sea una comilla simple o una barra invertida entre las comillas va a estar representado a si mismo en la cadena. Ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    &#39;fred&#39;          # those four characters: f, r, e, and d
+    &#39;barney&#39;    # those six characters
+    &#39;&#39;          # the null string (no characters)
+    &#39;Esto\&#39;D evita que el apostrofe rompa la cadena&#39;
+    &#39;El &uacute;ltimo caracter de esta linea es un backslash \\&#39;
+    &#39;Hola \n&#39;   # Hola seguido por un backslash seguido por una n
+    &#39;Hola 
+    Mundo &#39;     # Hola, salto de linea, mundo (11 caracteres en total) 
+    &#39;\&#39;\\&#39;      # Comilla simple seguida por un backslash. 
+=end programlisting</code></pre>
+
+<p>Note que \n dentro de comillas simples no es interpretado como un salto de linea.</p>
+
+<h3>Cadenas en comillas dobles</h3>
+
+<p><a name="Cadenas en comillas dobles"></p>
+
+<p>De igual manera, es una cadena de caracteres, solo que en comillas dobles, y ahora la barra invertida tiene el poder especial de especificar caracteres de control, o cualquier caractere a traves de representaciones octales y hexadecimales. Estas son algunas de las cadenas entre comillas dobles:</p>
+
+<div class="programlisting">
+
+<pre><code>    &quot;larry&quot;         # es lo mismo que &#39;larry&#39;
+    &quot;hello world\n&quot; # hello world y un salto de linea
+    &quot;El ultimo caracter de esta linea es una comilla doble: \&quot;&quot;
+    &quot;Cafe \t coca&quot;  # Cafe,  tabulador,  coca.</code></pre>
+
+</div>
+
+<p>Puede ver una tabla de las secuencias de escape disponibles en Perl, en el manual <b>perlrebackslash</b></p>
+
+<div class="screen">
+
+<pre><code>    $ perldoc perlrebackslash</code></pre>
+
+</div>
+
+<p>Otra caracteristica interesante de las cadenas de caracteres en doble comillas es la interpolación.</p>
+
+<h3>Operadores de cadenas de caracteres</h3>
+
+<p><a name="Operadores de cadenas de caracteres"></p>
+
+<p>Los valores de cadenas se pueden concatenar con el operador <b>.</b>, esto no altera la cadena, simplemente la concatena, así que el resultado es una cadena mas, disponible para una operación o asignar a una variable. Ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    &quot;Hello&quot; . &quot;World&quot;           # HelloWorld
+    &quot;Hello&quot; . &#39; &#39; . &quot;World&quot;     # Hello World
+    &quot;Hello World&quot; .  &quot;\n&quot;       # Hello World\n</code></pre>
+
+</div>
+
+<p>Un operador especial de cadenas, es el operador de repetición, que consiste en la letra minuscula x. Este operador toma a su operando de la izquierda (una cadena) y hace tantas copias concatenadas de la misma como indica su operando de la izquierda (un número). Ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    &quot;perl&quot;x3        # es perlperlperl
+    &quot;perl&quot;x(3+5)    # es perlperlperlperlperlperlperlperl
+    5x4             # es 5555</code></pre>
+
+</div>
+
+<h3>Conversión automática entre números y cadenas</h3>
+
+<p><a name="Conversión automática entre números y cadenas"></p>
+
+<p>En su mayor parte, Perl convierte entre numeros y cadenas según sea necesario. ¿ Como saber que necesita ? todo depende del operador que este usando en el valor escalar. Si el operador espera un número (como el operador +), Perl va a ver el valor como un número. Si el operador espera una cadena (como . o x) entonces Perl va a ver el valor como una cadena. Así que no tiene que preocuparse por la diferencia entre los números y las cadenas, solo tiene que preocuparse por los operadores adecuados y perl hará todo el trabajo. Ejemplos:</p>
+
+<div class="programlisting">
+
+<pre><code>    &quot;12&quot; * 3        # es 36
+    &quot;Z&quot; . 5 * 7     # es Z35</code></pre>
+
+</div>
+
+<h2>Warnings o Advertencias</h2>
+
+<p><a name="Warnings o Advertencias"></p>
+
+<p>Perl puede avisarle cuando vea algo sospechoso en su programa. Para correr un programa con las advertencias activadas debe usar la opciín <b>-w</b> en la linea de comandos.</p>
+
+<div class="screen">
+
+<pre><code>    $ perl -w mi_programa.pl</code></pre>
+
+</div>
+
+<p>Si prefiere tener siempre activadas las advertencias, entonces puede indicarlo en la linea #!</p>
+
+<div class="programlisting">
+
+<pre><code>    #!/usr/bin/perl -w</code></pre>
+
+</div>
+
+<p>A partir de Perl 5.6 en adelante, puedes activar las advertencias a través del pargma <b>warnings</b></p>
+
+<div class="programlisting">
+
+<pre><code>    #!/usr/bin/perl
+    use warnings; </code></pre>
+
+</div>
+
+<p>Ahora, Perl va a advertirle cuando use '12perl42' como si se tratara de un número.</p>
+
+<div class="screen">
+
+<pre><code>    Argument &quot;12perl42&quot; isn&#39;t numeric</code></pre>
+
+</div>
+
+<p>Por su puesto, las advertencias son para los programadores, no para los usuarios finales. Si las advertencias no van a ser vistas por un programador, pues probablemente sean inútiles.</p>
+
+<p>Las advertencias no van a cambiar el funcionamiento de su programa, salvo que ahora Perl se queja de vez en cuando. Si recibe un mensaje que no entiende, se puede conseguir una mayor descripción con el pragma <b>diagnostics</b>. La página del manual <b>perldiag</b> contiene los tipos de advertencias.</p>
+
+<div class="programlisting">
+
+<pre><code>    #!/usr/bin/perl 
+    use diagnostics;</code></pre>
+
+</div>
+
+<h2>Variables Escalares</h2>
+
+<p><a name="Variables Escalares"></p>
+
+<p>Una variable es un nombre para un contenedor que posee uno o mas valores. El nombre de la variable va a ser el mismo durante la ejecución del programa, pero el contenido puede variar durante la ejecución del mismo.</p>
+
+<p>Una variable escalar, almacena un valor escalar simple. El nombre de una variable escalar comienza con el signo dolar ($)<font class="footnote"> (footnote: Esto es llamado sígil en lengua Perl)</font> seguido por algo que vamos a llamar identificador Perl: una letra o un guion bajo, y luego posiblemente, mas letras o dígitos o guiones bajos. Otra forma de verlo, es que esta formado por caracteres alfanuméricos y guiones, pero no puede comenzar con un dígito. Se distingue entre mayusculas y minusculas, la variable $perl es distinta de la variable $Perl y $PERL. Y todas las letras, signos y guiones bajos son significativos. Por lo que:</p>
+
+<div class="programlisting">
+
+<pre><code>    $una_variable_muy_muy_larga_que_termina_en_1</code></pre>
+
+</div>
+
+<p>Es diferente a</p>
+
+<div class="programlisting">
+
+<pre><code>    $una_variable_muy_muy_larga_que_termina_en_2 </code></pre>
+
+</div>
+
+<p>Las variables escalares pueden ser referenciadas usando un & luego del sígil $, con lo que quedaría $&.</p>
+
+<h3>Colocando nombres adecuados a las variables</h3>
+
+<p><a name="Colocando nombres adecuados a las variables"></p>
+
+<p>Los nombres cortos en las variables, son útiles cuando la vida de la variable es de apenas 3 o 4 lineas, pero cuando la variable va a tener vida durante todo el programa o la función, vale la pena colocar un nombre que describa fácilmente el contenido de la variable.</p>
+
+<p>Del mismo modo, el uso de guion abajo, puede ser útil para separa las palabras, esto hace un nombre de variable fácil de leer y entender, sobre todo si se trabaja con programadores cuya lengua materna es diferente a la suya.</p>
+
+<p>La mayoria de las variables en Perl van a estar escritas en minusculas, las variables en donde todas las letras son mayusculas, normalmente son variables especiales como $ARGV.</p>
+
+<p>Cuando el nombre de la variable tiene mas de una palabra, alguna gente prefiere usar guiones bajos (como $esta_es_una_variable) y otros prefieren usar $estaEsUnaVariable. Solo sea consistente.</p>
+
+<h3>Asignación de variables escalares</h3>
+
+<p><a name="Asignación de variables escalares"></p>
+
+<p>La operación mas commun en las variables escalares es la asignación, pues es la forma de darle valor a una variable. El operador de asignación en Perl es el signo igual (=), el nombre de la variable va a la izquierda y el valor de la variable a la derecha. Ejemplos:</p>
+
+<div class="programlisting">
+
+<pre><code>    $perl       = 17; 
+    $prueba     = &#39;hola&#39;;
+    $prueba     = $perl + 3;
+    $prueba     = $prueba * 2;
+    </code></pre>
+
+</div>
+
+<h3>Operadores de asignación binarios</h3>
+
+<p><a name="Operadores de asignación binarios"></p>
+
+<p>Expresiones como $perl = $perl + 5, aparecen frecuentemente en el código, como una manera rápida de alterar el valor de la variable. Hay una manera mas corta de hacer esto, usando el operador de asignación binario. Casi todos los operadores binarios que computan un valor, tienen un operador de asignación binario. Ejempo, las siguientes dos lineas son equivalentes:</p>
+
+<div class="programlisting">
+
+<pre><code>    $perl = $perl + 5;      #sin el operador de asignaci&oacute;n binario
+    $perl += 5;             #con el operador de asignaci&oacute;n binario</code></pre>
+
+</div>
+
+<p>Tambien es equivalente:</p>
+
+<div class="programlisting">
+
+<pre><code>    $perl = $perl * 5;
+    $perl *= 5;</code></pre>
+
+</div>
+
+<p>Para cada caso, los operadores alteran el valor correspondiente de la variable, colocando el valor resultante de la operación.</p>
+
+<p>Otro operador de asignación común biene dado por el operador de concatenación de cadenas (.) con lo que obtenemos el operador (.=)</p>
+
+<div class="programlisting">
+
+<pre><code>    $str = $str . &quot; &quot;;
+    $str .= &quot; &quot;;</code></pre>
+
+</div>
+
+<p>Casi todos los operadores binarios son válidos, por ejemplo puede usar el operador binario de potencia de la siguiente manera:</p>
+
+<div class="programlisting">
+
+<pre><code>    $numero **= 3;</code></pre>
+
+</div>
+
+<h2>Salida con Print</h2>
+
+<p><a name="Salida con Print"></p>
+
+<p>Es una buena idea que sus programas produzcan algún tipo de salidas por pantalla, de lo contrario, la gente pensara que el programa no esta haciendo nada.</p>
+
+<p>El operador Print() hace esto posible, este toma un argumento escalar y lo pone sin embellesimiento en la salida estandar. Ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    print &quot;hello world\n&quot;;      # imprime hello world y un salto de linea.
+    print &quot;Y la respuesta es: &quot;;
+    print 6.  * 7;
+    print &quot;\n&quot;; </code></pre>
+
+</div>
+
+<p>Tambien puedes imprimir una serie de valores serparados por comas:</p>
+
+<div class="programlisting">
+
+<pre><code>    print &quot;The answer is &quot;, 6 * 7, &quot;.\n&quot;;</code></pre>
+
+</div>
+
+<p>Esto en realidad es una lista, pero aun no hemos visto listas.</p>
+
+<h3>Interpolación de variables escalares en cadenas</h3>
+
+<p><a name="Interpolación de variables escalares en cadenas"></p>
+
+<p>Cuando un literal de cadena esta entre comillas dobles se puede usar interpolación. Esto significa que cada nombre de variable escalar en la cadena va a ser remplazado con su valor correspondiente. Por ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    $mpp = &quot;Ministerio del poder popular para&quot;; 
+    $ministerio = &quot;$mpp Energ&iacute;a El&eacute;ctrica&quot;;
+
+    $ministerio = $mpp . &#39; Energ&iacute;a El&eacute;ctrica&#39;; # Otra manera de hacelo</code></pre>
+
+</div>
+
+<p>Como pude ver en la ultima linea, puede hacer lo mismo sin usar las dobles comillas, pero usar las dobles comillas es la manera mas conveniente de hacerlo.</p>
+
+<p>No use la interpolación si tiene solo una variable. Por ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    print &quot;$perl&quot;;      # Comillas innecesarias. 
+    print $perl;        # Esto esta mejor.</code></pre>
+
+</div>
+
+<p>Para colocar un signo de dolar en una cadena entre dobles comillas, anteponga una barra invertida al signo de dolar, esto apaga el significado especial del sigil ($).</p>
+
+<div class="programlisting">
+
+<pre><code>    $fred = &#39;hello&#39;;
+    print &quot;The name is \$fred.\n&quot;;      #imprime el signo $
+
+    print &#39;The name is $fred&#39; . &quot;\n&quot;;   #Otra forma de hacerlo. </code></pre>
+
+</div>
+
+<p>Si usted quisiera usar una variable seguida por una constante de texto, puede tener problemas con la interpolación, en ese caso puede hacer lo siguiente: Envolver el nombre de la variable entre llaves.</p>
+
+<div class="programlisting">
+
+<pre><code>    $what = &quot;brontosaurus steak&quot;;
+    $n = 3;
+    print &quot;fred ate $n $whats.\n&quot;;                  #Esto no funciona
+    print &quot;fred ate $n ${what}s.\n&quot;                 #Esto si funciona 
+    print &quot;fred ate $n $what&quot; . &quot;s.\n&quot;              #Otra manera de hacerlo
+
+    #Otra manera especialmente dificil de hacerlo 
+    print &#39;fred ate &#39; . $n . &#39; &#39; . $what . &quot;s.\n&quot;; </code></pre>
+
+</div>
+
+</div>
+
+</body>
+</html>
+
