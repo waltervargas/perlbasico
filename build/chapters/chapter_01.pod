@@ -150,8 +150,8 @@ simples y cadenas encerradas en comillas dobles.
 
 Z<Cadenas en comillas simples> 
 
-Las comillas simples, no son parte de la cadena, estan alli para que Perl
-identifique el principio y el final de la cadena. Cualquier caracter que no sea
+Las comillas simples, no son parte de la cadena, están allí para que Perl
+identifique el principio y el final de la cadena. Cualquier carácter que no sea
 una comilla simple o una barra invertida entre las comillas va a estar
 representado a si mismo en la cadena. Ejemplo: 
 
@@ -177,7 +177,7 @@ Z<Cadenas en comillas dobles>
 
 De igual manera, es una cadena de caracteres, solo que en comillas dobles, y
 ahora la barra invertida tiene el poder especial de especificar caracteres de
-control, o cualquier caractere a traves de representaciones octales y
+control, o cualquier caracteres a través de representaciones octales y
 hexadecimales. Estas son algunas de las cadenas entre comillas dobles: 
 
 =begin programlisting
@@ -218,7 +218,7 @@ cadena mas, disponible para una operación o asignar a una variable. Ejemplo:
 =end programlisting
 
 Un operador especial de cadenas,  es el operador de repetición, que consiste en
-la letra minuscula x. Este operador toma a su operando de la izquierda (una
+la letra minúscula x. Este operador toma a su operando de la izquierda (una
 cadena) y hace tantas copias concatenadas de la misma como indica su operando
 de la izquierda (un número). Ejemplo: 
 
@@ -234,7 +234,7 @@ de la izquierda (un número). Ejemplo:
 
 Z<Conversión automática entre números y cadenas> 
 
-En su mayor parte,  Perl convierte entre numeros y cadenas según sea
+En su mayor parte,  Perl convierte entre números y cadenas según sea
 necesario. ¿ Como saber que necesita ? todo depende del operador que este
 usando en el valor escalar. Si el operador espera un número (como el operador
 +), Perl va a ver el valor como un número. Si el operador espera una cadena
@@ -256,7 +256,7 @@ Ejemplos:
 Z<Warnings o Advertencias> 
 
 Perl puede avisarle cuando vea algo sospechoso en su programa. Para correr un
-programa con las advertencias activadas debe usar la opciín B<-w> en la linea 
+programa con las advertencias activadas debe usar la opción B<-w> en la linea 
 de comandos.
 
 =begin screen
@@ -323,7 +323,7 @@ lengua Perl> seguido por algo que vamos a
 llamar identificador Perl: una letra o un guion bajo, y luego posiblemente, mas
 letras o dígitos o guiones bajos. Otra forma de verlo,  es que esta formado por
 caracteres alfanuméricos y guiones, pero no puede comenzar con un dígito. Se
-distingue entre mayusculas y minusculas, la variable $perl es distinta de la
+distingue entre mayúsculas y minúsculas, la variable $perl es distinta de la
 variable $Perl y $PERL. Y todas las letras, signos y guiones bajos son
 significativos. Por lo que: 
 
@@ -358,8 +358,8 @@ Del mismo modo,  el uso de guion abajo, puede ser útil para separa las
 palabras, esto hace un nombre de variable fácil de leer y entender, sobre todo
 si se trabaja con programadores cuya lengua materna es diferente a la suya. 
 
-La mayoria de las variables en Perl van a estar escritas en minusculas, las
-variables en donde todas las letras son mayusculas, normalmente son variables
+La mayoria de las variables en Perl van a estar escritas en minúsculas, las
+variables en donde todas las letras son mayúsculas, normalmente son variables
 especiales como $ARGV. 
 
 Cuando el nombre de la variable tiene mas de una palabra, alguna gente
@@ -370,7 +370,7 @@ $estaEsUnaVariable. Solo sea consistente.
 
 Z<Asignación de variables escalares> 
 
-La operación mas commun en las variables escalares es la asignación, pues es la
+La operación mas common en las variables escalares es la asignación, pues es la
 forma de darle valor a una variable. El operador de asignación en Perl es el
 signo igual (=), el nombre de la variable va a la izquierda y el valor de la
 variable a la derecha. Ejemplos: 
@@ -453,7 +453,7 @@ sin embellesimiento en la salida estandar. Ejemplo:
 
 =end programlisting
 
-Tambien puedes imprimir una serie de valores serparados por comas: 
+Tambien puedes imprimir una serie de valores separados por comas: 
 
 =begin programlisting
 
@@ -522,4 +522,395 @@ Envolver el nombre de la variable entre llaves.
     print 'fred ate ' . $n . ' ' . $what . "s.\n"; 
 
 =end programlisting
+
+=head2 Precedencia de los operadores y asociatividad    
+
+Z<Precedencia de los operadores y asociatividad> 
+
+La prioridad en un operador determina que operaciones en un grupo complejo de
+operaciones ocurre primero. Por ejemplo en la expresión 2+3*4 ¿ que ocurre
+primero, la suma o la multiplicación ?. Si ocurre primero la suma tendremos
+5*4 o 20. Pero si ocurre primero la multiplicación (como lo aprendimos en
+clases de matemáticas ) entonces tendremos 2 + 12 o 14. Afortunadamente, Perl
+escoge la definición matemática, realizando la multiplicación primero. Debido a
+esto decimos: B<La multiplicación tiene una C<Mayor prioridad> que la suma>. 
+
+Usted puede alterar el orden de prioridades usando los paréntesis. Cualquier
+cosa entre paréntesis es computado antes que los operadores fuera del
+paréntesis (justo como también lo aprendimos en clases de matemáticas).
+Entonces si usted quiere realizar una suma antes de una multiplicación tendría
+que hacer lo siguiente: 
+
+=begin programlisting
+
+    (2+3) * 4;
+
+=end programlisting
+
+Mientras la precedencia es simple para la adición y la multiplicación, puedes
+tener problemas cuando tengas una concatenación comparada con una potencia. La
+manera correcta de resolverlo es consultar la tabla oficial de operadores que
+se encuentra en el manual B<perlop>.
+
+=begin screen
+
+    $ perldoc perlop
+
+=end screen
+
+Normalmente las expresiones en Perl se evalúan de izquierda a derecha, aunque 
+hay algunas excepciones que es necesario tener en cuenta. No se evalúan de 
+izquierda a derecha los operadores de asignación y el operador de selección. 
+Cuando una expresión tiene diversas posibilidades se aplica el orden de 
+precedencia para establecer el calículo a realizar.
+
+=head2 Operadores de Comparación    
+
+Z<Operadores de Comparación> 
+
+Para comparar números, Perl utiliza los operadores de comparación lógica que 
+aprendimos en algebra: < <= == >= > !=. Cada uno de ellos retorna verdadero o
+falso. Debe usar >= en lugar de =>,  ya que este ultimo es usado para otro
+propósito en Perl. 
+
+Para comparar cadenas de caracteres, Perl posee un grupo de operadores
+equivalentes de comparación de cadenas: B<lt le eq ge gt ne>. Estos operadores
+comparan dos cadenas de caracteres carácter por carácter para ver si son la
+misma cosa o quien viene primero en el orden estándar de cadenas (En ASCII las
+mayúsculas van primero que las minúsculas.)
+
+
+=head3 Operadores de comparación numérica    
+
+Z<Operadores de comparación numérica> 
+
+=over 
+
+=item ==  equality
+
+=item !=  inequality
+
+=item <   less than
+
+=item >   greater than
+
+=item <=  less than or equal
+
+=item >=  greater than or equal
+
+=back
+
+
+=head3 Operadores de comparación de cadenas    
+
+Z<Operadores de comparación de cadenas> 
+
+=over
+
+=item eq  equality
+
+=item ne  inequality
+
+=item lt  less than
+
+=item gt  greater than
+
+=item le  less than or equal
+
+=item ge  greater than or equal
+
+=back
+
+Aquí tenemos un ejemplo usando operadores de comparación: 
+
+=begin programlisting
+
+   35   !=  30 + 5      # false 
+   35   ==  35.0        # true
+   '35' eq '35.0        # false (comparación de cadenas)
+   'fred' lt 'barney'   # false
+   'fred' lt 'free'     # true
+
+=end programlisting
+
+
+=head1 La estructura de control IF    
+
+Z<La estructura de control IF> 
+
+Una ves que comparas dos valores,  probablemente quieras tomar una
+decisión basada en esa comparación. Como otros lenguajes similares,  Perl tiene
+una estructura de control: 
+
+=begin programlisting
+
+    if ($nombre gt 'linus'){
+        print "'$nombre' viene despues de 'linus' en orden de cadenas\n";
+    }
+
+=end programlisting
+
+Si requiere una opción alternativa, la palabra reservada B<else> puede servirle
+para esto:
+
+=begin programlisting
+
+    if ($nombre gt 'linus')
+        print "'$nombre' viene despues de 'linus' en orden de cadenas\n";
+    } else {
+        print "'$nombre' no viene despues de 'linus'\n";
+        print "Es posible que sean la misma cadena\n";
+    }
+
+=end programlisting
+
+=head3 La verdad y la mentira en Perl    
+
+Z<La verdad y la mentira en Perl> 
+
+El número 0, las cadenas B<'0'> y B<''>, la lista vacía B<()>, y el valor
+B<undef> son todos falsos en el contexto booleano. Cualquier otro valor es
+verdadero. La negación de un valor verdadero por los operadores B<!> o B<not>
+retornan un valor falso especial. Cuando se evalúa como una cadena, este valor
+es tratado como B<''>, pero en el contexto numérico, es tratado como 0.  
+
+Puedes almacenar valores verdaderos y falsos de dos maneras, utilizando
+escalares, correspondientes a los dos contextos escalares. El contexto numérico
+y el contexto de cadena. Hay una cosa que debemos recordar: en el contexto
+numérico - 0 es falso y cualquier otro valor es verdadero; y en el contexto de
+cadenas, la cadena vacía '' es falsa y cualquier otro valor (incluyendo valores negativos) es verdadero.
+
+El hecho de que cualquier valor distinto de cero es verdadero es especialmente
+útil en construcciones tales como bucles. Por ejemplo, este valor mantiene este
+bucle while pasando por <> y siempre retorna algo, incluso si el usuario 
+introduce una línea vacía (en este caso, <> retorna un carácter de nueva linea):
+
+=begin programlisting
+
+    while (<>) {
+        print;
+    }
+
+=end programlisting
+
+Los programadores a menudo se basan en el hecho de que cualquier cadena
+diferente de B<cero (0)> o de B<vació ('')> es verdadera. Se puede encontrar
+esto muy frecuentemente en el código, por ejemplo, verifico el valor a dividir
+para así evitar la división por cero. 
+
+=begin programlisting
+
+    if ($bt){
+        $result - $top / $buttom; 
+    } else {
+        $result = 0;
+    }
+
+=end programlisting
+
+Un punto para tomar en cuenta, sin embargo, es no probar contra valores falsos
+cuando se esta evaluando el valor B<undef>. Algunas funciones retornan B<undef>
+cuando no hay mas datos que leer, para evaluar esto, podemos usar la función
+B<defined>. Por ejemplo: 
+
+Sin hacer uso de la función defined: 
+
+=begin programlisting
+
+    print "Se obtuvo un valor" if ($value = returnvalue($index)); 
+
+=end programlisting
+
+Usando la función defined: 
+
+=begin programlisting
+    
+    print "Se obtuvo un valor" if defined($value = returnvalue($index)); 
+
+=end programlisting
+
+
+=head1 Leer valores de la entrada estándar    
+
+Z<Leer valores de la entrada estándar> 
+
+En este punto, se debe estar preguntando como obtener valores del teclado en un
+programa en Perl. Aquí vamos a ver una forma simple de hacer esto: usando el
+operador line-input B<< STDIN >>
+
+Cada vez que usa STDIN en un lugar en el que un valor escalar es esperado, Perl
+lee la siguiente linea completa de la entrada estándar, hasta la próxima nueva
+linea. Ejemplo:
+
+=begin programlisting
+
+    $line = <STDIN>;
+    if ($line eq "\n"){
+        print "Esto es una linea en blanco !";
+    } else {
+        print "La linea de entrada fue: $line"; 
+    }
+
+=end programlisting
+
+
+=head2 El operador chomp    
+
+Z<El operador chomp> 
+
+El operador chomp sirve para quitar el retorno de carro que viene con la linea
+de texto leída desde la entrada estándar. Ejemplo 
+
+=begin programlisting
+
+    $text = "una linea de texto \n"; # suponiendo que viene de <STDIN>
+    chomp($text); # Quita el caracter de nueva linea.
+
+    chomp($text = <STDIN>);     # Otra forma de hacerlo.
+
+=end programlisting
+
+
+=head1 La estructura de control while    
+
+Z<La estructura de control while> 
+
+Al igual que otros lenguajes, Perl posee un número de estructuras de bucle. El
+bucle while repite un bloque de codigo mientras la condición sea verdadera: 
+
+=begin programlisting
+
+    $count = 0; 
+    while ($count < 10){
+        $count += 2;
+        print "count is now $count\n"; # obtiene los valores 2 4 6 8 10
+    }
+
+=end programlisting
+
+=head1 El valor undef    
+
+
+Z<El valor undef> 
+
+El valor definido B<undef> se puede utilizar para identificar determinadas 
+condiciones de error y la existencia o no de información de matrices o
+variables hash. El valor undef se utiliza normalmente como valor de retorno de
+una función que, de otra manera, proporcionaría un valor de 0, que podría ser
+autentico.  Por ejemplo, el valor de un puntero de archivos en un descriptor de
+archivos 
+podría ser cero, por lo tanto que la función B<tell> genera el valor B<undef> 
+si el valor no se puede determinar. 
+
+¿ Que pasaría si usted usa una variable escalar antes de darle un valor ?, pues
+nada serio, y definitivamente nada fatal. Las variables tienen el valor
+especial B<undef> antes de la primera asignación. 
+
+Como B<undef> automáticamente actúa como el cero (0) cuando se usa en el
+contexto numérico, es fácil hacer un acumulador numérico que inicie vacío, por
+ejemplo: 
+
+ =begin programlisting
+ 
+    $n = 1;
+    while ($n < 10){
+        $sum += $n;
+        $n += 2; 
+    }
+    print "El total fue: $sum \n"
+ 
+ =end programlisting
+ 
+Supongamos que usted ha decidido usar la función sysread para leer el texto de
+unos archivos y pasarlo a la aplicación que esta escribiendo en Perl. Se sabe
+que sysread retorna un escalar indicando cuantos bytes se están leyendo. Pero
+¿que pasa al final de archivo?, ¿que clase de valor retornará sysread?, ¿porque
+la función retorna un escalar, debe ser un número o un string, cierto?
+
+Pues no, aparte de números y strings, las variables escalares pueden incluso
+mantener el valor indefinido de Perl, llamado como ya dijimos anteriormente
+B<undef>. Este valor es retornado por algunas funciones, y puedes comprobarlo
+usando una función llamada B<defined>. Si examinas el valor B<undef>
+directamente, este es interpretado como un cero (0) en un contexto numérico y
+como un string vació B<""> en el contexto de cadenas de caracteres. También
+puedes asignar a las variables el valor undef usando la función B<undef>. Este
+ejemplo da a la variable B<$variable1> el valor 5: 
+
+=begin programlisting
+
+    $variable = 5;
+
+=end programlisting
+
+Y usando la función B<undef> sobre la variable, se puede convertir en variable
+no definida. 
+
+=begin programlisting
+
+    $variable1 = 5;
+    undef $variable1;
+
+=end programlisting
+
+Ahora, puedes probar si $variable1 esta definida usando la función B<defined>: 
+
+=begin programlisting
+
+    $variable1 = 5;
+    undef $variable1;
+    
+    if (defined $variable1){
+        print "\$variable1 esta definida. \n";
+    } else {
+        print "\$variable1 no esta definida \n";
+    }
+
+=end programlisting
+
+En este caso, este código muestra el siguiente mensaje: 
+
+=begin screen
+
+    $variable1 no esta definida
+
+=end screen
+
+Varios operadores retornan undef cuando los argumentos están fuera del rango
+esperado o no tienen sentido. 
+
+Cuando se tienen activadas las advertencias en Perl, generalmente Perl advierte
+sobre el uso no adecuado del valor undef, por ejemplo, si intenta copiar el
+valor undef de una variable a otra, esto no va a causar ningún problema, pero
+si intenta imprimir un valor undef, generalmente va a causar una advertencia. 
+
+Resumiendo, las variables no definidas que poseen el valor B<undef>, en
+contexto escalar es interpretado como cero (0) y en contexto de cadena de
+caracteres es interpretado como vacío B<"">.
+
+
+=head1 Ejercicios    
+
+Z<Ejercicios> 
+
+=over
+
+=item 1. Escriba un programa que compute la circunferencia de un circulo con
+radio de 12.5 la circunferencia es dos veces PI, (aproximadamente 2 veces
+3.141592654)
+
+=item 2. Modifique el programa anterior para que acepte el valor del radio
+desde la entrada estándar. Si el usuario introduce 12.5 debe obtener el mismo
+valor que el primer ejercicio. 
+
+=item 3. Modifique el programa del ejercicio anterior,  de modo que si el
+usuario introduce un numero menor que cero, la circunferencia reportada sea
+cero en lugar de negativo. 
+
+=item 4. Escriba un programa que pida dos números (en lineas separadas en el
+input) e imprima el producto de los dos números multiplicados. 
+
+=item 5. Escriba un programa que pida una cadena y un número (en lineas
+separadas en el input) e imprima en la salida la cadena repetida el numero de
+veces que indica el numero que introdujo el usuario. (Consejo: use el operador
+x)
 
