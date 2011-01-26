@@ -887,12 +887,11 @@ Resumiendo, las variables no definidas que poseen el valor B<undef>, en
 contexto escalar es interpretado como cero (0) y en contexto de cadena de
 caracteres es interpretado como vacío B<"">.
 
-
 =head1 Ejercicios    
 
-Z<Ejercicios> 
+Z<ejercicios_01> 
 
-=over
+=over 
 
 =item 1. Escriba un programa que compute la circunferencia de un circulo con
 radio de 12.5 la circunferencia es dos veces PI, (aproximadamente 2 veces
@@ -913,4 +912,6 @@ input) e imprima el producto de los dos números multiplicados.
 separadas en el input) e imprima en la salida la cadena repetida el numero de
 veces que indica el numero que introdujo el usuario. (Consejo: use el operador
 x)
+
+=back
 
