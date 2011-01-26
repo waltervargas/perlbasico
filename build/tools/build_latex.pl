@@ -1,15 +1,27 @@
-#!/usr/bin/perl
+#!perl
 
 use strict;
 use warnings;
 
+use File::Basename;
+use File::Spec::Functions;
 use Pod::PseudoPod::LaTeX;
 
-my $parser = Pod::PseudoPod::LaTeX->new();
-my $fh;
+die "$0 <files to pdfify>\n" unless @ARGV;
 
-#$parser->output_fh($fh);
+for my $file (@ARGV)
+{
+    die "Cannot read '$file': $!\n" unless -e $file;
+    my $outfile   = catfile(
+        'build/tex',
+        (fileparse( $file, qr/\.pod$/ ))[0] . '.tex'
+    );
+    open( my $fh, '>', $outfile ) or die "Can't write to '$outfile': $!\n";
 
-$parser->parse_file("chapter_00.pod");
+    my $parser    = Pod::PseudoPod::LaTeX->new();
+    $parser->output_fh( $fh );
 
-1;
+    warn "$file -> $outfile\n";
+
+    $parser->parse_file( $file );
+}
