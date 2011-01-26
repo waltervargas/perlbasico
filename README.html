@@ -1,0 +1,96 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Curso de Perl Nivel Básico</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:_postfix@neige.apple.com" />
+</head>
+
+<body style="background-color: white">
+
+
+<!-- INDEX BEGIN -->
+<div name="index">
+<p><a name="__index__"></a></p>
+
+<ul>
+
+	<li><a href="#curso_de_perl_nivel_b�_sico">Curso de Perl Nivel Básico</a></li>
+	<ul>
+
+		<li><a href="#instrucciones_para_ver_el_curso">Instrucciones para ver el curso</a></li>
+		<li><a href="#instrucciones_para_escribir_cap�_tulos">Instrucciones para escribir capítulos</a></li>
+		<li><a href="#instrucciones_para_escribir_ejercicios">Instrucciones para escribir ejercicios</a></li>
+	</ul>
+
+</ul>
+
+<hr name="index" />
+</div>
+<!-- INDEX END -->
+
+<p>
+</p>
+<hr />
+<h1><a name="curso_de_perl_nivel_b�_sico">Curso de Perl Nivel Básico</a></h1>
+<p>Este curso, se esta escribiendo usando Pod::PseudoPod, para poder verlo va a
+necesitar instalar los siguientes módulos vía CPAN:</p>
+<dl>
+<dt><strong><a name="file_path" class="item">File::Path</a></strong>
+
+<dt><strong><a name="file_spec_functions" class="item">File::Spec::Functions</a></strong>
+
+<dt><strong><a name="pod_pseudopod" class="item">Pod::PseudoPod</a></strong>
+
+<dt><strong><a name="pod_pseudopod_html" class="item">Pod::PseudoPod::HTML</a></strong>
+
+<dt><strong><a name="app_pod2pdf" class="item">App::pod2pdf</a></strong>
+
+</dl>
+<p>Una vez instalado los módulos, solo siga las instrucciones de la siguiente
+sección para poder generar los capítulos en el formato que prefiera, HTML o 
+PDF.</p>
+<p>
+</p>
+<h2><a name="instrucciones_para_ver_el_curso">Instrucciones para ver el curso</a></h2>
+<p>El primer paso es generar los capítulos, esto se debe hacer desde la carpeta
+raíz del curso:</p>
+<pre>
+    $ perl build/tools/build_chapters.pl</pre>
+<p>El segundo paso, es transformar los archivos POD al formato que prefiera. Si
+prefiere HTML entonces debe hacer lo siguiente</p>
+<pre>
+    $ perl build/tools/build_html.pl</pre>
+<p>
+</p>
+<h2><a name="instrucciones_para_escribir_cap�_tulos">Instrucciones para escribir capítulos</a></h2>
+<p>Los capítulos se encuentran en la carpeta <strong>sections/</strong>, y siguen la
+nomenclatura chapter_XX.pod, donde XX es el número del capítulo, comenzando por
+00, 01 y así sucesivamente.</p>
+<p>Los capítulos se escriben usando el módulo Pod::PseudoPod, que es una extensión
+de POD para crear libros. En este sentido recomendamos la lectura de los
+siguientes dos manuales.</p>
+<pre>
+    $ perldoc perlpod</pre>
+<pre>
+    $ perldoc Pod::PseudoPod::Tutorial</pre>
+<p>Tambien puede fijarse en la sintaxis utilizada en los capítulos ya existentes.</p>
+<p>Adicionalmente, se recomienda evitar el uso de tabulador dentro de los ficheros
+POD, configure su editor de texto para que reemplace los TABs por 4 espacios en
+blanco.</p>
+<p>
+</p>
+<h2><a name="instrucciones_para_escribir_ejercicios">Instrucciones para escribir ejercicios</a></h2>
+<p>Los ejercicios de cada capítulo se encuentran en un archivo llamado
+ejercicios00.pod en donde 00 corresponde al número del capítulo dentro de la
+carpeta <strong>sections/</strong>.</p>
+<p>Las recomendaciones en la sección anterior aplican para el desarrollo de los
+ejercicios también.</p>
+<p>Cada archivo de ejercicios00.pod deberia tener un archivo correspondiente a los
+ejercicios resueltos llamado respuestas00.pod, de igual manera 00 
+corresponde al número del capítulo.</p>
+
+</body>
+
+</html>

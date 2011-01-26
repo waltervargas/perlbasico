@@ -1,5 +1,3 @@
-=encoding utf8
-
 =head1 Curso de Perl Nivel Básico
 
 Este curso, se esta escribiendo usando Pod::PseudoPod, para poder verlo va a

@@ -1,0 +1,94 @@
+\documentclass[spanish]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{babel}
+\author{Cooperativa Venezolana de Tecnologías Libres R.S.}
+\title{Curso Perl Nivel Básico}
+\begin{document}
+\maketitle 
+
+\section{Curso de Perl Nivel Básico\label{Curso_de_Perl_Nivel_B_sico}\index{Curso de Perl Nivel Básico}}
+
+
+Este curso, se esta escribiendo usando Pod::PseudoPod, para poder verlo va a
+necesitar instalar los siguientes módulos vía CPAN:
+
+\begin{description}
+
+\item[{File::Path}] \mbox{}
+\item[{File::Spec::Functions}] \mbox{}
+\item[{Pod::PseudoPod}] \mbox{}
+\item[{Pod::PseudoPod::HTML}] \mbox{}
+\item[{App::pod2pdf}] \mbox{}\end{description}
+
+
+Una vez instalado los módulos, solo siga las instrucciones de la siguiente
+sección para poder generar los capítulos en el formato que prefiera, HTML o 
+PDF.
+
+\subsection*{Instrucciones para ver el curso\label{Instrucciones_para_ver_el_curso}\index{Instrucciones para ver el curso}}
+
+
+El primer paso es generar los capítulos, esto se debe hacer desde la carpeta
+raíz del curso:
+
+\begin{verbatim}
+    $ perl build/tools/build_chapters.pl
+\end{verbatim}
+
+
+El segundo paso, es transformar los archivos POD al formato que prefiera. Si
+prefiere HTML entonces debe hacer lo siguiente
+
+\begin{verbatim}
+    $ perl build/tools/build_html.pl
+\end{verbatim}
+\subsection*{Instrucciones para escribir capítulos\label{Instrucciones_para_escribir_cap_tulos}\index{Instrucciones para escribir capítulos}}
+
+
+Los capítulos se encuentran en la carpeta \textbf{sections/}, y siguen la
+nomenclatura chapter\_XX.pod, donde XX es el número del capítulo, comenzando por
+00, 01 y así sucesivamente.
+
+
+
+Los capítulos se escriben usando el módulo Pod::PseudoPod, que es una extensión
+de POD para crear libros. En este sentido recomendamos la lectura de los
+siguientes dos manuales.
+
+\begin{verbatim}
+    $ perldoc perlpod
+\end{verbatim}
+\begin{verbatim}
+    $ perldoc Pod::PseudoPod::Tutorial
+\end{verbatim}
+
+
+Tambien puede fijarse en la sintaxis utilizada en los capítulos ya existentes.
+
+
+
+Adicionalmente, se recomienda evitar el uso de tabulador dentro de los ficheros
+POD, configure su editor de texto para que reemplace los TABs por 4 espacios en
+blanco.
+
+\subsection*{Instrucciones para escribir ejercicios\label{Instrucciones_para_escribir_ejercicios}\index{Instrucciones para escribir ejercicios}}
+
+
+Los ejercicios de cada capítulo se encuentran en un archivo llamado
+ejercicios00.pod en donde 00 corresponde al número del capítulo dentro de la
+carpeta \textbf{sections/}.
+
+
+
+Las recomendaciones en la sección anterior aplican para el desarrollo de los
+ejercicios también.
+
+
+
+Cada archivo de ejercicios00.pod deberia tener un archivo correspondiente a los
+ejercicios resueltos llamado respuestas00.pod, de igual manera 00 
+corresponde al número del capítulo.
+
+
+\end{document}
