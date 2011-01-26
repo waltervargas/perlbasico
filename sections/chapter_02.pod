@@ -1,0 +1,144 @@
+=encoding utf8
+
+=head0 Listas y Arreglos
+
+Ya hablamos en el capítulo anterior de la singularidad de Perl, en este
+capítulo vamos a hablar sobre la pluralidad. La pluralidad en Perl esta
+representada por las listas y los arreglos. 
+
+Una lista es una colección ordenada de escalares. Un array es una variable que
+contiene una lista. En Perl, estos dos términos se utilizan a menudo como si
+fueran intercambiables. Pero, para ser precisos, una lista es datos, y un array
+es una variable. En este sentido, puedes tener una lista de valores que no
+estén contenidos en un array, pero cada variable de tipo array contiene una
+lista (incluso si la lista esta vacía). Por ejemplo: 
+
+=begin programlisting
+
+    36
+    12.4
+    42
+    "hola"
+    1.72e30
+    "bye\n"
+
+=end programlisting
+
+Cada elemento en un array o una lista, es una variable escalar independiente
+con un valor independiente. Estos valores están ordenados, es decir, tienen un
+secuencia particular desde el primer hasta el último elemento. Los elementos de
+un array o una lista están C<indexados> por pequeños enteros comenzando por el
+cero N<En Perl, es posible cambiar el número de inicio de un array o una lista
+indexada. Larry luego considero esto como una mala característica y su (ab)uso
+esta fuertemente desaconsejado> (0) y contando de uno en uno, entonces el 
+primer elemento de cualquier array o lista es siempre el elemento cero (0). 
+
+Puesto que cada elemento es un valor escalar independiente, una lista o una
+matriz puede contener números, cadenas, valores undef, o cualquier
+mezcla de diferentes valores escalares. Sin embargo, es más común tener todos
+los elementos del mismo tipo, tales como una lista de títulos de libros (todas
+son cadenas) o una lista de cosenos (todos son números).
+
+Las matrices o listas pueden tener cualquier número de elementos. La lista mas
+pequeña es aquella que no tiene elementos, mientras que la mas grande puede
+llenar toda la memoria disponible. Una vez mas esto es parte de la filosofía de
+Perl "No hay limites innecesarios".
+
+=head1 Accediendo los Elementos de un Array    
+
+Z<Accediendo los Elementos de un Array> 
+
+Si ha usado arrays en otro lenguaje, no se debe sorprender al encontrar que
+perl provee un mecanismo de subindice del array para referirse a un elemento
+por un indice numérico. 
+
+Los elementos de un array son enumerados usando una secuencia de enteros,
+comenzando en cero (0) e incrementando de uno en uno para cada elemento. Por
+ejemplo:
+
+=begin programlisting
+
+    $prueba[0] = "yabba";
+    $prueba[1] = "dabba";
+    $prueba[2] = "doo";
+
+=end programlisting
+
+El nombre del array en este caso "prueba", es de un espacio de nombres 
+totalmente separado de los escalares, puedes tener una variable escalar 
+llamada $prueba en el mismo programa, y perl va a tratarlas como cosas
+diferentes y no va a confundirse. 
+
+Puede usar un elemento de un array como por ejemplo $prueba[0] en cualquier
+lugar como si se tratara de un escalar como $prueba. Por ejemplo, puede obtener
+el valor de un elemento del array o cambiar su valor con algunas expresiones
+cortas y prácticas que vimos en el capítulo anterior: 
+
+=begin programlisting
+
+    print $prueba[0];
+    $prueba[2] = "diddley";
+    $prueba[1] .= "whatsis"; 
+
+=end programlisting
+
+Por su puesto, el subindice puede ser cualquier expresión que devuelva un valor
+numérico. Si no es un entero, automáticamente va a ser truncado al próximo
+entero menor. Por ejemplo: 
+
+=begin programlisting
+
+    $number = 2.71828;
+    print $prueba[$number - 1]; # Es lo mismo que imprimir $prueba[1]
+
+=end programlisting
+
+Si se indica un elemento en el subindice que este mas allá del final del
+array, el valor correspondiente va a ser C<undef>. Al igual que con las
+variables escalares, si nunca ha guardado un valor en una variable escalar,
+pues entonces el valor de esta variable va a ser C<undef>. Por ejemplo: 
+
+=begin programlisting
+
+    $blank = $prueba[ 142_857 ]; # obtengo undef
+    $blanc = $mel;               # escalar no usado $mel obtengo undef
+
+=end programlisting
+
+=head1 Indices Especiales para un Array    
+
+Z<Indices Especiales para un Array> 
+
+Si guardas en un elemento del array que esta mas allá del final del array,
+este automáticamente se extiende hasta donde sea necesario, aquí no hay límite
+de longitud, el límite básicamente es la memoria que Perl tenga disponible para
+usar. Si Perl necesita crear elementos intermedios, estos son creados con
+valores undef. Por ejemplo: 
+
+=begin programlisting
+
+    $rocks[0] = 'bedrock';
+    $rocks[1] = 'slate';
+    $rocks[2] = 'lava';
+    $rocks[3] = 'crushed rock';
+    $rocks[99] = 'schist';      # ahora hay 95 elementos undef
+
+=end programlisting
+
+Algunas veces necesitamos encontrar el ultimo elemento indexado en el array.
+Para el array C<rocks> que hemos definido en el ejemplo anterior, el ultimo
+indice del array es C<$#rocks>. Este valor no es igual a la cantidad de
+elementos contenidos en el array, esto es porque hay un indice 0. 
+
+=begin programlisting
+
+    $end = $#rocks;                     # 99
+    $numero_de_elementos = $end + 1;    
+    $rocks[$#rocks] = 'hard rock';      # El último elemento.
+
+=end programlisting
+
+
+
+
+
