@@ -437,6 +437,56 @@ del array). Aquí hay algunos ejemplos:
 
 =end programlisting
 
+=head1 Interpolando Arrays en Cadenas    
+
+Z<Interpolando Arrays en Cadenas> 
+
+Así como los escalares, los valores array pueden ser interpolados en una cadena
+de dobles comillas. Los elementos de un array son automáticamente separados por
+espacios (Espacio en blanco es el separador por defecto contenido como valor en
+la variable especial C<$">).
+
+=begin programlisting
+
+    @rocks = qw{ flintstone slate rubble };
+    print "quartz @rocks limestone\n"; # imprime 5 rocas separadas por blanco
+
+=end programlisting
+
+No se agregan espacios en blanco antes o después de la interpolación, si usted
+quiere esto, tendrá que hacerlo a mano. 
+
+=begin programlisting
+
+    print "Three rocks are: @rocks.\n";
+    print "There's nothing in the parens (@empty) here.\n";
+
+
+=end programlisting
+
+Si de casualidad olvida que los array se interpolan entre dobles comillas, se
+va a llevar una sorpresa cuando intente colocar un correo electrónico en una
+cadena.
+
+=begin programlisting
+
+    $email = "walter@covetel.com.ve;    # MAL! Intentara interpolar @covetel
+
+=end programlisting
+
+Para poder hacer esto, deberá usar comillas simples o escapar el caracter @. 
+
+
+=begin programlisting
+
+    $email = "walter\@covetel.com.ve";  # Correcto
+    $email = 'walter@covetel.com.ve'    # otra forma de hacerlo.
+
+=end programlisting
+
+
+
+
 
 
 
