@@ -797,7 +797,30 @@ Cuando la entrada estandar es un archivo, esto va a leer el archivo completo
 hasta el final. Pero cuando se lee de la entrada estándar en Unix, debe usar
 Ctrol + D. 
 
-L<ejercicios02>
+=encoding utf8
+
+=head1 Ejercicios
+
+Z<ejercicios02>
+
+=over
+
+=item 1. Escriba un programa que lea una lista de caracteres separados por
+lineas e imprima esta lista en modo inverso, si la entrada proviene del
+teclado, se necesita una señal para la finalización de la entrada, en Unix es CTRL-D.
+
+=item 2. Escriba un programa que lea una lista de números separados por lineas
+y por cada número imprima el nombre correspondiente a la lista mostrada a
+continuación. fred betty barney dino wilma pebbles bamm-bamm. Por ejemplo, 
+si la entrada es 1, 2, 4, la salida debe mostrar lo siguiente, fred, betty,
+dino.
+
+=item 3. Escriba un programa que lea una lista de caracteres separados por
+lineas e imprima esta lista en orden ASCIIbetico, por ejemplo si la entrada fue
+fred, barney, wilma, betty, la salida debe ser, barney, betty, fred, wilma
+
+=back
+
 
 
 

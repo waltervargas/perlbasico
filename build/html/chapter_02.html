@@ -1,0 +1,632 @@
+<html>
+<body>
+<link rel='stylesheet' href='style.css' type='text/css'>
+
+<h1>Listas y Arreglos</h1>
+
+<p>Ya hablamos en el capítulo anterior de la singularidad de Perl, en este capítulo vamos a hablar sobre la pluralidad. La pluralidad en Perl esta representada por las listas y los arreglos.</p>
+
+<p>Una lista es una colección ordenada de escalares. Un array es una variable que contiene una lista. En Perl, estos dos términos se utilizan a menudo como si fueran intercambiables. Pero, para ser precisos, una lista es datos, y un array es una variable. En este sentido, puedes tener una lista de valores que no estén contenidos en un array, pero cada variable de tipo array contiene una lista (incluso si la lista esta vacía). Por ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    36
+    12.4
+    42
+    &quot;hola&quot;
+    1.72e30
+    &quot;bye\n&quot;</code></pre>
+
+</div>
+
+<p>Cada elemento en un array o una lista, es una variable escalar independiente con un valor independiente. Estos valores están ordenados, es decir, tienen un secuencia particular desde el primer hasta el último elemento. Los elementos de un array o una lista están <code>indexados</code> por pequeños enteros comenzando por el cero <font class="footnote"> (footnote: En Perl, es posible cambiar el número de inicio de un array o una lista indexada. Larry luego considero esto como una mala característica y su (ab)uso esta fuertemente desaconsejado)</font> (0) y contando de uno en uno, entonces el primer elemento de cualquier array o lista es siempre el elemento cero (0).</p>
+
+<p>Puesto que cada elemento es un valor escalar independiente, una lista o una matriz puede contener números, cadenas, valores undef, o cualquier mezcla de diferentes valores escalares. Sin embargo, es más común tener todos los elementos del mismo tipo, tales como una lista de títulos de libros (todas son cadenas) o una lista de cosenos (todos son números).</p>
+
+<p>Las matrices o listas pueden tener cualquier número de elementos. La lista mas pequeña es aquella que no tiene elementos, mientras que la mas grande puede llenar toda la memoria disponible. Una vez mas esto es parte de la filosofía de Perl "No hay limites innecesarios".</p>
+
+<h2>Accediendo los Elementos de un Array</h2>
+
+<p><a name="Accediendo los Elementos de un Array"></p>
+
+<p>Si ha usado arrays en otro lenguaje, no se debe sorprender al encontrar que perl provee un mecanismo de subindice del array para referirse a un elemento por un indice numérico.</p>
+
+<p>Los elementos de un array son enumerados usando una secuencia de enteros, comenzando en cero (0) e incrementando de uno en uno para cada elemento. Por ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    $prueba[0] = &quot;yabba&quot;;
+    $prueba[1] = &quot;dabba&quot;;
+    $prueba[2] = &quot;doo&quot;;</code></pre>
+
+</div>
+
+<p>El nombre del array en este caso "prueba", es de un espacio de nombres totalmente separado de los escalares, puedes tener una variable escalar llamada $prueba en el mismo programa, y perl va a tratarlas como cosas diferentes y no va a confundirse.</p>
+
+<p>Puede usar un elemento de un array como por ejemplo $prueba[0] en cualquier lugar como si se tratara de un escalar como $prueba. Por ejemplo, puede obtener el valor de un elemento del array o cambiar su valor con algunas expresiones cortas y prácticas que vimos en el capítulo anterior:</p>
+
+<div class="programlisting">
+
+<pre><code>    print $prueba[0];
+    $prueba[2] = &quot;diddley&quot;;
+    $prueba[1] .= &quot;whatsis&quot;; </code></pre>
+
+</div>
+
+<p>Por su puesto, el subindice puede ser cualquier expresión que devuelva un valor numérico. Si no es un entero, automáticamente va a ser truncado al próximo entero menor. Por ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    $number = 2.71828;
+    print $prueba[$number - 1]; # Es lo mismo que imprimir $prueba[1]</code></pre>
+
+</div>
+
+<p>Si se indica un elemento en el subindice que este mas allá del final del array, el valor correspondiente va a ser <code>undef</code>. Al igual que con las variables escalares, si nunca ha guardado un valor en una variable escalar, pues entonces el valor de esta variable va a ser <code>undef</code>. Por ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    $blank = $prueba[ 142_857 ]; # obtengo undef
+    $blanc = $mel;               # escalar no usado $mel obtengo undef</code></pre>
+
+</div>
+
+<h2>Indices Especiales para un Array</h2>
+
+<p><a name="Indices Especiales para un Array"></p>
+
+<p>Si guardas en un elemento del array que esta mas allá del final del array, este automáticamente se extiende hasta donde sea necesario, aquí no hay límite de longitud, el límite básicamente es la memoria que Perl tenga disponible para usar. Si Perl necesita crear elementos intermedios, estos son creados con valores undef. Por ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    $rocks[0] = &#39;bedrock&#39;;
+    $rocks[1] = &#39;slate&#39;;
+    $rocks[2] = &#39;lava&#39;;
+    $rocks[3] = &#39;crushed rock&#39;;
+    $rocks[99] = &#39;schist&#39;;      # ahora hay 95 elementos undef</code></pre>
+
+</div>
+
+<p>Algunas veces necesitamos encontrar el ultimo elemento indexado en el array. Para el array <code>rocks</code> que hemos definido en el ejemplo anterior, el ultimo indice del array es <code>$#rocks</code>. Este valor no es igual a la cantidad de elementos contenidos en el array, esto es porque hay un indice 0.</p>
+
+<div class="programlisting">
+
+<pre><code>    $end = $#rocks;                     # 99
+    $numero_de_elementos = $end + 1;    
+    $rocks[$#rocks] = &#39;hard rock&#39;;      # El &uacute;ltimo elemento.</code></pre>
+
+</div>
+
+<p>El uso del valor $#name como un indice, como vimos en el ejemplo anterior, ocurre con tanta frecuencia que Larry proporciono un acceso directo: indices negativos para el array contando desde el final del array. No valla a pensar con esto que puede ir mas allá del inicio del array. Si tienes tres elementos en el array, entonces los indices negativos válidos son: -1 (el último elemento), -2 (el elemento del medio), y -3 (el primer elemento). En la práctica parece que no se suele usar esto, con la excepción del indice -1.</p>
+
+<div class="programlisting">
+
+<pre><code>    $rocks[ -1 ] = &#39;hard rock&#39;; # una forma f&aacute;cil de hacer el ultimo ejemplo
+    $dead_rock = $rocks[-100];  # se obtiene &#39;bedrock&#39;
+    $rocks[ -200 ] = &#39;crystal&#39;  # Error fatal !</code></pre>
+
+</div>
+
+<h2>Listas Literales</h2>
+
+<p><a name="Listas Literales"></p>
+
+<p>Un array (la forma de representar un valor de lista en el programa) es una lista de valores separados por coma encerrados entre paréntesis. Estos valores constituyen los elementos de la lista. Por ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    (1, 2, 3)   # Una lista de tres valores 1, 2 y 3
+    (1, 2, 3,)  # La misma lista de tres valores (la ultima coma se ignora)
+    (&quot;prueba&quot;, 4.5) # dos valores,  &quot;prueba&quot; y 4.5
+    ( )         # una lista vac&iacute;a, cero elementos
+    (1..100)    # Una lista de 100 enteros.</code></pre>
+
+</div>
+
+<p>El ultimo ejemplo, aparece el operador de rango <code>..</code>. Este operador crea una lista de valores contando desde el escalar que se encuentra a la izquierda hasta el escalar de la derecha, uno a uno. Por ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    (1..5)      # lo mismo que (1, 2, 3, 4, 5)
+    (1.7..5.7)  # la misma cosa, pero se truncan los valores.
+    (5..1)      # Una lista vac&iacute;a, solo se cuenta hacia arriba.
+    (0, 2..6, 10, 12) # Esto es (0, 2, 3, 4, 5, 6, 10, 12)
+    ($m..$n)    # rango determinado por los valores de $m y $n
+    (0..$#rocks) # Usando el indice del array rocks. </code></pre>
+
+</div>
+
+<p>Como puede ver en los últimos dos ejemplos, los elementos de una lista literal no necesariamente son constantes, pueden ser expresiones que van a ser evaluadas cada vez que el literal sea usado. Por ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    ($m, 17)        # Dos valores, el valor correspondiente de $m y 7
+    ($m+$om, $p+$q) # Dos valores</code></pre>
+
+</div>
+
+<p>Por supuesto, la lista puede contener cualquier valor escalar, como esta lista de cadenas:</p>
+
+<div class="programlisting">
+
+<pre><code>    (&quot;walter&quot;, &quot;lilibeth&quot;, &quot;juan&quot;, &quot;juan&quot;, &quot;jose&quot;, &quot;carlos&quot;)</code></pre>
+
+</div>
+
+<h2>El atajo qw</h2>
+
+<p><a name="El atajo qw"></p>
+
+<p>Resulta que las listas de palabras simples son necesarias con frecuencia en programas en Perl. El atajo qw hace que sea mas fácil generarlas sin tener que escribir un montón de comillas adicionales:</p>
+
+<div class="programlisting">
+
+<pre><code>    qw( walter lilibeth juan juan jose carlos );</code></pre>
+
+</div>
+
+<p><code>qw</code> significa "palabras citadas" del ingles "quoted words". Perl trata esto como una cadena entre comillas simples en el contexto escalar, de manera que no podrá usar <code>\n</code> o <code>$prueba</code> en una lista <code>qw</code> como si estuviera entre comillas dobles.</p>
+
+<p>Los espacios en blanco (caracteres como espacios, tabs, y nuevas lineas) son descartados, y todo lo que queda se convierte en una lista de elementos. Tomando en cuenta que el espacio en blanco se descarta, podemos escribir la lista de la siguiente forma:</p>
+
+<div class="programlisting">
+
+<pre><code>    qw( walter 
+        lilibeth
+        juan
+        juan
+        jose
+        carlos
+    );</code></pre>
+
+</div>
+
+<p>El ejemplo anterior usa paréntesis como delimitador, pero Perl actualmente permite que uses cualquier caracter de puntuación como delimitador. Algunos ejemplos mas comunes son:</p>
+
+<div class="programlisting">
+
+<pre><code>    qw( walter lilibeth juan juan jose carlos );
+    qw! walter lilibeth juan juan jose carlos !;
+    qw/ walter lilibeth juan juan jose carlos /;
+    qw# walter lilibeth juan juan jose carlos #;
+    qw{ walter lilibeth juan juan jose carlos };
+    qw[ walter lilibeth juan juan jose carlos ];
+    qw&lt; walter lilibeth juan juan jose carlos &gt;;</code></pre>
+
+</div>
+
+<p>Si necesita incluir el delimitador usado como parte de una cadena en uno de los elementos, probablemente escogió el delimitador equivocado, pero incluso podría hacerlo, escapando el delimitador con un <code>\</code>. Ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    qw! yahoo\! google ask msn ! # include yahoo! as an element</code></pre>
+
+</div>
+
+<p>Aunque el lema de perl es "Siempre Hay Mas De Una Forma De Hacer Las Cosas", se preguntara, para que necesito todas estas formas de citar. Bueno, mas adelante que hay otras formas de citar en Perl que son útiles en casos especiales. Por ejemplo, ahora mismo podría necesitar hacer una lista de nombres de archivos Unix, entonces podría hacerlo así:</p>
+
+<div class="programlisting">
+
+<pre><code>    qw{
+        /usr/dict/words
+        /home/elsanto/.vimrc 
+    }</code></pre>
+
+</div>
+
+<h2>Asignación de listas</h2>
+
+<p><a name="Asignación de listas"></p>
+
+<p>De la misma forma que asignamos escalares a variables, podemos asignar valores de listas a variables. Por ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    ($walter, $lilibeth, $juan) = (25, 26, 30);</code></pre>
+
+</div>
+
+<p>Las tres variables en la lista de la izquierda, reciben nuevos valores, como si los asignara individualmente. Dado que la lista se constituye antes del inicio de la asignación. Esto hace que sea fácil intercambiar los valores de dos variables en Perl:</p>
+
+<div class="programlisting">
+
+<pre><code>    ($walter, $lilibeth) = ($lilibeth, $walter); 
+    ($betty[0], $betty[1]) = ($betty[1], $betty[0]);</code></pre>
+
+</div>
+
+<p>Pero que ocurre si el numero de variables (a la izquierda del signo de =) no es igual al numero de valores (a la derecha del signo =) en una asignación de lista. Los valores extra son simplemente ignorados. De igual manera si ocurre lo contrario, las variables adicionales obtienen el valor <code>undef</code>.</p>
+
+<div class="programlisting">
+
+<pre><code>    ($fred, $barney) = qw&lt; flintstone rubble slate granite &gt;;
+    ($wilma, $dino) = qw[flintstone];       # $dino obtiene undef.</code></pre>
+
+</div>
+
+<p>Ahora que puedes asignar listas, puedes crear un array de cadenas con una linea de código como esta:</p>
+
+<div class="programlisting">
+
+<pre><code>    ($rocks[0], $rocks[1], $rocks[2]]) = qw/talc mica feldspar/;</code></pre>
+
+</div>
+
+<p>Podemos referirnos a toda una matriz a través de una notación simple que posee Perl. Solo tiene que usar una arroba (@) antes del nombre del array (y sin corchetes de indices) para referirse a toda la matriz. Este sígil funciona a ambos lados del operador de asignación.</p>
+
+<div class="programlisting">
+
+<pre><code>    @rocks  = qw/ bedrock slate lava /;
+    @tiny   = ( );                      # una lista vacia 
+    @giant  = 1..1e5;                   # una lista de 100.000 elementos
+    @stuff  = (@giant, undef, @giant);  # una lista de 200.001 elementos</code></pre>
+
+</div>
+
+<p><code>@tiny</code> es una lista conformada por cero elementos. (Esto en particular no pone undef dentro de la lista, pero lo podemos hacer de manera explicita como se puede ver con la lista <code>@stuff</code>).</p>
+
+<p>El valor de una lista nueva a la que no se le ha asignado nada es <code>()</code> de lista vacía. Así como los valores escalares nacen con el valor <code>undef</code> una lista nace con el valor <code>()</code> (lista vacía).</p>
+
+<p>Larry escogió el signo @ porque el lee $calar (scalar) y @rray (array), es una buena regla nemotécnica para recordar.</p>
+
+<h2>Los operadores push y pop</h2>
+
+<p><a name="Los operadores push y pop"></p>
+
+<p>Usted puede agregar nuevos elementos al fina de un array simplemente guardando estos elementos con un indice nuevo mas grande. Pero los verdaderos programadores de Perl no usan indices <font class="footnote"> (footnote: Esto por su puesto es una broma. Los indices en Perl no son una fortaleza del lenguaje. Si usas pop, push y operadores similares en lugar de usar indices, tu código va a ser generalmente más rápido)</font>. En las siguientes secciones explicaremos como trabajar con arrays sin usar indices.</p>
+
+<p>Un uso común para un array es guardar información, en donde los nuevos valores se añaden y se eliminan por la parte derecha de la lista (Este es el final de la lista que contiene el ultimo elemento, con el indice mas alto). Estas operaciones ocurren con la suficiente frecuencia como para tener sus propios operadores especiales.</p>
+
+<p>El operador <code>pop</code> saca el último elemento de la lista y lo retorna. Ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    @array      = 5..9;
+    $fred       = pop(@array);  # $fred = 9,  @array = (5, 6, 7, 8)
+    $barney     = pop @array;   # $barney = 8,  @array = (5, 6, 7)
+    pop @array;                 # @array = (5, 6) (El 7 fue descartado)</code></pre>
+
+</div>
+
+<p>El último ejemplo usamos <code>pop</code> en un "contexto vacío", que es una manera elegante de decir que el valor de retorno no va a ninguna parte. No hay nada malo con el uso de pop de esta manera.</p>
+
+<p>Si la matriz esta vacía, pop no hace nada y devuelve <code>undef</code>.</p>
+
+<p>Seguro noto que pop puede usarse sin los paréntesis. Esta es una regla general en Perl, siempre y cuanto no cambie el sentido de la expresión, se pueden remover los paréntesis. <font class="footnote"> (footnote: Un estudiante avanzado, va a reconocer que esto es una tautología)</font></p>
+
+<p>El operador contrario es <code>push</code> que agrega elementos o una lista de elementos al final de un array. Por ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    push(@array, 0);            # @array ahora tiene (5, 6, 0)
+    push @array, 8;             # @array ahora tiene (5, 6, 0, 8)
+    push @array,  1..10;        # @array ahora tiene 10 elementos mas.
+    @others = qw/ 9 0 2 1 0/; 
+    push @array,  @others;      # @array ahora tiene 5 elementos nuevos (19)  </code></pre>
+
+</div>
+
+<p>Note que el primer argumento de <code>push</code> o el único argumento que <code>pop</code> require debe ser una variable array. Hacer push y pop de listas literales no tiene ningún sentido.</p>
+
+<h2>Los operadores shift y unshift</h2>
+
+<p><a name="Los operadores shift y unshift"></p>
+
+<p>Los operadores <code>push</code> y <code>pop</code> hacen cosas al final del array (o al lado derecho del array). De manera similar, <code>unshift</code> y <code>shift</code> realizan las operaciones correspondientes pero al principio del array (o al lado izquierdo del array). Aquí hay algunos ejemplos:</p>
+
+<div class="programlisting">
+
+<pre><code>    @array = qw# walter lilibeth juan #;
+    $m = shift(@array);         # $m = &quot;dino&quot;, @array = (&quot;fred&quot;, &quot;barney&quot;)
+    $n = shift @array;          # $n = &quot;fred&quot;, @array = (&quot;barney&quot;)
+    shift @array;               # @array = (),  vac&iacute;o
+    $o = shift @array;          # $o = undef,  @array esta vac&iacute;o
+    unshift(@array, 5);         # @array ahora tiene un elemento en la lista
+    unshift @array, 4;          # @array = (4, 5)
+    @others = 1..3;
+    unshift @array, @others;    # @array = (1, 2, 3, 4, 5)</code></pre>
+
+</div>
+
+<h2>Interpolando Arrays en Cadenas</h2>
+
+<p><a name="Interpolando Arrays en Cadenas"></p>
+
+<p>Así como los escalares, los valores array pueden ser interpolados en una cadena de dobles comillas. Los elementos de un array son automáticamente separados por espacios (Espacio en blanco es el separador por defecto contenido como valor en la variable especial <code>$"</code>).</p>
+
+<div class="programlisting">
+
+<pre><code>    @rocks = qw{ flintstone slate rubble };
+    print &quot;quartz @rocks limestone\n&quot;; # imprime 5 rocas separadas por blanco</code></pre>
+
+</div>
+
+<p>No se agregan espacios en blanco antes o después de la interpolación, si usted quiere esto, tendrá que hacerlo a mano.</p>
+
+<div class="programlisting">
+
+<pre><code>    print &quot;Three rocks are: @rocks.\n&quot;;
+    print &quot;There&#39;s nothing in the parens (@empty) here.\n&quot;;</code></pre>
+
+</div>
+
+<p>Si de casualidad olvida que los array se interpolan entre dobles comillas, se va a llevar una sorpresa cuando intente colocar un correo electrónico en una cadena.</p>
+
+<div class="programlisting">
+
+<pre><code>    $email = &quot;walter@covetel.com.ve;    # MAL! Intentara interpolar @covetel</code></pre>
+
+</div>
+
+<p>Para poder hacer esto, deberá usar comillas simples o escapar el caracter @.</p>
+
+<div class="programlisting">
+
+<pre><code>    $email = &quot;walter\@covetel.com.ve&quot;;  # Correcto
+    $email = &#39;walter@covetel.com.ve&#39;    # otra forma de hacerlo.</code></pre>
+
+</div>
+
+<h2>La estructura de control foreach</h2>
+
+<p><a name="La estructura de control foreach"></p>
+
+<p>Regularmente es necesario procesar una lista completa, por lo que Perl proporciona una estructura de control que hace justamente esto. El ciclo <code>foreach</code> pasa por cada valor de la lista, realizando una iteración por cada valor. Por ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    foreach $rock (qw/ bedrock slate lava /) {
+        print &quot;One rock is $rock.\n&quot;; # Prints names of three rocks
+    }</code></pre>
+
+</div>
+
+<p>La variable de control (<code>$rock</code> en este ejemplo) toma un nuevo valor de la lista por cada iteración. En la primera corrida es "bedrock; y en la tercera corrida es "lava".</p>
+
+<p>La variable de control no es una copia del elemento de la lista. Es el elemento en si. Lo que significa que si modificas la variable de control dentro del ciclo, vas a modificar el elemento en si. Por ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    @rocks = qw/ bedrock slate lava /;
+    foreach $rock (@rocks) {
+        $rock = &quot;\t$rock&quot;;
+        $rock .= &quot;\n&quot;;
+    }
+    print &quot;The rocks are:\n&quot;, @rocks;
+    </code></pre>
+
+</div>
+
+<p>¿Cual es el valor de la variable de control cuando el ciclo ha terminado?. Es el mismo que tenia para cuando el ciclo comenzó. Perl automáticamente guarda y restaura el valor de la variable de control de un ciclo foreach. Esto significa que no hay que preocuparse por usar una variable que este en uso en otro lado del programa.</p>
+
+<h2>La variable mágica de Perl: $_</h2>
+
+<p><a name="La variable mágica de Perl: $_"></p>
+
+<p>Si omite la variable de control del ciclo, Perl usa la variable mágica, <code>$_</code>. Esta es (usualmente) una variable escalar mas, solo que con un nombre no usual. Por ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    foreach (1..10){ # Usa por defecto $_
+        print &quot;La cuenta va por $_\n&quot;; 
+    }</code></pre>
+
+</div>
+
+<p>Aunque esta no es la única cosa mágica que hace Perl, es el hechizo mas común.</p>
+
+<p>Existen otros casos en los que Perl va a usar la variable mágica <code>$_</code>, uno de los casos en los que esto ocurre es con <code>print</code>, va a imprimir <code>$_</code> si no le damos otro argumento.</p>
+
+<div class="programlisting">
+
+<pre><code>    $_ = &quot;Hola&quot;; 
+    print;          #Imprime por defecto $_</code></pre>
+
+</div>
+
+<h2>El operador reverse</h2>
+
+<p><a name="El operador reverse"></p>
+
+<p>El operador <code>reverse</code> toma una lista de valores (que pueden venir de un array) y devuelve la lista en el orden opuesto. Entonces si no le gusta esto de que el operador de rango <code>..</code> solo cuenta hacia arriba, esta es una forma de arreglar esto:</p>
+
+<div class="programlisting">
+
+<pre><code>    @lista = 6..10;
+    @lista2 = reverse(@lista);
+    @lista3 = reverse 6..10;
+    @lista = reverse @lista;</code></pre>
+
+</div>
+
+<p>La última linea del ejemplo es importante, porque usa <code>@lista</code> dos veces. Esto es debido a que los operadores de lista tienen una fuerte precedencia a la derecha y una poca precedencia a la izquierda, y en la tabla de precedencias, los operadores de lista están de primeros junto a los paréntesis.</p>
+
+<p>Recuerde que <code>reverse</code> devuelve la lista en el orden inverso, no afecta a la lista argumento, si el valor devuelto no se asigna a nada, es una operación inútil.</p>
+
+<div class="programlisting">
+
+<pre><code>    reverse @lista;             # MAL! no hace nada.
+    @lista = reverse @lista;    # Bien!</code></pre>
+
+</div>
+
+<h2>El operador sort</h2>
+
+<p><a name="El operador sort"></p>
+
+<p>El operador sort toma una lista de valores (que pueden ser un array) y los ordena usando la ordenación interna de caracteres. Para cadenas ASCII, va a usar un orden ASCIIbetico. Como ya debe saber, ASCII es un lugar extraño donde todas las letras mayúsculas van delante de todas las letras minúsculas, donde los números vienen antes de las letras, y los signos de puntuación, esos signos que están aquí allá y en todas partes. Pero el orden ASCII es el orden por defecto, en otro capítulo vamos a ver como ordenar de otras maneras.</p>
+
+<div class="programlisting">
+
+<pre><code>    @rocks      = qw / bedrock slate rubble granite /;
+    @sorted     = sort(@rocks);             # bedrock, granite, rubble, slate
+    @back       = reverse sort @rocks;      # va de slate a bedrock
+    @rocks      = sort @rocks;              # ordena y asigna
+    @numbers    = sort 97..102;             # 100, 101, 102, 97, 98, 99</code></pre>
+
+</div>
+
+<h2>Contexto Escalar y Contexto de Lista</h2>
+
+<p><a name="Contexto Escalar y Contexto de Lista"></p>
+
+<p>Esta es la sección mas importante de este capítulo. En efecto, esta es la sección mas importante del curso. No es una exageración afirmar que el desempeño de su carrera en el uso de Perl va a depender de comprender de manera correcta esta sección.</p>
+
+<p>No significa que esto es difícil de entender. Es una idea simple: Una expresión dada puede significar cosas distintas dependiendo de en que lugar aparece. Esto no debería ser nada nuevo para usted, pasa todo el tiempo en lenguajes naturales. Por ejemplo en el contexto gocho hay expresiones que son contrarias al contexto caraqueño.</p>
+
+<p>El contexto se refiere al lugar en donde se encuentra la expresión. Es la manera en que Perl interpreta las expresiones. Siempre se espera un valor de lista o un valor escalar. Ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    42 + algo # algo debe ser un escalar
+    sort algo # algo debe ser una lista.</code></pre>
+
+</div>
+
+<p>Incluso si algo es exactamente la misma secuencia de caracteres, en un caso puede ser un simple valor escalar, mientras que en otro caso, puede ser una lista. Las expresiones en Perl siempre devuelven el valor apropiado para el contexto. Por ejemplo, tome un array, en un contexto de lista, este devuelve una lista de elementos. Pero en un contexto escalar, devuelve el numero de elementos que están contenidos en el array. Por ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    @people = qw ( walter lilibeth juan );
+    @sorted = sort @people;     # Contexto de lista: walter, lilibeth, juan
+    $number = 42 + @people;     # Contexto escalar: 42 + 3</code></pre>
+
+</div>
+
+<p>Incluso en una asignación simple, ocurren diferentes contextos:</p>
+
+<div class="programlisting">
+
+<pre><code>    @list = @people;    # una lista de 3 personas
+    $n = @people;       # el n&uacute;mero 3.</code></pre>
+
+</div>
+
+<h3>Usando Expresiones de listas en contexto escalar</h3>
+
+<p><a name="Usando Expresiones de listas en contexto escalar"></p>
+
+<p>Hay varias expresiones que deberían usarse para producir una lista. Si usa una de estas expresiones en un contexto escalar, ¿Qué cree que obtendrá?. Para saber esto debe ver que es lo que piensa el autor de la expresión. Usualmente esta persona es Larry, y usualmente en la documentación obtendrá la información completa. En efecto, parte del aprendizaje de Perl es aprender como es que Larry piensa.</p>
+
+<p>Hay algunas expresiones que en contexto escalar no devuelven nada. Por ejemplo, <code>sort</code> en contexto escalar devuelve <code>undef</code>.</p>
+
+<p>Otro ejemplo es <code>reverse</code>. En contexto de lista, devuelve la lista inversa. En contexto escalar, devuelve la cadena reversa (o el resultado reverso concatenando todas las cadenas). Ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    @backwards = reverse qw/ yabba dabba doo /; #  doo, dabba, yabba
+    $backwards = reverse qw/ yabba dabba doo /; #  oodabbadabbay</code></pre>
+
+</div>
+
+<p>Algunos contextos mas comúnes son:</p>
+
+<div class="programlisting">
+
+<pre><code>    $prueba = algo  # contexto escalar 
+    @gente = algo   # contexto de lista
+    ($nombre,  $apellido) = algo # contexto de lista
+    ($algo) = algo      # contexto de lista a&uacute;n.</code></pre>
+
+</div>
+
+<p>Aquí tenemos algunas otras expresiones que resultan en contexto escalar:</p>
+
+<div class="programlisting">
+
+<pre><code>        $fred = something; 
+        $fred[3] = something; 
+        123 + something something + 654
+        if (something) { ... } 
+        while (something) { ... } 
+        $fred[something] = something;</code></pre>
+
+</div>
+
+<p>Y aquí tenemos algunas expresiones que proveen un contexto de lista:</p>
+
+<div class="programlisting">
+
+<pre><code>    @fred = something; 
+    ($fred, $barney) = something; 
+    ($fred) = something; 
+    push @fred, something; 
+    foreach $fred (something) { ... }
+    sort something 
+    reverse something 
+    print something</code></pre>
+
+</div>
+
+<h3>Usando Expresiones escalares en contexto de lista</h3>
+
+<p><a name="Usando Expresiones escalares en contexto de lista"></p>
+
+<p>En este sentido es mas claro, si una expresión no tiene normalmente un valor de lista, el valor escalar es automáticamente promovido a ser un elemento de la lista. Por ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    @fred = 6 * 7;  # Un elemento (42) 
+    @barney = &quot;hello&quot; . &#39; &#39; . &quot;world&quot;;</code></pre>
+
+</div>
+
+<p>Hay algunos inconvenientes posibles:</p>
+
+<div class="programlisting">
+
+<pre><code>    @wilma = undef; # OOPS!
+    @betty = ( );   # la forma correcta de declarar una lista vac&iacute;a.</code></pre>
+
+</div>
+
+<p><code>undef</code> es un valor escalar, asignar undef a un array no limpia el array. La manera correcta de limpiar un array es asignándole una lista vacía.</p>
+
+<h2>Forzar el contexto escalar</h2>
+
+<p><a name="Forzar el contexto escalar"></p>
+
+<p>En ocasiones es necesario forzar el contexto escalar, en donde Perl espera una lista. En este caso, se puede usar la función falsa <code>scalar</code>. Esta no es una función verdadera, ya que lo único que hace es decirle a Perl que provea un contexto escalar.</p>
+
+<div class="programlisting">
+
+<pre><code>    @rocks = qw( talc quartz jade obsidian ); 
+    print &quot;How many rocks do you have?\n&quot;; 
+    print &quot;I have &quot;, @rocks, &quot; rocks!\n&quot;;           #MAL! 
+    print &quot;I have &quot;, scalar @rocks, &quot; rocks!\n&quot;;    #BIEN!</code></pre>
+
+</div>
+
+<p>De manera contraria, no hay una función que force el contexto de lista, confié en nosotros, no la va a necesitar.</p>
+
+<h2>STDIN en contexto de lista</h2>
+
+<p><a name="STDIN en contexto de lista "></p>
+
+<p>En un capítulo anterior vimos que STDIN en un contexto escalar devuelve la ultima linea leida de la entrada estándar. En contexto de lista, este operador devuelve todas las lineas desde el principio hasta el final del archivo. Cada linea es retornada como un elemento separado de la lista. Por ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    @lines = &lt;STDIN&gt;; # lee la entrada estandar en el contexto de lista</code></pre>
+
+</div>
+
+<p>Cuando la entrada estandar es un archivo, esto va a leer el archivo completo hasta el final. Pero cuando se lee de la entrada estándar en Unix, debe usar Ctrol + D.</p>
+
+<h2>Ejercicios</h2>
+
+<p><a name="ejercicios02"></p>
+
+<ul>
+
+<li>1. Escriba un programa que lea una lista de caracteres separados por lineas e imprima esta lista en modo inverso, si la entrada proviene del teclado, se necesita una señal para la finalización de la entrada, en Unix es CTRL-D.
+
+<li>2. Escriba un programa que lea una lista de números separados por lineas y por cada número imprima el nombre correspondiente a la lista mostrada a continuación. fred betty barney dino wilma pebbles bamm-bamm. Por ejemplo, si la entrada es 1, 2, 4, la salida debe mostrar lo siguiente, fred, betty, dino.
+
+<li>3. Escriba un programa que lea una lista de caracteres separados por lineas e imprima esta lista en orden ASCIIbetico, por ejemplo si la entrada fue fred, barney, wilma, betty, la salida debe ser, barney, betty, fred, wilma
+
+</ul>
+
+</body>
+</html>
+
