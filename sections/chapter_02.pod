@@ -142,7 +142,7 @@ elementos contenidos en el array, esto es porque hay un indice 0.
 El uso del valor $#name como un indice, como vimos en el ejemplo anterior,
 ocurre con tanta frecuencia que Larry proporciono un acceso directo: indices
 negativos para el array contando desde el final del array. No valla a pensar
-con esto que puede ir mas alla del inicio del array. Si tienes tres elementos
+con esto que puede ir mas allá del inicio del array. Si tienes tres elementos
 en el array, entonces los indices negativos válidos son: -1 (el último 
 elemento), -2 (el elemento del medio), y -3 (el primer elemento). En la
 práctica parece que no se suele usar esto, con la excepción del indice -1.   
@@ -160,7 +160,7 @@ práctica parece que no se suele usar esto, con la excepción del indice -1.
 Z<Listas Literales> 
 
 Un array (la forma de representar un valor de lista en el programa) es una
-lista de valores separados por coma encerrados entre parentesis. Estos valores
+lista de valores separados por coma encerrados entre paréntesis. Estos valores
 constituyen los elementos de la lista. Por ejemplo: 
 
 =begin programlisting
@@ -168,7 +168,7 @@ constituyen los elementos de la lista. Por ejemplo:
     (1, 2, 3)   # Una lista de tres valores 1, 2 y 3
     (1, 2, 3,)  # La misma lista de tres valores (la ultima coma se ignora)
     ("prueba", 4.5) # dos valores,  "prueba" y 4.5
-    ( )         # una lista vacia, cero elementos
+    ( )         # una lista vacía, cero elementos
     (1..100)    # Una lista de 100 enteros.
 
 =end programlisting
@@ -181,7 +181,7 @@ hasta el escalar de la derecha, uno a uno. Por ejemplo:
 
     (1..5)      # lo mismo que (1, 2, 3, 4, 5)
     (1.7..5.7)  # la misma cosa, pero se truncan los valores.
-    (5..1)      # Una lista vacia, solo se cuenta hacia arriba.
+    (5..1)      # Una lista vacía, solo se cuenta hacia arriba.
     (0, 2..6, 10, 12) # Esto es (0, 2, 3, 4, 5, 6, 10, 12)
     ($m..$n)    # rango determinado por los valores de $m y $n
     (0..$#rocks) # Usando el indice del array rocks. 
@@ -212,9 +212,9 @@ de cadenas:
 
 Z<El atajo qw> 
 
-Resulta que las listas de palabras simples son necesarias con frecuenca en
+Resulta que las listas de palabras simples son necesarias con frecuencia en
 programas en Perl. El atajo qw hace que sea mas fácil generarlas sin tener que
-tipear un monton de comillas adicionales: 
+escribir un montón de comillas adicionales: 
 
 =begin programlisting
 
@@ -226,7 +226,7 @@ C<qw> significa "palabras citadas" del ingles "quoted words". Perl trata esto
 como una cadena entre comillas simples en el contexto escalar, de manera que 
 no podrá usar C<\n> o C<$prueba> en una lista C<qw> como si estuviera entre comillas dobles. 
 
-Los espacios en blanco (carácteres como espacios, tabs, y nuevas lineas) son
+Los espacios en blanco (caracteres como espacios, tabs, y nuevas lineas) son
 descartados, y todo lo que queda se convierte en una lista de elementos.
 Tomando en cuenta que el espacio en blanco se descarta, podemos escribir la
 lista de la siguiente forma: 
@@ -243,7 +243,7 @@ lista de la siguiente forma:
 
 =end programlisting
 
-El ejemplo anterior usa parentesis como delimitador,  pero Perl actualmente
+El ejemplo anterior usa paréntesis como delimitador,  pero Perl actualmente
 permite que uses cualquier caracter de puntuación como delimitador. Algunos
 ejemplos mas comunes son: 
 
@@ -272,7 +272,7 @@ podría hacerlo, escapando el delimitador con un C<\>. Ejemplo:
 Aunque el lema de perl es "Siempre Hay Mas De Una Forma De Hacer Las Cosas", se
 preguntara, para que necesito todas estas formas de citar. Bueno, mas adelante
 que hay otras formas de citar en Perl que son útiles en casos especiales. Por
-ejemplo, ahora mismo podria necesitar hacer una lista de nombres de archivos
+ejemplo, ahora mismo podría necesitar hacer una lista de nombres de archivos
 Unix, entonces podría hacerlo así: 
 
 =begin programlisting
@@ -284,6 +284,77 @@ Unix, entonces podría hacerlo así:
 
 =end programlisting
 
+
+=head1 Asignación de listas    
+
+Z<Asignación de listas> 
+
+De la misma forma que asignamos escalares a variables, podemos asignar valores
+de listas a variables. Por ejemplo:
+
+=begin programlisting
+
+    ($walter, $lilibeth, $juan) = (25, 26, 30);
+
+=end programlisting
+
+Las tres variables en la lista de la izquierda,  reciben nuevos valores, como
+si los asignara individualmente. Dado que la lista se constituye antes del
+inicio de la asignación. Esto hace que sea fácil intercambiar los valores de 
+dos variables en Perl: 
+
+=begin programlisting
+
+    ($walter, $lilibeth) = ($lilibeth, $walter); 
+    ($betty[0], $betty[1]) = ($betty[1], $betty[0]);
+
+=end programlisting
+
+Pero que ocurre si el numero de variables (a la izquierda del signo de =) no es
+igual al numero de valores (a la derecha del signo =) en una asignación de
+lista. Los valores extra son simplemente ignorados. De igual manera si ocurre
+lo contrario, las variables adicionales obtienen el valor C<undef>.
+
+=begin programlisting
+
+    ($fred, $barney) = qw< flintstone rubble slate granite >;
+    ($wilma, $dino) = qw[flintstone];       # $dino obtiene undef.
+
+=end programlisting
+
+Ahora que puedes asignar listas, puedes crear un array de cadenas con una linea
+de código como esta:
+
+=begin programlisting
+
+    ($rocks[0], $rocks[1], $rocks[2]]) = qw/talc mica feldspar/;
+
+=end programlisting
+
+Podemos referirnos a toda una matriz a través de una notación simple que posee
+Perl. Solo tiene que usar una arroba (@) antes del nombre del array (y sin
+corchetes de indices) para referirse a toda la matriz. Este sígil funciona a
+ambos lados del operador de asignación. 
+
+=begin programlisting
+
+    @rocks  = qw/ bedrock slate lava /;
+    @tiny   = ( );                      # una lista vacia 
+    @giant  = 1..1e5;                   # una lista de 100.000 elementos
+    @stuff  = (@giant, undef, @giant);  # una lista de 200.001 elementos
+
+=end programlisting
+
+C<@tiny> es una lista conformada por cero elementos. (Esto en particular no
+pone undef dentro de la lista, pero lo podemos hacer de manera explicita como
+se puede ver con la lista C<@stuff>).
+
+El valor de una lista nueva a la que no se le ha asignado nada es C<()> de
+lista vacía. Así como los valores escalares nacen con el valor C<undef> una
+lista nace con el valor C<()> (lista vacía). 
+
+Larry escogió el signo @ porque el lee $calar (scalar) y @rray (array), es una
+buena regla nemotécnica para recordar.
 
 
 
