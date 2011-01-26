@@ -1,0 +1,17 @@
+=head1 Ejercicios Capitulo 03
+
+Z<ejercicios_03> 
+
+=over
+
+=item 1. Escriba un programa que lea una lista de caracteres separados por lineas e imprima esta lista en modo inverso, si la entrada proviene del teclado, se necesita una senal para la finalizacion de la entrada, en Unix es CTRL-D.
+
+=item 2. Escriba un programa que lea una lista de numeros serparados por lineas y por cada numero imprima el nombre correspondiente a la lista mostrada a continuacion.
+
+	fred betty barney dino wilma pebbles bamm-bamm
+
+Por ejemplo, si la entrada es 1, 2, 4, la salida debe mostrar lo siguiente, fred, betty, dino.
+
+=item 3. Escriba un programa que lea una lista de caracteres separados por lineas e imprima esta lista en orden alfabetico, por ejemplo si la entrada fue fred, barney, wilma, betty, la salida debe ser, barney, betty, fred, wilma
+
+=back

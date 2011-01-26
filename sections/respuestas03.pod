@@ -1,0 +1,62 @@
+=head1 Repuestas a Ejercicios del Capitulo 03
+
+Z<respuestas_03> 
+
+=over
+
+=item 1. Una forma de hacerlo:
+
+=begin programlisting
+
+	print "Ingrese algunas lineas, para finalizar presione CTRL-D:\n";
+	@lines = <STDIN>;
+	@reverse_lines = reverse @lines;
+	print @reverse_lines;
+
+=end programlisting
+
+Otra forma de hacerlo es:
+
+=begin programlisting
+
+	print "Ingrese algunas lineas, para finalizar presione CTRL-D:\n";
+	print reverse <STDIN>;
+
+=end programlisting
+
+=item 2. Una forma de hacer este ejercicio es:
+
+=begin programlisting
+
+	@names = qw/ fred betty barney dino wilma pebbles bamm-bamm /;
+	print "Ingrese algunos numeros del 1 al 7, uno por linea, presione CTRL-D para finalizar:\n";
+	chomp(@numbers = <STDIN>);
+	foreach (@numbers) {
+		print "$names[$_ - 1]\n";
+	}
+
+=end programlisting
+
+Se resta uno del indice debido a que los indices de los arreglos en Perl comienzan desde el numero 0.
+
+Ve un poco mas lejos y asegura que la entrada del usuario realmente fue un numero en el rango del 1 al 7.
+
+=item 3. Una forma de hacer este ejercicio si se desea imprimir la salida en una sola linea, es:
+
+=begin programlisting
+
+	chomp(@lines = <STDIN>);
+	@sorted = sort @lines;
+	print "@sorted\n";
+
+=end programlisting
+
+Para imprimir el resultado en lineas separadas
+
+=begin programlisting
+
+	print sort <STDIN>;
+
+=end programlisting
+
+=back
