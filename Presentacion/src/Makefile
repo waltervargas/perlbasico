@@ -2,7 +2,7 @@
 # Creado para ahorrar un poco el trabajo. 
 # Walter Vargas <walter@covetel.com.ve>
 
-SRC=./Peribeco-presentacion
+SRC=./presentacion00
 
 all: $(SRC).tex
 	pdflatex $(SRC).tex
