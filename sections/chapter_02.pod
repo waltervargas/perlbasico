@@ -139,6 +139,156 @@ elementos contenidos en el array, esto es porque hay un indice 0.
 =end programlisting
 
 
+El uso del valor $#name como un indice, como vimos en el ejemplo anterior,
+ocurre con tanta frecuencia que Larry proporciono un acceso directo: indices
+negativos para el array contando desde el final del array. No valla a pensar
+con esto que puede ir mas alla del inicio del array. Si tienes tres elementos
+en el array, entonces los indices negativos válidos son: -1 (el último 
+elemento), -2 (el elemento del medio), y -3 (el primer elemento). En la
+práctica parece que no se suele usar esto, con la excepción del indice -1.   
+
+=begin programlisting
+
+    $rocks[ -1 ] = 'hard rock'; # una forma fácil de hacer el ultimo ejemplo
+    $dead_rock = $rocks[-100];  # se obtiene 'bedrock'
+    $rocks[ -200 ] = 'crystal'  # Error fatal !
+
+=end programlisting
+
+=head1 Listas Literales    
+
+Z<Listas Literales> 
+
+Un array (la forma de representar un valor de lista en el programa) es una
+lista de valores separados por coma encerrados entre parentesis. Estos valores
+constituyen los elementos de la lista. Por ejemplo: 
+
+=begin programlisting
+
+    (1, 2, 3)   # Una lista de tres valores 1, 2 y 3
+    (1, 2, 3,)  # La misma lista de tres valores (la ultima coma se ignora)
+    ("prueba", 4.5) # dos valores,  "prueba" y 4.5
+    ( )         # una lista vacia, cero elementos
+    (1..100)    # Una lista de 100 enteros.
+
+=end programlisting
+
+El ultimo ejemplo, aparece el operador de rango C<..>. Este operador crea una
+lista de valores contando desde el escalar que se encuentra a la izquierda
+hasta el escalar de la derecha, uno a uno. Por ejemplo: 
+
+=begin programlisting
+
+    (1..5)      # lo mismo que (1, 2, 3, 4, 5)
+    (1.7..5.7)  # la misma cosa, pero se truncan los valores.
+    (5..1)      # Una lista vacia, solo se cuenta hacia arriba.
+    (0, 2..6, 10, 12) # Esto es (0, 2, 3, 4, 5, 6, 10, 12)
+    ($m..$n)    # rango determinado por los valores de $m y $n
+    (0..$#rocks) # Usando el indice del array rocks. 
+
+=end programlisting
+
+Como puede ver en los últimos dos ejemplos, los elementos de una lista literal
+no necesariamente son constantes, pueden ser expresiones que van a ser
+evaluadas cada vez que el literal sea usado. Por ejemplo: 
+
+=begin programlisting
+
+    ($m, 17)        # Dos valores, el valor correspondiente de $m y 7
+    ($m+$om, $p+$q) # Dos valores
+
+=end programlisting
+
+Por supuesto, la lista puede contener cualquier valor escalar, como esta lista
+de cadenas: 
+
+=begin programlisting
+
+    ("walter", "lilibeth", "juan", "juan", "jose", "carlos")
+
+=end programlisting
+
+=head1 El atajo qw    
+
+Z<El atajo qw> 
+
+Resulta que las listas de palabras simples son necesarias con frecuenca en
+programas en Perl. El atajo qw hace que sea mas fácil generarlas sin tener que
+tipear un monton de comillas adicionales: 
+
+=begin programlisting
+
+    qw( walter lilibeth juan juan jose carlos );
+
+=end programlisting
+
+C<qw> significa "palabras citadas" del ingles "quoted words". Perl trata esto
+como una cadena entre comillas simples en el contexto escalar, de manera que 
+no podrá usar C<\n> o C<$prueba> en una lista C<qw> como si estuviera entre comillas dobles. 
+
+Los espacios en blanco (carácteres como espacios, tabs, y nuevas lineas) son
+descartados, y todo lo que queda se convierte en una lista de elementos.
+Tomando en cuenta que el espacio en blanco se descarta, podemos escribir la
+lista de la siguiente forma: 
+
+=begin programlisting
+
+    qw( walter 
+        lilibeth
+        juan
+        juan
+        jose
+        carlos
+    );
+
+=end programlisting
+
+El ejemplo anterior usa parentesis como delimitador,  pero Perl actualmente
+permite que uses cualquier caracter de puntuación como delimitador. Algunos
+ejemplos mas comunes son: 
+
+=begin programlisting
+
+    qw( walter lilibeth juan juan jose carlos );
+    qw! walter lilibeth juan juan jose carlos !;
+    qw/ walter lilibeth juan juan jose carlos /;
+    qw# walter lilibeth juan juan jose carlos #;
+    qw{ walter lilibeth juan juan jose carlos };
+    qw[ walter lilibeth juan juan jose carlos ];
+    qw< walter lilibeth juan juan jose carlos >;
+
+=end programlisting
+
+Si necesita incluir el delimitador usado como parte de una cadena en uno de los
+elementos, probablemente escogió el delimitador equivocado, pero incluso
+podría hacerlo, escapando el delimitador con un C<\>. Ejemplo:
+
+=begin programlisting
+
+    qw! yahoo\! google ask msn ! # include yahoo! as an element
+
+=end programlisting
+
+Aunque el lema de perl es "Siempre Hay Mas De Una Forma De Hacer Las Cosas", se
+preguntara, para que necesito todas estas formas de citar. Bueno, mas adelante
+que hay otras formas de citar en Perl que son útiles en casos especiales. Por
+ejemplo, ahora mismo podria necesitar hacer una lista de nombres de archivos
+Unix, entonces podría hacerlo así: 
+
+=begin programlisting
+
+    qw{
+        /usr/dict/words
+        /home/elsanto/.vimrc 
+    }
+
+=end programlisting
+
+
+
+
+
+
 
 
 
