@@ -357,6 +357,92 @@ Larry escogió el signo @ porque el lee $calar (scalar) y @rray (array), es una
 buena regla nemotécnica para recordar.
 
 
+=head1 Los operadores push y pop    
+
+Z<Los operadores push y pop> 
+
+Usted puede agregar nuevos elementos al fina de un array simplemente guardando
+estos elementos con un indice nuevo mas grande. Pero los verdaderos
+programadores de Perl no usan indices N<Esto por su puesto es una broma. Los
+indices en Perl no son una fortaleza del lenguaje. Si usas pop, push y
+operadores similares en lugar de usar indices, tu código va a ser generalmente
+más rápido>. En las siguientes secciones explicaremos como trabajar con arrays
+sin usar indices. 
+
+Un uso común para un array es guardar información, en donde los nuevos valores
+se añaden y se eliminan por la parte derecha de la lista (Este es el final de
+la lista que contiene el ultimo elemento, con el indice mas alto). Estas
+operaciones ocurren con la suficiente frecuencia como para tener sus propios
+operadores especiales. 
+
+El operador C<pop> saca el último elemento de la lista y lo retorna. Ejemplo:
+
+=begin programlisting
+
+    @array      = 5..9;
+    $fred       = pop(@array);  # $fred = 9,  @array = (5, 6, 7, 8)
+    $barney     = pop @array;   # $barney = 8,  @array = (5, 6, 7)
+    pop @array;                 # @array = (5, 6) (El 7 fue descartado)
+
+=end programlisting
+
+El último ejemplo usamos C<pop> en un "contexto vacío", que es una manera
+elegante de decir que el valor de retorno no va a ninguna parte. No hay nada
+malo con el uso de pop de esta manera. 
+
+Si la matriz esta vacía, pop no hace nada y devuelve C<undef>. 
+
+Seguro noto que pop puede usarse sin los paréntesis. Esta es una regla general
+en Perl, siempre y cuanto no cambie el sentido de la expresión, se pueden
+remover los paréntesis. N<Un estudiante avanzado, va a reconocer que esto es
+una tautología>
+
+El operador contrario es C<push> que agrega elementos o una lista de elementos
+al final de un array. Por ejemplo:
+
+=begin programlisting
+
+    push(@array, 0);            # @array ahora tiene (5, 6, 0)
+    push @array, 8;             # @array ahora tiene (5, 6, 0, 8)
+    push @array,  1..10;        # @array ahora tiene 10 elementos mas.
+    @others = qw/ 9 0 2 1 0/; 
+    push @array,  @others;      # @array ahora tiene 5 elementos nuevos (19)  
+
+=end programlisting
+
+Note que el primer argumento de C<push> o el único argumento que C<pop> require
+debe ser una variable array. Hacer push y pop de listas literales no tiene
+ningún sentido. 
+
+=head1 Los operadores shift y unshift    
+
+Z<Los operadores shift y unshift> 
+
+Los operadores C<push> y C<pop> hacen cosas al final del array (o al lado
+derecho del array). De manera similar, C<unshift> y C<shift> realizan las
+operaciones correspondientes pero al principio del array (o al lado izquierdo
+del array). Aquí hay algunos ejemplos: 
+
+=begin programlisting
+
+    @array = qw# walter lilibeth juan #;
+    $m = shift(@array);         # $m = "dino", @array = ("fred", "barney")
+    $n = shift @array;          # $n = "fred", @array = ("barney")
+    shift @array;               # @array = (),  vacío
+    $o = shift @array;          # $o = undef,  @array esta vacío
+    unshift(@array, 5);         # @array ahora tiene un elemento en la lista
+    unshift @array, 4;          # @array = (4, 5)
+    @others = 1..3;
+    unshift @array, @others;    # @array = (1, 2, 3, 4, 5)
+
+=end programlisting
+
+
+
+
+
+
+
 
 
 
