@@ -1,0 +1,69 @@
+=encoding utf8
+
+=head1 Curso de Perl Nivel Básico
+
+Este curso, se esta escribiendo usando Pod::PseudoPod, para poder verlo va a
+necesitar instalar los siguientes módulos vía CPAN: 
+
+=over 
+
+=item File::Path
+
+=item File::Spec::Functions 
+
+=item Pod::PseudoPod
+
+=item Pod::PseudoPod::HTML
+
+=item App::pod2pdf
+
+=back 
+
+Una vez instalado los módulos, solo siga las instrucciones de la siguiente
+sección para poder generar los capítulos en el formato que prefiera, HTML o 
+PDF. 
+
+=head2 Instrucciones para ver el curso
+
+El primer paso es generar los capítulos, esto se debe hacer desde la carpeta
+raíz del curso: 
+
+    $ perl build/tools/build_chapters.pl
+
+El segundo paso, es transformar los archivos POD al formato que prefiera. Si
+prefiere HTML entonces debe hacer lo siguiente
+
+    $ perl build/tools/build_html.pl 
+
+=head2 Instrucciones para escribir capítulos
+
+Los capítulos se encuentran en la carpeta B<sections/>, y siguen la
+nomenclatura chapter_XX.pod, donde XX es el número del capítulo, comenzando por
+00, 01 y así sucesivamente. 
+
+Los capítulos se escriben usando el módulo Pod::PseudoPod, que es una extensión
+de POD para crear libros. En este sentido recomendamos la lectura de los
+siguientes dos manuales. 
+
+    $ perldoc perlpod
+
+    $ perldoc Pod::PseudoPod::Tutorial 
+
+Tambien puede fijarse en la sintaxis utilizada en los capítulos ya existentes.
+
+Adicionalmente, se recomienda evitar el uso de tabulador dentro de los ficheros
+POD, configure su editor de texto para que reemplace los TABs por 4 espacios en
+blanco. 
+
+=head2 Instrucciones para escribir ejercicios
+
+Los ejercicios de cada capítulo se encuentran en un archivo llamado
+ejercicios00.pod en donde 00 corresponde al número del capítulo dentro de la
+carpeta B<sections/>. 
+
+Las recomendaciones en la sección anterior aplican para el desarrollo de los
+ejercicios también. 
+
+Cada archivo de ejercicios00.pod deberia tener un archivo correspondiente a los
+ejercicios resueltos llamado respuestas00.pod, de igual manera 00 
+corresponde al número del capítulo.
