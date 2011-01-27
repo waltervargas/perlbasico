@@ -476,4 +476,145 @@ La mayoría de la gente cree que si un programa es mas largo que la pantalla,
 generalmente necesita C<use strict>. En esto estamos de acuerdo. 
 
 
+=head1 El operador return    
+
+Z<El operador return> 
+
+El operador return inmediatamente retorna un valor de desde una subrutina: 
+
+=begin programlisting
+
+    my @names = qw/ fred barney betty dino wilma pebbles bamm-bamm /;
+    my $result = &which_element_is("dino", @names);
+
+    sub which_element_is {
+        my($what, @array) = @_;
+        foreach (0..$#array) {
+            if ($what eq $array[$_]) {
+                return $_;
+            }
+        }
+        -1;
+    }
+
+=end programlisting
+
+Esta subrutina es usada para encontrar el índice de "dino" en el array @names.
+
+A algunos programadores les gusta usar return siempre,  como una forma de
+documentar que este es el valor de retorno. Por ejemplo, se puede usar return
+cuando el valor de retorno no es la ultima expresión evaluada de la subrutina.
+
+=head1 Omitir el signo &    
+
+Z<Omitir el signo &> 
+
+Como lo prometimos, vamos a darle la regla para cuando una llamada a subrutina
+puede omitir el signo &. Si el compilador ve una definición de la subrutina
+antes de la llamada, o si Perl puede decidir que la sintaxis es una llamada a
+subrutina, la subrutina puede ser llamada sin un signo &. Como si fuera una
+función integrada de Perl. Pero hay una trampa escondida en esta norma, como
+veremos a continuación. 
+
+Esto significa que si Perl puede ver que es una llamada a una subrutina sin el
+signo &, por lo general va bien. Entonces si tienes una lista de parámetros
+entre paréntesis, entonces esto es una llamada a una función:
+
+=begin programlisting
+
+    my $cards = shuffle(@deck_of_cards);  # & no es necesario.
+
+=end programlisting
+
+
+Si el compilador interno de perl ya ha visto la definición de la subrutina,
+entonces generalmente funciona bien. En este caso particular, puedes incluso
+omitir los paréntesis que abrazan la lista de argumentos. 
+
+=begin programlisting
+
+    sub division {
+        $_[0] / $[1];
+    }
+
+    my $cociente = division 355, 113;   # Usa &division 
+
+=end programlisting
+
+Esto funciona por la regla de que los paréntesis pueden ser omitidos. 
+
+Pero no ponga la declaración de la subrutina despues de la llamada, o el
+compilador no sabrá de que se trata la llamada de C<division>. Sin embargo esta
+no es la trampa, el problema en si es el siguiente: Si la subrutina tiene el
+mismo nombre que una función propia de Perl, usted I<debe> usar el ampersand
+(&) para hacer la llamada a la subrutina. Al usar el ampersand, nos aseguramos
+de que estamos llamando a una subrutina; sin el; usted puede hacer la llamada
+solo si la subrutina no tiene el mismo nombre que una función propia de Perl.
+Por ejemplo:
+
+=begin programlisting
+
+    sub chomp {
+        print "Mucho,  mucho!\n";
+    }
+
+    &chomp;     # El ampersand aquí no es opcional!
+
+=end programlisting
+
+Sin el ampersand, estamos haciendo una llamada a la función C<chomp> interna de
+Perl. 
+
+La regla general aquí es: Hasta que usted conozca los nombres de todas las
+funciones internas de Perl, siempre use ampersand en las llamadas a funciones.
+
+En nuestro caso, podemos usar funciones en nuestra lengua materna (Español)
+para evitar caer en la trampa.
+
+
+=head1 Retornando valores no escalares    
+
+Z<Retornando valores no escalares> 
+
+Un escalar no es la única cosa que puede retornar una subrutina. Si llamas a tu
+subrutina en un contexto de lista N<Puedes detectar en que contexto esta siendo
+llamada su subrutina, usando la función wantarray>, esta puede retornar una
+lista de valores. 
+
+Supongamos que quieres obtener un rango de números (como viene del operador de
+rango, ..), pero quieres habilitar el conteo hacia abajo. El operador de rango
+solo cuenta hacia arriba, pero es algo fácil de arreglar: 
+
+=begin programlisting
+
+    sub list_from_fred_to_barney {
+        if ($fred < $barney){
+            $fred..$barney;
+        } else {
+            reverse $barney..$fred;
+        }
+    }
+
+    $fred = 11;
+    $barney = 6;
+
+    @c = &list_from_fred_to_barney; 
+
+=end programlisting
+
+Finalmente, puedes retornar nada. Cuando usamos C<return> sin argumentos vamos
+a retornar C<undef> en contexto escalar o una lista vacía en contexto de
+lista. Esto puede ser útil para retornar errores de una subrutina.
+
+=head1 Variables Privadas Persistentes    
+
+Z<Variables Privadas Persistentes> 
+
+
+
+
+
+
+
+
 
