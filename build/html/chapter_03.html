@@ -1,0 +1,570 @@
+<html>
+<body>
+<link rel='stylesheet' href='style.css' type='text/css'>
+
+<h1>Subrutinas</h1>
+
+<p>Hasta el momento hemos visto y usado algunas funciones internas de Perl, como <code>chomp</code>, <code>reverse</code>, <code>print</code>, y otras mas. Al igual que otros lenguajes, Perl tiene la habilidad de crear <code>subrutinas</code>, que son funciones definidas por el usuario. <font class="footnote"> (footnote: En Perl, no se hace la distinción que se hacía en Pascal, entre funciones que retornan un valor y procedimientos, que no retornan un valor.)</font> Pero una subrutina es siempre definida por un usuario, mientras que una función puede o no serlo. Esto es, la palabra <i>función</i> puede ser usada como sinónimo para <i>subrutina</i>, pero es una función que el programador puede definir, no las funciones internas de Perl.</p>
+
+<p>El nombre de una subrutina es otro identificador de Perl (letras, dígitos y pisos bajos, pero este no puede iniciar con un dígito.) con un signo & (ampersand) a veces opcional adelante. Existe una regla acerca de cuando podemos omitir el signo & y cuando no, al final del capítulo vamos a ver esta regla. Por ahora vamos a usar el signo & adelante siempre, esto no puede olvidarse.</p>
+
+<p>El nombre de una subrutina viene de un espacio de nombres separado, por lo que Perl no va a confundirse si usted tiene una subrutina llamada &fred y un la variable escalar llamada $fred en el mismo programa, aunque no hay una razón para hacer esto en circunstancias normales.</p>
+
+<h2>Definiendo una Subrutina</h2>
+
+<p><a name="Definiendo una Subrutina"></p>
+
+<p>Para definir su propia subrutina, use la palabra reservada <code>sub</code>, el nombre de la subrutina (sin el signo &), luego el bloque de código identado (entre llaves)<font class="footnote"> (footnote: Bueno, los puristas admitimos que las llaves son parte del bloque. Y Perl no requiere la identación del bloque, pero los nuevos programadores son estilizados)</font>, va a conformar el cuerpo de la subrutina, quedaría algo como esto:</p>
+
+<div class="programlisting">
+
+<pre><code>    sub marino {
+        $n += 1;    # Variable global $n
+        print &quot;Hola, marinera n&uacute;mero $n!\n&quot;;
+    }</code></pre>
+
+</div>
+
+<p>Las subrutinas se pueden definir en cualquier lugar del programa, pero los programadores que vienen de lenguajes como C o Pascal, les gusta colocar las subrutinas al inicio del archivo. Otros prefieren poner las subrutinas al final del archivo, entonces la parte principal del programa queda al principio. Esto depende de usted. En cualquier caso, normalmente no va a necesitar ningún tipo de declaración previa <font class="footnote"> (footnote: A menos que tu subrutina valla a ser particularmente compleja y declare un prototipo, que indica como el compilador va a parsear e interpretar la invocación de los argumentos. Esto no es común, vea la página del manual <code>perlsub</code> para mas información.)</font></p>
+
+<p>La definición de la subrutina es global; sin hechiceria no hay subrutina privadas. Si tiene dos subrutinas definidas con el mismo nombre, la última subrutina sobre escribe la primera. Esto es generalmente considerado como una mala práctica, o una señal de que el programador de mantenimiento esta confundido.</p>
+
+<p>Como pudo notarlo en el ejemplo previo, puedes usar variables globales dentro de el cuerpo de una subrutina. De hecho, todas las variables que hemos visto hasta ahora son globales; esto significa, que podemos acceder a ellas desde cualquier parte del programa. Esto horroriza a los puristas del lenguaje, pero no se preocupe, el equipo de desarrollo de Perl formo una turba iracunda con antorchas y corrió fuera de la ciudad hace años. Mas adelante veremos como hacer variables privadas en "Variables Privadas en Subrutinas".</p>
+
+<h2>Llamar una Subrutina</h2>
+
+<p><a name="Invocando una Subrutina"></p>
+
+<p>Puede invocar o llamar una subrutina desde cualquier expresión usando el nombre de la subrutina (con el signo &) <font class="footnote"> (footnote: Y frecuentemente un par de paréntesis, incluso si estan vacios)</font>.</p>
+
+<div class="programlisting">
+
+<pre><code>    &amp;marino;    # dice: Hola, marinera numero 1! 
+    &amp;marino;    # dice: Hola, marinera numero 2! 
+    &amp;marino;    # dice: Hola, marinera numero 3! 
+    &amp;marino;    # dice: Hola, marinera numero 4! </code></pre>
+
+</div>
+
+<h2>Retornar Valores</h2>
+
+<p><a name="Retornar Valores"></p>
+
+<p>Las subrutinas siempre son invocadas como parte de una expresión, incluso si el resultado de esa expresión no se usa para nada. Cuando llamamos anterior mente a la subrutina <code>&marino</code>, calculamos un valor en la expresión contenido en la llamada, pero el resultado simplemente se envió a la pantalla.</p>
+
+<p>Muchas veces que se llama a una subrutina, se quiere hacer algo con el resultado. Entonces debe prestar atención al <i>valor de retorno</i> de una subrutina. Todas las subrutinas en Perl tienen un valor de retorno. No hay distinción entre las que retornan valores y las que no. Sin embargo no todas las subrutinas en Perl tiene un valor de retorno <b>útil</b>.</p>
+
+<p>Puesto que en Perl, las subrutinas siempre deben devolver un valor, sería un poco inútil tener que declarar una sintaxis especial de tipo <code>return</code> para la mayoría de los casos. Entonces Larry hizo algo simple. Cualquier calculo que se encuentre de último en una subrutina es automáticamente el valor de retorno.</p>
+
+<p>Por ejemplo, vamos a definir esta subrutina:</p>
+
+<div class="programlisting">
+
+<pre><code>    sub sum_of_fred_and_barney {
+        print &quot;Hey,  has llamado a la subrutina sum_of_fred_and_barney !\n&quot;;
+        $fred + $barney; # Este es el valor de retorno.
+    }</code></pre>
+
+</div>
+
+<p>La última expresión evaluada en el cuerpo de la subrutina, es la suma de $fred y $barney, entonces la suma de $fred y $barney va a ser el valor de retorno. Veamos esto en acción:</p>
+
+<div class="programlisting">
+
+<pre><code>    $fred = 3;
+    $barney = 4;
+    $wilma = &amp;sum_of_fred_and_barney;   # $wilma obtiene 7
+    print &quot;\$wilma es $wilma.\n&quot;;
+    $betty = 3 * &amp;sum_of_fred_and_barney; # $betty obtiene 21
+    print &quot;\$betty es $betty.\n&quot;;</code></pre>
+
+</div>
+
+<p>Ahora supongamos que agrega una linea mas a la subrutina, por ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    sub sum_of_fred_and_barney {
+        print &quot;Hey,  has llamado a la subrutina sum_of_fred_and_barney !\n&quot;;
+        $fred + $barney; # Este es el valor de retorno.
+        print &quot;Hey, estoy retornando un valor ahora!\n&quot;;
+    }</code></pre>
+
+</div>
+
+<p>En este ejemplo, la última expresión evaluada no es una suma; es la sentencia print. Esta retorna normalmente 1, que significa "printing was successful", pero no es el valor de retorno que esperaba. Entonces, debe ser cuidadoso cuando agrega código adicional a una subrutina, puesto que la ultima expresión evaluada va a ser el valor de retorno.</p>
+
+<p>Tome en cuenta que no es la última linea de la subrutina, es la última expresión evaluada. Por ejemplo, esta subrutina devuelve el valor mas grande, entre $fred y $barney:</p>
+
+<div class="programlisting">
+
+<pre><code>    sub larger_of_fred_or_barney  {
+        if ($fred &gt; $barney) {
+            $fred;
+        } else {
+            $barney;
+        }
+    }</code></pre>
+
+</div>
+
+<p>La última expresión evaluada esta entre $fred o $barney, entonces el valor de una de estas variables va a ser el valor de retorno. No podemos saber cual va a ser la variable de retorno hasta que no veamos que guarda cada variable en tiempo de ejecución.</p>
+
+<p>Estos son ejemplos triviales, se pone mejor cuando podemos pasar valores a la subrutina en lugar de depender de variables globales.</p>
+
+<h2>Argumentos</h2>
+
+<p><a name="Argumentos"></p>
+
+<p>La subrutina llamada larger_of_fred_or_barney puede ser mas útil si no estuviera forzada a usar variables globales.</p>
+
+<p>Perl tiene argumentos para subrutinas. Para pasar una lista de argumentos a una subrutina, simplemente se coloca la expresión de lista en paréntesis, después de la llamada a la subrutina, por ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    $n = &amp;max(10, 15);  # Esta llamada tiene dos par&eacute;ntesis. </code></pre>
+
+</div>
+
+<p>Una vez que lista es enviada a la subrutina, va a estar disponible en la subrutina para hacer lo que sea necesario. Por supuesto, usted tiene que guardar esta lista en algún lugar, Perl automáticamente la lista de parámetros (este es otro nombre para la lista de argumentos) en una variable de tipo array especial llamada <code>@_</code> durante el tiempo de existencia de la subrutina. La subruina puede acceder a esta variable para determinar o el número de argumentos y el valor de los argumentos.</p>
+
+<p>Esto significa que el primer parámetro de la subrutina es guardado en <code>$_[0]</code>, el segundo es guardado en <code>$_[1]</code> y así sucesivamente. Pero, he aquí una nota importante, estas variables no tienen nada que ver con la variable <code>$_</code>, es solo que la lista de parámetros debe ser almacenada en una variable array para que la subrutina pueda utilizarlos, y Perl llama a esta variable <code>@_</code>.</p>
+
+<p>Ahora usted puede escribir la subrutina &max para que se parezca un poco a la subrutina &larger_of_fred_or_barney, pero en lugar de usar $fred usted puede usar el primer parámetro de la subrutina ($_[0]), y en lugar de usar $barney, puede usar el segundo parámetro de la subrutina ($_[1]). Y así puede terminar un código que se vea como esto:</p>
+
+<div class="programlisting">
+
+<pre><code>    sub max {
+        # Compare esto con &amp;larger_of_fred_or_barney 
+        if ($_[0] &gt; $_[1]) {
+            $_[0];
+        } else {
+            $_[1];
+        }
+    }</code></pre>
+
+</div>
+
+<p>Bien, como ya dijimos, puede hacer esto. Pero es un poco feo con todos esos subíndices, y es poco fácil de escribir, revisar, y depurar. En un momento veremos una mejor forma de hacerlo.</p>
+
+<p>Hay otro problema con esta subrutina, los parámetros adicionales son ignorados, puesto que la subrutina nunca mira en $_[2], a Perl no le importa si allí hay algo o no, y la ausencia de un parámetro también es ignorada, simplemente obtendrá <code>undef</code> si mira mas allá del final del array <code>@_</code>. En este mismo capítulo veremos como hacer esta subrutina mas eficiente.</p>
+
+<p>La variable <code>@_</code> es privada para cada subrutina;<A menos que se coloque un signo & delante del nombre de la subrutina en la variable y no se indique ningún argumento o paréntesis, en cuyo caso <code>@_</code> es heredada desde el contexto de la llamada a la subrutina. Generalmente es una mala idea, pero en ocasiones es útil> si hay una variable global @_, su valor es conservado antes de la invocación de la subrutina, y su valor es restaurado cuando la llamada termina. Esto significa que una subrutina puede pasar valores a otra subrutina sin miedo a perder los valores contenidos en @_. Si una subrutina se llama recursivamente, cada invocación obtiene un nuevo <code>@_</code>, entonces <code>@_</code> es siempre la lista de parámetros para la subrutina.</p>
+
+<h2>Variables privadas en Subrutinas</h2>
+
+<p><a name="Variables privadas en Subrutinas"></p>
+
+<p>Por defecto, todas las variables en Perl son variables globales; lo que significa que son accesibles desde cualquier parte del programa. Pero usted puede crear variables privadas llamadas variables léxicas, en cualquier momento usando el operador <code>my</code>. Por ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    sub max {
+        my ($m, $n);    # Nuevas variables privadas para este bloque 
+        ($m, $n) = @_;  # obtener los par&aacute;metros
+        if ($m &gt; $n) { $m } else { $n }
+    }</code></pre>
+
+</div>
+
+<p>Estas variables son privadas (o de ámbito local) al bloque que las contiene, ningún otro código puede acceder o modificar estas variables privadas, por accidente o por diseño <font class="footnote"> (footnote: Programadores mas avanzados puede hacer una variable de ámbito local accesible por referencia desde fuera de su ámbito, pero nunca por el nombre de la variable)</font>.</p>
+
+<p>También es importante señalar que, en el bloque <code>if</code>, no fue necesario un punto y coma después de la expresión del valor de retorno. Aunque Perl permíte omitir el último punto y coma de un bloque, en la práctica tu puedes omitirlo solo cuando el código es tan simple que puedas escribirlo en un bloque de una sola linea.</p>
+
+<p>La subrutina en el ejemplo previo puede ser mas simple aún. Debe haber notado que la lista ($m, $n) fue escrita dos veces, el operador <code>my</code> puede ser aplicado a una lista de variables encerradas en paréntesis, entonces se pueden combinar las dos primeras sentencias de la subrutina de la siguiente manera:</p>
+
+<div class="programlisting">
+
+<pre><code>    my($m, $n) = @_;    # nombre de los par&aacute;metros de la subrutina</code></pre>
+
+</div>
+
+<p>Una sola sentencia crea las variables privadas y define sus valores. Casí todas las subrutinas van a comenzar con una linea muy parecida a esta, nombres entre paréntesis. Cuando vea esta linea, va a saber que la subrutina espera dos parámetros escalares, que vas a llamar $m y $n dentro de la subrutina.</p>
+
+<h2>Longitud de la lista de parámetros</h2>
+
+<p><a name="Longitud de la lista de parámetros"></p>
+
+<p>En el mundo real, las subrutinas no poseen un valor arbritario para la longitud de la lista de parámetros. Esto es porque en Perl no hay límites innecesarios. Es agradable que Perl sea tan flexible, pero puede haber problemas cuando se llama a la subrutina con una cantidad diferente de parámetros que espera el autor.</p>
+
+<p>Por su puesto, la subrutina puede fácilmente probar si el número de argumentos es correcto examinando el array @_. Por ejemplo, podemos escribir la función &max de cierta forma para que revise la lista de argumentos:</p>
+
+<div class="programlisting">
+
+<pre><code>    sub max {
+        if (@_ != 2){
+            print &quot;WARNING! &amp;max deber&iacute;a tener exactamente dos argumentos\n&quot;;
+        }
+        # ...
+    }</code></pre>
+
+</div>
+
+<p>Perl en el mundo real, esto casi no se usa, es mejor hacer que la subrutina se adapte a los parámetros.</p>
+
+<h3>Subrutina &max bien escrita</h3>
+
+<p><a name="Subrutina &max bien escrita"></p>
+
+<div class="programlisting">
+
+<pre><code>    $maximo = &amp;max(4, 5, 10, 4, 6);
+
+    sub max {
+        my ($max_so_far) = shift @_;    # tomo el primer valor como el mayor
+        foreach (@_) {
+            if ($_ &gt; $max_so_far) {
+                $max_so_far = $_;
+            }
+        }
+        $max_so_far;
+    }</code></pre>
+
+</div>
+
+<h2>Notas sobre Variables Léxicas (my)</h2>
+
+<p><a name="Notas sobre Variables Léxicas (my)"></p>
+
+<p>Estas variables léxicas pueden usarse en cualquier bloque, no necesariamente en una subrutina. Por ejemplo, pueden usarse en un bloque de un <code>if</code>, <code>while</code>, o <code>foreach</code>:</p>
+
+<div class="programlisting">
+
+<pre><code>    foreach (1..10){
+        my ($cuadrado) = $_ * $_; # variable privada en este ciclo. 
+        print &quot;El cuadrado de $_ es $square.\n&quot;;
+    }</code></pre>
+
+</div>
+
+<p>La variable $cuadrado es privada al bloque de código; en este caso, al bloque de código del ciclo foreach. Si no se encuentra encerrada en un bloque, la variable es privada para el archivo completo. El concepto importante es que el ámbito de una variable léxica es limitado al pequeño bloque de código que encierre la variable. Esto es una gran virtud para la mantenibilidad del código. Si hay un valor erróneo en $cuadrado, la culpabilidad va a estar limitada a una pequeña porción del código.</p>
+
+<p>Debe haber notado, que el operador <code>my</code> tampoco altera el contexto de la asignación:</p>
+
+<div class="programlisting">
+
+<pre><code>    my ($num)   = @_; # contexto de lista. 
+    my $num     = @_; # contexto escalar. </code></pre>
+
+</div>
+
+<p>En la primera linea, $num obtiene el primer parámetro, en la segunda línea $num obtiene el número de parámetros en contexto escalar.</p>
+
+<p>Vale la pena recordar, que el uso de <code>my</code> sin paréntesis solo va a declarar una variable léxica simple:</p>
+
+<div class="programlisting">
+
+<pre><code>    my $fred, $barney;      # MAL! Falla al declarar $barney
+    my ($fred, $barney);    # declara ambas variables.</code></pre>
+
+</div>
+
+<p>También puede usar <code>my</code> para crear un nuevo y privado array:</p>
+
+<div class="programlisting">
+
+<pre><code>    my @phone_number;</code></pre>
+
+</div>
+
+<h2>Usando el Pragma Strict</h2>
+
+<p><a name="Usando el Pragma Strict"></p>
+
+<p>Perl tiende a ser un lenguaje muy permisivo. Pero puede ser que quieras que Perl imponga un poco de disciplina; esto se puede hacer con el pragma <code>strict</code>.</p>
+
+<p>Un pragma es una sugerencia al compilador, que le dice algo sobre el código. En este caso, el uso del pragma <code>strict</code> le dice al compilador interno de Perl que debe forzar el uso algunas buenas reglas de programación para el resto de este bloque o archivo.</p>
+
+<p>¿ Porqué esto es importante ?, Bueno imagine que esta creando un programa y usted escribe una linea como esta:</p>
+
+<div class="programlisting">
+
+<pre><code>    $bamm_bamm = 3;  # Perl crea esta variable autom&aacute;ticamente </code></pre>
+
+</div>
+
+<p>Ahora, luego de un rato, escribe un ciclo while. Después de que la linea anterior no sea visible en la pantalla, usted tipea una linea para incrementar la variable.</p>
+
+<div class="programlisting">
+
+<pre><code>    $bammbamm += 1;</code></pre>
+
+</div>
+
+<p>Puesto que perl ve un nuevo nombre de variable (el guión bajo es significativo) crea una nueva variable, e incrementa su valor en uno. Si eres afortunado e inteligente, activaste las advertencias (warnings), y Perl te va a decir que has usado una o varias variables globales una sola vez en tu programa. Pero si eres simplemente inteligente, vas a usar cada variable mas de una vez, y Perl no va a advertirte nada.</p>
+
+<p>Para decirle a Perl que quieres ser mas restrictivo, coloque <code>use strict</code> al principio de su programa.</p>
+
+<div class="programlisting">
+
+<pre><code>    use strict;     # Forza algunas buenas reglas de programaci&oacute;n.</code></pre>
+
+</div>
+
+<p>Ahora entre otras restricciones, Perl va a insistir que declares cada variable nueva, usualmente con <code>my</code>.</p>
+
+<div class="programlisting">
+
+<pre><code>    my $bamm_$bamm = 3;     # Nueva variable l&eacute;xica.</code></pre>
+
+</div>
+
+<p>Ahora, Perl va a notar que no hay una variable $bammbamm declarada, entonces tu error va ser automáticamente atrapado en tiempo de compilación.</p>
+
+<div class="programlisting">
+
+<pre><code>    $bammbamm += 1;     # No such variable: Compile time fatal error</code></pre>
+
+</div>
+
+<p>Para aprender mas sobre las restricciones que aplica el pragma strict, le recomendamos ver la documentación oficial. La documentación de los pragmas se encuentra en un archivo bajo el nombre del pragma, entonces podemos usar <code>perldoc strict</code>.</p>
+
+<p>La mayoría de la gente cree que si un programa es mas largo que la pantalla, generalmente necesita <code>use strict</code>. En esto estamos de acuerdo.</p>
+
+<h2>El operador return</h2>
+
+<p><a name="El operador return"></p>
+
+<p>El operador return inmediatamente retorna un valor de desde una subrutina:</p>
+
+<div class="programlisting">
+
+<pre><code>    my @names = qw/ fred barney betty dino wilma pebbles bamm-bamm /;
+    my $result = &amp;which_element_is(&quot;dino&quot;, @names);
+
+    sub which_element_is {
+        my($what, @array) = @_;
+        foreach (0..$#array) {
+            if ($what eq $array[$_]) {
+                return $_;
+            }
+        }
+        -1;
+    }</code></pre>
+
+</div>
+
+<p>Esta subrutina es usada para encontrar el índice de "dino" en el array @names.</p>
+
+<p>A algunos programadores les gusta usar return siempre, como una forma de documentar que este es el valor de retorno. Por ejemplo, se puede usar return cuando el valor de retorno no es la ultima expresión evaluada de la subrutina.</p>
+
+<h2>Omitir el signo &</h2>
+
+<p><a name="Omitir el signo &"></p>
+
+<p>Como lo prometimos, vamos a darle la regla para cuando una llamada a subrutina puede omitir el signo &. Si el compilador ve una definición de la subrutina antes de la llamada, o si Perl puede decidir que la sintaxis es una llamada a subrutina, la subrutina puede ser llamada sin un signo &. Como si fuera una función integrada de Perl. Pero hay una trampa escondida en esta norma, como veremos a continuación.</p>
+
+<p>Esto significa que si Perl puede ver que es una llamada a una subrutina sin el signo &, por lo general va bien. Entonces si tienes una lista de parámetros entre paréntesis, entonces esto es una llamada a una función:</p>
+
+<div class="programlisting">
+
+<pre><code>    my $cards = shuffle(@deck_of_cards);  # &amp; no es necesario.</code></pre>
+
+</div>
+
+<p>Si el compilador interno de perl ya ha visto la definición de la subrutina, entonces generalmente funciona bien. En este caso particular, puedes incluso omitir los paréntesis que abrazan la lista de argumentos.</p>
+
+<div class="programlisting">
+
+<pre><code>    sub division {
+        $_[0] / $[1];
+    }
+
+    my $cociente = division 355, 113;   # Usa &amp;division </code></pre>
+
+</div>
+
+<p>Esto funciona por la regla de que los paréntesis pueden ser omitidos.</p>
+
+<p>Pero no ponga la declaración de la subrutina despues de la llamada, o el compilador no sabrá de que se trata la llamada de <code>division</code>. Sin embargo esta no es la trampa, el problema en si es el siguiente: Si la subrutina tiene el mismo nombre que una función propia de Perl, usted <i>debe</i> usar el ampersand (&) para hacer la llamada a la subrutina. Al usar el ampersand, nos aseguramos de que estamos llamando a una subrutina; sin el; usted puede hacer la llamada solo si la subrutina no tiene el mismo nombre que una función propia de Perl. Por ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    sub chomp {
+        print &quot;Mucho,  mucho!\n&quot;;
+    }
+
+    &amp;chomp;     # El ampersand aqu&iacute; no es opcional!</code></pre>
+
+</div>
+
+<p>Sin el ampersand, estamos haciendo una llamada a la función <code>chomp</code> interna de Perl.</p>
+
+<p>La regla general aquí es: Hasta que usted conozca los nombres de todas las funciones internas de Perl, siempre use ampersand en las llamadas a funciones.</p>
+
+<p>En nuestro caso, podemos usar funciones en nuestra lengua materna (Español) para evitar caer en la trampa.</p>
+
+<h2>Retornando valores no escalares</h2>
+
+<p><a name="Retornando valores no escalares"></p>
+
+<p>Un escalar no es la única cosa que puede retornar una subrutina. Si llamas a tu subrutina en un contexto de lista <font class="footnote"> (footnote: Puedes detectar en que contexto esta siendo llamada su subrutina, usando la función wantarray)</font>, esta puede retornar una lista de valores.</p>
+
+<p>Supongamos que quieres obtener un rango de números (como viene del operador de rango, ..), pero quieres habilitar el conteo hacia abajo. El operador de rango solo cuenta hacia arriba, pero es algo fácil de arreglar:</p>
+
+<div class="programlisting">
+
+<pre><code>    sub list_from_fred_to_barney {
+        if ($fred &lt; $barney){
+            $fred..$barney;
+        } else {
+            reverse $barney..$fred;
+        }
+    }
+
+    $fred = 11;
+    $barney = 6;
+
+    @c = &amp;list_from_fred_to_barney; </code></pre>
+
+</div>
+
+<p>Finalmente, puedes retornar nada. Cuando usamos <code>return</code> sin argumentos vamos a retornar <code>undef</code> en contexto escalar o una lista vacía en contexto de lista. Esto puede ser útil para retornar errores de una subrutina.</p>
+
+<h2>Variables Privadas Persistentes</h2>
+
+<p><a name="Variables Privadas Persistentes"></p>
+
+<p>Con <code>my</code> podemos hacer variables privadas en una subrutina, sin embargo cada vez que llamamos a la subrutina va a re-definir los valores una vez mas. Con <code>state</code>, podemos tener variables privadas del ambito de una subrutina pero Perl va a mantener sus valores entre las llamadas.</p>
+
+<p>En el primer ejemplo de este capítulo, vimos una subrutina llamada marino, que incrementaba una variable:</p>
+
+<div class="programlisting">
+
+<pre><code>    sub marine {
+        $n += 1;    # Variable global $n 
+        print &quot;Hola,  marinera numero $n!\n&quot;
+    }</code></pre>
+
+</div>
+
+<p>Ahora que debemos usar <code>strict</code>, el uso de la variable gobal $n no esta permitido. No podemos hacer de $n una variable léxica con <code>my</code> porque entonces no va a mantener el valor.</p>
+
+<p>Declarando nuestra variable con <code>state</code> le decimos a Perl que retenga el valor de esta variable entre las llamadas a la subrutina y hace que la variable sea una variable privada de la subrutina.</p>
+
+<div class="programlisting">
+
+<pre><code>    use 5.010;
+
+    sub marino {
+        state $n = 0;   # privada, variable persistente $n
+        $n += 1;
+        print &quot;Hola, marinera numero $n!\n&quot;;
+    }</code></pre>
+
+</div>
+
+<p>Ahora, podemos obtener la misma salida mientras usamos <code>strict</code> sin usar variables globales. La primera vez que llamamos a la subrutina, Perl declara e inicializa <code>$n</code>, para las siguientes llamadas de la subrutina, Perl ignora la sentencia.</p>
+
+<p>Podemos conservar el estado de cualquier variable, no es solo para los datos escalares. Aquí tenemos una subrutina que recuerda sus argumentos y provee una suma usando <code>state</code> en un array.</p>
+
+<div class="programlisting">
+
+<pre><code>    use 5.010;
+
+    running_sum(5, 6);
+    running_sum(1..3);
+    running_sum( 4 );
+
+    sub running_sum {
+        state $sum = 0;
+        state @numbers;
+
+        foreach my $number (@_){
+            push @numbers, $number;
+            $sum += $number; 
+        }
+        say &quot;La suma de (@numbers) es $sum&quot;;
+    }</code></pre>
+
+</div>
+
+<p>La salida de este programa es:</p>
+
+<div class="screen">
+
+<pre><code>    La suma de (5 6) es 11
+    La suma de (5 6 1 2 3) es 17
+    La suma de (5 6 1 2 3 4) es 21</code></pre>
+
+</div>
+
+<p>Sin embargo, hay una ligera restricción en arrays y hashes como variables de estado. No podemos inicializarlas en contexto de lista. Por ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    state @array = qw(a b c);   # Error !</code></pre>
+
+</div>
+
+<p>Esto nos dara un error que sugiere que podríamos usar esto en una versión futura de Perl:</p>
+
+<div class="screen">
+
+<pre><code>    Initialization of state variables in list context currently forbidden </code></pre>
+
+</div>
+
+<h2>Ejercicios</h2>
+
+<p><a name="ejercicios_03"></p>
+
+<ul>
+
+<li>1. Escriba una función llamada "total" que retorne el total de una lista de números. (Nota: la función no debe realizar algún tipo de I/O, esta debe simplemente procesar sus parámetros y retornar un valor). Complete el siguiente programa de ejemplo con la función "total", el resultado de la sumatoria debe dar 25 para el primer grupo de números.
+
+<div class="programlisting">
+
+<pre><code>        my @fred = qw{ 1 3 5 7 9 };
+        my $fred_total = total(@fred);
+        print &quot;El total de \@fred es $fred_total.\n&quot;;
+        print &quot;Ingrese algunos n&uacute;meros separados por lineas: &quot;;
+        my $user_total = total(&lt;STDIN&gt;);
+        print &quot;El total para los n&uacute;meros ingresados es: $user_total.\n&quot;;</code></pre>
+
+</div>
+
+<li>2. Usando la función escrita en el ejercicio anterior, realice un programa que calcule la sumatoria de todos los números del 1 al 1000.
+
+<li>3. Escriba una función llamada &above_average que tome una lista de números y retorne solo aquellos números que estén por encima del promedio (Nota: escriba otra función que calcule el promedio de varios números dividiendo el total de la sumatoria de los números por el numero de items). Use su función para probar el siguiente programa:
+
+<div class="programlisting">
+
+<pre><code>        my @fred = above_average(1..10);
+        print &quot;\@fred es @fred\n&quot;;
+        print &quot;(Debe ser 6 7 8 9 10)\n&quot;;
+        my @barney = above_average(100, 1..10);
+        print &quot;\@barney es @barney\n&quot;;
+        print &quot;(Debe ser solo 100)\n&quot;;</code></pre>
+
+</div>
+
+<li>4. Escriba una función llamada "saludo", que de la bienvenida a una persona por su nombre y que ademas diga el nombre de la ultima persona saludada, ejemplo:
+
+<pre><code>        saludo(&quot;Fred&quot;);
+        saludo(&quot;Barney&quot;);</code></pre>
+
+<p>Esto debe escribir lo siguiente:</p>
+
+<pre><code>        Hola Fred! Eres el primero aqu&iacute;!
+        Hola Barney! Fred tambi&eacute;n esta aqu&iacute;!</code></pre>
+
+<li>5. Modifique el programa anterior para que imprima los nombres de todas las personas que han sido previamente saludadas.
+
+<pre><code>        saludo(&quot;Fred&quot;);
+        saludo(&quot;Barney&quot;);
+        saludo(&quot;Wilma&quot;);
+        saludo(&quot;Betty&quot;);</code></pre>
+
+<p>La salida debe ser como lo siguiente:</p>
+
+<pre><code>        Hola Fred! Eres el primero aqu&iacute;!
+        Hola Barney! He visto a: Fred
+        Hola Wilma! He visto a: Fred Barney
+        Hola Betty! He visto a: Fred Barney Wilma</code></pre>
+
+</ul>
+
+</body>
+</html>
+
