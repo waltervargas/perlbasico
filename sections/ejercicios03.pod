@@ -1,17 +1,59 @@
-=head1 Ejercicios Capitulo 03
+=head1 Ejercicios Capitulo 04
 
-Z<ejercicios_03> 
+Z<ejercicios_04> 
 
 =over
 
-=item 1. Escriba un programa que lea una lista de caracteres separados por lineas e imprima esta lista en modo inverso, si la entrada proviene del teclado, se necesita una senal para la finalizacion de la entrada, en Unix es CTRL-D.
+=item 1. Escriba una funcion llamada "total" que retorne el total de una lista de numeros. (Nota: la funcion no debe realizar algun tipo de I/O, esta debe simplemente procesar sus parametros y retornar un valor). Complete el siguiente programa de ejemplo con la funcion "total", el resultado de la sumatoria debe dar 25 para el primer grupo de numeros.
 
-=item 2. Escriba un programa que lea una lista de numeros serparados por lineas y por cada numero imprima el nombre correspondiente a la lista mostrada a continuacion.
+=begin programlisting
 
-	fred betty barney dino wilma pebbles bamm-bamm
+	my @fred = qw{ 1 3 5 7 9 };
+	my $fred_total = total(@fred);
+	print "El total de \@fred es $fred_total.\n";
+	print "Ingrese algunos numeros separados por lineas: ";
+	my $user_total = total(<STDIN>);
+	print "El total para los numeros ingresados es: $user_total.\n";
 
-Por ejemplo, si la entrada es 1, 2, 4, la salida debe mostrar lo siguiente, fred, betty, dino.
+=end programlisting
 
-=item 3. Escriba un programa que lea una lista de caracteres separados por lineas e imprima esta lista en orden alfabetico, por ejemplo si la entrada fue fred, barney, wilma, betty, la salida debe ser, barney, betty, fred, wilma
+=item 2. Usando la funcion escrita en el ejercicio anterior, realice un programa que calcule la sumatoria de todos los numeros del 1 al 1000.
+
+=item 3. Escriba una funcion llamada &above_average que tome una lista de numeros y retorne solo aquellos numeros que esten por encima del promedio (Nota: escriba otra funcion que calcule el promedio de varios numeros dividiendo el total de la sumatoria de los numeros por el numero de items). Use su funcion para probar el siguiente programa:
+
+=begin programlisting
+
+	my @fred = above_average(1..10);
+	print "\@fred es @fred\n";
+	print "(Debe ser 6 7 8 9 10)\n";
+	my @barney = above_average(100, 1..10);
+	print "\@barney es @barney\n";
+	print "(Debe ser solo 100)\n";
+
+=end programlisting
+
+=item 4. Escriba una funcion llamada "saludo", que de la bienvenida a una persona por su nombre y que ademas diga el nombre de la ultima persona saludada, ejemplo:
+
+	saludo("Fred");
+	saludo("Barney");
+
+Esto debe escribir lo siguiente:
+
+	Hola Fred! Eres el primero aqui!
+	Hola Barney! Fred tambien esta aqui!
+
+=item 5. Modifique el programa anterior para que imprima los nombres de todas las personas que han sido previamente saludadas.
+
+	saludo("Fred");
+	saludo("Barney");
+	saludo("Wilma");
+	saludo("Betty");
+
+La salida debe ser como lo siguiente:
+
+	Hola Fred! Eres el primero aqui!
+	Hola Barney! He visto a: Fred
+	Hola Wilma! He visto a: Fred Barney
+	Hola Betty! He visto a: Fred Barney Wilma
 
 =back

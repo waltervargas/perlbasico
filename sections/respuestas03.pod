@@ -1,6 +1,6 @@
 =head1 Repuestas a Ejercicios del Capitulo 03
 
-Z<respuestas_03> 
+Z<respuestas_04> 
 
 =over
 
@@ -8,54 +8,91 @@ Z<respuestas_03>
 
 =begin programlisting
 
-	print "Ingrese algunas lineas, para finalizar presione CTRL-D:\n";
-	@lines = <STDIN>;
-	@reverse_lines = reverse @lines;
-	print @reverse_lines;
-
-=end programlisting
-
-Otra forma de hacerlo es:
-
-=begin programlisting
-
-	print "Ingrese algunas lineas, para finalizar presione CTRL-D:\n";
-	print reverse <STDIN>;
-
-=end programlisting
-
-=item 2. Una forma de hacer este ejercicio es:
-
-=begin programlisting
-
-	@names = qw/ fred betty barney dino wilma pebbles bamm-bamm /;
-	print "Ingrese algunos numeros del 1 al 7, uno por linea, presione CTRL-D para finalizar:\n";
-	chomp(@numbers = <STDIN>);
-	foreach (@numbers) {
-		print "$names[$_ - 1]\n";
+	sub total {
+		my $sum;
+		foreach (@_) {
+			$sum += $_;
+		}
+		$sum;
 	}
 
 =end programlisting
 
-Se resta uno del indice debido a que los indices de los arreglos en Perl comienzan desde el numero 0.
-
-Ve un poco mas lejos y asegura que la entrada del usuario realmente fue un numero en el rango del 1 al 7.
-
-=item 3. Una forma de hacer este ejercicio si se desea imprimir la salida en una sola linea, es:
+=item 2. Una forma de hacerlo:
 
 =begin programlisting
 
-	chomp(@lines = <STDIN>);
-	@sorted = sort @lines;
-	print "@sorted\n";
+	# Recuerde incluir la funcion &total del ejercicio pasado!
+	print "La sumatoria de los numeros del 1 al 1000 es ", total(1..1000), ".\n";
 
 =end programlisting
 
-Para imprimir el resultado en lineas separadas
+=item 3. Una forma de hacer este ejercicio es:
 
 =begin programlisting
 
-	print sort <STDIN>;
+	sub average {
+		if (@_ == 0) { return }
+		my $count = @_;
+		my $sum = total(@_);
+		$sum/$count;
+	}
+
+	sub above_average {
+		my $average = average(@_);
+		my @list;
+		foreach my $element (@_) {
+			if ($element > $average) {
+				push @list, $element;
+			}
+		}
+		@list;
+	}
+
+=end programlisting
+
+=item 4. Una forma de hacer este ejercicio es:
+
+=begin programlisting
+
+	saludo('Fred');
+	saludo('Barney');
+	
+	sub saludo {
+		state $last_person;
+		my $name = shift;
+		print "Hola $name! ";
+		if (defined $last_person) {
+			print "$last_person tambien esta aqui!\n";
+		} else {
+			print "Eres el primero aqui!\n";
+		}
+		$last_person = $name;
+	}
+
+=end programlisting
+
+=item 5. Una forma de hacerlo:
+
+=begin programlisting
+
+	saludo('Fred');
+	saludo('Barney');
+	saludo('Wilma');
+	saludo('Betty');
+	
+	sub saludo {
+		state @names;
+		my $name = shift;
+		print "Hola $name! ";
+		if (@names) {
+			print "He visto a: @names\n";
+		} else {
+			print "Eres el primero aqui!\n";
+		}
+		push @names, $name;
+	}
+
 
 =end programlisting
 
