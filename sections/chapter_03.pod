@@ -185,7 +185,7 @@ La subrutina llamada larger_of_fred_or_barney puede ser mas útil si no
 estuviera forzada a usar variables globales. 
 
 Perl tiene argumentos para subrutinas. Para pasar una lista de argumentos a una
-subrutina, simplemente se coloca la expresión de lista en paréntesis, despues
+subrutina, simplemente se coloca la expresión de lista en paréntesis, después
 de la llamada a la subrutina, por ejemplo: 
 
 =begin programlisting
@@ -203,13 +203,13 @@ subruina puede acceder a esta variable para determinar o el número de
 argumentos y el valor de los argumentos. 
 
 Esto significa que el primer parámetro de la subrutina es guardado en
-C<$_[0]>, el segundo es guardado en C<$_[1]> y así suscesivamente. Pero, he
+C<$_[0]>, el segundo es guardado en C<$_[1]> y así sucesivamente. Pero, he
 aquí una nota importante, estas variables no tienen nada que ver con la
 variable C<$_>, es solo que la lista de parámetros debe ser almacenada en una
 variable array para que la subrutina pueda utilizarlos, y Perl llama a esta
 variable C<@_>.  
 
-Ahora usted puede escribir la subrutina &max para que se paresca un poco a la
+Ahora usted puede escribir la subrutina &max para que se parezca un poco a la
 subrutina &larger_of_fred_or_barney, pero en lugar de usar $fred usted puede
 usar el primer parámetro de la subrutina ($_[0]),  y en lugar de usar $barney,
 puede usar el segundo parámetro de la subrutina ($_[1]). Y así puede terminar
@@ -228,21 +228,21 @@ un código que se vea como esto:
 
 =end programlisting
 
-Bien, como ya digímos, puede hacer esto. Pero es un poco feo con todos esos
-subindices, y es poco fácil de escribir,  revisar, y depurar. En un momento
+Bien, como ya dijimos, puede hacer esto. Pero es un poco feo con todos esos
+subíndices, y es poco fácil de escribir,  revisar, y depurar. En un momento
 veremos una mejor forma de hacerlo. 
 
 Hay otro problema con esta subrutina, los parámetros adicionales son ignorados,
 puesto que la subrutina nunca mira en $_[2], a Perl no le importa si allí hay
 algo o no, y la ausencia de un parámetro también es ignorada, simplemente
-obtendrá C<undef> si mira mas alla del final del array C<@_>. En este mismo
+obtendrá C<undef> si mira mas allá del final del array C<@_>. En este mismo
 capítulo veremos como hacer esta subrutina mas eficiente. 
 
 La variable C<@_> es privada para cada subrutina;<A menos que se coloque un
 signo & delante del nombre de la subrutina en la variable y no se indique
 ningún argumento o paréntesis,  en cuyo caso C<@_> es heredada desde el
 contexto de la llamada a la subrutina. Generalmente es una mala idea, pero en
-ocaciones es útil> si hay una variable global @_, su valor es conservado antes
+ocasiones es útil> si hay una variable global @_, su valor es conservado antes
 de la invocación de la subrutina, y su valor es restaurado cuando la llamada
 termina. Esto significa que una subrutina puede pasar valores a otra subrutina
 sin miedo a perder los valores contenidos en @_. Si una subrutina se llama
@@ -274,10 +274,10 @@ accidente o por diseño N<Programadores mas avanzados puede hacer una variable
 de ámbito local accesible por referencia desde fuera de su ámbito, pero nunca
 por el nombre de la variable>. 
 
-Tambien es importante señalar que, en el bloque C<if>, no fue necesario un
-punto y coma despues de la expresión del valor de retorno. Aunque Perl permíte
+También es importante señalar que, en el bloque C<if>, no fue necesario un
+punto y coma después de la expresión del valor de retorno. Aunque Perl permíte
 omitir el último punto y coma de un bloque, en la práctica tu puedes omitirlo
-solo cuando el código es tan sinoke que puedas escribirlo en un bloque de una
+solo cuando el código es tan simple que puedas escribirlo en un bloque de una
 sola linea. 
 
 La subrutina en el ejemplo previo puede ser mas simple aún. Debe haber notado
@@ -348,7 +348,7 @@ Z<Subrutina &max bien escrita>
 
 Z<Notas sobre Variables Léxicas (my)> 
 
-Estas variables léxicas pueden usarase en cualquier bloque, no necesariamente
+Estas variables léxicas pueden usarse en cualquier bloque, no necesariamente
 en una subrutina. Por ejemplo, pueden usarse en un bloque de un C<if>,
 C<while>, o C<foreach>: 
 
@@ -363,10 +363,10 @@ C<while>, o C<foreach>:
 
 La variable $cuadrado es privada al bloque de código; en este caso, al bloque
 de código del ciclo foreach. Si no se encuentra encerrada en un bloque, la
-variable es privada para el archivo completo. El concepto imporante es que el
+variable es privada para el archivo completo. El concepto importante es que el
 ámbito de una variable léxica es limitado al pequeño bloque de código que
 encierre la variable. Esto es una gran virtud para la mantenibilidad del
-código. Si hay un valor erroneo en $cuadrado, la culpabilidad va a estar
+código. Si hay un valor erróneo en $cuadrado, la culpabilidad va a estar
 limitada a una pequeña porción del código. 
 
 Debe haber notado, que el operador C<my> tampoco altera el contexto de la
@@ -379,7 +379,7 @@ asignación:
 
 =end programlisting
 
-En la primera linea, $num optiene el primer parámetro, en la segunda línea $num
+En la primera linea, $num obtiene el primer parámetro, en la segunda línea $num
 obtiene el número de parámetros en contexto escalar. 
 
 Vale la pena recordar, que el uso de C<my> sin paréntesis solo va a declarar
@@ -404,7 +404,76 @@ También puede usar C<my> para crear un nuevo y privado array:
 
 Z<Usando el Pragma Strict> 
 
-contenido
+Perl tiende a ser un lenguaje muy permisivo. Pero puede ser que quieras que 
+Perl imponga un poco de disciplina; esto se puede hacer con el pragma
+C<strict>. 
+
+Un pragma es una sugerencia al compilador, que le dice algo sobre el código. En
+este caso, el uso del pragma C<strict> le dice al compilador interno de Perl
+que debe forzar el uso algunas buenas reglas de programación para el resto
+de este bloque o archivo. 
+
+¿ Porqué esto es importante ?, Bueno imagine que esta creando un programa y
+usted escribe una linea como esta: 
+
+=begin programlisting
+
+    $bamm_bamm = 3;  # Perl crea esta variable automáticamente 
+
+=end programlisting
+
+Ahora, luego de un rato, escribe un ciclo while. Después de que la linea
+anterior no sea visible en la pantalla, usted tipea una linea para incrementar
+la variable. 
+
+=begin programlisting
+
+    $bammbamm += 1;
+
+=end programlisting
+
+Puesto que perl ve un nuevo nombre de variable (el guión bajo es significativo)
+crea una nueva variable,  e incrementa su valor en uno. Si eres afortunado e
+inteligente, activaste las advertencias (warnings), y Perl te va a decir que
+has usado una o varias variables globales una sola vez en tu programa. Pero si
+eres simplemente inteligente, vas a usar cada variable mas de una vez, y Perl
+no va a advertirte nada. 
+
+Para decirle a Perl que quieres ser mas restrictivo, coloque C<use strict> al
+principio de su programa. 
+
+=begin programlisting
+
+    use strict;     # Forza algunas buenas reglas de programación.
+
+=end programlisting
+
+Ahora entre otras restricciones, Perl va a insistir que declares cada variable
+nueva, usualmente con C<my>. 
+
+=begin programlisting
+
+    my $bamm_$bamm = 3;     # Nueva variable léxica.
+
+=end programlisting
+
+
+Ahora, Perl va a notar que no hay una variable $bammbamm declarada, entonces tu
+error va ser automáticamente atrapado en tiempo de compilación. 
+
+=begin programlisting
+
+    $bammbamm += 1;     # No such variable: Compile time fatal error
+
+=end programlisting
+
+Para aprender mas sobre las restricciones que aplica el pragma strict, le
+recomendamos ver la documentación oficial. La documentación de los pragmas se
+encuentra en un archivo bajo el nombre del pragma, entonces podemos usar
+C<perldoc strict>.
+
+La mayoría de la gente cree que si un programa es mas largo que la pantalla,
+generalmente necesita C<use strict>. En esto estamos de acuerdo. 
 
 
 
