@@ -1,6 +1,6 @@
-=head1 Ejercicios Capitulo 04
+=head1 Ejercicios Capitulo 03
 
-Z<ejercicios_04> 
+Z<ejercicios_03> 
 
 =over
 
