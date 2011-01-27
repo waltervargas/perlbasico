@@ -610,8 +610,104 @@ lista. Esto puede ser útil para retornar errores de una subrutina.
 
 Z<Variables Privadas Persistentes> 
 
+Con C<my> podemos hacer variables privadas en una subrutina,  sin embargo cada
+vez que llamamos a la subrutina va a re-definir los valores una vez mas. Con
+C<state>, podemos tener variables privadas del ambito de una subrutina pero
+Perl va a mantener sus valores entre las llamadas. 
+
+En el primer ejemplo de este capítulo, vimos una subrutina llamada marino, que
+incrementaba una variable: 
+
+=begin programlisting
+
+    sub marine {
+        $n += 1;    # Variable global $n 
+        print "Hola,  marinera numero $n!\n"
+    }
+
+=end programlisting
+
+Ahora que debemos usar C<strict>, el uso de la variable gobal $n no esta 
+permitido. No podemos hacer de $n una variable léxica con C<my> porque entonces
+no va a mantener el valor. 
+
+Declarando nuestra variable con C<state> le decimos a Perl que retenga el valor
+de esta variable entre las llamadas a la subrutina y hace que la variable sea
+una variable privada de la subrutina. 
+
+=begin programlisting
+
+    use 5.010;
+
+    sub marino {
+        state $n = 0;   # privada, variable persistente $n
+        $n += 1;
+        print "Hola, marinera numero $n!\n";
+    }
+
+=end programlisting
+
+Ahora, podemos obtener la misma salida mientras usamos C<strict> sin usar
+variables globales. La primera vez que llamamos a la subrutina, Perl declara e
+inicializa C<$n>, para las siguientes llamadas de la subrutina, Perl ignora la
+sentencia. 
+
+Podemos conservar el estado de cualquier variable, no es solo para los datos
+escalares. Aquí tenemos una subrutina que recuerda sus argumentos y provee una
+suma usando C<state> en un array. 
+
+=begin programlisting
+
+    use 5.010;
+
+    running_sum(5, 6);
+    running_sum(1..3);
+    running_sum( 4 );
+
+    sub running_sum {
+        state $sum = 0;
+        state @numbers;
+
+        foreach my $number (@_){
+            push @numbers, $number;
+            $sum += $number; 
+        }
+        say "La suma de (@numbers) es $sum";
+    }
 
 
+=end programlisting
+
+La salida de este programa es: 
+
+=begin screen
+
+    La suma de (5 6) es 11
+    La suma de (5 6 1 2 3) es 17
+    La suma de (5 6 1 2 3 4) es 21
+
+=end screen
+
+
+Sin embargo, hay una ligera restricción en arrays y hashes como variables de
+estado. No podemos inicializarlas en contexto de lista. Por ejemplo: 
+
+=begin programlisting
+
+    state @array = qw(a b c);   # Error !
+
+=end programlisting
+
+Esto nos dara un error que sugiere que podríamos usar esto en una versión
+futura de Perl: 
+
+=begin screen
+
+    Initialization of state variables in list context currently forbidden 
+
+=end screen
+
+L<ejercicios_03>
 
 
 

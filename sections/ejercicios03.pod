@@ -4,7 +4,11 @@ Z<ejercicios_03>
 
 =over
 
-=item 1. Escriba una función llamada "total" que retorne el total de una lista de números. (Nota: la función no debe realizar algún tipo de I/O, esta debe simplemente procesar sus parámetros y retornar un valor). Complete el siguiente programa de ejemplo con la función "total", el resultado de la sumatoria debe dar 25 para el primer grupo de números.
+=item 1. Escriba una función llamada "total" que retorne el total de una lista
+de números. (Nota: la función no debe realizar algún tipo de I/O, esta debe
+simplemente procesar sus parámetros y retornar un valor). Complete el siguiente
+programa de ejemplo con la función "total", el resultado de la sumatoria debe
+dar 25 para el primer grupo de números.
 
 =begin programlisting
 
@@ -17,9 +21,14 @@ Z<ejercicios_03>
 
 =end programlisting
 
-=item 2. Usando la función escrita en el ejercicio anterior, realice un programa que calcule la sumatoria de todos los números del 1 al 1000.
+=item 2. Usando la función escrita en el ejercicio anterior, realice un
+programa que calcule la sumatoria de todos los números del 1 al 1000.
 
-=item 3. Escriba una función llamada &above_average que tome una lista de números y retorne solo aquellos números que estén por encima del promedio (Nota: escriba otra función que calcule el promedio de varios números dividiendo el total de la sumatoria de los números por el numero de items). Use su función para probar el siguiente programa:
+=item 3. Escriba una función llamada &above_average que tome una lista de
+números y retorne solo aquellos números que estén por encima del promedio
+(Nota: escriba otra función que calcule el promedio de varios números
+dividiendo el total de la sumatoria de los números por el numero de items). Use
+su función para probar el siguiente programa:
 
 =begin programlisting
 
@@ -32,7 +41,9 @@ Z<ejercicios_03>
 
 =end programlisting
 
-=item 4. Escriba una función llamada "saludo", que de la bienvenida a una persona por su nombre y que ademas diga el nombre de la ultima persona saludada, ejemplo:
+=item 4. Escriba una función llamada "saludo", que de la bienvenida a una
+persona por su nombre y que ademas diga el nombre de la ultima persona
+saludada, ejemplo:
 
 	saludo("Fred");
 	saludo("Barney");
@@ -42,7 +53,8 @@ Esto debe escribir lo siguiente:
 	Hola Fred! Eres el primero aquí!
 	Hola Barney! Fred también esta aquí!
 
-=item 5. Modifique el programa anterior para que imprima los nombres de todas las personas que han sido previamente saludadas.
+=item 5. Modifique el programa anterior para que imprima los nombres de todas
+las personas que han sido previamente saludadas.
 
 	saludo("Fred");
 	saludo("Barney");
