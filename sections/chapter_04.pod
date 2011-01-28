@@ -4,25 +4,20 @@
    
 Z<Entrada y Salida>
 
-Ya hemos visto como hacer alguna entrada/salida, con el fin de hacer posible
-algunos de los ejercicios. Pero ahora vamos a aprender más acerca de las 
-operaciones de cobertura el 80% de la E/S que se necesita para la mayoría de
-los programas. Si ya está familiarizado con la funcionamiento de la entrada
-estándar, salida y error, que está delante del juego. Si no, vamos a conseguir
-que alcanzó a finales de este capítulo. Por ahora, sólo piense en "estándar de 
-entrada" como "el teclado", y "salida estándar" como "la pantalla".
+Ya hemos visto antes  como hacer alguna entrada/salida, con el fin de hacer
+algunos de los ejercicios. Pero ahora vamos a aprender más acerca de las
+operaciones que cubren el 80% de la E/S que se necesita para la mayoría de los
+programas. Por ahora, sólo piense en "entrada estándar" como "el teclado", y
+"salida estándar" como "la pantalla".
 
-=head1 Entrada para Entrada Estándar
+=head1 Entrada desde la Entrada Estándar
 
 Z<Entrada para Entrada Estándar> 
 
-La lectura de el flujo de entrada estándar es fácil. Hemos estado haciendo ya
-con la Operador <STDIN>. N<Lo que nosotros estamos llamando al operador de la
-línea de entrada aquí, <STDIN>, en realidad es un operador de línea de entrada
-(representada por el paréntesis angulares) en torno a un gestor de archivo.
-Usted aprenderá acerca de controladores de archivo más adelante en este 
-capítulo>. La evaluación de este operador en un contexto escalar le ofrece la
-siguiente línea de entrada:
+Leer el flujo de datos que viene desde la entrada estándar es fácil. Ya hemos
+estado haciendo esto antes con el operador line-input STDIN.
+Si evaluamos este operador en contexto escalar, obtendremos la próxima linea de
+la entrada. Por ejemplo: 
 
 =begin programlisting
 
@@ -33,37 +28,415 @@ siguiente línea de entrada:
 =end programlisting
 
 Dado que del operador de línea de entrada devolverá C<undef> cuando llegue al
-final del archivo, esto es útil para no dejarlo caer fuera de los bucles:
+final del archivo, podemos usar esto para salir de un ciclo:
 
 =begin programlisting 
 
-    while (<STDIN>) {
-      print "I saw $_";
+    while (defined($line = <STDIN>)) {
+      print "I saw $line";
     } 
 
 =end programlisting
 
-Hay mucho que hacer en esa primera línea: estamos leyendo la entrada en una 
-variable, la comprobación que es definida, y si está es (lo que significa que
-no hemos llegado al final de la entrada) nos estamos quedando en el cuerpo del
-bucle C<while>. Así, dentro del cuerpo del bucle, vemos las líneas, una tras 
-otra en la línea C<$>. N<Usted probablemente ha notado que nosotros nunca 
-completamos esa entrada. En este tipo de bucle, en realidad no se puede
-colocar chomp en la expresión condicional, por lo que a menudo es el primer 
-elemento en el cuerpo del ciclo, cuando es necesario. Vamos a ver ejemplos
-de ese en la siguiente sección.> Esto es algo que usted querrá hacer con
-bastante frecuencia, por lo que naturalmente, Perl tiene un acceso directo 
-para ello. El acceso directo es el siguiente:
+Muchas cosas ocurren esa primera línea: estamos leyendo la entrada en una 
+variable, se comprueba que este definida, y si lo está (lo que significa que
+no hemos llegado al final de la entrada) entramos al bucle C<while>. Luego
+dentro del bucle, vamos a tener cada linea una tras otra en la variable C<$_>.
+Es importante resaltar que no estamos haciendo C<chomp> de la entrada. En este
+tipo de bucles, no puedes poner C<chomp> en la expresión condicional, entonces
+lo que se hace con frecuencia, si es necesario, es poner chomp en la primera 
+linea del cuerpo del bucle. Como es algo que vas a querer hacer con bastante
+frecuencia, naturalmente como ya hemos visto antes, Perl tiene un atajo para
+hacer esto. El atajo se ve asi: 
 
+=begin programlisting
+
+    while (<STDIN>){
+        print "Say: $_"; 
+    }
+
+=end programlisting
+
+De esta manera, las lineas leidas de la entrada estándar, automáticamente van a
+estar contenidas en la variable mágica C<$_> por defecto. Pero tenga cuidado,
+esto funciona solo cuando no hay mas nada que C<< <STDIN> >> en la expresión
+condicional de un bucle C<while>. Si colocas algo más en la expresión
+condicional, este atajo no va a funcionar. 
+
+Es importante destacar que cuando evaluamos el operador C<line-input> en la
+expresión condicional de un ciclo while, lo estamos evaluando en un contexto
+escalar. 
+
+De otra manera, evaluando el operador C<line-input> en contexto de lista,
+obtendremos todas las lineas de la entrada como una lista,  cada elemento de la
+lista es una linea: 
+
+=begin programlisting
+
+    foreach (<STDIN>){
+        print "Say: $_"; 
+    }
+
+=end programlisting
+
+No existe una conexión entre la variable mágica C<$_> y el operador
+C<line-input> (STDIN). Para este caso, la variable de control por defecto de
+un bucle C<foreach> es C<$_>. 
+
+Posiblemente no vea la diferencia aun entre como relaciona Perl al operador
+C<line-input> y la variable mágica C<$_> en el bucle C<while> y el bucle
+C<foreach>. En el bucle C<while>, Perl lee la linea entrante y la asigna a la
+variable C<$_>, y luego entra al bucle. Luego regresa, lee la siguiente linea y
+la asigna de igual manera a la variable mágica C<$_> y entra nuevamente al
+bucle. Pero en un bucle C<foreach>, el operador C<line-input> es utilizado en
+un contexto de lista (porque el foreach necesita una lista que iterar).
+Entonces lee todas las lineas antes de iniciar el bucle. La diferencia la
+podemos ver en el momento en que tengamos que procesar por ejemplo 400 MB de
+archivos de registro (logs), en este caso generalmente es mejor usar C<while>,
+pues va a procesar una linea a la vez. 
+
+
+=head3 El Operador Diamante (La Cometa)
+
+Z<El Operador Diamante (La Cometa)> 
+
+Otra forma de leer la entrada de datos es con el operador diamante (o cometa):
+C<< <> >>. Es muy útil para usar en programas que corren en sistemas operativos
+tipo Unix, con respecto a la invocación de argumentos. Si desea que sus
+programas en Perl puedan usarse como utilidades de Unix (cat, sed, sort, grep,
+lpr, y otras mas), el operador diamante va a ser su amigo. 
+
+La invocación de argumentos de un programa normalmente son un numero de
+"palabras" en la linea de comandos que vienen despues del nombre del programa.
+En este caso, vamos a darle nombres de archivos y su programa va a procesarlos
+en secuencia: 
 
 =begin screen
 
-    Initialization of state variables in list context currently forbidden 
+    $ ./my_program fred barney betty
 
 =end screen
 
-L<ejercicios_03>
+El comando anterior, correo el I<comando> C<my_program> (que debe estar en el
+directorio actual ), y el programa va a procesar los archivos fred, barney, y
+betty
 
+Si no invocamos argumentos,  el programa va a procesar la entrada estándar. O,
+como caso especial, si le da un solo guion (-) como argumento esto también
+significa leer desde la entrada estándar. Entonces, si la lista de argumentos
+es: C<fred - betty>, va a leer el archivo fred, luego va a leer la entrada
+estándar y luego va a leer el archivo betty. 
+
+La ventaja de hacer que sus programas funcionen de esta manera es que tu puedes
+escojer el tipo de entrada de datos en tiempo de ejecución,  por ejemplo no
+necesitas reescribir un programa para usar una tubería (C<|>). Larry puso esta
+caracteristica en Perl, porque queria que fuera fácil para usted, escribir
+programas que trabajaran como utilidades estándar de Unix. 
+
+El operador diamante, es actualmente un operador especial de C<line-input>.
+Pero en lugar de obtener la entrada desde el teclado, este toma los datos del
+tipo de entrada que el usuario escoja: 
+
+=begin programlisting
+
+    while (defined($line = <>)) {
+        chomp($line);
+        print "It was $line that I saw!\n";
+    }
+
+=end programlisting
+
+Entonces, con este programa, si le damos los archivos fred,  barney, y betty,
+va a procesar las lineas del archivo fred en la variable $line, luego que
+termine con el archivo fred va por el archivo barney y luego por el archivo
+betty. Note que el ciclo no se rompe entre un archivo y otro, cuando usamos el
+operador diamante, todos los archivos se juntan en un solo archivo grande. 
+
+El operador diamante va a retornar C<undef> cuando llege al final de todo el
+conjunto de archivos, con lo que se va a terminar el ciclo. 
+
+De igual manera el atajo de la variable mágica C<$_> se puede usar con este
+operador. Por ejemplo: 
+
+=begin programlisting
+
+    while(<>){
+        chomp;
+        print Ït was $_ that I saw!\n";
+    }
+
+=end programlisting
+
+Esto funciona exactamente igual al código anterior, solo que escribimos ménos.
+Y debe haber notado que estamos usando el comportamiento por defecto de
+C<chomp>; si no le damos argumentos a C<chomp>, va a trabajar con la variable
+mágica C<$_>. 
+
+Cuando el operador de diamante no puede abrir un archivo, muestra un mensaje
+dede diagnostico: 
+
+=begin screen
+
+    Can't open maria: No such file or directory
+
+=end screen
+
+=head1 Invocación de Argumentos    
+
+Z<Invocación de Argumentos> 
+
+Tecnicamente, usar el operador de diamante no hace invocación de argumentos. El
+funciona usando el array C<@ARGV>. Este array es un array especial que esta
+predefinido en el interprete de Perl como la lista de invocación de argumentos.
+En otras palabras, este es otro array con un divertido nombre en mayúsculas
+sostenidas, cuando tu programa inicia, C<@ARGV> ya esta lleno con la lista de
+argumentos. 
+
+Puedes usar el array C<@ARGV> como cualquier otro array, puedes sarcar cosas de
+el con C<shift> o usar un C<foreach> para iterarlo. 
+
+El operador de diamante busca en @ARGV para determinar que nombres de archivos
+debe usar. si encuentra una lista vacía, usa lo que viene de la entrada
+estándar. Esto significa que despues que el programa inicia y antes de usar el
+operador de diamante, tienes chance de jugar con C<@ARGV>. Por ejemplo, si
+sabemos que archivos queremos procesar, podemos poner los nombres en C<@ARGV>
+sin necesidad de leerlos de la entrada estándar. 
+
+=begin programlisting
+
+    @ARGV = qw# larry moe curly #;  # Forza leer estos archivos
+    while (<>){
+        chomp;
+        print "$_ Esto fue lo que ví en los archivos títeres";
+    }
+=end programlisting
+
+
+=head1 Salida hacia la Salida Estándar    
+
+Z<Salida hacia la Salida Estándar> 
+
+El operador print, toma un lista de valores y envía cada elemento (como una 
+cadena por supuesto) hacia la salida estándar, uno despues del otro. No agrega
+nada delante, atrás, o entre los elementos. Si quiere algo adicional, como un
+salto de linea o un espacio, tiene que colocarlo a mano usted mismo. 
+
+Por su puesto, esto sígnifica que hay una diferencia entre imprimir un array e
+interpolar un array: 
+
+=begin programlisting
+
+    print @array;   # Imprime la lista de elementos
+    print "@array"; # Imprime una cadena (el array interpolado)
+
+=end programlisting
+
+La primera instrucción va a imprimir la lista de elementos, uno tras el otro,
+sin colocar espacios en el medio ni nada. La segunda instrucción va a imprimir
+cada elemento con un espacio entre cada elemento. Ejemplo.
+
+=begin screen
+
+  DB<36> @a = qw/maria pedro juan/ 
+
+  DB<38> print @a                                                                   mariapedrojuan
+  
+  DB<39> print "@a";                                                           
+    maria pedro juan
+
+=end screen
+
+Dado que C<print> espera una lista de cadenas y las imprime, sus argumentos son
+evaluados en contexto de lista. Dado que el operador diamante devuelve una
+lista de lineas en contexto de lista. Podemos reescribir las dos clasicas
+herramientas de Unix (B<cat> y B<sort>). 
+
+=begin programlisting
+
+    print <>;           # cat en Perl
+
+    print sort <>;      # sort en Perl
+
+=end programlisting
+
+Claro, para ser honestos, los comandos C<cat> y C<sort> tienen una serie de
+funcionalidades adicionales que estos pequeños programas no tienen. 
+
+Seguro a notado que C<print> al ser una función, puede omitir los paréntesis,
+recuerde que puede hacer esto siempre y cuando quitar los paréntesis no cambie
+el significado de la expresión, supongamos que tenemos el siguiente ejemplo: 
+
+=begin programlisting
+
+    print (2+3);
+
+=end programlisting
+
+Parece una llamada a función y es una llamada a funcion. Esto imprime 5, y
+retorna un valor como cualquier otra función. El valor de retorno de C<print>
+es verdadero o falso, indicando que efectivamente realizo la impresión, a menos
+que ocurra algún error del tipo I/O, el resultado normal de C<print> va a ser
+B<1>.
+
+=begin programlisting
+
+    $result = print("Hola mundo\n");
+
+=end programlisting
+
+Pero supongamos que tenemos el siguiente código: 
+
+=begin programlisting
+
+    print (2+3)*4;
+
+=end programlisting
+
+¿ Que cree que va a ocurrir con esta instrucción ?, definitivamente no va a
+salir 20 por la pantalla. Perl va a imprimir 5, y va a multiplicar 1 por 4, y
+el resultado lo va a tirar a la basura. 
+
+Este es un problema típico de los paréntesis opcionales, a veces los humanos
+olvidamos que los párentesis realmente importan. Cuando usamos print sin los
+paréntesis, print es un operador de lista, imprime todos los elementos de esa
+lista. Pero cuando la primera cosa despues de print es un paréntesis, print es
+una llamada de función,  y va a imprimir solo lo que encuentre entre los
+paréntesis. 
+
+Actualmente, esta regla "Si parece una llamada a una función, es una llamada a
+función, aplica para todas las funciones de lista.
+
+
+=head1 Formatear la salida con printf    
+
+Z<Formatear la salida con printf> 
+
+Puede ser que quiera tener mas control con la salida de lo que ofrece print. En
+efecto, puede estar acostumbrada a formatear la salida con la función
+C<printf> de Perl. No se preocupe, Perl provee una operación compatible con el
+mismo nombre. 
+
+El operador C<printf> toma una cadena con formato seguida de una lista de cosas
+a imprimir. Ejemplo: 
+
+=begin programlisting
+
+    printf "Hola, %s; su contraseña expira en %d días!\n", 
+    $user, $dias_para_morir;
+
+=end programlisting
+
+La cadena con formato posee un numero de conversiones, estas converiones
+comienzan con un signo de porcentaje (%) y termina con una letra. Debe haber la
+misma cantidad de elementos en la cadena con formato que en la lista que se
+pasa como argumento. 
+
+Para imprimir números generalmente es bueno usar la conversión C<%g>, que
+automáticamente escoje entre punto flotante, entero, o notación exponencial,
+cual sea necesaria.
+
+=begin programlisting
+
+    printf "%g %g %g\n", 5/2, 51/17, 51 ** 17; # 2.5 3 1.0683e+29
+
+=end programlisting
+
+El formato C<%d> indica decimal entero truncado. 
+
+=begin programlisting
+
+    printf "in %d days!\n", 17.85; # in 17 days!
+
+=end programlisting
+
+Note que este proceso de truncado no redondea, en un momento vamos a ver como
+redondear números.
+
+En Perl, C<printf> es usado con frecuencia para datos en columnas,  la mayoría
+de los formatos permiten indicar el ancho del campo. Si los datos no llenan el
+campo, de igualmanera el campo se expande dejano del espacio requerido. 
+
+=begin programlisting
+
+    printf "%6d\n", 42; # se vería asi:  ````42 (` representa espacio blanco)
+    printf "%2d\n", 2e3 + 1.95; # 2001 
+
+=end programlisting
+
+La conversión C<%s> se usa para las cadenas, efectivamente interpola el valor
+obtenido como una cadena, y tambien se le puede indicar el tamaño del campo: 
+
+=begin programlisting
+
+    printf "%10s\n", "wilma"; # se veria `````wilma
+
+=end programlisting
+
+Un valor negativo en el tamaño del campo, indica justificado a la izquierda:
+
+=begin programlisting
+
+    printf "%-15s\n", "flinstone";  # se ve flinstone`````
+
+=end programlisting
+
+La conversión C<%f> redondea, y permite indicar cuandos números quiere despues
+del punto decimal.
+
+=begin programlisting
+
+    printf "%12f\n", 6 * 7 + 2/3;   # se ve ```42.666667
+    printf "%12.3f\n", 6 * 7 + 2/3; # se ve ``````42.667
+    printf "%12.0f\n", 6 * 7 + 2/3; # se ve ``````````43
+
+=end programlisting
+
+Para imprimir un signo de porcentaje, usamos C<%%>: 
+
+=begin programlisting
+
+    printf "Interes Mensual : %.2f%%\n",  5.25/12; # El valor seria "0.44%
+
+=end programlisting
+
+=head1 Arrays y printf    
+
+Z<Arrays y printf> 
+
+Generalmente, usted no va a usar un array como argumento para C<printf>. Esto
+es porque un array almacena cualquier numero de elementos, y la cadena de
+formato viene dada para trabajar con un numero finito de elementos. Si hay tres
+conversiones de formato, deben haber exactamente tres elementos. 
+
+Pero no hay razón para no hacer la cadena de formato al vuelo, puesto que puede
+ser cualquier expresión. Este puede ser un truco para hacer esto: 
+
+=begin programlisting
+
+    my @items = qw( wilma dino pebbles );
+    my $format = "The items are:\n" . ("%10s\n" x @items);
+    ## print "the format is >>$format<<\n"; # for debugging
+    printf $format, @items;
+
+=end programlisting
+
+Aquí usamos el operador C<x> (Que aprendimos en el capítulo 2) para replicar la
+cadena dada el número de veces dado por C<@items> (en contexto escalar).  
+
+Pero podemos hacer esto mas corto y mas mágico: 
+
+=begin programlisting
+
+    printf "The items are:\n".("%10s\n" x @items), @items;
+
+=end programlisting
+
+Note que @items esta siendo usado en contexto escalar, para obtener su
+longitud, y en contexto de lista para obtener sus valores. El B<Contexto> es
+importante. 
+
+
+L<ejercicios_04>
 
 
 
