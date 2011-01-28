@@ -511,7 +511,36 @@ Aquí tenemos algúnos ejemplos:
 =end programlisting
 
 El primero, abre un filehandles llamado C<CONFIG> a un archivo llamado
-C<dino>. Esto es, el archivo I<dino>
+C<dino>. Esto es, el archivo I<dino> va a ser abierto y lo que sea que tenga en
+su contenido, va a estar disponible en el programa a través del filehandle
+llamado C<CONFIG>. El segundo hace exactamente lo mismo que el primero, pero
+con un signo I<menor que> indicando "Use este nombre de archivo como entrada",
+a pesar de que eso es lo que hace por defecto. 
+
+Para abrir el filehandle BEDROCK para enviar la salida allí,  usamos el signo
+I<mayor que>, esto envia la salida al archivo fred. Si el archivo ya existe y
+tiene contenido, automáticamente reemplaza el contenido del archivo con la
+salida que enviamos al filehandle.
+
+El cuarto ejemplo, indica como podemos usar dos signos I<mayor que> para abrir
+un archivo sin reemplazar su contenido y anexar nuestra salida al final del
+archivo. Si no existe el archivo, lo crea y agrega el contenido, como si se
+tratara de un solo signo I<mayor que>. Esta es una forma de manejar los
+archivos de registro (logfile). El programa puede escribir un grupo de lineas
+al archivo de registro cada ves que se ejecuta. 
+
+Puedes usar una expresión en lugar de un nombre de filehandle específico. Luego
+solo queda indicar la dirección explícita: 
+
+=begin programlisting
+
+    my $selected_output = "my_output"; 
+    open LOG,  "> $selected_output"; 
+
+=end programlisting
+
+Note que el espacio despues del signo I<mayor que>. Perl ignora esto. 
+
 
 
 
