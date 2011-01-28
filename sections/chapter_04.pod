@@ -518,7 +518,7 @@ con un signo I<menor que> indicando "Use este nombre de archivo como entrada",
 a pesar de que eso es lo que hace por defecto. 
 
 Para abrir el filehandle BEDROCK para enviar la salida allí,  usamos el signo
-I<mayor que>, esto envia la salida al archivo fred. Si el archivo ya existe y
+I<mayor que>, esto envía la salida al archivo fred. Si el archivo ya existe y
 tiene contenido, automáticamente reemplaza el contenido del archivo con la
 salida que enviamos al filehandle.
 
@@ -539,7 +539,7 @@ solo queda indicar la dirección explícita:
 
 =end programlisting
 
-Note que el espacio despues del signo I<mayor que>. Perl ignora esto. 
+Note que el espacio después del signo I<mayor que>. Perl ignora esto. 
 
 
 
