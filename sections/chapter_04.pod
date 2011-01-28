@@ -822,7 +822,7 @@ algunos programadores de Perl que van a querer ahorrase el tener que escribir
 cuatro caracteres extra. (dos del nombre y \n).
 
 
-=for L<ejercicios_04>
+L<ejercicios04>
 
 
 
