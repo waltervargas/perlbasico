@@ -541,6 +541,19 @@ solo queda indicar la dirección explícita:
 
 Note que el espacio despues del signo I<mayor que>. Perl ignora esto. 
 
+En desde la version 5.6 de Perl, puedes usar un tercer argumento extra para
+C<open>: 
+
+=begin programlisting
+
+    open CONFIG, "<", "dino";
+    open BEDROCK, ">", $file_name;
+    open LOG, ">>", &logfile_name();
+
+=end programlisting
+
+
+
 
 
 
