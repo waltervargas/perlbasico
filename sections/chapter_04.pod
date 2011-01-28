@@ -435,8 +435,63 @@ Note que @items esta siendo usado en contexto escalar, para obtener su
 longitud, y en contexto de lista para obtener sus valores. El B<Contexto> es
 importante. 
 
+=head1 Filehandles    
 
-L<ejercicios_04>
+Z<Filehandles> 
+
+Un Filehandle es el nombre en un programa en Perl para una conexión de E/S
+entre el proceso Perl y el mundo exterior. Es decir, es el nombre de una
+conexión, no necesariamente el nombre de un archivo. 
+
+Los Filehandle se llaman igual que otros identificadores de Perl (con letras,
+dígitos y pisos bajos) pero no pueden comenzar con un dígito. 
+
+Actualmente hay seis nombres de Filehandle especiales en Perl que se usan para
+propósitos específicos: STDIN, STDOUT, STDERR, DATA, ARGV, y ARGVOUT. Aunque
+puede elejir cualquier nombre para un Filehandle, no debería usar ninguno de
+estos seis nombres, a menos que quiera hacer algo muy especial. N<En algúnos
+casos puede reusar estos nombres sin ningún problema. Pero un programador menos
+experimentado que mantenga el código va a confundirse>. 
+
+Cuando su programa inicia, el Filehandle llamado C<STDIN> es la conexión entre el
+proceso Perl y lo que sea que el programa tenga como entrada, conocido como
+entrada estándar o I<standard input stream>. Esto generalmente es el teclado
+del usuario a menos que el usuario use otra cosa como fuente de datos para la 
+entrada, como un archivo o la salida de otro programa a través de una
+I<tubería>. También esta la salida estándar o I<standard output stream>, que es
+es Filehandle C<STDOUT>. Por defecto, esta conectada con la pantalla del
+usuario, pero el usuario puede enviar la salida a un archivo o a otro programa
+a través de una I<tubería>. Esto del flujo estándar o I<standard stream> viene
+de la libreria de Unix I<standard I/O>. 
+
+La idea general es que el programa lea desde C<STDIN> y escriba en C<STDOUT>,
+confiando en el usuario (o generalmente un programa que inicie su programa).
+De esta forma, el usuario puede escribir una linea de comandos en el prompt del
+shell como esta: 
+
+=begin screen
+
+    $ ./su_programa <dino >willma 
+
+=end screen
+
+Esto le dice a la terminal, que la entrada de su programa viene de I<dino> y la
+salida va a I<willma>. Esto funciona siempre y cuando la entrada de su programa
+sea STDIN y la salida valla a STDOUT. 
+
+Sin ninguna modificación el programa va a trabajar sin problemas con
+I<tuberías>. Este es otro concepto de Unix, que le permite escribir lineas de
+comando como la siguiente: 
+
+=begin screen
+
+    $ cat fred barney | sort | ./su_programa | grep algo | lpr
+
+=end screen
+
+
+
+=for L<ejercicios_04>
 
 
 
