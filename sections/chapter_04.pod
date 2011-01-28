@@ -490,7 +490,7 @@ comando como la siguiente:
 =end screen
 
 
-=head1 Abrir un Filehandle    
+=head2 Abrir un Filehandle    
 
 Z<Abrir un Filehandle> 
 
@@ -553,8 +553,273 @@ C<open>:
 =end programlisting
 
 
+=head2 Filehandles Malos    
+
+Z<Filehandles Malos> 
+
+Perl actualmente no abre el archivo por el mismo, Perl le pide al sistema
+operativo que abra el archivo por el. Por su puesto, el sistema operativo puede
+negarse a hacerlo debido a una configuración de permisos, un nombre de archivo
+incorrecto u otras razones. 
+
+Si intentas leer de un filehandle malo, vas a ver inmediatamente un
+C<end-of-file> o fin de archivo. C<end-of-file> indica C<undef> en contexto
+escalar o una lista vacia en contexto de lista. 
+
+Si intentas escribir en un filehandle malo, los datos simplemente se perderan. 
+
+Afortunadamente, estas consecuencias son fáciles de evitar. Primero que todo,
+si estamos usando el pragma C<warnings> o el switch C<-w>, Perl va a
+advertirnos cuando vea que estamos usando un filehandle malo. Pero incluso
+antes de esto, la llamada C<open> siempre nos indica si puedo hacer el
+trabajo o fallo, retornando verdadero o falso. Entonces, puedes escribir tu
+código de la siguiente manera: 
+
+=begin programlisting
+
+    my $success = open LOG, ">>logfile"; # capture the return value
+    if ( ! $success) {
+        # Fallo Open 
+        ...
+    }
+
+=end programlisting
+
+=head2 Cerrar un Filehandle  
+
+Z<Cerrar un Filehandle> 
+
+Cuando termines de trabajar con el Filehandle, puedes cerrarlo con el operador
+de cierre, de la siguiente forma:  
+
+=begin programlisting
+
+    close BEDROCK;
+
+=end programlisting
+
+Cerrar un Filehandle le dice al sistema operativo, que hemos terminado la
+conexión con el archivo, entonces los últimos datos enviados por esa conexión
+son escritos al disco, si eso es lo que se espera.
+
+Perl, automáticamente cierra un filehandle si lo abres de nuevo (esto ocurre si
+reusas el nombre del filehandle en otra llamada a C<open>) o si sales del
+programa. 
+
+Debido a esto, varios programas simples de Perl no cierran los filehandles.
+Pero si quieres ser ordenado, debe haber una llamada a C<close> por cada
+llamada a C<open>. En general, es mejor cerrar cada filehandle pronto despues
+de haber terminado con el. Aun que este cerca del fin del programa. 
 
 
+=head1 Errores fatales con die    
+
+Z<Errores fatales con die> 
+
+Miremos hacia un lado un momento. Necesitamos saber algunas cosas mas que
+aunque no estan relacionadas con los procesos de I/O nos va a permitir salir de
+un programa antes de lo esperado. 
+
+
+Cuando ocurre un error fatal en Perl (por ejemplo, si haces una division por
+cero, uso de una expresión regular inválida, o llamar una subrutina que no esta
+definida), sus programas se rompen con un mensaje de error indicando la razón
+del porqué N<Bueno, esto pasa por defecto, pero podemos atrapar los errores con
+la función eval, que vamos a ver mas adelante en otro capítulo>. Esta
+funcionalidad esta disponible para nosotros a través de la función C<die>,
+entonces podemos hacer nuestros propios errores fatales. 
+
+La función C<die> imprime el mensaje que le pasas como argumento, y se asegura
+que el programa termine con una salida diferente de cero. 
+
+Probablemente no lo sepa, pero cada programa que se corre en Unix tiene un
+estado de salida, indicando cuando termina satisfactoriamente y cuando no.
+Programas que corren otros programas (como la utilidad make) mira el estado de
+salida para saber si todo va bien. El estado de salida es un simple byte,
+tradicionalmente 0 es I<termine satisfactoriamente> y diferente de 0 es lo
+contrario. 
+
+Entonces, podemos escribir el ejemplo anterior de la siguiente manera: 
+
+=begin programlisting
+
+    if ( ! open LOG, ">>logfile") {
+        die "No se pudo crear el archivo de logs: $!"; 
+    }
+
+=end programlisting
+
+Si C<open> falla, C<die> va a terminar el programa diciendo: "No se pudo crear
+el archivo de logs. Pero, ¿ Que es esa variable $! en el mensaje ?, Esto es,
+una queja del sistema que un ser humano puede leer. En general, cuando el
+sistema se niega a hacer algo que le estamos pidendo, en C<$!> esta la razon
+del porqué.  
+
+Hay otra cosa interesante que C<die> puede hacer por nosotros, automáticamente
+va a indicar el nombre del programa y el número de linea en donde ocurrio el
+error. 
+
+Suponiendo que en el programa anterior no podemos abrir el filehandle por
+problemas con los permisos, vamos a obtener el siguiente mensaje: 
+
+=begin screen
+
+    No se pudo crear el archivo de logs: permission denied at your_program line 1234.
+
+=end screen
+
+=head1 Mensajes de Advertencia con warn    
+
+Z<Mensajes de Advertencia con warn> 
+
+Así como C<die> indica un mensaje de error fatal, puedes usar C<warn> para
+indicar un advertencia como si fuera una advertencia interna de Perl. 
+
+La función C<warn> trabaja igual que la función C<die>, excepto que esta
+función no termina el programa. Pero si agrega el nombre del programa y la
+linea e imprime el mensaje hacia la salida estándar de errores (STDERR). 
+
+
+=head1 Usando los Filehandle
+
+Z<Usando los Filej> 
+
+Cuando un filehandle se abre para leer, puedes leer las lineas justo como
+leemos la entrada estándar con STDIN. Entonces,  por ejemplo para leer las
+lineas de un archivo passwd de Unix: 
+
+=begin programlisting
+
+    if ( ! open PASSWD, "/etc/passwd") {
+        die "How did you get logged in? ($!)"; 
+    }
+
+    while (<PASSWD>) {
+        chomp; 
+    }
+
+=end programlisting
+
+Un filehandle abierto para escritura puede usarse con C<print> o C<printf>,
+colocandolo inmediatamente despues de la palabra reservada pero antes de la
+lista de argumentos: 
+
+=begin programlisting
+
+    print LOG "Captain's log, stardate 3.14159\n"; # output goes to LOG
+    printf STDERR "%d percent complete.\n", $done/$total * 100;
+
+=end programlisting
+
+=head2 Cambiar un Filehandle de salida por defecto    
+
+Z<Cambiar un Filehandle de salida por defecto> 
+
+Por defecto, si no le indicas un filehandle a C<print> o a C<printf>, la salida
+va a ir a STDOUT. Pero esto se puede cambiar con el operador C<select>. Por
+ejemplo, vamos a enviar un par de lineas al filehandle BEDROCK: 
+
+=begin programlisting
+
+    select BEDROCK;
+
+    print "Hola esto es una prueba de piedra, o una piedra de prueba"; 
+    print "Willma!\n";
+
+=end programlisting
+
+Hay que tener cuidado con esto, una vez que se termine de usar, se debe
+volver al valor por defecto STDOUT. De igualmanera, por defecto, la salida
+hacia un filehandle se guarda en el buffer. Configurando la variable especial
+C<$|> a 1, va a hacer que el filehandle selecionado siempre haga flush del
+buffer despues de cada operación de salida. Entonces si se quiere asegurar que
+los archivos de log tengan los registros a tiempo, en el caso que quieras estar
+lellendo el log para monitorear el progreso del programa, puedes hacer algo
+como esto: 
+
+=begin programlisting
+
+    select LOG;
+    $| = 1;         # No mantenga las entradas de LOG en el buffer.
+    select STDOUT; 
+    # El tiempo pasa, los niños aprenden a caminar, Chavez no se va  ... 
+    print LOG "Esto es escrito en el log de una vez\n";
+
+=end programlisting
+
+
+=head2 Reabrir un Filehandle por defecto
+
+Z<Reabrir un Filehandle por defecto> 
+
+Ya mencionamos antes que si abres un archivo el anterior se cierra
+automáticamente. Y tambien digimos que no debería reusar uno de los seis
+nombres de filehandles por defecto, al menos que quiera hacer algo especial.
+Adicionalmente digimos que los mensajes de error en Perl van a STDERR. Si usa
+estas tres piezas de información juntas, ahora puedes tener una idea de como
+enviar los mensajes de error a un archivo. 
+
+=begin programlisting
+
+    # Envia los errores a mi log privado de errores
+    if ( ! open STDERR, ">>/home/elsanto/.error_log"){
+        die "No pude abrir el log de errores: $!";
+    }
+
+=end programlisting
+
+¿ Que pasa si no es posible abrir el archivo de LOGS ?, la operación de
+reapertura de uno de los tres filehandles (STDIN, STDOUT, STDERR) falla, Perl
+amablemente restaura al valor original. 
+
+=head1 Salida con say    
+
+Z<Salida con say> 
+
+Perl 5.10 toma la función C<say> del desarrollo de Perl 6. Es lo mismo que
+C<print>, con la diferencia de que agrega al final un caracter de nueva linea
+(C<\n>). Las siguiente sentencias producen la misma salida: 
+
+=begin programlisting
+
+    use 5.010;
+
+    print "Hello!\n"; 
+    print "Hello!", "\n";
+    say "Hello!";
+
+=end programlisting
+
+Para interpolar una variable escalar o una lista, debe colocarse la variable
+entre comillas dobles, ejemplo: 
+
+=begin programlisting
+
+    use 5.010;
+
+    my @array = qw( a b c d );
+
+    say @array;     # "abcd\n"
+
+    say "@array";   # "a b c d\n"
+
+=end programlisting
+
+Al igual que con C<print>, puedes especificar un filehandle con C<say>: 
+
+=begin programlisting
+
+    use 5.010;
+
+    say BEDROCK "Hola !";
+
+=end programlisting
+
+Esta es una nueva caracteristica de Perl 5.10, y nosotros la usamos solo cuando
+estamos usando alguna otra función de Perl 5.10. La vieja y confiable C<print>
+sigue siendo tan buena como siempre lo ha sido, pero sospechamos que hay
+algunos programadores de Perl que van a querer ahorrase el tener que escribir
+cuatro caracteres extra. (dos del nombre y \n).
 
 
 =for L<ejercicios_04>
