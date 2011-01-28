@@ -490,6 +490,30 @@ comando como la siguiente:
 =end screen
 
 
+=head1 Abrir un Filehandle    
+
+Z<Abrir un Filehandle> 
+
+Como ya sabe, Perl provee tres filehandles - STDIN, STDOUT, STDERR, que
+automáticamente abren archivos o dispositivos establecidos por el programa
+padre del proceso (probablemente la terminal). Cuando necesita otros
+filehandles,  debe usar el operador C<open> para decirle a Perl, que le pida al
+sistema operativo que abra una conexión entre su programa y el mundo exterior.
+Aquí tenemos algúnos ejemplos: 
+
+=begin programlisting
+
+    open CONFIG, "dino";
+    open CONFIG, "<dino";
+    open BEDROCK, ">fred";
+    open LOG, ">>logfile";
+
+=end programlisting
+
+El primero, abre un filehandles llamado C<CONFIG> a un archivo llamado
+C<dino>. Esto es, el archivo I<dino>
+
+
 
 =for L<ejercicios_04>
 
