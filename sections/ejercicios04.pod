@@ -1,0 +1,33 @@
+=head1 Ejercicios    
+
+Z<Ejercicios> 
+
+=over 
+
+=item 1. Escriba un programa que actué como C<cat>, pero que invierta el orden
+de las lineas en la salida. (Algunos programas tiene tac). Si corres tu
+programa como C<./tac prueba prueba2 prueba3>, la salida debe ser todo el
+archivo prueba3 desde la ultima linea hasta la primera, luego todo el archivo
+prueba2 desde la última linea hasta la primera y luego el archivo prueba desde
+la ultima linea hasta la primera. 
+
+=item 2. Escriba un programa que pregunte al usuario una lista de cadenas en
+lineas separadas, imprima cada cadena justificada a la derecha, en una columna
+de 20 caracteres. Para verificar que la columna tiene esa cantidad de
+caracteres, imprima una linea guia con los números de las columnas. Asegúrese
+que las cadenas no tengan mas de 20 caracteres Ejemplo: 
+
+=begin screen
+
+    123456789012345678901234567890123456789012345678901234567890
+                   hello
+                good-bye
+
+=end screen
+
+
+=item 3. Modifique el programa anterior, para que le permita al usuario indicar
+el numero del tamaño de la columna en la primera linea, y luego en las otras
+lineas separadas, las cadenas. Recuerde que ahora la linea guia debe ajustarse
+a este número.
+
