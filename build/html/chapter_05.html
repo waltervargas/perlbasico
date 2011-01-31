@@ -4,9 +4,9 @@
 
 <h1>Hashes</h1>
 
-<p>En este capítulo, usted va a ver una de las caracteristicas que hacen de Perl uno de los mejores lenguajes del mundo de programación imperativa: Hashes <font class="footnote"> (footnote: En los viejos tiempos, los llamabamos "arrays asociativos". Pero la comunidad de Perl decidio por 1995 que eran muchas letras al escribirlas y muchas silabas al pronunciarlo, entones cambiaron el nombre a "Hashes")</font></p>
+<p>En este capítulo, usted va a ver una de las características que hacen de Perl uno de los mejores lenguajes del mundo de programación imperativa: Hashes <font class="footnote"> (footnote: En los viejos tiempos, los llamábamos "arrays asociativos". Pero la comunidad de Perl decidió por 1995 que eran muchas letras al escribirlas y muchas silabas al pronunciarlo, entones cambiaron el nombre a "Hashes")</font></p>
 
-<p>Aunque los Hashes son una útil y poderosa caracteristica, es probable que hallas usado otros lenguajes poderosos durante años sin haber escuchado sobre los Hashes. Pero usted va a usar hashes en casi todos los programas en Perl que escriba de ahora en adelante.</p>
+<p>Aunque los Hashes son una útil y poderosa característica, es probable que hallas usado otros lenguajes poderosos durante años sin haber escuchado sobre los Hashes. Pero usted va a usar hashes en casi todos los programas en Perl que escriba de ahora en adelante.</p>
 
 <h2>¿ Que es un Hash ?</h2>
 
@@ -14,7 +14,7 @@
 
 <p>Primero que todo, las llaves son cadenas de caracteres, entonces, en lugar de usar el numero 3 para obtener un elemento de un array, vamos a acceder al elemento del hash llamado <code>wilma</code>.</p>
 
-<p>Estas llaves, son cadenas arbitrarias - usted puede usar cualquier expresión de cadena para la llave de un hash. Y estas son cadenas únicas - de igualmanera que en un array tenemos un único elemento numérico 3, aqui vamos a tener un único elemento del hash llamado <code>wilma</code>.</p>
+<p>Estas llaves, son cadenas arbitrarias - usted puede usar cualquier expresión de cadena para la llave de un hash. Y estas son cadenas únicas - de igual manera que en un array tenemos un único elemento numérico 3, aquí vamos a tener un único elemento del hash llamado <code>wilma</code>.</p>
 
 <p>Otra forma de pensar en un hash, es compararlo con un barril de datos, donde cada pieza de datos tiene una etiqueta. Tu puedes llegar al barril y sacar una etiqueta y mirar que pieza de datos contiene. Pero no va a ser el "primer" elemento del barril. En un array, comenzamos desde el elemento 0, seguido del elemento 1, el elemento 2 y así. Pero en un hash, no hay un orden fijo, no hay un primer elemento. Es solo una colección de pares llave-valor.</p>
 
@@ -29,6 +29,349 @@
 <p><img src="figs/barril.png"></p>
 
 <p><em>graphic Hashes como Barril</em></p>
+
+<p>Las llaves y los valores son un conjunto de valores escalares ordinarios, pero las llaves son siempre convertidas a cadenas. Entonces, si usas la expresión numérica <code>50/20</code> como una llave, esto se va a convertir en una cadena de tres caracteres "2.5".</p>
+
+<p>Como es usual en Perl,"no existen los límites innecesarios", esto también aplica a un hash, un hash puede ser de cualquier tamaño, desde un hash vacío con cero pares llave-valor, hasta cualquier cantidad de valores con los que pueda llena su memoria.</p>
+
+<p>Algunas implementaciones de hashes (como originalmente era en el lenguaje awk) cuando los hashes son de gran tamaño tienden a ser lentos. Este no es el caso en Perl, en Perl es un algoritmo eficiente, bueno y escalable. Entonces, si un hash tiene un solo árbol de pares llave-valor, es muy rápido "buscar en el barril" y tomar uno de esos valores. Si un hash tiene tres millones de pares clave-valor, debe ser igual de rápido tomar un valor. No se asuste, los hashs grandes no muerden.</p>
+
+<p>Vale la pena volver a mencionar de nuevo que las llaves de un hash son siempre únicas, aunque los valores pueden estar duplicados. Los valores de un hash pueden ser todos números, cadenas, valores <code>undef</code>, o una mezcla <font class="footnote"> (footnote: En efecto, cualquier valor escalar, incluyendo otros typos de datos escalares.)</font>. Pero las llaves son siempre arbitrariamente cadenas únicas.</p>
+
+<h2>¿ Porque usar un Hash ?</h2>
+
+<p><a name="¿ Porque usar un Hash ?"></p>
+
+<p>Cuando usted escucha por primera vez hablar de hashes, especialmente si usted ha vivido gran parte de su vida productiva como programador en otros lenguajes que no poseen hashes, podría preguntarse, quien querría una de estas criaturas extrañas. Pues bien, la idea general es que usted tendrá un grupo de datos relacionado con otro grupo de datos. Por ejemplo, aquí tenemos algunos de los hashes que podrá encontrar en aplicaciones típicas de Perl:</p>
+
+<ul>
+
+<li>Nombres y Apellidos
+
+<p>En este caso, el primer nombre es la llave, y el apellido es el valor. Este tipo de hash requiere, por supuesto, que los nombres sean únicos. Si tiene dos personas con el mismo nombre, este ejemplo no va a funcionar para usted. Con este hash, puedes buscar a cualquiera por el nombre y obtener su apellido. Si usted busca por el nombre <code>Walter</code>, va a obtener el valor <code>Vargas</code>.</p>
+
+<li>Nombre de Host y dirección IP
+
+<p>Usted debe saber que cada computadora en Internet tiene un nombre de host y una dirección IP. Esto es porque a las máquinas les gusta trabajar con números, pero a los humanos se les hace mas fácil recordar nombres. Los nombres de hosts son cadenas únicas, entonces pueden usarse para hacer este hash. Con este hash puedes buscar por el nombre de host y obtener la dirección IP correspondiente.</p>
+
+<li>Palabras, contar el número de veces que una palabra aparece.
+
+<p>La idea aquí es, que si usted quiere saber cuantas veces aparece una palabra en un documento dado. Puede hacer un hashs que contenga como llaves del hash a las palabras y como valor el número de repeticiones de la palabra.</p>
+
+<li>Cédula y Nombre
+
+<p>Este es un ejemplo común, ya sabemos que los números de cédulas son cadenas únicas, entonces podemos tener un hash que contenga como llave el número de cédula y como valor el nombre de la persona.</p>
+
+</ul>
+
+<h2>Acceder al elemento de un Hash</h2>
+
+<p><a name="Acceder al elemento de un Hash"></p>
+
+<p>Para acceder al elemento de un hash usamos la siguiente sintaxis:</p>
+
+<div class="programlisting">
+
+<pre><code>    $hash{$alguna_llave_del_hash}</code></pre>
+
+</div>
+
+<p>Es bastante similar a la sintaxis que usamos para acceder a un array, pero en este caso vamos a usar llaves en lugar de corchetes alrededor del subíndice (llave). <font class="footnote"> (footnote: Aquí daremos un vistazo dentro de la mente de Larry Wall: Larry decía, vamos a usar llaves en lugar de corchetes porque estamos haciendo algo mas sofisticado que acceder a un array, entonces debemos usar un signo de puntuación mas sofisticado.)</font></p>
+
+<p>Podemos asignar los valores de la siguiente manera:</p>
+
+<div class="programlisting">
+
+<pre><code>    $apellido{&quot;fred&quot;}       = &quot;flintstone&quot;;
+    $apellido{&quot;barney&quot;}     = &quot;rubble&quot;;
+    $apellido{&quot;hugo&quot;}       = &quot;Ch&aacute;vez&quot;;</code></pre>
+
+</div>
+
+<p>Con el hash anterior, podríamos usar el siguiente código para accederlo:</p>
+
+<div class="programlisting">
+
+<pre><code>    foreach $persona (qw&lt; fred barney hugo &gt;){
+        print &quot;He o&iacute;do algo sobre $persona $apellido{$persona}.\n&quot;; 
+    }</code></pre>
+
+</div>
+
+<p>El nombre del hash es de igual manera otro identificador de Perl (letras, dígitos y pisos bajos, pero no puede iniciar con un número). Y son de un espacio de nombres separado, lo que significa que no hay conexión entre la variable <code>$apellido{"walter"}</code>, la subrutina <code>&apellido</code> o la variable <code>$apellido</code>.</p>
+
+<p>Por su puesto, la llave de un hash puede ser una expresión, no solo cadenas literales o variables escalares simples. Por ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    $foo = &quot;bar&quot;;
+    print $apellido{ $foo . &quot;ney&quot;};     # Imprime &quot;rubble&quot;</code></pre>
+
+</div>
+
+<p>Cuando guardamos algo en un elemento que ya existía en el hash, este sobre escribe al valor anterior:</p>
+
+<div class="programlisting">
+
+<pre><code>    $apellido{&quot;fred&quot;} = &quot;astaire&quot;; </code></pre>
+
+</div>
+
+<p>Es igual a lo que pasa con los arrays y los escalares.</p>
+
+<p>Si accede a un elemento que no se encuentra en el hash va a obtener <code>undef</code>:</p>
+
+<div class="programlisting">
+
+<pre><code>    $granito = $apellido{&quot;larry&quot;};  # No hay larry: undef</code></pre>
+
+</div>
+
+<h2>Hash como un todo</h2>
+
+<p><a name="Hash como un todo"></p>
+
+<p>Para referirse a un hash completo, usamos el signo de porcentaje (%) como sígil. Entonces, el hash que hemos estado usando en las últimas páginas actualmente se llama <code>%apellido</code>.</p>
+
+<p>Por conveniencia, un hash puede convertirse en una lista, y luego volver a convertirlo en un hash. Asignando un hash en contexto de lista, donde la lista esta conformada por un conjunto de pares llave-valor.</p>
+
+<div class="programlisting">
+
+<pre><code>    %some_hash = (
+        &quot;foo&quot;,   35,      &quot;bar&quot;,   12.4, 2.5, &quot;hello&quot;,
+        &quot;wilma&quot;, 1.72e30, &quot;betty&quot;, &quot;bye\n&quot;
+      )</code></pre>
+
+</div>
+
+<p>El valor de un hash (en contexto de lista) es una lista simple de pares llave-valor:</p>
+
+<div class="programlisting">
+
+<pre><code>    @any_array = %some_hash; </code></pre>
+
+</div>
+
+<p>A esto le llamamos <i>desenrollar</i> el hash, básicamente convertimos el hash en una lista de pares llave-valor. Como era de esperarse, los pares no están necesariamente en el mismo orden de la lista original.</p>
+
+<div class="programlisting">
+
+<pre><code>    print &quot;@any_array\n&quot;; 
+        # vamos a obtener algo como esto: 
+        # betty bye (una nueva linea) wilma 1.72e+30 foo 35 2.5 hello bar 12.4</code></pre>
+
+</div>
+
+<p>El orden es algo confuso porque Perl mantiene los pares llave-valor en el orden que sea mas conveniente para Perl, de manera que pueda buscarse cualquier item rápidamente. Se usa un hash cuando no nos importa el orden de los elementos, o tenemos una forma fácil de ordenarlos como queramos.</p>
+
+<h2>Asignación de Hash</h2>
+
+<p><a name="Asignación de Hash"></p>
+
+<p>Esto no es algo común, pero usted puede copiar un hash a otro con la siguiente sintaxis obvia:</p>
+
+<div class="programlisting">
+
+<pre><code>    %new_hash = %old_hash; </code></pre>
+
+</div>
+
+<p>Esto es mas complejo para Perl de lo que parece, mientras en otros lenguajes como C o Pascal, es tan simple como copiar un bloque de memoria, las estructuras de datos en Perl sin mas complejas. Entonces, esta linea de código le dice a Perl que desenrolle a %old_hash en una lista de pares llaves-valor, y que arme el hash %new_hash desde la lista de pares llave-valor.</p>
+
+<p>Es mas común hacer otro tipo de transformaciones con un hash. Por ejemplo, podemos obtener el inverso de un hash así:</p>
+
+<div class="programlisting">
+
+<pre><code>    %inverse_hash = reverse %any_hash;</code></pre>
+
+</div>
+
+<h2>La Gran Flecha</h2>
+
+<p><a name="La Gran Flecha"></p>
+
+<p>Cuando asignamos una lista a un hash, algunas veces no es obvio que elementos son llaves y que elementos son valores. Por ejemplo, en esta asignación, los humanos debemos ir contando por la lista diciendo: "llave, valor, llave, valor, llave, valor ...", para poder determinar si 2.5 es una llave o un valor:</p>
+
+<div class="programlisting">
+
+<pre><code>    %some_hash = (
+        &quot;foo&quot;,   35,      &quot;bar&quot;,   12.4, 2.5, &quot;hello&quot;,
+        &quot;wilma&quot;, 1.72e30, &quot;betty&quot;, &quot;bye\n&quot;
+    );</code></pre>
+
+</div>
+
+<p>¿ No seria agradable que Perl nos diera una manera emparejar las llaves y los valores en contexto de lista ?, Larry también pensaba esto y por eso invento a la flecha mayor (=>). En Perl, es simplemente un hechizo para representar una coma, por lo que algunas veces se le llama "la coma gorda". En la gramática de Perl, cada vez que usted necesite una coma ( , ), puedes usar la flecha grande, esto va a ser lo mismo para Perl. Por ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    my %last_name = ( # Un hash tambi&eacute;n puede ser una variable l&eacute;xica. 
+        &quot;fred&quot;  =&gt; &quot;flintstone&quot;,
+        &quot;dino&quot;  =&gt; undef, 
+        &quot;barney&quot; =&gt; &quot;rubble&quot;,
+        &quot;betty&quot; =&gt; &quot;rubble&quot;,
+    );</code></pre>
+
+</div>
+
+<p>Como puede ver, es fácil determinar en el ejemplo anterior, que elementos son valores y que elementos son llaves.</p>
+
+<h2>Operadores de Hash</h2>
+
+<p><a name="Operadores de Hash"></p>
+
+<p>Naturalmente, hay algunas funciones útiles para poder trabajar con hashs.</p>
+
+<h3>Las funciones keys y values</h3>
+
+<p><a name="Las funciones keys y values"></p>
+
+<p>La función <code>keys</code> obtiene una lista de todas las llaves de un hash, mientras que la función <code>values</code> obtiene los valores correspondientes. Si el hash no tiene elementos, ambas funciones retornan una lista vacía.</p>
+
+<div class="programlisting">
+
+<pre><code>    my %hash = (&quot;a&quot; =&gt; 1, &quot;b&quot; =&gt; 2, &quot;c&quot; =&gt; 3); 
+    my @k = keys %hash;
+    my @v = values %hash;</code></pre>
+
+</div>
+
+<p>En el ejemplo anterior <code>@k</code> va a contener "a", "b", y "c", y <code>@v</code> va a contener 1, 2, y 3 en el mismo orden. Recuerde que Perl no mantiene el orden de un hash. Pero cual sea el orden que tenga la lista de llaves va a ser el orden correspondiente de la lista de valores.</p>
+
+<p>En contexto escalar estas funciones retornan la cantidad de elementos en el hash. Ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    my $count = keys %hash;</code></pre>
+
+</div>
+
+<p>En un ciclo <code>while</code>, lo podemos usar como expresión en el contexto booleano, por ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    if (%hash){
+        print &quot;Esto es un valor verdadero\n&quot;;
+    }</code></pre>
+
+</div>
+
+<h3>La función each</h3>
+
+<p><a name="La función each"></p>
+
+<p>Si usted quiere iterar el hash completo, una de las maneras usuales es usar la función <code>each</code>, que retorna un par llave-valor como una lista de dos elementos. En cada evaluación de esta función sobre el mismo hash, va a retornar el siguiente par llave-valor, hasta que todos los elementos sean accedidos. Cuando no hay mas pares, <code>each</code> retorna una lista vacía.</p>
+
+<p>En la práctica, la única manera de usar <code>each</code> es en un ciclo while, por ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    while ( ($key, $value) = each %hash ) {
+        print &quot;$key =&gt; $value\n&quot;;
+    }</code></pre>
+
+</div>
+
+<p>Por supuesto, <code>each</code> retorna los pares llave-valor desordenadamente. Si necesita recorrer el hash en orden, simplemente ordena las llaves, por ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    foreach $key ( sort keys %hash) {
+        $value = $hash{$key};
+        print &quot;$key =&gt; $value \n&quot;;
+    }</code></pre>
+
+</div>
+
+<h3>La función exists</h3>
+
+<p><a name="La función exists"></p>
+
+<p>Para verificar que una llave exista en un hash, puede usar la función <code>exists</code>, que retorna un valor verdadero si la llave existe en el hash, de lo contrario retorna falso:</p>
+
+<div class="programlisting">
+
+<pre><code>    if (exists $books{&quot;dino&quot;}) {
+        print &quot;Hey, there&#39;s a library card for dino!\n&quot;;
+    }</code></pre>
+
+</div>
+
+<h3>La función delete</h3>
+
+<p><a name="La función delete"></p>
+
+<p>La función <code>delete</code> remueve una llave de el hash. Si no existe la llave, la función termina, y en ese caso causa una advertencia o un error.</p>
+
+<div class="programlisting">
+
+<pre><code>    my $person = &quot;larry&quot;;
+    delete $books{$person};     </code></pre>
+
+</div>
+
+<p>Note que esto no es lo mismo que guardar un elemento como <code>undef</code> en el hash. En efecto, si chequea el hash con <code>exists($books{"betty"})</code> va a obtener verdadero, luego de usar <code>delete</code>, la llave no puede existir en el hash, pero después de guardar <code>undef</code> la llave va a existir en el hash.</p>
+
+<h3>Interpolación de un elemento en un Hash</h3>
+
+<p><a name="Interpolación de un elemento en un Hash"></p>
+
+<p>Puedes interpolar un elemento simple de un hash colocándolo entre dobles comillas.</p>
+
+<div class="programlisting">
+
+<pre><code>    foreach $person (sort keys %books) {
+        if ($books{$person}) {
+            print &quot;$person has $books{$person} items\n&quot;;
+        }
+    }</code></pre>
+
+</div>
+
+<p>Pero no es posible interpolar el hash completo, si tratamos de usar <code>"%books"</code> simplemente obtendremos seis caracteres de (literalmente) %books.</p>
+
+<h3>El hash %ENV</h3>
+
+<p><a name="El hash %ENV"></p>
+
+<p>Su programa, como cualquier otro programa, corre en un ambiente específico, de modo que el programa puede mirar en el ambiente para obtener información de sus alrededores. Perl guarda esa información en el hash <code>%ENV</code>. Por ejemplo, podemos ver el PATH de la siguiente forma:</p>
+
+<div class="programlisting">
+
+<pre><code>    print &quot;PATH is $ENV{PATH}\n&quot;;</code></pre>
+
+</div>
+
+<p>Dependiendo de su sistema operativo particular, va a obtener algo parecido a esto:</p>
+
+<div class="screen">
+
+<pre><code>    PATH is /Users/elsanto/.vim/bin/:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin
+    </code></pre>
+
+</div>
+
+<h2>Ejercicios</h2>
+
+<p><a name="ejercicios05"></p>
+
+<ul>
+
+<li>1. Escriba un programa que pregunte al usuario por un nombre e imprima correctamente su apellido. Use los nombres de las personas que usted conozca, o use la tabla siguiente:
+
+<div class="screen">
+
+<pre><code>    fred    flinstone 
+    barney  rubble
+    wilma   flinstone</code></pre>
+
+</div>
+
+<li>2. Escriba un programa que lea una serie de palabras (una palabra por linea) hasta el final de la entrada (End-Of-Input), e imprima un resumen de cuantas veces fue vista cada palabra.
+
+<li>3. Escriba un programa que liste todas las llaves de los valores en el hash <code>%ENV</code>. Imprima los resultados en dos columnas en orden ASCIIbetico. Una vez que tenga el programa funcionando, intente definir nuevas variables de entorno y asegúrese que estas variables están en la salida de su programa.
+
+</ul>
 
 </body>
 </html>

@@ -104,7 +104,7 @@ Usted debe saber que cada computadora en Internet tiene un nombre de host y una
 dirección IP. Esto es porque a las máquinas les gusta trabajar con números,
 pero a los humanos se les hace mas fácil recordar nombres. Los nombres de hosts
 son cadenas únicas, entonces pueden usarse para hacer este hash. Con este hash
-puedes buscar por el nombre de host y obtener la dirección ip correspondiente. 
+puedes buscar por el nombre de host y obtener la dirección IP correspondiente. 
 
 =item Palabras, contar el número de veces que una palabra aparece. 
 
@@ -133,13 +133,13 @@ Para acceder al elemento de un hash usamos la siguiente sintaxis:
 =end programlisting
 
 Es bastante similar a la sintaxis que usamos para acceder a un array, pero en
-este caso vamos a usar llaves en lugar de corchetes alrededor del subindice
+este caso vamos a usar llaves en lugar de corchetes alrededor del subíndice
 (llave). N<Aquí daremos un vistazo dentro de la mente de Larry Wall: Larry
 decía, vamos a usar llaves en lugar de corchetes porque estamos haciendo algo
 mas sofisticado que acceder a un array, entonces debemos usar un signo de
 puntuación mas sofisticado.>
 
-Podemos asigar los valores de la siguiente manera: 
+Podemos asignar los valores de la siguiente manera: 
 
 =begin programlisting
 
@@ -175,7 +175,7 @@ literales o variables escalares simples. Por ejemplo:
 
 =end programlisting
 
-Cuando guardamos algo en un elemento que ya existia en el hash, este sobre
+Cuando guardamos algo en un elemento que ya existía en el hash, este sobre
 escribe al valor anterior: 
 
 =begin programlisting
@@ -194,3 +194,282 @@ Si accede a un elemento que no se encuentra en el hash va a obtener C<undef>:
 
 =end programlisting
 
+=head1 Hash como un todo 
+
+Z<Hash como un todo> 
+
+Para referirse a un hash completo, usamos el signo de porcentaje (%) como
+sígil. Entonces, el hash que hemos estado usando en las últimas páginas
+actualmente se llama C<%apellido>. 
+
+Por conveniencia, un hash puede convertirse en una lista, y luego volver a
+convertirlo en un hash. Asignando un hash en contexto de lista, donde la lista
+esta conformada por un conjunto de pares llave-valor. 
+
+=begin programlisting
+
+    %some_hash = (
+        "foo",   35,      "bar",   12.4, 2.5, "hello",
+        "wilma", 1.72e30, "betty", "bye\n"
+      )
+
+=end programlisting
+
+El valor de un hash (en contexto de lista) es una lista simple de pares
+llave-valor: 
+
+=begin programlisting
+
+    @any_array = %some_hash; 
+
+=end programlisting
+
+A esto le llamamos I<desenrollar> el hash, básicamente convertimos el hash en
+una lista de pares llave-valor. Como era de esperarse, los pares no están
+necesariamente en el mismo orden de la lista original. 
+
+=begin programlisting
+
+    print "@any_array\n"; 
+        # vamos a obtener algo como esto: 
+        # betty bye (una nueva linea) wilma 1.72e+30 foo 35 2.5 hello bar 12.4
+
+=end programlisting
+
+El orden es algo confuso porque Perl mantiene los pares llave-valor en el orden
+que sea mas conveniente para Perl, de manera que pueda buscarse cualquier item
+rápidamente. Se usa un hash cuando no nos importa el orden de los elementos, o
+tenemos una forma fácil de ordenarlos como queramos. 
+
+=head1 Asignación de Hash 
+
+Z<Asignación de Hash> 
+
+Esto no es algo común, pero usted puede copiar un hash a otro con la siguiente
+sintaxis obvia: 
+
+=begin programlisting
+
+    %new_hash = %old_hash; 
+
+=end programlisting
+
+
+Esto es mas complejo para Perl de lo que parece, mientras en otros lenguajes
+como C o Pascal, es tan simple como copiar un bloque de memoria, las
+estructuras de datos en Perl sin mas complejas. Entonces, esta linea de código
+le dice a Perl que desenrolle a %old_hash en una lista de pares llaves-valor,
+y que arme el hash %new_hash desde la lista de pares llave-valor.
+
+Es mas común hacer otro tipo de transformaciones con un hash. Por ejemplo,
+podemos obtener el inverso de un hash así: 
+
+=begin programlisting
+
+    %inverse_hash = reverse %any_hash;
+
+=end programlisting
+
+=head1 La Gran Flecha    
+
+Z<La Gran Flecha> 
+
+Cuando asignamos una lista a un hash, algunas veces no es obvio que elementos
+son llaves y que elementos son valores. Por ejemplo, en esta asignación, los
+humanos debemos ir contando por la lista diciendo: "llave, valor, llave, valor,
+llave, valor ...", para poder determinar si 2.5 es una llave o un valor: 
+
+=begin programlisting
+
+    %some_hash = (
+        "foo",   35,      "bar",   12.4, 2.5, "hello",
+        "wilma", 1.72e30, "betty", "bye\n"
+    );
+
+=end programlisting
+
+¿ No seria agradable que Perl nos diera una manera emparejar las llaves y los
+valores en contexto de lista ?, Larry también pensaba esto y por eso invento a
+la flecha mayor (=>). En Perl, es simplemente un hechizo para representar una
+coma, por lo que algunas veces se le llama "la coma gorda". En la gramática de
+Perl, cada vez que usted necesite una coma ( , ), puedes usar la flecha grande,
+esto va a ser lo mismo para Perl. Por ejemplo: 
+
+=begin programlisting
+
+    my %last_name = ( # Un hash también puede ser una variable léxica. 
+        "fred"	=> "flintstone",
+        "dino"	=> undef, 
+        "barney" => "rubble",
+        "betty" => "rubble",
+    );
+
+=end programlisting
+
+Como puede ver, es fácil determinar en el ejemplo anterior, que elementos son
+valores y que elementos son llaves. 
+
+
+=head1 Operadores de Hash    
+
+Z<Operadores de Hash> 
+
+Naturalmente, hay algunas funciones útiles para poder trabajar con hashs.
+
+
+=head2 Las funciones keys y values    
+
+Z<Las funciones keys y values> 
+
+La función C<keys> obtiene una lista de todas las llaves de un hash, mientras
+que la función C<values> obtiene los valores correspondientes. Si el hash no
+tiene elementos, ambas funciones retornan una lista vacía. 
+
+=begin programlisting
+
+    my %hash = ("a" => 1, "b" => 2, "c" => 3); 
+    my @k = keys %hash;
+    my @v = values %hash;
+
+=end programlisting
+
+En el ejemplo anterior C<@k> va a contener "a",  "b", y "c", y C<@v> va a
+contener 1, 2, y 3 en el mismo orden. Recuerde que Perl no mantiene el orden de
+un hash. Pero cual sea el orden que tenga la lista de llaves va a ser el orden
+correspondiente de la lista de valores. 
+
+En contexto escalar estas funciones retornan la cantidad de elementos en el
+hash. Ejemplo:
+
+=begin programlisting
+
+    my $count = keys %hash;
+
+=end programlisting
+
+En un ciclo C<while>, lo podemos usar como expresión en el contexto booleano,
+por ejemplo: 
+
+=begin programlisting
+
+    if (%hash){
+        print "Esto es un valor verdadero\n";
+    }
+
+=end programlisting
+
+=head2 La función each    
+
+Z<La función each> 
+
+Si usted quiere iterar el hash completo, una de las maneras usuales es usar la
+función C<each>, que retorna un par llave-valor como una lista de dos
+elementos. En cada evaluación de esta función sobre el mismo hash, va a
+retornar el siguiente par llave-valor,  hasta que todos los elementos sean
+accedidos. Cuando no hay mas pares, C<each> retorna una lista vacía. 
+
+En la práctica, la única manera de usar C<each> es en un ciclo while, por
+ejemplo: 
+
+=begin programlisting
+
+    while ( ($key, $value) = each %hash ) {
+        print "$key => $value\n";
+    }
+
+=end programlisting
+
+
+Por supuesto, C<each> retorna los pares llave-valor desordenadamente. Si
+necesita recorrer el hash en orden, simplemente ordena las llaves, por ejemplo: 
+
+=begin programlisting
+
+    foreach $key ( sort keys %hash) {
+        $value = $hash{$key};
+        print "$key => $value \n";
+    }
+
+=end programlisting
+
+=head2 La función exists    
+
+Z<La función exists> 
+
+Para verificar que una llave exista en un hash, puede usar la función
+C<exists>, que retorna un valor verdadero si la llave existe en el hash, de lo
+contrario retorna falso: 
+
+=begin programlisting
+
+    if (exists $books{"dino"}) {
+        print "Hey, there's a library card for dino!\n";
+    }
+
+=end programlisting
+
+=head2 La función delete    
+
+Z<La función delete> 
+
+La función C<delete> remueve una llave de el hash. Si no existe la llave, la
+función termina, y en ese caso causa una advertencia o un error. 
+
+=begin programlisting
+
+    my $person = "larry";
+    delete $books{$person};     
+
+=end programlisting
+
+Note que esto no es lo mismo que guardar un elemento como C<undef> en el hash.
+En efecto, si chequea el hash con C<exists($books{"betty"})> va a obtener
+verdadero, luego de usar C<delete>, la llave no puede existir en el hash, pero
+después de guardar C<undef> la llave va a existir en el hash. 
+
+=head2 Interpolación de un elemento en un Hash    
+
+Z<Interpolación de un elemento en un Hash> 
+
+Puedes interpolar un elemento simple de un hash colocándolo entre dobles
+comillas. 
+
+=begin programlisting
+
+    foreach $person (sort keys %books) {
+        if ($books{$person}) {
+            print "$person has $books{$person} items\n";
+        }
+    }
+
+=end programlisting
+
+Pero no es posible interpolar el hash completo, si tratamos de usar
+C<"%books"> simplemente obtendremos seis caracteres de (literalmente) %books.
+
+=head2 El hash %ENV    
+
+Z<El hash %ENV> 
+
+
+Su programa, como cualquier otro programa, corre en un ambiente específico, de
+modo que el programa puede mirar en el ambiente para obtener información de sus
+alrededores. Perl guarda esa información en el hash C<%ENV>. Por ejemplo,
+podemos ver el PATH de la siguiente forma: 
+
+=begin programlisting
+
+    print "PATH is $ENV{PATH}\n";
+
+=end programlisting
+
+Dependiendo de su sistema operativo particular, va a obtener algo parecido a
+esto: 
+
+=begin screen
+
+    PATH is /Users/elsanto/.vim/bin/:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin
+    
+=end screen
+
+L<ejercicios05>

@@ -1,0 +1,28 @@
+=head1 Ejercicios    
+
+Z<ejercicios05> 
+
+=over 
+
+=item 1. Escriba un programa que pregunte al usuario por un nombre e imprima
+correctamente su apellido. Use los nombres de las personas que usted conozca, o
+use la tabla siguiente: 
+
+=begin screen
+
+    fred    flinstone 
+    barney  rubble
+    wilma   flinstone
+
+=end screen
+
+=item 2. Escriba un programa que lea una serie de palabras (una palabra por
+linea) hasta el final de la entrada (End-Of-Input), e imprima un resumen de
+cuantas veces fue vista cada palabra. 
+
+=item 3. Escriba un programa que liste todas las llaves de los valores en el
+hash C<%ENV>. Imprima los resultados en dos columnas en orden ASCIIbetico. Una
+vez que tenga el programa funcionando, intente definir nuevas variables de
+entorno y asegúrese que estas variables están en la salida de su programa. 
+
+=back
