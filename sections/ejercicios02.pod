@@ -1,3 +1,5 @@
+=encoding utf8
+
 =head1 Ejercicios
 
 Z<ejercicios02>
@@ -6,11 +8,11 @@ Z<ejercicios02>
 
 =item 1. Escriba un programa que lea una lista de caracteres separados por
 lineas e imprima esta lista en modo inverso, si la entrada proviene del
-teclado, se necesita una seÃ±al para la finalizaciÃ³n de la entrada, en Unix es CTRL-D.
+teclado, se necesita una señal para la finalización de la entrada, en Unix es CTRL-D.
 
-=item 2. Escriba un programa que lea una lista de nÃºmeros separados por lineas
-y por cada nÃºmero imprima el nombre correspondiente a la lista mostrada a
-continuaciÃ³n. fred betty barney dino wilma pebbles bamm-bamm. Por ejemplo, 
+=item 2. Escriba un programa que lea una lista de números separados por lineas
+y por cada número imprima el nombre correspondiente a la lista mostrada a
+continuación. fred betty barney dino wilma pebbles bamm-bamm. Por ejemplo, 
 si la entrada es 1, 2, 4, la salida debe mostrar lo siguiente, fred, betty,
 dino.
 

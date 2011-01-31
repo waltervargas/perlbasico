@@ -1,5 +1,4 @@
 #!/usr/bin/perl
-#use utf8;
 use strict;
 use warnings;
 
@@ -44,7 +43,7 @@ sub get_anchor
 {
     my $path = shift;
 
-    open my $fh, '<:utf8', $path or die "Can't read '$path': $!\n";
+    open my $fh, '<', $path or die "Can't read '$path': $!\n";
     while (<$fh>) {
         next unless /Z<(\w*)>/;
         return $1;
@@ -67,7 +66,7 @@ sub process_chapter
 sub read_file
 {
     my $path = shift;
-    open my $fh, '<:utf8', $path or die "Can't read '$path': $!\n";
+    open my $fh, '<', $path or die "Can't read '$path': $!\n";
     return scalar do { local $/; <$fh>; };
 }
 
@@ -92,7 +91,7 @@ sub write_chapter
 
     mkpath( $chapter_dir ) unless -e $chapter_dir;
 
-    open my $fh, '>:utf8', $chapter_path
+    open my $fh, '>', $chapter_path
         or die "Cannot write '$chapter_path': $!\n";
 
     print {$fh} $text;

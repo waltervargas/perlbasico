@@ -9,17 +9,17 @@ radio de 12.5 la circunferencia es dos veces PI, (aproximadamente 2 veces
 3.141592654)
 
 =item 2. Modifique el programa anterior para que acepte el valor del radio
-desde la entrada estÃ¡ndar. Si el usuario introduce 12.5 debe obtener el mismo
+desde la entrada estándar. Si el usuario introduce 12.5 debe obtener el mismo
 valor que el primer ejercicio. 
 
 =item 3. Modifique el programa del ejercicio anterior,  de modo que si el
 usuario introduce un numero menor que cero, la circunferencia reportada sea
 cero en lugar de negativo. 
 
-=item 4. Escriba un programa que pida dos nÃºmeros (en lineas separadas en el
-input) e imprima el producto de los dos nÃºmeros multiplicados. 
+=item 4. Escriba un programa que pida dos números (en lineas separadas en el
+input) e imprima el producto de los dos números multiplicados. 
 
-=item 5. Escriba un programa que pida una cadena y un nÃºmero (en lineas
+=item 5. Escriba un programa que pida una cadena y un número (en lineas
 separadas en el input) e imprima en la salida la cadena repetida el numero de
 veces que indica el numero que introdujo el usuario. (Consejo: use el operador
 x)

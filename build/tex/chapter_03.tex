@@ -1,0 +1,622 @@
+\chapter{Subrutinas}
+
+Hasta el momento hemos visto y usado algunas funciones internas de Perl, como \texttt{chomp}, \texttt{reverse}, \texttt{print}, y otras mas. Al igual que otros lenguajes, Perl tiene la habilidad de crear \texttt{subrutinas}, que son funciones def\mbox{}inidas por el usuario. \footnote{En Perl, no se hace la distinción que se hacía en Pascal, entre funciones que retornan un valor y procedimientos, que no retornan un valor.} Pero una subrutina es siempre def\mbox{}inida por un usuario, mientras que una función puede o no serlo. Esto es, la palabra \emph{función} puede ser usada como sinónimo para \emph{subrutina}, pero es una función que el programador puede def\mbox{}inir, no las funciones internas de Perl.
+
+El nombre de una subrutina es otro identif\mbox{}icador de Perl (letras, dígitos y pisos bajos, pero este no puede iniciar con un dígito.) con un signo \& (ampersand) a veces opcional adelante. Existe una regla acerca de cuando podemos omitir el signo \& y cuando no, al f\mbox{}inal del capítulo vamos a ver esta regla. Por ahora vamos a usar el signo \& adelante siempre, esto no puede olvidarse.
+
+El nombre de una subrutina viene de un espacio de nombres separado, por lo que Perl no va a confundirse si usted tiene una subrutina llamada \&fred y un la variable escalar llamada \$fred en el mismo programa, aunque no hay una razón para hacer esto en circunstancias normales.
+
+\section{Def\mbox{}iniendo una Subrutina}
+
+\label{Definiendo-una-Subrutina}
+
+Para def\mbox{}inir su propia subrutina, use la palabra reservada \texttt{sub}, el nombre de la subrutina (sin el signo \&), luego el bloque de código identado (entre llaves)\footnote{Bueno, los puristas admitimos que las llaves son parte del bloque. Y Perl no requiere la identación del bloque, pero los nuevos programadores son estilizados}, va a conformar el cuerpo de la subrutina, quedaría algo como esto:
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    sub marino \{
+        $n += 1;    # Variable global $n
+        print "Hola, marinera número $n!\textbackslash{}n";
+    \}
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+Las subrutinas se pueden def\mbox{}inir en cualquier lugar del programa, pero los programadores que vienen de lenguajes como C o Pascal, les gusta colocar las subrutinas al inicio del archivo. Otros pref\mbox{}ieren poner las subrutinas al f\mbox{}inal del archivo, entonces la parte principal del programa queda al principio. Esto depende de usted. En cualquier caso, normalmente no va a necesitar ningún tipo de declaración previa \footnote{A menos que tu subrutina valla a ser particularmente compleja y declare un prototipo, que indica como el compilador va a parsear e interpretar la invocación de los argumentos. Esto no es común, vea la página del manual \texttt{perlsub} para mas información.}
+
+La def\mbox{}inición de la subrutina es global; sin hechiceria no hay subrutina privadas. Si tiene dos subrutinas def\mbox{}inidas con el mismo nombre, la última subrutina sobre escribe la primera. Esto es generalmente considerado como una mala práctica, o una señal de que el programador de mantenimiento esta confundido.
+
+Como pudo notarlo en el ejemplo previo, puedes usar variables globales dentro de el cuerpo de una subrutina. De hecho, todas las variables que hemos visto hasta ahora son globales; esto signif\mbox{}ica, que podemos acceder a ellas desde cualquier parte del programa. Esto horroriza a los puristas del lenguaje, pero no se preocupe, el equipo de desarrollo de Perl formo una turba iracunda con antorchas y corrió fuera de la ciudad hace años. Mas adelante veremos como hacer variables privadas en ``Variables Privadas en Subrutinas''.
+
+\section{Llamar una Subrutina}
+
+\label{Invocando-una-Subrutina}
+
+Puede invocar o llamar una subrutina desde cualquier expresión usando el nombre de la subrutina (con el signo \&) \footnote{Y frecuentemente un par de paréntesis, incluso si estan vacios}.
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    &marino;    # dice: Hola, marinera numero 1! 
+    &marino;    # dice: Hola, marinera numero 2! 
+    &marino;    # dice: Hola, marinera numero 3! 
+    &marino;    # dice: Hola, marinera numero 4! 
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+\section{Retornar Valores}
+
+\label{Retornar-Valores}
+
+Las subrutinas siempre son invocadas como parte de una expresión, incluso si el resultado de esa expresión no se usa para nada. Cuando llamamos anterior mente a la subrutina \texttt{\&marino}, calculamos un valor en la expresión contenido en la llamada, pero el resultado simplemente se envió a la pantalla.
+
+Muchas veces que se llama a una subrutina, se quiere hacer algo con el resultado. Entonces debe prestar atención al \emph{valor de retorno} de una subrutina. Todas las subrutinas en Perl tienen un valor de retorno. No hay distinción entre las que retornan valores y las que no. Sin embargo no todas las subrutinas en Perl tiene un valor de retorno \textbf{útil}.
+
+Puesto que en Perl, las subrutinas siempre deben devolver un valor, sería un poco inútil tener que declarar una sintaxis especial de tipo \texttt{return} para la mayoría de los casos. Entonces Larry hizo algo simple. Cualquier calculo que se encuentre de último en una subrutina es automáticamente el valor de retorno.
+
+Por ejemplo, vamos a def\mbox{}inir esta subrutina:
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    sub sum_of_fred_and_barney \{
+        print "Hey,  has llamado a la subrutina sum_of_fred_and_barney !\textbackslash{}n";
+        $fred + $barney; # Este es el valor de retorno.
+    \}
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+La última expresión evaluada en el cuerpo de la subrutina, es la suma de \$fred y \$barney, entonces la suma de \$fred y \$barney va a ser el valor de retorno. Veamos esto en acción:
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    $fred = 3;
+    $barney = 4;
+    $wilma = &sum_of_fred_and_barney;   # $wilma obtiene 7
+    print "\textbackslash{}$wilma es $wilma.\textbackslash{}n";
+    $betty = 3 * &sum_of_fred_and_barney; # $betty obtiene 21
+    print "\textbackslash{}$betty es $betty.\textbackslash{}n";
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+Ahora supongamos que agrega una linea mas a la subrutina, por ejemplo:
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    sub sum_of_fred_and_barney \{
+        print "Hey,  has llamado a la subrutina sum_of_fred_and_barney !\textbackslash{}n";
+        $fred + $barney; # Este es el valor de retorno.
+        print "Hey, estoy retornando un valor ahora!\textbackslash{}n";
+    \}
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+En este ejemplo, la última expresión evaluada no es una suma; es la sentencia print. Esta retorna normalmente 1, que signif\mbox{}ica ``printing was successful'', pero no es el valor de retorno que esperaba. Entonces, debe ser cuidadoso cuando agrega código adicional a una subrutina, puesto que la ultima expresión evaluada va a ser el valor de retorno.
+
+Tome en cuenta que no es la última linea de la subrutina, es la última expresión evaluada. Por ejemplo, esta subrutina devuelve el valor mas grande, entre \$fred y \$barney:
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    sub larger_of_fred_or_barney  \{
+        if ($fred > $barney) \{
+            $fred;
+        \} else \{
+            $barney;
+        \}
+    \}
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+La última expresión evaluada esta entre \$fred o \$barney, entonces el valor de una de estas variables va a ser el valor de retorno. No podemos saber cual va a ser la variable de retorno hasta que no veamos que guarda cada variable en tiempo de ejecución.
+
+Estos son ejemplos triviales, se pone mejor cuando podemos pasar valores a la subrutina en lugar de depender de variables globales.
+
+\section{Argumentos}
+
+\label{Argumentos}
+
+La subrutina llamada larger\_of\_fred\_or\_barney puede ser mas útil si no estuviera forzada a usar variables globales.
+
+Perl tiene argumentos para subrutinas. Para pasar una lista de argumentos a una subrutina, simplemente se coloca la expresión de lista en paréntesis, después de la llamada a la subrutina, por ejemplo:
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    $n = &max(10, 15);  # Esta llamada tiene dos paréntesis. 
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+Una vez que lista es enviada a la subrutina, va a estar disponible en la subrutina para hacer lo que sea necesario. Por supuesto, usted tiene que guardar esta lista en algún lugar, Perl automáticamente la lista de parámetros (este es otro nombre para la lista de argumentos) en una variable de tipo array especial llamada \texttt{@\_} durante el tiempo de existencia de la subrutina. La subruina puede acceder a esta variable para determinar o el número de argumentos y el valor de los argumentos.
+
+Esto signif\mbox{}ica que el primer parámetro de la subrutina es guardado en \texttt{\$\_[0]}, el segundo es guardado en \texttt{\$\_[1]} y así sucesivamente. Pero, he aquí una nota importante, estas variables no tienen nada que ver con la variable \texttt{\$\_}, es solo que la lista de parámetros debe ser almacenada en una variable array para que la subrutina pueda utilizarlos, y Perl llama a esta variable \texttt{@\_}.
+
+Ahora usted puede escribir la subrutina \&max para que se parezca un poco a la subrutina \&larger\_of\_fred\_or\_barney, pero en lugar de usar \$fred usted puede usar el primer parámetro de la subrutina (\$\_[0]), y en lugar de usar \$barney, puede usar el segundo parámetro de la subrutina (\$\_[1]). Y así puede terminar un código que se vea como esto:
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    sub max \{
+        # Compare esto con &larger_of_fred_or_barney 
+        if ($_[0] > $_[1]) \{
+            $_[0];
+        \} else \{
+            $_[1];
+        \}
+    \}
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+Bien, como ya dijimos, puede hacer esto. Pero es un poco feo con todos esos subíndices, y es poco fácil de escribir, revisar, y depurar. En un momento veremos una mejor forma de hacerlo.
+
+Hay otro problema con esta subrutina, los parámetros adicionales son ignorados, puesto que la subrutina nunca mira en \$\_[2], a Perl no le importa si allí hay algo o no, y la ausencia de un parámetro también es ignorada, simplemente obtendrá \texttt{undef} si mira mas allá del f\mbox{}inal del array \texttt{@\_}. En este mismo capítulo veremos como hacer esta subrutina mas ef\mbox{}iciente.
+
+La variable \texttt{@\_} es privada para cada subrutina;\textless{}A menos que se coloque un signo \& delante del nombre de la subrutina en la variable y no se indique ningún argumento o paréntesis, en cuyo caso \texttt{@\_} es heredada desde el contexto de la llamada a la subrutina. Generalmente es una mala idea, pero en ocasiones es útil\textgreater{} si hay una variable global @\_, su valor es conservado antes de la invocación de la subrutina, y su valor es restaurado cuando la llamada termina. Esto signif\mbox{}ica que una subrutina puede pasar valores a otra subrutina sin miedo a perder los valores contenidos en @\_. Si una subrutina se llama recursivamente, cada invocación obtiene un nuevo \texttt{@\_}, entonces \texttt{@\_} es siempre la lista de parámetros para la subrutina.
+
+\section{Variables privadas en Subrutinas}
+
+\label{Variables-privadas-en-Subrutinas}
+
+Por defecto, todas las variables en Perl son variables globales; lo que signif\mbox{}ica que son accesibles desde cualquier parte del programa. Pero usted puede crear variables privadas llamadas variables léxicas, en cualquier momento usando el operador \texttt{my}. Por ejemplo:
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    sub max \{
+        my ($m, $n);    # Nuevas variables privadas para este bloque 
+        ($m, $n) = @_;  # obtener los parámetros
+        if ($m > $n) \{ $m \} else \{ $n \}
+    \}
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+Estas variables son privadas (o de ámbito local) al bloque que las contiene, ningún otro código puede acceder o modif\mbox{}icar estas variables privadas, por accidente o por diseño \footnote{Programadores mas avanzados puede hacer una variable de ámbito local accesible por referencia desde fuera de su ámbito, pero nunca por el nombre de la variable}.
+
+También es importante señalar que, en el bloque \texttt{if}, no fue necesario un punto y coma después de la expresión del valor de retorno. Aunque Perl permíte omitir el último punto y coma de un bloque, en la práctica tu puedes omitirlo solo cuando el código es tan simple que puedas escribirlo en un bloque de una sola linea.
+
+La subrutina en el ejemplo previo puede ser mas simple aún. Debe haber notado que la lista (\$m, \$n) fue escrita dos veces, el operador \texttt{my} puede ser aplicado a una lista de variables encerradas en paréntesis, entonces se pueden combinar las dos primeras sentencias de la subrutina de la siguiente manera:
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    my($m, $n) = @_;    # nombre de los parámetros de la subrutina
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+Una sola sentencia crea las variables privadas y def\mbox{}ine sus valores. Casí todas las subrutinas van a comenzar con una linea muy parecida a esta, nombres entre paréntesis. Cuando vea esta linea, va a saber que la subrutina espera dos parámetros escalares, que vas a llamar \$m y \$n dentro de la subrutina.
+
+\section{Longitud de la lista de parámetros}
+
+\label{Longitud-de-la-lista-de-par-metros}
+
+En el mundo real, las subrutinas no poseen un valor arbritario para la longitud de la lista de parámetros. Esto es porque en Perl no hay límites innecesarios. Es agradable que Perl sea tan f\mbox{}lexible, pero puede haber problemas cuando se llama a la subrutina con una cantidad diferente de parámetros que espera el autor.
+
+Por su puesto, la subrutina puede fácilmente probar si el número de argumentos es correcto examinando el array @\_. Por ejemplo, podemos escribir la función \&max de cierta forma para que revise la lista de argumentos:
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    sub max \{
+        if (@_ != 2)\{
+            print "WARNING! &max debería tener exactamente dos argumentos\textbackslash{}n";
+        \}
+        # ...
+    \}
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+Perl en el mundo real, esto casi no se usa, es mejor hacer que la subrutina se adapte a los parámetros.
+
+\subsection{Subrutina \&max bien escrita}
+
+\label{Subrutina--max-bien-escrita}
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    $maximo = &max(4, 5, 10, 4, 6);
+
+    sub max \{
+        my ($max_so_far) = shift @_;    # tomo el primer valor como el mayor
+        foreach (@_) \{
+            if ($_ > $max_so_far) \{
+                $max_so_far = $_;
+            \}
+        \}
+        $max_so_far;
+    \}
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+\section{Notas sobre Variables Léxicas (my)}
+
+\label{Notas-sobre-Variables-L-xicas--my-}
+
+Estas variables léxicas pueden usarse en cualquier bloque, no necesariamente en una subrutina. Por ejemplo, pueden usarse en un bloque de un \texttt{if}, \texttt{while}, o \texttt{foreach}:
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    foreach (1..10)\{
+        my ($cuadrado) = $_ * $_; # variable privada en este ciclo. 
+        print "El cuadrado de $_ es $square.\textbackslash{}n";
+    \}
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+La variable \$cuadrado es privada al bloque de código; en este caso, al bloque de código del ciclo foreach. Si no se encuentra encerrada en un bloque, la variable es privada para el archivo completo. El concepto importante es que el ámbito de una variable léxica es limitado al pequeño bloque de código que encierre la variable. Esto es una gran virtud para la mantenibilidad del código. Si hay un valor erróneo en \$cuadrado, la culpabilidad va a estar limitada a una pequeña porción del código.
+
+Debe haber notado, que el operador \texttt{my} tampoco altera el contexto de la asignación:
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    my ($num)   = @_; # contexto de lista. 
+    my $num     = @_; # contexto escalar. 
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+En la primera linea, \$num obtiene el primer parámetro, en la segunda línea \$num obtiene el número de parámetros en contexto escalar.
+
+Vale la pena recordar, que el uso de \texttt{my} sin paréntesis solo va a declarar una variable léxica simple:
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    my $fred, $barney;      # MAL! Falla al declarar $barney
+    my ($fred, $barney);    # declara ambas variables.
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+También puede usar \texttt{my} para crear un nuevo y privado array:
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    my @phone_number;
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+\section{Usando el Pragma Strict}
+
+\label{Usando-el-Pragma-Strict}
+
+Perl tiende a ser un lenguaje muy permisivo. Pero puede ser que quieras que Perl imponga un poco de disciplina; esto se puede hacer con el pragma \texttt{strict}.
+
+Un pragma es una sugerencia al compilador, que le dice algo sobre el código. En este caso, el uso del pragma \texttt{strict} le dice al compilador interno de Perl que debe forzar el uso algunas buenas reglas de programación para el resto de este bloque o archivo.
+
+¿ Porqué esto es importante ?, Bueno imagine que esta creando un programa y usted escribe una linea como esta:
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    $bamm_bamm = 3;  # Perl crea esta variable automáticamente 
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+Ahora, luego de un rato, escribe un ciclo while. Después de que la linea anterior no sea visible en la pantalla, usted tipea una linea para incrementar la variable.
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    $bammbamm += 1;
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+Puesto que perl ve un nuevo nombre de variable (el guión bajo es signif\mbox{}icativo) crea una nueva variable, e incrementa su valor en uno. Si eres afortunado e inteligente, activaste las advertencias (warnings), y Perl te va a decir que has usado una o varias variables globales una sola vez en tu programa. Pero si eres simplemente inteligente, vas a usar cada variable mas de una vez, y Perl no va a advertirte nada.
+
+Para decirle a Perl que quieres ser mas restrictivo, coloque \texttt{use strict} al principio de su programa.
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    use strict;     # Forza algunas buenas reglas de programación.
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+Ahora entre otras restricciones, Perl va a insistir que declares cada variable nueva, usualmente con \texttt{my}.
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    my $bamm_$bamm = 3;     # Nueva variable léxica.
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+Ahora, Perl va a notar que no hay una variable \$bammbamm declarada, entonces tu error va ser automáticamente atrapado en tiempo de compilación.
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    $bammbamm += 1;     # No such variable: Compile time fatal error
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+Para aprender mas sobre las restricciones que aplica el pragma strict, le recomendamos ver la documentación of\mbox{}icial. La documentación de los pragmas se encuentra en un archivo bajo el nombre del pragma, entonces podemos usar \texttt{perldoc strict}.
+
+La mayoría de la gente cree que si un programa es mas largo que la pantalla, generalmente necesita \texttt{use strict}. En esto estamos de acuerdo.
+
+\section{El operador return}
+
+\label{El-operador-return}
+
+El operador return inmediatamente retorna un valor de desde una subrutina:
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    my @names = qw/ fred barney betty dino wilma pebbles bamm-bamm /;
+    my $result = &which_element_is("dino", @names);
+
+    sub which_element_is \{
+        my($what, @array) = @_;
+        foreach (0..$#array) \{
+            if ($what eq $array[$_]) \{
+                return $_;
+            \}
+        \}
+        -1;
+    \}
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+Esta subrutina es usada para encontrar el índice de ``dino'' en el array @names.
+
+A algunos programadores les gusta usar return siempre, como una forma de documentar que este es el valor de retorno. Por ejemplo, se puede usar return cuando el valor de retorno no es la ultima expresión evaluada de la subrutina.
+
+\section{Omitir el signo \&}
+
+\label{Omitir-el-signo--}
+
+Como lo prometimos, vamos a darle la regla para cuando una llamada a subrutina puede omitir el signo \&. Si el compilador ve una def\mbox{}inición de la subrutina antes de la llamada, o si Perl puede decidir que la sintaxis es una llamada a subrutina, la subrutina puede ser llamada sin un signo \&. Como si fuera una función integrada de Perl. Pero hay una trampa escondida en esta norma, como veremos a continuación.
+
+Esto signif\mbox{}ica que si Perl puede ver que es una llamada a una subrutina sin el signo \&, por lo general va bien. Entonces si tienes una lista de parámetros entre paréntesis, entonces esto es una llamada a una función:
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    my $cards = shuffle(@deck_of_cards);  # & no es necesario.
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+Si el compilador interno de perl ya ha visto la def\mbox{}inición de la subrutina, entonces generalmente funciona bien. En este caso particular, puedes incluso omitir los paréntesis que abrazan la lista de argumentos.
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    sub division \{
+        $_[0] / $[1];
+    \}
+
+    my $cociente = division 355, 113;   # Usa &division 
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+Esto funciona por la regla de que los paréntesis pueden ser omitidos.
+
+Pero no ponga la declaración de la subrutina despues de la llamada, o el compilador no sabrá de que se trata la llamada de \texttt{division}. Sin embargo esta no es la trampa, el problema en si es el siguiente: Si la subrutina tiene el mismo nombre que una función propia de Perl, usted \emph{debe} usar el ampersand (\&) para hacer la llamada a la subrutina. Al usar el ampersand, nos aseguramos de que estamos llamando a una subrutina; sin el; usted puede hacer la llamada solo si la subrutina no tiene el mismo nombre que una función propia de Perl. Por ejemplo:
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    sub chomp \{
+        print "Mucho,  mucho!\textbackslash{}n";
+    \}
+
+    &chomp;     # El ampersand aquí no es opcional!
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+Sin el ampersand, estamos haciendo una llamada a la función \texttt{chomp} interna de Perl.
+
+La regla general aquí es: Hasta que usted conozca los nombres de todas las funciones internas de Perl, siempre use ampersand en las llamadas a funciones.
+
+En nuestro caso, podemos usar funciones en nuestra lengua materna (Español) para evitar caer en la trampa.
+
+\section{Retornando valores no escalares}
+
+\label{Retornando-valores-no-escalares}
+
+Un escalar no es la única cosa que puede retornar una subrutina. Si llamas a tu subrutina en un contexto de lista \footnote{Puedes detectar en que contexto esta siendo llamada su subrutina, usando la función wantarray}, esta puede retornar una lista de valores.
+
+Supongamos que quieres obtener un rango de números (como viene del operador de rango, ..), pero quieres habilitar el conteo hacia abajo. El operador de rango solo cuenta hacia arriba, pero es algo fácil de arreglar:
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    sub list_from_fred_to_barney \{
+        if ($fred < $barney)\{
+            $fred..$barney;
+        \} else \{
+            reverse $barney..$fred;
+        \}
+    \}
+
+    $fred = 11;
+    $barney = 6;
+
+    @c = &list_from_fred_to_barney; 
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+Finalmente, puedes retornar nada. Cuando usamos \texttt{return} sin argumentos vamos a retornar \texttt{undef} en contexto escalar o una lista vacía en contexto de lista. Esto puede ser útil para retornar errores de una subrutina.
+
+\section{Variables Privadas Persistentes}
+
+\label{Variables-Privadas-Persistentes}
+
+Con \texttt{my} podemos hacer variables privadas en una subrutina, sin embargo cada vez que llamamos a la subrutina va a re-def\mbox{}inir los valores una vez mas. Con \texttt{state}, podemos tener variables privadas del ambito de una subrutina pero Perl va a mantener sus valores entre las llamadas.
+
+En el primer ejemplo de este capítulo, vimos una subrutina llamada marino, que incrementaba una variable:
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    sub marine \{
+        $n += 1;    # Variable global $n 
+        print "Hola,  marinera numero $n!\textbackslash{}n"
+    \}
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+Ahora que debemos usar \texttt{strict}, el uso de la variable gobal \$n no esta permitido. No podemos hacer de \$n una variable léxica con \texttt{my} porque entonces no va a mantener el valor.
+
+Declarando nuestra variable con \texttt{state} le decimos a Perl que retenga el valor de esta variable entre las llamadas a la subrutina y hace que la variable sea una variable privada de la subrutina.
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    use 5.010;
+
+    sub marino \{
+        state $n = 0;   # privada, variable persistente $n
+        $n += 1;
+        print "Hola, marinera numero $n!\textbackslash{}n";
+    \}
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+Ahora, podemos obtener la misma salida mientras usamos \texttt{strict} sin usar variables globales. La primera vez que llamamos a la subrutina, Perl declara e inicializa \texttt{\$n}, para las siguientes llamadas de la subrutina, Perl ignora la sentencia.
+
+Podemos conservar el estado de cualquier variable, no es solo para los datos escalares. Aquí tenemos una subrutina que recuerda sus argumentos y provee una suma usando \texttt{state} en un array.
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    use 5.010;
+
+    running_sum(5, 6);
+    running_sum(1..3);
+    running_sum( 4 );
+
+    sub running_sum \{
+        state $sum = 0;
+        state @numbers;
+
+        foreach my $number (@_)\{
+            push @numbers, $number;
+            $sum += $number; 
+        \}
+        say "La suma de (@numbers) es $sum";
+    \}
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+La salida de este programa es:
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},frame=single,label=Terminal]
+    La suma de (5 6) es 11
+    La suma de (5 6 1 2 3) es 17
+    La suma de (5 6 1 2 3 4) es 21
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+Sin embargo, hay una ligera restricción en arrays y hashes como variables de estado. No podemos inicializarlas en contexto de lista. Por ejemplo:
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    state @array = qw(a b c);   # Error !
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+Esto nos dara un error que sugiere que podríamos usar esto en una versión futura de Perl:
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},frame=single,label=Terminal]
+    Initialization of state variables in list context currently forbidden 
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+\section{Ejercicios}
+
+\label{ejercicios_03}
+
+\vspace{-5pt}
+
+\begin{description}
+
+\setlength{\topsep}{0pt}
+\setlength{\itemsep}{0pt}
+\item[] 1. Escriba una función llamada ``total'' que retorne el total de una lista de números. (Nota: la función no debe realizar algún tipo de I/O, esta debe simplemente procesar sus parámetros y retornar un valor). Complete el siguiente programa de ejemplo con la función ``total'', el resultado de la sumatoria debe dar 25 para el primer grupo de números.
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+        my @fred = qw\{ 1 3 5 7 9 \};
+        my $fred_total = total(@fred);
+        print "El total de \textbackslash{}@fred es $fred_total.\textbackslash{}n";
+        print "Ingrese algunos números separados por lineas: ";
+        my $user_total = total(<STDIN>);
+        print "El total para los números ingresados es: $user_total.\textbackslash{}n";
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+\item[] 2. Usando la función escrita en el ejercicio anterior, realice un programa que calcule la sumatoria de todos los números del 1 al 1000.
+
+\item[] 3. Escriba una función llamada \&above\_average que tome una lista de números y retorne solo aquellos números que estén por encima del promedio (Nota: escriba otra función que calcule el promedio de varios números dividiendo el total de la sumatoria de los números por el numero de items). Use su función para probar el siguiente programa:
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+        my @fred = above_average(1..10);
+        print "\textbackslash{}@fred es @fred\textbackslash{}n";
+        print "(Debe ser 6 7 8 9 10)\textbackslash{}n";
+        my @barney = above_average(100, 1..10);
+        print "\textbackslash{}@barney es @barney\textbackslash{}n";
+        print "(Debe ser solo 100)\textbackslash{}n";
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+\item[] 4. Escriba una función llamada ``saludo'', que de la bienvenida a una persona por su nombre y que ademas diga el nombre de la ultima persona saludada, ejemplo:
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+        saludo("Fred");
+        saludo("Barney");
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+Esto debe escribir lo siguiente:
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+        Hola Fred! Eres el primero aquí!
+        Hola Barney! Fred también esta aquí!
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+\item[] 5. Modif\mbox{}ique el programa anterior para que imprima los nombres de todas las personas que han sido previamente saludadas.
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+        saludo("Fred");
+        saludo("Barney");
+        saludo("Wilma");
+        saludo("Betty");
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+La salida debe ser como lo siguiente:
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+        Hola Fred! Eres el primero aquí!
+        Hola Barney! He visto a: Fred
+        Hola Wilma! He visto a: Fred Barney
+        Hola Betty! He visto a: Fred Barney Wilma
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+\end{description}
+
+\vspace{-5pt}

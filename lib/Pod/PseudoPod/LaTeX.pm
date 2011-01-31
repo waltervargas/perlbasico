@@ -20,7 +20,7 @@ sub new
 
     $self->{scratch} ||= '';
     $self->{stack}     = [];
-    $self->{labels}    = { screen => 'Program output' };
+    $self->{labels}    = { screen => 'Terminal' };
 
     return $self;
 }
@@ -129,7 +129,7 @@ BEGIN
 {
     for my $level ( 1 .. 5 )
     {
-        my $prefix = '\\' . ( 'sub' x ( $level - 1 ) ) . 'section*{';
+        my $prefix = '\\' . ( 'sub' x ( $level - 1 ) ) . 'section{';
         my $start_sub = sub {
             my $self = shift;
             $self->{scratch} .= $prefix;
@@ -327,11 +327,13 @@ sub start_Verbatim
         if ($self->{curr_open}[-1][-1]{target} eq 'screen') {
             $verb_options .= ',frame=single,label='
                              . $self->{labels}{screen};
+        } else {
+            $verb_options .= ',numbers=left';
         }
     };
 
     $self->{scratch} .= "\\vspace{-6pt}\n"
-                     .  "\\scriptsize\n"
+                     .  "\\small\n"
                      .  "\\begin{Verbatim}[$verb_options]\n";
     $self->{flags}{in_verbatim}++;
 }
