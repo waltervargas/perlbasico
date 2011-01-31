@@ -1,95 +1,93 @@
-=encoding utf8
-
-=head0 Introducci√≥n
+=head0 IntroducciÛn
 
 =head1 Sobre Perl    
 
 Z<Sobre Perl> 
 
-Perl tiene unos 23 a√±os hasta ahora. El lenguaje ha evolucionado desde una
-herramienta simple para la administraci√≥n de sistemas tomando cosas de shell
-scripting y C (Perl 1) hasta convertirse en un poderoso lenguaje de prop√≥sito
+Perl tiene unos 23 aÒos hasta ahora. El lenguaje ha evolucionado desde una
+herramienta simple para la administraciÛn de sistemas tomando cosas de shell
+scripting y C (Perl 1) hasta convertirse en un poderoso lenguaje de propÛsito
 general (Perl 5), consistente, coherente, cambiando el paradigma de
-programaci√≥n en general con la intensi√≥n de mantenerse por otros 25 a√±os. (Perl
+programaciÛn en general con la intensiÛn de mantenerse por otros 25 aÒos. (Perl
 6) 
 
-Aun as√≠, la mayor√≠a de los programas en el mundo, escritos en Perl 5,
-aprovechan muy poco las caracter√≠sticas del lenguaje. Usted C<puede> escribir
+Aun asÌ, la mayorÌa de los programas en el mundo, escritos en Perl 5,
+aprovechan muy poco las caracterÌsticas del lenguaje. Usted C<puede> escribir
 programas en Perl 5 como si estuviera en Perl 4 (o Perl 3 o 2 o 1), pero los
-programas que aprovechan todo el incre√≠ble poder del mundo de Perl 5 que la
-comunidad ha inventado, y mejorado, son mas cortos, r√°pidos, mas poderosos, y
-f√°ciles de mantener que sus alternativas en anteriores versiones. 
+programas que aprovechan todo el increÌble poder del mundo de Perl 5 que la
+comunidad ha inventado, y mejorado, son mas cortos, r·pidos, mas poderosos, y
+f·ciles de mantener que sus alternativas en anteriores versiones. 
 
-=head1 ¬ø Porque Larry creo Perl ?
+=head1 ø Porque Larry creo Perl ?
 
-Z<¬ø Porque Larry creo Perl ?> 
+Z<ø Porque Larry creo Perl ?> 
 
 Larry crea Perl a mediados de 1980,  cuando intentaba producir reportes sobre 
-la informaci√≥n ordenada jer√°rquicamente en archivos de  la red de noticias 
+la informaciÛn ordenada jer·rquicamente en archivos de  la red de noticias 
 USENET para un sistema de reporte de bugs,  y awk no dio la talla. Entonces
 Larry, como buen programador perezoso que es,  decide hacer una herramienta que
 pueda usar para resolver este problema y que pueda volver a usar para otro
 problema similar en otro lugar,  en otro tiempo. 
 
-=head1 ¬ø Porque Larry simplemente no uso otro lenguaje ?    
+=head1 ø Porque Larry simplemente no uso otro lenguaje ?    
 
-Z<¬ø Porque Larry simplemente no uso otro lenguaje ?> 
+Z<ø Porque Larry simplemente no uso otro lenguaje ?> 
 
-En este momento hay gran variedad de lenguajes, pero en esa √©poca Larry no
-encontr√≥ un lenguaje que se adaptara a sus necesidades. 
+En este momento hay gran variedad de lenguajes, pero en esa Època Larry no
+encontrÛ un lenguaje que se adaptara a sus necesidades. 
 
-Si uno de los lenguajes de hoy, hubiese existido para la √©poca,  pues tal vez
+Si uno de los lenguajes de hoy, hubiese existido para la Època,  pues tal vez
 Larry lo hubiera usado para resolver el problema. 
 
-Necesitaba algo con la rapidez de codificaci√≥n disponible en B<Shell> o B<AWK>
+Necesitaba algo con la rapidez de codificaciÛn disponible en B<Shell> o B<AWK>
 y con algo del poder de las herramientas como B<grep>, B<cut>, B<sort>, y
 B<sed>,  sin tener que recurrir a un lenguaje como B<C>.
 
 Perl, intenta llenar la brecha entre los lenguajes de bajo nivel como C, C++, y
-Assembler,  y los lenguajes de alto nivel de la √©poca como Shell Scripting. La
-programaci√≥n a bajo nivel, usualmente es dif√≠cil y fea de escribir, pero r√°pida
-y sin limitaciones, es dif√≠cil superar la velocidad de un programa bien escrito
-a bajo nivel en una m√°quina dada. Y no hay mucho que se pueda hacer. 
+Assembler,  y los lenguajes de alto nivel de la Època como Shell Scripting. La
+programaciÛn a bajo nivel, usualmente es difÌcil y fea de escribir, pero r·pida
+y sin limitaciones, es difÌcil superar la velocidad de un programa bien escrito
+a bajo nivel en una m·quina dada. Y no hay mucho que se pueda hacer. 
 
-En el otro extremo, la programaci√≥n convencional de alto nivel, tiende a ser
+En el otro extremo, la programaciÛn convencional de alto nivel, tiende a ser
 lenta,  dura, fea y limitada. Hay varias cosas que no puedes hacer con
-programaci√≥n en shell o batch. 
+programaciÛn en shell o batch. 
 
-Perl es f√°cil, casi ilimitado, muy r√°pido y solo un poco feo.
+Perl es f·cil, casi ilimitado, muy r·pido y solo un poco feo.
 
-=head2 Caracter√≠sticas principales de Perl    
+=head2 CaracterÌsticas principales de Perl    
 
 Z<Caracteristicas principales de Perl> 
 
-=head3 Perl es f√°cil    
+=head3 Perl es f·cil    
 
-Z<Perl es f√°cil> 
+Z<Perl es f·cil> 
 
-Cuando nos referimos que Perl es f√°cil, hablamos de que es f√°cil de usar, no es
-especialmente f√°cil de aprender. Si usted conduce un carro, que paso semanas o
-meses aprendiendo a conducir, entonces luego va a ser f√°cil de conducir. De
+Cuando nos referimos que Perl es f·cil, hablamos de que es f·cil de usar, no es
+especialmente f·cil de aprender. Si usted conduce un carro, que paso semanas o
+meses aprendiendo a conducir, entonces luego va a ser f·cil de conducir. De
 igual manera cuando pase la misma o mas cantidad de horas aprendiendo Perl,
-entonces despues va a ser muy f√°cil de usar.  
+entonces despues va a ser muy f·cil de usar.  
 
-=head3 Perl es cas√≠ ilimitado
+=head3 Perl es casÌ ilimitado
 
-Z<Perl es cas√≠ ilimitado> 
+Z<Perl es casÌ ilimitado> 
 
-Hay muy pocas cosas que no podr√°s hacer con Perl. Seguramente usted no desear√°
-escribir un controlador de alg√∫n dispositivo de interrupci√≥n a nivel de
+Hay muy pocas cosas que no podr·s hacer con Perl. Seguramente usted no desear·
+escribir un controlador de alg˙n dispositivo de interrupciÛn a nivel de
 micro-kernel (A pesar de que ya alguien hizo esto). Pero la mayoria de las
-cosas que la gente com√∫n y no tan com√∫n necesita,  la mayoria del tiempo son
-buenas tareas para Perl, desde scripts muy peque√±os, hasta aplicaciones de
+cosas que la gente com˙n y no tan com˙n necesita,  la mayoria del tiempo son
+buenas tareas para Perl, desde scripts muy pequeÒos, hasta aplicaciones de
 nivel industrial. 
 
-=head3 Perl es sobre todo r√°pido    
+=head3 Perl es sobre todo r·pido    
 
-Z<Perl es sobre todo r√°pido> 
+Z<Perl es sobre todo r·pido> 
 
 Esto es porque no hay nadie en el desarrollo que no lo utilice, de modo que
-entonces todos queremos que Perl sea r√°pido. Si alguien quiere a√±adir una nueva
-caracter√≠stica que sea genial, pero que introduzca lentitud a otros aspectos,
-es cas√≠ seguro que Larry va a rechazar la nueva caracter√≠stica hasta que no se
+entonces todos queremos que Perl sea r·pido. Si alguien quiere aÒadir una nueva
+caracterÌstica que sea genial, pero que introduzca lentitud a otros aspectos,
+es casÌ seguro que Larry va a rechazar la nueva caracterÌstica hasta que no se
 encuentre una manera de escribirla de manera eficiente. 
 
 =head3 Perl es un poco feo    
@@ -100,25 +98,25 @@ Esto es cierto, el camello se ha convertido en el simbolo de Perl, desde la
 cubierta del legendario libro B<The Camel Book>, conocido tambien como
 B<Programming Perl by Larry Wall, Tom Christianesen,  and Jon Orwant>. 
 Los camellos tambien son un poco feos, pero trabajan duro, incluso en
-condiciones dif√≠ciles. Los camellos siempre est√°n ah√≠ siempre para hacer el
+condiciones difÌciles. Los camellos siempre est·n ahÌ siempre para hacer el
 trabajo a pesar de todas las dificultades, incluso cuando se ven y huelen mal e
-incluse le escupen. Perl es un poco as√≠.
+incluse le escupen. Perl es un poco asÌ.
 
 
-=head1 ¬ø Perl es f√°cil o dif√≠cil ?  
+=head1 ø Perl es f·cil o difÌcil ?  
 
-Z<Perl es f√°cil o dif√≠cil ?> 
+Z<Perl es f·cil o difÌcil ?> 
 
-Perl es f√°cil de usar, pero a veces dif√≠cil de aprender. Esto por su puesto es
-una gereralizaci√≥n. En el dise√±o de Perl, Larry tuvo que hacer muchas
-consideraciones. Cuando ha tenido la oportunidad de hacer algo m√°s f√°cil para
-el programador a costa de ser m√°s dif√≠cil para el estudiante, ha decidido casi
-todo el tiempo a favor del programador. Esto es as√≠, porque usted va a aprender
+Perl es f·cil de usar, pero a veces difÌcil de aprender. Esto por su puesto es
+una gereralizaciÛn. En el diseÒo de Perl, Larry tuvo que hacer muchas
+consideraciones. Cuando ha tenido la oportunidad de hacer algo m·s f·cil para
+el programador a costa de ser m·s difÌcil para el estudiante, ha decidido casi
+todo el tiempo a favor del programador. Esto es asÌ, porque usted va a aprender
 Perl una sola vez, pero lo vas a usar una y otra vez. Perl posee cualquier
 cantidad de comodidades que le permiten al programador ahorrar tiempo. Por
 ejemplo,  la mayoria de las funciones tienen un valor predeterminado,  con
 frecuencia,  el valor por defecto es justamente la manera en la que usted desea
-usar la funci√≥n. De esta manera,  podr√°s encontra lineas de c√≥digo en Perl como
+usar la funciÛn. De esta manera,  podr·s encontra lineas de cÛdigo en Perl como
 las siguientes: 
 
 =begin programlisting
@@ -131,87 +129,87 @@ las siguientes:
 =end programlisting
 
 En su totalidad, sin usar los atajos y los valores por defecto de Perl, este
-trozo de c√≥digo seria aproximadamente 10 o 12 veces mas largo, entonces tomaria
+trozo de cÛdigo seria aproximadamente 10 o 12 veces mas largo, entonces tomaria
 mas tiempo para escribirlo y leerlo. Va a ser mas duro de mantener y depurar
 cuando tenga mas variables. 
 
 
-=head1 ¬ø Como se hizo Perl tan popular ?    
+=head1 ø Como se hizo Perl tan popular ?    
 
-Z<¬ø Como se hizo Perl tan popular ?> 
+Z<ø Como se hizo Perl tan popular ?> 
 
-Despues de jugar un rato con Perl, agregando cosas aqu√≠ y all√°, Larry se lanz√≥
+Despues de jugar un rato con Perl, agregando cosas aquÌ y all·, Larry se lanzÛ
 a la comunidad de lectores de la Usenet,  comunmente conocidad como B<La Red>.
 Los usuarios de esta flota fugitiva que trabajaban en sistemas en todo el
-mundo (decenas de miles de ellos), le dieron retroalimentaci√≥n, pidiendo a
+mundo (decenas de miles de ellos), le dieron retroalimentaciÛn, pidiendo a
 Larry, maneras de hacer esto, aquello o lo otro, muchos de los cuales Larry
-nunca hab√≠a imaginado en su hasta el momento poco manejo de Perl. 
+nunca habÌa imaginado en su hasta el momento poco manejo de Perl. 
 
-Pero como resultado, Perl creci√≥, y creci√≥ y creci√≥. Creci√≥ en caracter√≠sticas.
-Creci√≥ en portabilidad. Lo que antes era un lenguaje poco disponible en solo un
-par de sistema tipo Unix,  ahora tiene miles de p√°ginas de documentaci√≥n en
+Pero como resultado, Perl creciÛ, y creciÛ y creciÛ. CreciÛ en caracterÌsticas.
+CreciÛ en portabilidad. Lo que antes era un lenguaje poco disponible en solo un
+par de sistema tipo Unix,  ahora tiene miles de p·ginas de documentaciÛn en
 linea gratis, docenas de libros, y miles de listas de correo en cientos de
-idiomas con un n√∫mero incontable de lectores, e implementaciones en varios
-sistemas de uso cotidiano hoy en d√≠a, y adicionalmente un curso como este. 
+idiomas con un n˙mero incontable de lectores, e implementaciones en varios
+sistemas de uso cotidiano hoy en dÌa, y adicionalmente un curso como este. 
 
-=head1 ¬ø Que esta pasando con Perl ahora ?    
+=head1 ø Que esta pasando con Perl ahora ?    
 
-Z<¬ø Que esta pasando con Perl ahora ?> 
+Z<ø Que esta pasando con Perl ahora ?> 
 
-Durante estos d√≠as, Larry Wall no escribe c√≥digo, pero el sigue guiando el
+Durante estos dÌas, Larry Wall no escribe cÛdigo, pero el sigue guiando el
 desarrollo y toma las desiciones importantes. Perl es mayormente mantenido por
 un grupo de resistentes y valientes personas llamadas B<The Perl 5 Porters>.
 Puede suscribirse a la lista de correo en B<perl5-porters@perl.org> para seguir
 el trabajo de esta gente y sus debates. Al momento de escribir esta
-documentaci√≥n,  muchas cosas estan pasando con Perl. Durante los √∫ltimos a√±os,
-muchas personas han estado trabajando en la pr√≥xima versi√≥n de Perl: Perl 6.
+documentaciÛn,  muchas cosas estan pasando con Perl. Durante los ˙ltimos aÒos,
+muchas personas han estado trabajando en la prÛxima versiÛn de Perl: Perl 6.
 
-No tire a un lado Perl 5, este sigue siendo la versi√≥n actual y estable. No se
+No tire a un lado Perl 5, este sigue siendo la versiÛn actual y estable. No se
 espera una version estable de Perl 6 durante un rato largo. Perl 5 hace todo lo
-de siempre, y siempre sera as√≠. Perl 5 no va a desaparecer cuando Perl 6 salga.
-Y la gente puede seguir usando Perl 5 durante muchos a√±os mas. 
+de siempre, y siempre sera asÌ. Perl 5 no va a desaparecer cuando Perl 6 salga.
+Y la gente puede seguir usando Perl 5 durante muchos aÒos mas. 
 
-=head1 ¬ø Que es CPAN ?    
+=head1 ø Que es CPAN ?    
 
-Z<¬ø Que es CPAN ?> 
+Z<ø Que es CPAN ?> 
 
 CPAN es B<Comprehensive Perl Archive Network>, su primera parada para Perl.
-Posee el c√≥digo fuente de Perl, listo para instalar y los B<ports> para todos
-los sistemas no Unix, ejemplos, documentaci√≥n, y extensiones del lenguaje. 
+Posee el cÛdigo fuente de Perl, listo para instalar y los B<ports> para todos
+los sistemas no Unix, ejemplos, documentaciÛn, y extensiones del lenguaje. 
 
-CPAN es replicado en cientos de m√°quinas al rededor del mundo, comenzando en
+CPAN es replicado en cientos de m·quinas al rededor del mundo, comenzando en
 B<http://search.cpan.org> o B<http://kobesearch.cpan.org> para navegar o buscar
 un paquete. Si no tienes acceso a la red, todo CPAN puede caber en 8 o 10 GB.
 Es importante mencionar que debido a los cambios diarios en CPAN, un mirror con
-dos a√±os sin actualizares es definitivamente una antiguedad. 
+dos aÒos sin actualizares es definitivamente una antiguedad. 
 
-=head1 ¬ø Como hacer un programa en Perl ?    
+=head1 ø Como hacer un programa en Perl ?    
 
-Z<¬ø Como hacer un programa en Perl ?> 
+Z<ø Como hacer un programa en Perl ?> 
 
 Ya es tiempo de hacer esta pregunta (aunque usted no la halla hecho aun), Los
 programas de Perl son archivos de texto plano, usted puede crearlos y editarlos
 en su editor de textos preferido,  yo personalmente prefiero B<VIM>. (Usted no
 necesita entornos de desarrollo especiales, aunque hay disponibles editores
 comerciales de varios proveedores. Nunca hemos utilizado uno de estos lo
-suficiente como para recomendarlo). Por lo general deber√≠a usar un editor de
+suficiente como para recomendarlo). Por lo general deberÌa usar un editor de
 texto pensado para programadores, en lugar de un editor de textos
-convencional. ¬ø Cual es la diferencia ? Bueno, un editor pensado para
+convencional. ø Cual es la diferencia ? Bueno, un editor pensado para
 programadores le va a permitir hacer cosas que necesitan los programadores,
-como sangrado autom√°tico o subrayado de bloques de c√≥digo, o indicar
-autom√°ticamente la llave de cierre de un bloque de c√≥digo. En sistemas
+como sangrado autom·tico o subrayado de bloques de cÛdigo, o indicar
+autom·ticamente la llave de cierre de un bloque de cÛdigo. En sistemas
 operativos tipo Unix, los editores de texto mas populares son B<Emacs> y
 B<Vim>. BBEdit y TextMate son buenos para Mac OS X, mucha gente ha hablado muy
-bien sobre UltraEdit y PFE en Windows. La p√°gina del manual perlfaq2 tiene una
-lista de otros editores que tambi√©n pueden usarse.
+bien sobre UltraEdit y PFE en Windows. La p·gina del manual perlfaq2 tiene una
+lista de otros editores que tambiÈn pueden usarse.
 
 =head1 Un programa simple    
 
 Z<Un programa simple> 
 
-Seg√∫n la regla mas antigua de los libros de computaci√≥n, cualquier libro sobre
-alg√∫n lenguaje de programaci√≥n que tenga raices Unix, va a comenzar con 
-B<Hola, Mundo>,  por ejempo en Perl seria as√≠: 
+Seg˙n la regla mas antigua de los libros de computaciÛn, cualquier libro sobre
+alg˙n lenguaje de programaciÛn que tenga raices Unix, va a comenzar con 
+B<Hola, Mundo>,  por ejempo en Perl seria asÌ: 
 
 =begin programlisting
 
@@ -222,6 +220,6 @@ B<Hola, Mundo>,  por ejempo en Perl seria as√≠:
 
 =head1 Sobre los ejercicios y sus respuestas
 
-Los ejercicios se encuentran al final de cada cap√≠tulo,  una vez que se
-desarrolle cada cap√≠tulo,  se tomaran 45 a 50 minutos para resolver los
-ejercicios correspondientes a cada cap√≠tulo. 
+Los ejercicios se encuentran al final de cada capÌtulo,  una vez que se
+desarrolle cada capÌtulo,  se tomaran 45 a 50 minutos para resolver los
+ejercicios correspondientes a cada capÌtulo. 

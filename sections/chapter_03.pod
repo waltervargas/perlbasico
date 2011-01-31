@@ -1,27 +1,25 @@
-=encoding utf8
-
 =head0 Subrutinas
 
 Hasta el momento hemos visto y usado algunas funciones internas de Perl, como
 C<chomp>, C<reverse>, C<print>, y otras mas. Al igual que otros lenguajes, Perl
 tiene la habilidad de crear C<subrutinas>, que son funciones definidas por el
-usuario. N<En Perl, no se hace la distinci√≥n que se hac√≠a en Pascal, entre
+usuario. N<En Perl, no se hace la distinciÛn que se hacÌa en Pascal, entre
 funciones que retornan un valor y procedimientos, que no retornan un valor.>
 Pero una subrutina es siempre definida por un usuario, mientras que una
-funci√≥n puede o no serlo. Esto es, la palabra I<funci√≥n> puede ser usada como
-sin√≥nimo para I<subrutina>, pero es una funci√≥n que el programador puede
+funciÛn puede o no serlo. Esto es, la palabra I<funciÛn> puede ser usada como
+sinÛnimo para I<subrutina>, pero es una funciÛn que el programador puede
 definir, no las funciones internas de Perl. 
 
-El nombre de una subrutina es otro identificador de Perl (letras, d√≠gitos y
-pisos bajos, pero este no puede iniciar con un d√≠gito.) con un signo &
+El nombre de una subrutina es otro identificador de Perl (letras, dÌgitos y
+pisos bajos, pero este no puede iniciar con un dÌgito.) con un signo &
 (ampersand) a veces opcional adelante. Existe una regla acerca de cuando
-podemos omitir el signo & y cuando no, al final del cap√≠tulo vamos a ver esta
+podemos omitir el signo & y cuando no, al final del capÌtulo vamos a ver esta
 regla. Por ahora vamos a usar el signo & adelante siempre, esto no puede
 olvidarse. 
 
 El nombre de una subrutina viene de un espacio de nombres separado, por lo que
 Perl no va a confundirse si usted tiene una subrutina llamada &fred y un la
-variable escalar llamada $fred en el mismo programa, aunque no hay una raz√≥n
+variable escalar llamada $fred en el mismo programa, aunque no hay una razÛn
 para hacer esto en circunstancias normales.
 
 =head1 Definiendo una Subrutina    
@@ -29,17 +27,17 @@ para hacer esto en circunstancias normales.
 Z<Definiendo una Subrutina> 
 
 Para definir su propia subrutina, use la palabra reservada C<sub>, el nombre de
-la subrutina (sin el signo &), luego el bloque de c√≥digo identado 
+la subrutina (sin el signo &), luego el bloque de cÛdigo identado 
 (entre llaves)N<Bueno, los puristas admitimos que las llaves son parte del
-bloque. Y Perl no requiere la identaci√≥n del bloque, pero los nuevos
+bloque. Y Perl no requiere la identaciÛn del bloque, pero los nuevos
 programadores son estilizados>, va a conformar el cuerpo de la subrutina,
-quedar√≠a algo como esto: 
+quedarÌa algo como esto: 
 
 =begin programlisting
 
     sub marino {
         $n += 1;    # Variable global $n
-        print "Hola, marinera n√∫mero $n!\n";
+        print "Hola, marinera n˙mero $n!\n";
     }
 
 =end programlisting
@@ -49,16 +47,16 @@ Las subrutinas se pueden definir en cualquier lugar del programa, pero los
 programadores que vienen de lenguajes como C o Pascal, les gusta colocar las
 subrutinas al inicio del archivo. Otros prefieren poner las subrutinas al final
 del archivo, entonces la parte principal del programa queda al principio. Esto
-depende de usted. En cualquier caso, normalmente no va a necesitar ning√∫n tipo
-de declaraci√≥n previa N<A menos que tu subrutina valla a ser particularmente
+depende de usted. En cualquier caso, normalmente no va a necesitar ning˙n tipo
+de declaraciÛn previa N<A menos que tu subrutina valla a ser particularmente
 compleja y declare un prototipo, que indica como el compilador va a parsear e
-interpretar la invocaci√≥n de los argumentos. Esto no es com√∫n, vea la p√°gina
-del manual C<perlsub> para mas informaci√≥n.>
+interpretar la invocaciÛn de los argumentos. Esto no es com˙n, vea la p·gina
+del manual C<perlsub> para mas informaciÛn.>
 
-La definici√≥n de la subrutina es global; sin hechiceria no hay subrutina
-privadas. Si tiene dos subrutinas definidas con el mismo nombre, la √∫ltima
+La definiciÛn de la subrutina es global; sin hechiceria no hay subrutina
+privadas. Si tiene dos subrutinas definidas con el mismo nombre, la ˙ltima
 subrutina sobre escribe la primera. Esto es generalmente considerado como una
-mala pr√°ctica, o una se√±al de que el programador de mantenimiento esta
+mala pr·ctica, o una seÒal de que el programador de mantenimiento esta
 confundido. 
 
 Como pudo notarlo en el ejemplo previo, puedes usar variables globales dentro
@@ -66,15 +64,15 @@ de el cuerpo de una subrutina. De hecho,  todas las variables que hemos visto
 hasta ahora son globales; esto significa, que podemos acceder a ellas desde
 cualquier parte del programa. Esto horroriza a los puristas del lenguaje, pero
 no se preocupe, el equipo de desarrollo de Perl formo una turba iracunda con
-antorchas y corri√≥ fuera de la ciudad hace a√±os. Mas adelante veremos como
+antorchas y corriÛ fuera de la ciudad hace aÒos. Mas adelante veremos como
 hacer variables privadas en "Variables Privadas en Subrutinas". 
 
 =head1 Llamar una Subrutina    
 
 Z<Invocando una Subrutina> 
 
-Puede invocar o llamar una subrutina desde cualquier expresi√≥n usando el nombre
-de la subrutina (con el signo &) N<Y frecuentemente un par de par√©ntesis,
+Puede invocar o llamar una subrutina desde cualquier expresiÛn usando el nombre
+de la subrutina (con el signo &) N<Y frecuentemente un par de parÈntesis,
 incluso si estan vacios>. 
 
 =begin programlisting
@@ -91,21 +89,21 @@ incluso si estan vacios>.
 
 Z<Retornar Valores> 
 
-Las subrutinas siempre son invocadas como parte de una expresi√≥n, incluso si el
-resultado de esa expresi√≥n no se usa para nada. Cuando llamamos anterior mente
-a la subrutina C<&marino>, calculamos un valor en la expresi√≥n contenido en la
-llamada, pero el resultado simplemente se envi√≥ a la pantalla. 
+Las subrutinas siempre son invocadas como parte de una expresiÛn, incluso si el
+resultado de esa expresiÛn no se usa para nada. Cuando llamamos anterior mente
+a la subrutina C<&marino>, calculamos un valor en la expresiÛn contenido en la
+llamada, pero el resultado simplemente se enviÛ a la pantalla. 
 
 Muchas veces que se llama a una subrutina, se quiere hacer algo con el
-resultado. Entonces debe prestar atenci√≥n al I<valor de retorno> de una
+resultado. Entonces debe prestar atenciÛn al I<valor de retorno> de una
 subrutina. Todas las subrutinas en Perl tienen un valor de retorno. No hay
-distinci√≥n entre las que retornan valores y las que no. Sin embargo no todas
-las subrutinas en Perl tiene un valor de retorno B<√∫til>. 
+distinciÛn entre las que retornan valores y las que no. Sin embargo no todas
+las subrutinas en Perl tiene un valor de retorno B<˙til>. 
 
-Puesto que en Perl, las subrutinas siempre deben devolver un valor, ser√≠a 
-un poco in√∫til tener que declarar una sintaxis especial de tipo C<return> 
-para la mayor√≠a de los casos. Entonces Larry hizo algo simple. Cualquier
-calculo que se encuentre de √∫ltimo en una subrutina es autom√°ticamente el valor
+Puesto que en Perl, las subrutinas siempre deben devolver un valor, serÌa 
+un poco in˙til tener que declarar una sintaxis especial de tipo C<return> 
+para la mayorÌa de los casos. Entonces Larry hizo algo simple. Cualquier
+calculo que se encuentre de ˙ltimo en una subrutina es autom·ticamente el valor
 de retorno. 
 
 Por ejemplo, vamos a definir esta subrutina: 
@@ -119,9 +117,9 @@ Por ejemplo, vamos a definir esta subrutina:
 
 =end programlisting
 
-La √∫ltima expresi√≥n evaluada en el cuerpo de la subrutina, es la suma de $fred
+La ˙ltima expresiÛn evaluada en el cuerpo de la subrutina, es la suma de $fred
 y $barney,  entonces la suma de $fred y $barney va a ser el valor de retorno.
-Veamos esto en acci√≥n: 
+Veamos esto en acciÛn: 
 
 =begin programlisting
 
@@ -147,14 +145,14 @@ Ahora supongamos que agrega una linea mas a la subrutina, por ejemplo:
 
 =end programlisting
 
-En este ejemplo, la √∫ltima expresi√≥n evaluada no es una suma; es la sentencia
+En este ejemplo, la ˙ltima expresiÛn evaluada no es una suma; es la sentencia
 print. Esta retorna normalmente 1, que significa "printing was successful",
 pero no es el valor de retorno que esperaba. Entonces, debe ser cuidadoso
-cuando agrega c√≥digo adicional a una subrutina, puesto que la ultima expresi√≥n
+cuando agrega cÛdigo adicional a una subrutina, puesto que la ultima expresiÛn
 evaluada va a ser el valor de retorno. 
 
-Tome en cuenta que no es la √∫ltima linea de la subrutina, es la √∫ltima
-expresi√≥n evaluada. Por ejemplo, esta subrutina devuelve el valor mas grande,
+Tome en cuenta que no es la ˙ltima linea de la subrutina, es la ˙ltima
+expresiÛn evaluada. Por ejemplo, esta subrutina devuelve el valor mas grande,
 entre $fred y $barney: 
 
 =begin programlisting
@@ -169,10 +167,10 @@ entre $fred y $barney:
 
 =end programlisting
 
-La √∫ltima expresi√≥n evaluada esta entre $fred o $barney, entonces el valor de
+La ˙ltima expresiÛn evaluada esta entre $fred o $barney, entonces el valor de
 una de estas variables va a ser el valor de retorno. No podemos saber cual va a
 ser la variable de retorno hasta que no veamos que guarda cada variable en
-tiempo de ejecuci√≥n. 
+tiempo de ejecuciÛn. 
 
 Estos son ejemplos triviales, se pone mejor cuando podemos pasar valores a la
 subrutina en lugar de depender de variables globales. 
@@ -181,39 +179,39 @@ subrutina en lugar de depender de variables globales.
 
 Z<Argumentos> 
 
-La subrutina llamada larger_of_fred_or_barney puede ser mas √∫til si no
+La subrutina llamada larger_of_fred_or_barney puede ser mas ˙til si no
 estuviera forzada a usar variables globales. 
 
 Perl tiene argumentos para subrutinas. Para pasar una lista de argumentos a una
-subrutina, simplemente se coloca la expresi√≥n de lista en par√©ntesis, despu√©s
+subrutina, simplemente se coloca la expresiÛn de lista en parÈntesis, despuÈs
 de la llamada a la subrutina, por ejemplo: 
 
 =begin programlisting
 
-    $n = &max(10, 15);  # Esta llamada tiene dos par√©ntesis. 
+    $n = &max(10, 15);  # Esta llamada tiene dos parÈntesis. 
 
 =end programlisting
 
 Una vez que lista es enviada a la subrutina,  va a estar disponible en la
 subrutina para hacer lo que sea necesario. Por supuesto, usted tiene que
-guardar esta lista en alg√∫n lugar, Perl autom√°ticamente la lista de par√°metros
+guardar esta lista en alg˙n lugar, Perl autom·ticamente la lista de par·metros
 (este es otro nombre para la lista de argumentos) en una variable de tipo array
 especial llamada C<@_> durante el tiempo de existencia de la subrutina. La
-subruina puede acceder a esta variable para determinar o el n√∫mero de
+subruina puede acceder a esta variable para determinar o el n˙mero de
 argumentos y el valor de los argumentos. 
 
-Esto significa que el primer par√°metro de la subrutina es guardado en
-C<$_[0]>, el segundo es guardado en C<$_[1]> y as√≠ sucesivamente. Pero, he
-aqu√≠ una nota importante, estas variables no tienen nada que ver con la
-variable C<$_>, es solo que la lista de par√°metros debe ser almacenada en una
+Esto significa que el primer par·metro de la subrutina es guardado en
+C<$_[0]>, el segundo es guardado en C<$_[1]> y asÌ sucesivamente. Pero, he
+aquÌ una nota importante, estas variables no tienen nada que ver con la
+variable C<$_>, es solo que la lista de par·metros debe ser almacenada en una
 variable array para que la subrutina pueda utilizarlos, y Perl llama a esta
 variable C<@_>.  
 
 Ahora usted puede escribir la subrutina &max para que se parezca un poco a la
 subrutina &larger_of_fred_or_barney, pero en lugar de usar $fred usted puede
-usar el primer par√°metro de la subrutina ($_[0]),  y en lugar de usar $barney,
-puede usar el segundo par√°metro de la subrutina ($_[1]). Y as√≠ puede terminar
-un c√≥digo que se vea como esto: 
+usar el primer par·metro de la subrutina ($_[0]),  y en lugar de usar $barney,
+puede usar el segundo par·metro de la subrutina ($_[1]). Y asÌ puede terminar
+un cÛdigo que se vea como esto: 
 
 =begin programlisting
 
@@ -229,25 +227,25 @@ un c√≥digo que se vea como esto:
 =end programlisting
 
 Bien, como ya dijimos, puede hacer esto. Pero es un poco feo con todos esos
-sub√≠ndices, y es poco f√°cil de escribir,  revisar, y depurar. En un momento
+subÌndices, y es poco f·cil de escribir,  revisar, y depurar. En un momento
 veremos una mejor forma de hacerlo. 
 
-Hay otro problema con esta subrutina, los par√°metros adicionales son ignorados,
-puesto que la subrutina nunca mira en $_[2], a Perl no le importa si all√≠ hay
-algo o no, y la ausencia de un par√°metro tambi√©n es ignorada, simplemente
-obtendr√° C<undef> si mira mas all√° del final del array C<@_>. En este mismo
-cap√≠tulo veremos como hacer esta subrutina mas eficiente. 
+Hay otro problema con esta subrutina, los par·metros adicionales son ignorados,
+puesto que la subrutina nunca mira en $_[2], a Perl no le importa si allÌ hay
+algo o no, y la ausencia de un par·metro tambiÈn es ignorada, simplemente
+obtendr· C<undef> si mira mas all· del final del array C<@_>. En este mismo
+capÌtulo veremos como hacer esta subrutina mas eficiente. 
 
 La variable C<@_> es privada para cada subrutina;<A menos que se coloque un
 signo & delante del nombre de la subrutina en la variable y no se indique
-ning√∫n argumento o par√©ntesis,  en cuyo caso C<@_> es heredada desde el
+ning˙n argumento o parÈntesis,  en cuyo caso C<@_> es heredada desde el
 contexto de la llamada a la subrutina. Generalmente es una mala idea, pero en
-ocasiones es √∫til> si hay una variable global @_, su valor es conservado antes
-de la invocaci√≥n de la subrutina, y su valor es restaurado cuando la llamada
+ocasiones es ˙til> si hay una variable global @_, su valor es conservado antes
+de la invocaciÛn de la subrutina, y su valor es restaurado cuando la llamada
 termina. Esto significa que una subrutina puede pasar valores a otra subrutina
 sin miedo a perder los valores contenidos en @_. Si una subrutina se llama
-recursivamente, cada invocaci√≥n obtiene un nuevo C<@_>, entonces C<@_> es
-siempre la lista de par√°metros para la subrutina. 
+recursivamente, cada invocaciÛn obtiene un nuevo C<@_>, entonces C<@_> es
+siempre la lista de par·metros para la subrutina. 
 
 =head1 Variables privadas en Subrutinas    
 
@@ -255,66 +253,66 @@ Z<Variables privadas en Subrutinas>
 
 Por defecto, todas las variables en Perl son variables globales; lo que
 significa que son accesibles desde cualquier parte del programa. Pero usted
-puede crear variables privadas llamadas variables l√©xicas, en cualquier momento
+puede crear variables privadas llamadas variables lÈxicas, en cualquier momento
 usando el operador C<my>. Por ejemplo:
 
 =begin programlisting
 
     sub max {
         my ($m, $n);    # Nuevas variables privadas para este bloque 
-        ($m, $n) = @_;  # obtener los par√°metros
+        ($m, $n) = @_;  # obtener los par·metros
         if ($m > $n) { $m } else { $n }
     }
 
 =end programlisting
 
-Estas variables son privadas (o de √°mbito local) al bloque que las contiene,
-ning√∫n otro c√≥digo puede acceder o modificar estas variables privadas, por
-accidente o por dise√±o N<Programadores mas avanzados puede hacer una variable
-de √°mbito local accesible por referencia desde fuera de su √°mbito, pero nunca
+Estas variables son privadas (o de ·mbito local) al bloque que las contiene,
+ning˙n otro cÛdigo puede acceder o modificar estas variables privadas, por
+accidente o por diseÒo N<Programadores mas avanzados puede hacer una variable
+de ·mbito local accesible por referencia desde fuera de su ·mbito, pero nunca
 por el nombre de la variable>. 
 
-Tambi√©n es importante se√±alar que, en el bloque C<if>, no fue necesario un
-punto y coma despu√©s de la expresi√≥n del valor de retorno. Aunque Perl perm√≠te
-omitir el √∫ltimo punto y coma de un bloque, en la pr√°ctica tu puedes omitirlo
-solo cuando el c√≥digo es tan simple que puedas escribirlo en un bloque de una
+TambiÈn es importante seÒalar que, en el bloque C<if>, no fue necesario un
+punto y coma despuÈs de la expresiÛn del valor de retorno. Aunque Perl permÌte
+omitir el ˙ltimo punto y coma de un bloque, en la pr·ctica tu puedes omitirlo
+solo cuando el cÛdigo es tan simple que puedas escribirlo en un bloque de una
 sola linea. 
 
-La subrutina en el ejemplo previo puede ser mas simple a√∫n. Debe haber notado
+La subrutina en el ejemplo previo puede ser mas simple a˙n. Debe haber notado
 que la lista ($m, $n) fue escrita dos veces, el operador C<my> puede ser
-aplicado a una lista de variables encerradas en par√©ntesis, entonces se pueden
+aplicado a una lista de variables encerradas en parÈntesis, entonces se pueden
 combinar las dos primeras sentencias de la subrutina de la siguiente manera: 
 
 =begin programlisting
 
-    my($m, $n) = @_;    # nombre de los par√°metros de la subrutina
+    my($m, $n) = @_;    # nombre de los par·metros de la subrutina
 
 =end programlisting
 
-Una sola sentencia crea las variables privadas y define sus valores. Cas√≠ todas
+Una sola sentencia crea las variables privadas y define sus valores. CasÌ todas
 las subrutinas van a comenzar con una linea muy parecida a esta, nombres entre
-par√©ntesis. Cuando vea esta linea,  va a saber que la subrutina espera dos
-par√°metros escalares,  que vas a llamar $m y $n dentro de la subrutina. 
+parÈntesis. Cuando vea esta linea,  va a saber que la subrutina espera dos
+par·metros escalares,  que vas a llamar $m y $n dentro de la subrutina. 
 
-=head1 Longitud de la lista de par√°metros    
+=head1 Longitud de la lista de par·metros    
 
-Z<Longitud de la lista de par√°metros> 
+Z<Longitud de la lista de par·metros> 
 
 En el mundo real, las subrutinas no poseen un valor arbritario para la longitud
-de la lista de par√°metros. Esto es porque en Perl no hay l√≠mites innecesarios. 
+de la lista de par·metros. Esto es porque en Perl no hay lÌmites innecesarios. 
 Es agradable que Perl sea tan flexible, pero puede haber problemas cuando se
-llama a la subrutina con una cantidad diferente de par√°metros que espera el
+llama a la subrutina con una cantidad diferente de par·metros que espera el
 autor. 
 
-Por su puesto, la subrutina puede f√°cilmente probar si el n√∫mero de argumentos
-es correcto examinando el array @_. Por ejemplo, podemos escribir la funci√≥n
+Por su puesto, la subrutina puede f·cilmente probar si el n˙mero de argumentos
+es correcto examinando el array @_. Por ejemplo, podemos escribir la funciÛn
 &max de cierta forma para que revise la lista de argumentos: 
 
 =begin programlisting
 
     sub max {
         if (@_ != 2){
-            print "WARNING! &max deber√≠a tener exactamente dos argumentos\n";
+            print "WARNING! &max deberÌa tener exactamente dos argumentos\n";
         }
         # ...
     }
@@ -322,7 +320,7 @@ es correcto examinando el array @_. Por ejemplo, podemos escribir la funci√≥n
 =end programlisting
 
 Perl en el mundo real, esto casi no se usa, es mejor hacer que la subrutina se
-adapte a los par√°metros. 
+adapte a los par·metros. 
 
 =head2 Subrutina &max bien escrita    
 
@@ -344,11 +342,11 @@ Z<Subrutina &max bien escrita>
 
 =end programlisting
 
-=head1 Notas sobre Variables L√©xicas (my)    
+=head1 Notas sobre Variables LÈxicas (my)    
 
-Z<Notas sobre Variables L√©xicas (my)> 
+Z<Notas sobre Variables LÈxicas (my)> 
 
-Estas variables l√©xicas pueden usarse en cualquier bloque, no necesariamente
+Estas variables lÈxicas pueden usarse en cualquier bloque, no necesariamente
 en una subrutina. Por ejemplo, pueden usarse en un bloque de un C<if>,
 C<while>, o C<foreach>: 
 
@@ -361,16 +359,16 @@ C<while>, o C<foreach>:
 
 =end programlisting
 
-La variable $cuadrado es privada al bloque de c√≥digo; en este caso, al bloque
-de c√≥digo del ciclo foreach. Si no se encuentra encerrada en un bloque, la
+La variable $cuadrado es privada al bloque de cÛdigo; en este caso, al bloque
+de cÛdigo del ciclo foreach. Si no se encuentra encerrada en un bloque, la
 variable es privada para el archivo completo. El concepto importante es que el
-√°mbito de una variable l√©xica es limitado al peque√±o bloque de c√≥digo que
+·mbito de una variable lÈxica es limitado al pequeÒo bloque de cÛdigo que
 encierre la variable. Esto es una gran virtud para la mantenibilidad del
-c√≥digo. Si hay un valor err√≥neo en $cuadrado, la culpabilidad va a estar
-limitada a una peque√±a porci√≥n del c√≥digo. 
+cÛdigo. Si hay un valor errÛneo en $cuadrado, la culpabilidad va a estar
+limitada a una pequeÒa porciÛn del cÛdigo. 
 
 Debe haber notado, que el operador C<my> tampoco altera el contexto de la
-asignaci√≥n: 
+asignaciÛn: 
 
 =begin programlisting
 
@@ -379,11 +377,11 @@ asignaci√≥n:
 
 =end programlisting
 
-En la primera linea, $num obtiene el primer par√°metro, en la segunda l√≠nea $num
-obtiene el n√∫mero de par√°metros en contexto escalar. 
+En la primera linea, $num obtiene el primer par·metro, en la segunda lÌnea $num
+obtiene el n˙mero de par·metros en contexto escalar. 
 
-Vale la pena recordar, que el uso de C<my> sin par√©ntesis solo va a declarar
-una variable l√©xica simple: 
+Vale la pena recordar, que el uso de C<my> sin parÈntesis solo va a declarar
+una variable lÈxica simple: 
 
 =begin programlisting
 
@@ -392,7 +390,7 @@ una variable l√©xica simple:
 
 =end programlisting
 
-Tambi√©n puede usar C<my> para crear un nuevo y privado array: 
+TambiÈn puede usar C<my> para crear un nuevo y privado array: 
 
 =begin programlisting
 
@@ -408,21 +406,21 @@ Perl tiende a ser un lenguaje muy permisivo. Pero puede ser que quieras que
 Perl imponga un poco de disciplina; esto se puede hacer con el pragma
 C<strict>. 
 
-Un pragma es una sugerencia al compilador, que le dice algo sobre el c√≥digo. En
+Un pragma es una sugerencia al compilador, que le dice algo sobre el cÛdigo. En
 este caso, el uso del pragma C<strict> le dice al compilador interno de Perl
-que debe forzar el uso algunas buenas reglas de programaci√≥n para el resto
+que debe forzar el uso algunas buenas reglas de programaciÛn para el resto
 de este bloque o archivo. 
 
-¬ø Porqu√© esto es importante ?, Bueno imagine que esta creando un programa y
+ø PorquÈ esto es importante ?, Bueno imagine que esta creando un programa y
 usted escribe una linea como esta: 
 
 =begin programlisting
 
-    $bamm_bamm = 3;  # Perl crea esta variable autom√°ticamente 
+    $bamm_bamm = 3;  # Perl crea esta variable autom·ticamente 
 
 =end programlisting
 
-Ahora, luego de un rato, escribe un ciclo while. Despu√©s de que la linea
+Ahora, luego de un rato, escribe un ciclo while. DespuÈs de que la linea
 anterior no sea visible en la pantalla, usted tipea una linea para incrementar
 la variable. 
 
@@ -432,7 +430,7 @@ la variable.
 
 =end programlisting
 
-Puesto que perl ve un nuevo nombre de variable (el gui√≥n bajo es significativo)
+Puesto que perl ve un nuevo nombre de variable (el guiÛn bajo es significativo)
 crea una nueva variable,  e incrementa su valor en uno. Si eres afortunado e
 inteligente, activaste las advertencias (warnings), y Perl te va a decir que
 has usado una o varias variables globales una sola vez en tu programa. Pero si
@@ -444,7 +442,7 @@ principio de su programa.
 
 =begin programlisting
 
-    use strict;     # Forza algunas buenas reglas de programaci√≥n.
+    use strict;     # Forza algunas buenas reglas de programaciÛn.
 
 =end programlisting
 
@@ -453,13 +451,13 @@ nueva, usualmente con C<my>.
 
 =begin programlisting
 
-    my $bamm_$bamm = 3;     # Nueva variable l√©xica.
+    my $bamm_$bamm = 3;     # Nueva variable lÈxica.
 
 =end programlisting
 
 
 Ahora, Perl va a notar que no hay una variable $bammbamm declarada, entonces tu
-error va ser autom√°ticamente atrapado en tiempo de compilaci√≥n. 
+error va ser autom·ticamente atrapado en tiempo de compilaciÛn. 
 
 =begin programlisting
 
@@ -468,11 +466,11 @@ error va ser autom√°ticamente atrapado en tiempo de compilaci√≥n.
 =end programlisting
 
 Para aprender mas sobre las restricciones que aplica el pragma strict, le
-recomendamos ver la documentaci√≥n oficial. La documentaci√≥n de los pragmas se
+recomendamos ver la documentaciÛn oficial. La documentaciÛn de los pragmas se
 encuentra en un archivo bajo el nombre del pragma, entonces podemos usar
 C<perldoc strict>.
 
-La mayor√≠a de la gente cree que si un programa es mas largo que la pantalla,
+La mayorÌa de la gente cree que si un programa es mas largo que la pantalla,
 generalmente necesita C<use strict>. En esto estamos de acuerdo. 
 
 
@@ -499,26 +497,26 @@ El operador return inmediatamente retorna un valor de desde una subrutina:
 
 =end programlisting
 
-Esta subrutina es usada para encontrar el √≠ndice de "dino" en el array @names.
+Esta subrutina es usada para encontrar el Ìndice de "dino" en el array @names.
 
 A algunos programadores les gusta usar return siempre,  como una forma de
 documentar que este es el valor de retorno. Por ejemplo, se puede usar return
-cuando el valor de retorno no es la ultima expresi√≥n evaluada de la subrutina.
+cuando el valor de retorno no es la ultima expresiÛn evaluada de la subrutina.
 
 =head1 Omitir el signo &    
 
 Z<Omitir el signo &> 
 
 Como lo prometimos, vamos a darle la regla para cuando una llamada a subrutina
-puede omitir el signo &. Si el compilador ve una definici√≥n de la subrutina
+puede omitir el signo &. Si el compilador ve una definiciÛn de la subrutina
 antes de la llamada, o si Perl puede decidir que la sintaxis es una llamada a
 subrutina, la subrutina puede ser llamada sin un signo &. Como si fuera una
-funci√≥n integrada de Perl. Pero hay una trampa escondida en esta norma, como
-veremos a continuaci√≥n. 
+funciÛn integrada de Perl. Pero hay una trampa escondida en esta norma, como
+veremos a continuaciÛn. 
 
 Esto significa que si Perl puede ver que es una llamada a una subrutina sin el
-signo &, por lo general va bien. Entonces si tienes una lista de par√°metros
-entre par√©ntesis, entonces esto es una llamada a una funci√≥n:
+signo &, por lo general va bien. Entonces si tienes una lista de par·metros
+entre parÈntesis, entonces esto es una llamada a una funciÛn:
 
 =begin programlisting
 
@@ -527,9 +525,9 @@ entre par√©ntesis, entonces esto es una llamada a una funci√≥n:
 =end programlisting
 
 
-Si el compilador interno de perl ya ha visto la definici√≥n de la subrutina,
+Si el compilador interno de perl ya ha visto la definiciÛn de la subrutina,
 entonces generalmente funciona bien. En este caso particular, puedes incluso
-omitir los par√©ntesis que abrazan la lista de argumentos. 
+omitir los parÈntesis que abrazan la lista de argumentos. 
 
 =begin programlisting
 
@@ -541,15 +539,15 @@ omitir los par√©ntesis que abrazan la lista de argumentos.
 
 =end programlisting
 
-Esto funciona por la regla de que los par√©ntesis pueden ser omitidos. 
+Esto funciona por la regla de que los parÈntesis pueden ser omitidos. 
 
-Pero no ponga la declaraci√≥n de la subrutina despues de la llamada, o el
-compilador no sabr√° de que se trata la llamada de C<division>. Sin embargo esta
+Pero no ponga la declaraciÛn de la subrutina despues de la llamada, o el
+compilador no sabr· de que se trata la llamada de C<division>. Sin embargo esta
 no es la trampa, el problema en si es el siguiente: Si la subrutina tiene el
-mismo nombre que una funci√≥n propia de Perl, usted I<debe> usar el ampersand
+mismo nombre que una funciÛn propia de Perl, usted I<debe> usar el ampersand
 (&) para hacer la llamada a la subrutina. Al usar el ampersand, nos aseguramos
 de que estamos llamando a una subrutina; sin el; usted puede hacer la llamada
-solo si la subrutina no tiene el mismo nombre que una funci√≥n propia de Perl.
+solo si la subrutina no tiene el mismo nombre que una funciÛn propia de Perl.
 Por ejemplo:
 
 =begin programlisting
@@ -558,17 +556,17 @@ Por ejemplo:
         print "Mucho,  mucho!\n";
     }
 
-    &chomp;     # El ampersand aqu√≠ no es opcional!
+    &chomp;     # El ampersand aquÌ no es opcional!
 
 =end programlisting
 
-Sin el ampersand, estamos haciendo una llamada a la funci√≥n C<chomp> interna de
+Sin el ampersand, estamos haciendo una llamada a la funciÛn C<chomp> interna de
 Perl. 
 
-La regla general aqu√≠ es: Hasta que usted conozca los nombres de todas las
+La regla general aquÌ es: Hasta que usted conozca los nombres de todas las
 funciones internas de Perl, siempre use ampersand en las llamadas a funciones.
 
-En nuestro caso, podemos usar funciones en nuestra lengua materna (Espa√±ol)
+En nuestro caso, podemos usar funciones en nuestra lengua materna (EspaÒol)
 para evitar caer en la trampa.
 
 
@@ -576,14 +574,14 @@ para evitar caer en la trampa.
 
 Z<Retornando valores no escalares> 
 
-Un escalar no es la √∫nica cosa que puede retornar una subrutina. Si llamas a tu
+Un escalar no es la ˙nica cosa que puede retornar una subrutina. Si llamas a tu
 subrutina en un contexto de lista N<Puedes detectar en que contexto esta siendo
-llamada su subrutina, usando la funci√≥n wantarray>, esta puede retornar una
+llamada su subrutina, usando la funciÛn wantarray>, esta puede retornar una
 lista de valores. 
 
-Supongamos que quieres obtener un rango de n√∫meros (como viene del operador de
+Supongamos que quieres obtener un rango de n˙meros (como viene del operador de
 rango, ..), pero quieres habilitar el conteo hacia abajo. El operador de rango
-solo cuenta hacia arriba, pero es algo f√°cil de arreglar: 
+solo cuenta hacia arriba, pero es algo f·cil de arreglar: 
 
 =begin programlisting
 
@@ -603,8 +601,8 @@ solo cuenta hacia arriba, pero es algo f√°cil de arreglar:
 =end programlisting
 
 Finalmente, puedes retornar nada. Cuando usamos C<return> sin argumentos vamos
-a retornar C<undef> en contexto escalar o una lista vac√≠a en contexto de
-lista. Esto puede ser √∫til para retornar errores de una subrutina.
+a retornar C<undef> en contexto escalar o una lista vacÌa en contexto de
+lista. Esto puede ser ˙til para retornar errores de una subrutina.
 
 =head1 Variables Privadas Persistentes    
 
@@ -615,7 +613,7 @@ vez que llamamos a la subrutina va a re-definir los valores una vez mas. Con
 C<state>, podemos tener variables privadas del ambito de una subrutina pero
 Perl va a mantener sus valores entre las llamadas. 
 
-En el primer ejemplo de este cap√≠tulo, vimos una subrutina llamada marino, que
+En el primer ejemplo de este capÌtulo, vimos una subrutina llamada marino, que
 incrementaba una variable: 
 
 =begin programlisting
@@ -628,7 +626,7 @@ incrementaba una variable:
 =end programlisting
 
 Ahora que debemos usar C<strict>, el uso de la variable gobal $n no esta 
-permitido. No podemos hacer de $n una variable l√©xica con C<my> porque entonces
+permitido. No podemos hacer de $n una variable lÈxica con C<my> porque entonces
 no va a mantener el valor. 
 
 Declarando nuestra variable con C<state> le decimos a Perl que retenga el valor
@@ -653,7 +651,7 @@ inicializa C<$n>, para las siguientes llamadas de la subrutina, Perl ignora la
 sentencia. 
 
 Podemos conservar el estado de cualquier variable, no es solo para los datos
-escalares. Aqu√≠ tenemos una subrutina que recuerda sus argumentos y provee una
+escalares. AquÌ tenemos una subrutina que recuerda sus argumentos y provee una
 suma usando C<state> en un array. 
 
 =begin programlisting
@@ -689,7 +687,7 @@ La salida de este programa es:
 =end screen
 
 
-Sin embargo, hay una ligera restricci√≥n en arrays y hashes como variables de
+Sin embargo, hay una ligera restricciÛn en arrays y hashes como variables de
 estado. No podemos inicializarlas en contexto de lista. Por ejemplo: 
 
 =begin programlisting
@@ -698,7 +696,7 @@ estado. No podemos inicializarlas en contexto de lista. Por ejemplo:
 
 =end programlisting
 
-Esto nos dara un error que sugiere que podr√≠amos usar esto en una versi√≥n
+Esto nos dara un error que sugiere que podrÌamos usar esto en una versiÛn
 futura de Perl: 
 
 =begin screen

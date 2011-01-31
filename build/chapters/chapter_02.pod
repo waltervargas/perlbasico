@@ -1,17 +1,15 @@
-=encoding utf8
-
 =head0 Listas y Arreglos
 
-Ya hablamos en el cap√≠tulo anterior de la singularidad de Perl, en este
-cap√≠tulo vamos a hablar sobre la pluralidad. La pluralidad en Perl esta
+Ya hablamos en el capÌtulo anterior de la singularidad de Perl, en este
+capÌtulo vamos a hablar sobre la pluralidad. La pluralidad en Perl esta
 representada por las listas y los arreglos. 
 
-Una lista es una colecci√≥n ordenada de escalares. Un array es una variable que
-contiene una lista. En Perl, estos dos t√©rminos se utilizan a menudo como si
+Una lista es una colecciÛn ordenada de escalares. Un array es una variable que
+contiene una lista. En Perl, estos dos tÈrminos se utilizan a menudo como si
 fueran intercambiables. Pero, para ser precisos, una lista es datos, y un array
 es una variable. En este sentido, puedes tener una lista de valores que no
-est√©n contenidos en un array, pero cada variable de tipo array contiene una
-lista (incluso si la lista esta vac√≠a). Por ejemplo: 
+estÈn contenidos en un array, pero cada variable de tipo array contiene una
+lista (incluso si la lista esta vacÌa). Por ejemplo: 
 
 =begin programlisting
 
@@ -25,23 +23,23 @@ lista (incluso si la lista esta vac√≠a). Por ejemplo:
 =end programlisting
 
 Cada elemento en un array o una lista, es una variable escalar independiente
-con un valor independiente. Estos valores est√°n ordenados, es decir, tienen un
-secuencia particular desde el primer hasta el √∫ltimo elemento. Los elementos de
-un array o una lista est√°n C<indexados> por peque√±os enteros comenzando por el
-cero N<En Perl, es posible cambiar el n√∫mero de inicio de un array o una lista
-indexada. Larry luego considero esto como una mala caracter√≠stica y su (ab)uso
+con un valor independiente. Estos valores est·n ordenados, es decir, tienen un
+secuencia particular desde el primer hasta el ˙ltimo elemento. Los elementos de
+un array o una lista est·n C<indexados> por pequeÒos enteros comenzando por el
+cero N<En Perl, es posible cambiar el n˙mero de inicio de un array o una lista
+indexada. Larry luego considero esto como una mala caracterÌstica y su (ab)uso
 esta fuertemente desaconsejado> (0) y contando de uno en uno, entonces el 
 primer elemento de cualquier array o lista es siempre el elemento cero (0). 
 
 Puesto que cada elemento es un valor escalar independiente, una lista o una
-matriz puede contener n√∫meros, cadenas, valores undef, o cualquier
-mezcla de diferentes valores escalares. Sin embargo, es m√°s com√∫n tener todos
-los elementos del mismo tipo, tales como una lista de t√≠tulos de libros (todas
-son cadenas) o una lista de cosenos (todos son n√∫meros).
+matriz puede contener n˙meros, cadenas, valores undef, o cualquier
+mezcla de diferentes valores escalares. Sin embargo, es m·s com˙n tener todos
+los elementos del mismo tipo, tales como una lista de tÌtulos de libros (todas
+son cadenas) o una lista de cosenos (todos son n˙meros).
 
-Las matrices o listas pueden tener cualquier n√∫mero de elementos. La lista mas
-peque√±a es aquella que no tiene elementos, mientras que la mas grande puede
-llenar toda la memoria disponible. Una vez mas esto es parte de la filosof√≠a de
+Las matrices o listas pueden tener cualquier n˙mero de elementos. La lista mas
+pequeÒa es aquella que no tiene elementos, mientras que la mas grande puede
+llenar toda la memoria disponible. Una vez mas esto es parte de la filosofÌa de
 Perl "No hay limites innecesarios".
 
 =head1 Accediendo los Elementos de un Array    
@@ -50,7 +48,7 @@ Z<Accediendo los Elementos de un Array>
 
 Si ha usado arrays en otro lenguaje, no se debe sorprender al encontrar que
 perl provee un mecanismo de subindice del array para referirse a un elemento
-por un indice num√©rico. 
+por un indice numÈrico. 
 
 Los elementos de un array son enumerados usando una secuencia de enteros,
 comenzando en cero (0) e incrementando de uno en uno para cada elemento. Por
@@ -72,7 +70,7 @@ diferentes y no va a confundirse.
 Puede usar un elemento de un array como por ejemplo $prueba[0] en cualquier
 lugar como si se tratara de un escalar como $prueba. Por ejemplo, puede obtener
 el valor de un elemento del array o cambiar su valor con algunas expresiones
-cortas y pr√°cticas que vimos en el cap√≠tulo anterior: 
+cortas y pr·cticas que vimos en el capÌtulo anterior: 
 
 =begin programlisting
 
@@ -82,8 +80,8 @@ cortas y pr√°cticas que vimos en el cap√≠tulo anterior:
 
 =end programlisting
 
-Por su puesto, el subindice puede ser cualquier expresi√≥n que devuelva un valor
-num√©rico. Si no es un entero, autom√°ticamente va a ser truncado al pr√≥ximo
+Por su puesto, el subindice puede ser cualquier expresiÛn que devuelva un valor
+numÈrico. Si no es un entero, autom·ticamente va a ser truncado al prÛximo
 entero menor. Por ejemplo: 
 
 =begin programlisting
@@ -93,7 +91,7 @@ entero menor. Por ejemplo:
 
 =end programlisting
 
-Si se indica un elemento en el subindice que este mas all√° del final del
+Si se indica un elemento en el subindice que este mas all· del final del
 array, el valor correspondiente va a ser C<undef>. Al igual que con las
 variables escalares, si nunca ha guardado un valor en una variable escalar,
 pues entonces el valor de esta variable va a ser C<undef>. Por ejemplo: 
@@ -109,9 +107,9 @@ pues entonces el valor de esta variable va a ser C<undef>. Por ejemplo:
 
 Z<Indices Especiales para un Array> 
 
-Si guardas en un elemento del array que esta mas all√° del final del array,
-este autom√°ticamente se extiende hasta donde sea necesario, aqu√≠ no hay l√≠mite
-de longitud, el l√≠mite b√°sicamente es la memoria que Perl tenga disponible para
+Si guardas en un elemento del array que esta mas all· del final del array,
+este autom·ticamente se extiende hasta donde sea necesario, aquÌ no hay lÌmite
+de longitud, el lÌmite b·sicamente es la memoria que Perl tenga disponible para
 usar. Si Perl necesita crear elementos intermedios, estos son creados con
 valores undef. Por ejemplo: 
 
@@ -134,7 +132,7 @@ elementos contenidos en el array, esto es porque hay un indice 0.
 
     $end = $#rocks;                     # 99
     $numero_de_elementos = $end + 1;    
-    $rocks[$#rocks] = 'hard rock';      # El √∫ltimo elemento.
+    $rocks[$#rocks] = 'hard rock';      # El ˙ltimo elemento.
 
 =end programlisting
 
@@ -142,14 +140,14 @@ elementos contenidos en el array, esto es porque hay un indice 0.
 El uso del valor $#name como un indice, como vimos en el ejemplo anterior,
 ocurre con tanta frecuencia que Larry proporciono un acceso directo: indices
 negativos para el array contando desde el final del array. No valla a pensar
-con esto que puede ir mas all√° del inicio del array. Si tienes tres elementos
-en el array, entonces los indices negativos v√°lidos son: -1 (el √∫ltimo 
+con esto que puede ir mas all· del inicio del array. Si tienes tres elementos
+en el array, entonces los indices negativos v·lidos son: -1 (el ˙ltimo 
 elemento), -2 (el elemento del medio), y -3 (el primer elemento). En la
-pr√°ctica parece que no se suele usar esto, con la excepci√≥n del indice -1.   
+pr·ctica parece que no se suele usar esto, con la excepciÛn del indice -1.   
 
 =begin programlisting
 
-    $rocks[ -1 ] = 'hard rock'; # una forma f√°cil de hacer el ultimo ejemplo
+    $rocks[ -1 ] = 'hard rock'; # una forma f·cil de hacer el ultimo ejemplo
     $dead_rock = $rocks[-100];  # se obtiene 'bedrock'
     $rocks[ -200 ] = 'crystal'  # Error fatal !
 
@@ -160,7 +158,7 @@ pr√°ctica parece que no se suele usar esto, con la excepci√≥n del indice -1.
 Z<Listas Literales> 
 
 Un array (la forma de representar un valor de lista en el programa) es una
-lista de valores separados por coma encerrados entre par√©ntesis. Estos valores
+lista de valores separados por coma encerrados entre parÈntesis. Estos valores
 constituyen los elementos de la lista. Por ejemplo: 
 
 =begin programlisting
@@ -168,7 +166,7 @@ constituyen los elementos de la lista. Por ejemplo:
     (1, 2, 3)   # Una lista de tres valores 1, 2 y 3
     (1, 2, 3,)  # La misma lista de tres valores (la ultima coma se ignora)
     ("prueba", 4.5) # dos valores,  "prueba" y 4.5
-    ( )         # una lista vac√≠a, cero elementos
+    ( )         # una lista vacÌa, cero elementos
     (1..100)    # Una lista de 100 enteros.
 
 =end programlisting
@@ -181,14 +179,14 @@ hasta el escalar de la derecha, uno a uno. Por ejemplo:
 
     (1..5)      # lo mismo que (1, 2, 3, 4, 5)
     (1.7..5.7)  # la misma cosa, pero se truncan los valores.
-    (5..1)      # Una lista vac√≠a, solo se cuenta hacia arriba.
+    (5..1)      # Una lista vacÌa, solo se cuenta hacia arriba.
     (0, 2..6, 10, 12) # Esto es (0, 2, 3, 4, 5, 6, 10, 12)
     ($m..$n)    # rango determinado por los valores de $m y $n
     (0..$#rocks) # Usando el indice del array rocks. 
 
 =end programlisting
 
-Como puede ver en los √∫ltimos dos ejemplos, los elementos de una lista literal
+Como puede ver en los ˙ltimos dos ejemplos, los elementos de una lista literal
 no necesariamente son constantes, pueden ser expresiones que van a ser
 evaluadas cada vez que el literal sea usado. Por ejemplo: 
 
@@ -213,8 +211,8 @@ de cadenas:
 Z<El atajo qw> 
 
 Resulta que las listas de palabras simples son necesarias con frecuencia en
-programas en Perl. El atajo qw hace que sea mas f√°cil generarlas sin tener que
-escribir un mont√≥n de comillas adicionales: 
+programas en Perl. El atajo qw hace que sea mas f·cil generarlas sin tener que
+escribir un montÛn de comillas adicionales: 
 
 =begin programlisting
 
@@ -224,7 +222,7 @@ escribir un mont√≥n de comillas adicionales:
 
 C<qw> significa "palabras citadas" del ingles "quoted words". Perl trata esto
 como una cadena entre comillas simples en el contexto escalar, de manera que 
-no podr√° usar C<\n> o C<$prueba> en una lista C<qw> como si estuviera entre comillas dobles. 
+no podr· usar C<\n> o C<$prueba> en una lista C<qw> como si estuviera entre comillas dobles. 
 
 Los espacios en blanco (caracteres como espacios, tabs, y nuevas lineas) son
 descartados, y todo lo que queda se convierte en una lista de elementos.
@@ -243,8 +241,8 @@ lista de la siguiente forma:
 
 =end programlisting
 
-El ejemplo anterior usa par√©ntesis como delimitador,  pero Perl actualmente
-permite que uses cualquier caracter de puntuaci√≥n como delimitador. Algunos
+El ejemplo anterior usa parÈntesis como delimitador,  pero Perl actualmente
+permite que uses cualquier caracter de puntuaciÛn como delimitador. Algunos
 ejemplos mas comunes son: 
 
 =begin programlisting
@@ -260,8 +258,8 @@ ejemplos mas comunes son:
 =end programlisting
 
 Si necesita incluir el delimitador usado como parte de una cadena en uno de los
-elementos, probablemente escogi√≥ el delimitador equivocado, pero incluso
-podr√≠a hacerlo, escapando el delimitador con un C<\>. Ejemplo:
+elementos, probablemente escogiÛ el delimitador equivocado, pero incluso
+podrÌa hacerlo, escapando el delimitador con un C<\>. Ejemplo:
 
 =begin programlisting
 
@@ -271,9 +269,9 @@ podr√≠a hacerlo, escapando el delimitador con un C<\>. Ejemplo:
 
 Aunque el lema de perl es "Siempre Hay Mas De Una Forma De Hacer Las Cosas", se
 preguntara, para que necesito todas estas formas de citar. Bueno, mas adelante
-que hay otras formas de citar en Perl que son √∫tiles en casos especiales. Por
-ejemplo, ahora mismo podr√≠a necesitar hacer una lista de nombres de archivos
-Unix, entonces podr√≠a hacerlo as√≠: 
+que hay otras formas de citar en Perl que son ˙tiles en casos especiales. Por
+ejemplo, ahora mismo podrÌa necesitar hacer una lista de nombres de archivos
+Unix, entonces podrÌa hacerlo asÌ: 
 
 =begin programlisting
 
@@ -285,9 +283,9 @@ Unix, entonces podr√≠a hacerlo as√≠:
 =end programlisting
 
 
-=head1 Asignaci√≥n de listas    
+=head1 AsignaciÛn de listas    
 
-Z<Asignaci√≥n de listas> 
+Z<AsignaciÛn de listas> 
 
 De la misma forma que asignamos escalares a variables, podemos asignar valores
 de listas a variables. Por ejemplo:
@@ -300,7 +298,7 @@ de listas a variables. Por ejemplo:
 
 Las tres variables en la lista de la izquierda,  reciben nuevos valores, como
 si los asignara individualmente. Dado que la lista se constituye antes del
-inicio de la asignaci√≥n. Esto hace que sea f√°cil intercambiar los valores de 
+inicio de la asignaciÛn. Esto hace que sea f·cil intercambiar los valores de 
 dos variables en Perl: 
 
 =begin programlisting
@@ -311,7 +309,7 @@ dos variables en Perl:
 =end programlisting
 
 Pero que ocurre si el numero de variables (a la izquierda del signo de =) no es
-igual al numero de valores (a la derecha del signo =) en una asignaci√≥n de
+igual al numero de valores (a la derecha del signo =) en una asignaciÛn de
 lista. Los valores extra son simplemente ignorados. De igual manera si ocurre
 lo contrario, las variables adicionales obtienen el valor C<undef>.
 
@@ -323,7 +321,7 @@ lo contrario, las variables adicionales obtienen el valor C<undef>.
 =end programlisting
 
 Ahora que puedes asignar listas, puedes crear un array de cadenas con una linea
-de c√≥digo como esta:
+de cÛdigo como esta:
 
 =begin programlisting
 
@@ -331,10 +329,10 @@ de c√≥digo como esta:
 
 =end programlisting
 
-Podemos referirnos a toda una matriz a trav√©s de una notaci√≥n simple que posee
+Podemos referirnos a toda una matriz a travÈs de una notaciÛn simple que posee
 Perl. Solo tiene que usar una arroba (@) antes del nombre del array (y sin
-corchetes de indices) para referirse a toda la matriz. Este s√≠gil funciona a
-ambos lados del operador de asignaci√≥n. 
+corchetes de indices) para referirse a toda la matriz. Este sÌgil funciona a
+ambos lados del operador de asignaciÛn. 
 
 =begin programlisting
 
@@ -350,11 +348,11 @@ pone undef dentro de la lista, pero lo podemos hacer de manera explicita como
 se puede ver con la lista C<@stuff>).
 
 El valor de una lista nueva a la que no se le ha asignado nada es C<()> de
-lista vac√≠a. As√≠ como los valores escalares nacen con el valor C<undef> una
-lista nace con el valor C<()> (lista vac√≠a). 
+lista vacÌa. AsÌ como los valores escalares nacen con el valor C<undef> una
+lista nace con el valor C<()> (lista vacÌa). 
 
-Larry escogi√≥ el signo @ porque el lee $calar (scalar) y @rray (array), es una
-buena regla nemot√©cnica para recordar.
+Larry escogiÛ el signo @ porque el lee $calar (scalar) y @rray (array), es una
+buena regla nemotÈcnica para recordar.
 
 
 =head1 Los operadores push y pop    
@@ -365,17 +363,17 @@ Usted puede agregar nuevos elementos al fina de un array simplemente guardando
 estos elementos con un indice nuevo mas grande. Pero los verdaderos
 programadores de Perl no usan indices N<Esto por su puesto es una broma. Los
 indices en Perl no son una fortaleza del lenguaje. Si usas pop, push y
-operadores similares en lugar de usar indices, tu c√≥digo va a ser generalmente
-m√°s r√°pido>. En las siguientes secciones explicaremos como trabajar con arrays
+operadores similares en lugar de usar indices, tu cÛdigo va a ser generalmente
+m·s r·pido>. En las siguientes secciones explicaremos como trabajar con arrays
 sin usar indices. 
 
-Un uso com√∫n para un array es guardar informaci√≥n, en donde los nuevos valores
-se a√±aden y se eliminan por la parte derecha de la lista (Este es el final de
+Un uso com˙n para un array es guardar informaciÛn, en donde los nuevos valores
+se aÒaden y se eliminan por la parte derecha de la lista (Este es el final de
 la lista que contiene el ultimo elemento, con el indice mas alto). Estas
 operaciones ocurren con la suficiente frecuencia como para tener sus propios
 operadores especiales. 
 
-El operador C<pop> saca el √∫ltimo elemento de la lista y lo retorna. Ejemplo:
+El operador C<pop> saca el ˙ltimo elemento de la lista y lo retorna. Ejemplo:
 
 =begin programlisting
 
@@ -386,16 +384,16 @@ El operador C<pop> saca el √∫ltimo elemento de la lista y lo retorna. Ejemplo:
 
 =end programlisting
 
-El √∫ltimo ejemplo usamos C<pop> en un "contexto vac√≠o", que es una manera
+El ˙ltimo ejemplo usamos C<pop> en un "contexto vacÌo", que es una manera
 elegante de decir que el valor de retorno no va a ninguna parte. No hay nada
 malo con el uso de pop de esta manera. 
 
-Si la matriz esta vac√≠a, pop no hace nada y devuelve C<undef>. 
+Si la matriz esta vacÌa, pop no hace nada y devuelve C<undef>. 
 
-Seguro noto que pop puede usarse sin los par√©ntesis. Esta es una regla general
-en Perl, siempre y cuanto no cambie el sentido de la expresi√≥n, se pueden
-remover los par√©ntesis. N<Un estudiante avanzado, va a reconocer que esto es
-una tautolog√≠a>
+Seguro noto que pop puede usarse sin los parÈntesis. Esta es una regla general
+en Perl, siempre y cuanto no cambie el sentido de la expresiÛn, se pueden
+remover los parÈntesis. N<Un estudiante avanzado, va a reconocer que esto es
+una tautologÌa>
 
 El operador contrario es C<push> que agrega elementos o una lista de elementos
 al final de un array. Por ejemplo:
@@ -410,9 +408,9 @@ al final de un array. Por ejemplo:
 
 =end programlisting
 
-Note que el primer argumento de C<push> o el √∫nico argumento que C<pop> require
+Note que el primer argumento de C<push> o el ˙nico argumento que C<pop> require
 debe ser una variable array. Hacer push y pop de listas literales no tiene
-ning√∫n sentido. 
+ning˙n sentido. 
 
 =head1 Los operadores shift y unshift    
 
@@ -421,15 +419,15 @@ Z<Los operadores shift y unshift>
 Los operadores C<push> y C<pop> hacen cosas al final del array (o al lado
 derecho del array). De manera similar, C<unshift> y C<shift> realizan las
 operaciones correspondientes pero al principio del array (o al lado izquierdo
-del array). Aqu√≠ hay algunos ejemplos: 
+del array). AquÌ hay algunos ejemplos: 
 
 =begin programlisting
 
     @array = qw# walter lilibeth juan #;
     $m = shift(@array);         # $m = "dino", @array = ("fred", "barney")
     $n = shift @array;          # $n = "fred", @array = ("barney")
-    shift @array;               # @array = (),  vac√≠o
-    $o = shift @array;          # $o = undef,  @array esta vac√≠o
+    shift @array;               # @array = (),  vacÌo
+    $o = shift @array;          # $o = undef,  @array esta vacÌo
     unshift(@array, 5);         # @array ahora tiene un elemento en la lista
     unshift @array, 4;          # @array = (4, 5)
     @others = 1..3;
@@ -441,8 +439,8 @@ del array). Aqu√≠ hay algunos ejemplos:
 
 Z<Interpolando Arrays en Cadenas> 
 
-As√≠ como los escalares, los valores array pueden ser interpolados en una cadena
-de dobles comillas. Los elementos de un array son autom√°ticamente separados por
+AsÌ como los escalares, los valores array pueden ser interpolados en una cadena
+de dobles comillas. Los elementos de un array son autom·ticamente separados por
 espacios (Espacio en blanco es el separador por defecto contenido como valor en
 la variable especial C<$">).
 
@@ -453,8 +451,8 @@ la variable especial C<$">).
 
 =end programlisting
 
-No se agregan espacios en blanco antes o despu√©s de la interpolaci√≥n, si usted
-quiere esto, tendr√° que hacerlo a mano. 
+No se agregan espacios en blanco antes o despuÈs de la interpolaciÛn, si usted
+quiere esto, tendr· que hacerlo a mano. 
 
 =begin programlisting
 
@@ -465,7 +463,7 @@ quiere esto, tendr√° que hacerlo a mano.
 =end programlisting
 
 Si de casualidad olvida que los array se interpolan entre dobles comillas, se
-va a llevar una sorpresa cuando intente colocar un correo electr√≥nico en una
+va a llevar una sorpresa cuando intente colocar un correo electrÛnico en una
 cadena.
 
 =begin programlisting
@@ -474,7 +472,7 @@ cadena.
 
 =end programlisting
 
-Para poder hacer esto, deber√° usar comillas simples o escapar el caracter @. 
+Para poder hacer esto, deber· usar comillas simples o escapar el caracter @. 
 
 
 =begin programlisting
@@ -491,7 +489,7 @@ Z<La estructura de control foreach>
 
 Regularmente es necesario procesar una lista completa, por lo que Perl
 proporciona una estructura de control que hace justamente esto. El ciclo
-C<foreach> pasa por cada valor de la lista, realizando una iteraci√≥n por cada
+C<foreach> pasa por cada valor de la lista, realizando una iteraciÛn por cada
 valor. Por ejemplo: 
 
 =begin programlisting
@@ -503,7 +501,7 @@ valor. Por ejemplo:
 =end programlisting
 
 La variable de control (C<$rock> en este ejemplo) toma un nuevo valor de la
-lista por cada iteraci√≥n. En la primera corrida es "bedrock; y en la tercera
+lista por cada iteraciÛn. En la primera corrida es "bedrock; y en la tercera
 corrida es "lava". 
 
 La variable de control no es una copia del elemento de la lista. Es el elemento
@@ -522,17 +520,17 @@ ciclo,  vas a modificar el elemento en si. Por ejemplo:
 
 =end programlisting
 
-¬øCual es el valor de la variable de control cuando el ciclo ha terminado?. Es
-el mismo que tenia para cuando el ciclo comenz√≥. Perl autom√°ticamente guarda y
+øCual es el valor de la variable de control cuando el ciclo ha terminado?. Es
+el mismo que tenia para cuando el ciclo comenzÛ. Perl autom·ticamente guarda y
 restaura el valor de la variable de control de un ciclo foreach. Esto significa
 que no hay que preocuparse por usar una variable que este en uso en otro lado
 del programa. 
 
-=head1 La variable m√°gica de Perl: $_    
+=head1 La variable m·gica de Perl: $_    
 
-Z<La variable m√°gica de Perl: $_> 
+Z<La variable m·gica de Perl: $_> 
 
-Si omite la variable de control del ciclo,  Perl usa la variable m√°gica,
+Si omite la variable de control del ciclo,  Perl usa la variable m·gica,
 C<$_>. Esta es (usualmente) una variable escalar mas, solo que con un nombre no
 usual. Por ejemplo: 
 
@@ -544,9 +542,9 @@ usual. Por ejemplo:
 
 =end programlisting
 
-Aunque esta no es la √∫nica cosa m√°gica que hace Perl, es el hechizo mas com√∫n. 
+Aunque esta no es la ˙nica cosa m·gica que hace Perl, es el hechizo mas com˙n. 
 
-Existen otros casos en los que Perl va a usar la variable m√°gica C<$_>, uno de
+Existen otros casos en los que Perl va a usar la variable m·gica C<$_>, uno de
 los casos en los que esto ocurre es con C<print>, va a imprimir C<$_> si no le
 damos otro argumento. 
 
@@ -575,14 +573,14 @@ esto:
 
 =end programlisting
 
-La √∫ltima linea del ejemplo es importante, porque usa C<@lista> dos veces. Esto
+La ˙ltima linea del ejemplo es importante, porque usa C<@lista> dos veces. Esto
 es debido a que los operadores de lista tienen una fuerte precedencia a la
 derecha y una poca precedencia a la izquierda, y en la tabla de precedencias,
-los operadores de lista est√°n de primeros junto a los par√©ntesis. 
+los operadores de lista est·n de primeros junto a los parÈntesis. 
 
 Recuerde que C<reverse> devuelve la lista en el orden inverso, no afecta a la
-lista argumento, si el valor devuelto no se asigna a nada, es una operaci√≥n
-in√∫til.
+lista argumento, si el valor devuelto no se asigna a nada, es una operaciÛn
+in˙til.
 
 =begin programlisting
 
@@ -596,12 +594,12 @@ in√∫til.
 Z<El operador sort> 
 
 El operador sort toma una lista de valores (que pueden ser un array) y los
-ordena usando la ordenaci√≥n interna de caracteres. Para cadenas ASCII, va a
-usar un orden ASCIIbetico. Como ya debe saber, ASCII es un lugar extra√±o donde
-todas las letras may√∫sculas van delante de todas las letras min√∫sculas, donde
-los n√∫meros vienen antes de las letras, y los signos de puntuaci√≥n, esos
-signos que est√°n aqu√≠ all√° y en todas partes. Pero el orden ASCII es el orden
-por defecto, en otro cap√≠tulo vamos a ver como ordenar de otras maneras. 
+ordena usando la ordenaciÛn interna de caracteres. Para cadenas ASCII, va a
+usar un orden ASCIIbetico. Como ya debe saber, ASCII es un lugar extraÒo donde
+todas las letras may˙sculas van delante de todas las letras min˙sculas, donde
+los n˙meros vienen antes de las letras, y los signos de puntuaciÛn, esos
+signos que est·n aquÌ all· y en todas partes. Pero el orden ASCII es el orden
+por defecto, en otro capÌtulo vamos a ver como ordenar de otras maneras. 
 
 =begin programlisting
 
@@ -617,18 +615,18 @@ por defecto, en otro cap√≠tulo vamos a ver como ordenar de otras maneras.
 
 Z<Contexto Escalar y Contexto de Lista> 
 
-Esta es la secci√≥n mas importante de este cap√≠tulo. En efecto, esta es la
-secci√≥n mas importante del curso. No es una exageraci√≥n afirmar que el
-desempe√±o de su carrera en el uso de Perl va a depender de comprender de manera
-correcta esta secci√≥n. 
+Esta es la secciÛn mas importante de este capÌtulo. En efecto, esta es la
+secciÛn mas importante del curso. No es una exageraciÛn afirmar que el
+desempeÒo de su carrera en el uso de Perl va a depender de comprender de manera
+correcta esta secciÛn. 
 
-No significa que esto es dif√≠cil de entender. Es una idea simple: Una expresi√≥n
+No significa que esto es difÌcil de entender. Es una idea simple: Una expresiÛn
 dada puede significar cosas distintas dependiendo de en que lugar aparece. Esto
-no deber√≠a ser nada nuevo para usted, pasa todo el tiempo en lenguajes
+no deberÌa ser nada nuevo para usted, pasa todo el tiempo en lenguajes
 naturales. Por ejemplo en el contexto gocho hay expresiones que son contrarias
-al contexto caraque√±o. 
+al contexto caraqueÒo. 
 
-El contexto se refiere al lugar en donde se encuentra la expresi√≥n. Es la
+El contexto se refiere al lugar en donde se encuentra la expresiÛn. Es la
 manera en que Perl interpreta las expresiones. Siempre se espera un valor de
 lista o un valor escalar. Ejemplo: 
 
@@ -644,7 +642,7 @@ puede ser un simple valor escalar, mientras que en otro caso, puede ser una
 lista. Las expresiones en Perl siempre devuelven el valor apropiado para el
 contexto. Por ejemplo, tome un array,  en un contexto de lista, este devuelve
 una lista de elementos. Pero en un contexto escalar, devuelve el numero de
-elementos que est√°n contenidos en el array. Por ejemplo: 
+elementos que est·n contenidos en el array. Por ejemplo: 
 
 =begin programlisting
 
@@ -654,12 +652,12 @@ elementos que est√°n contenidos en el array. Por ejemplo:
 
 =end programlisting
 
-Incluso en una asignaci√≥n simple, ocurren diferentes contextos: 
+Incluso en una asignaciÛn simple, ocurren diferentes contextos: 
 
 =begin programlisting
 
     @list = @people;    # una lista de 3 personas
-    $n = @people;       # el n√∫mero 3.
+    $n = @people;       # el n˙mero 3.
 
 =end programlisting
 
@@ -668,10 +666,10 @@ Incluso en una asignaci√≥n simple, ocurren diferentes contextos:
 
 Z<Usando Expresiones de listas en contexto escalar> 
 
-Hay varias expresiones que deber√≠an usarse para producir una lista. Si usa una
-de estas expresiones en un contexto escalar, ¬øQu√© cree que obtendr√°?. Para
-saber esto debe ver que es lo que piensa el autor de la expresi√≥n. Usualmente
-esta persona es Larry, y usualmente en la documentaci√≥n obtendr√° la informaci√≥n
+Hay varias expresiones que deberÌan usarse para producir una lista. Si usa una
+de estas expresiones en un contexto escalar, øQuÈ cree que obtendr·?. Para
+saber esto debe ver que es lo que piensa el autor de la expresiÛn. Usualmente
+esta persona es Larry, y usualmente en la documentaciÛn obtendr· la informaciÛn
 completa. En efecto, parte del aprendizaje de Perl es aprender como es que
 Larry piensa. 
 
@@ -689,18 +687,18 @@ concatenando todas las cadenas). Ejemplo:
 
 =end programlisting
 
-Algunos contextos mas com√∫nes son: 
+Algunos contextos mas com˙nes son: 
 
 =begin programlisting
 
     $prueba = algo  # contexto escalar 
     @gente = algo   # contexto de lista
     ($nombre,  $apellido) = algo # contexto de lista
-    ($algo) = algo      # contexto de lista a√∫n.
+    ($algo) = algo      # contexto de lista a˙n.
 
 =end programlisting
 
-Aqu√≠ tenemos algunas otras expresiones que resultan en contexto escalar: 
+AquÌ tenemos algunas otras expresiones que resultan en contexto escalar: 
 
 =begin programlisting
 
@@ -713,7 +711,7 @@ Aqu√≠ tenemos algunas otras expresiones que resultan en contexto escalar:
 
 =end programlisting
 
-Y aqu√≠ tenemos algunas expresiones que proveen un contexto de lista: 
+Y aquÌ tenemos algunas expresiones que proveen un contexto de lista: 
 
 =begin programlisting
 
@@ -733,8 +731,8 @@ Y aqu√≠ tenemos algunas expresiones que proveen un contexto de lista:
 
 Z<Usando Expresiones escalares en contexto de lista> 
 
-En este sentido es mas claro, si una expresi√≥n no tiene normalmente un valor de
-lista, el valor escalar es autom√°ticamente promovido a ser un elemento de la
+En este sentido es mas claro, si una expresiÛn no tiene normalmente un valor de
+lista, el valor escalar es autom·ticamente promovido a ser un elemento de la
 lista. Por ejemplo: 
 
 =begin programlisting
@@ -749,20 +747,20 @@ Hay algunos inconvenientes posibles:
 =begin programlisting
 
     @wilma = undef; # OOPS!
-    @betty = ( );   # la forma correcta de declarar una lista vac√≠a.
+    @betty = ( );   # la forma correcta de declarar una lista vacÌa.
 
 =end programlisting
 
 C<undef> es un valor escalar,  asignar undef a un array no limpia el array. La
-manera correcta de limpiar un array es asign√°ndole una lista vac√≠a.
+manera correcta de limpiar un array es asign·ndole una lista vacÌa.
 
 =head1 Forzar el contexto escalar    
 
 Z<Forzar el contexto escalar> 
 
 En ocasiones es necesario forzar el contexto escalar, en donde Perl espera una
-lista. En este caso, se puede usar la funci√≥n falsa C<scalar>. Esta no es una
-funci√≥n verdadera, ya que lo √∫nico que hace es decirle a Perl que provea un
+lista. En este caso, se puede usar la funciÛn falsa C<scalar>. Esta no es una
+funciÛn verdadera, ya que lo ˙nico que hace es decirle a Perl que provea un
 contexto escalar. 
 
 =begin programlisting
@@ -774,7 +772,7 @@ contexto escalar.
 
 =end programlisting
 
-De manera contraria, no hay una funci√≥n que force el contexto de lista, confi√©
+De manera contraria, no hay una funciÛn que force el contexto de lista, confiÈ
 en nosotros, no la va a necesitar. 
 
 
@@ -782,8 +780,8 @@ en nosotros, no la va a necesitar.
 
 Z<STDIN en contexto de lista > 
 
-En un cap√≠tulo anterior vimos que STDIN en un contexto escalar devuelve la
-ultima linea leida de la entrada est√°ndar. En contexto de lista, este operador
+En un capÌtulo anterior vimos que STDIN en un contexto escalar devuelve la
+ultima linea leida de la entrada est·ndar. En contexto de lista, este operador
 devuelve todas las lineas desde el principio hasta el final del archivo. Cada
 linea es retornada como un elemento separado de la lista. Por ejemplo: 
 
@@ -794,10 +792,8 @@ linea es retornada como un elemento separado de la lista. Por ejemplo:
 =end programlisting
 
 Cuando la entrada estandar es un archivo, esto va a leer el archivo completo
-hasta el final. Pero cuando se lee de la entrada est√°ndar en Unix, debe usar
+hasta el final. Pero cuando se lee de la entrada est·ndar en Unix, debe usar
 Ctrol + D. 
-
-=encoding utf8
 
 =head1 Ejercicios
 
