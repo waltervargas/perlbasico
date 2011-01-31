@@ -1,12 +1,12 @@
 =head0 Hashes
 
-En este capítulo, usted va a ver una de las caracteristicas que hacen de Perl
+En este capítulo, usted va a ver una de las características que hacen de Perl
 uno de los mejores lenguajes del mundo de programación imperativa: Hashes N<En
-los viejos tiempos, los llamabamos "arrays asociativos". Pero la comunidad de
-Perl decidio por 1995 que eran muchas letras al escribirlas y muchas silabas al
+los viejos tiempos, los llamábamos "arrays asociativos". Pero la comunidad de
+Perl decidió por 1995 que eran muchas letras al escribirlas y muchas silabas al
 pronunciarlo, entones cambiaron el nombre a "Hashes">
 
-Aunque los Hashes son una útil y poderosa caracteristica, es probable que
+Aunque los Hashes son una útil y poderosa característica, es probable que
 hallas usado otros lenguajes poderosos durante años sin haber escuchado sobre
 los Hashes. Pero usted va a usar hashes en casi todos los programas en Perl que
 escriba de ahora en adelante. 
@@ -25,8 +25,8 @@ usar el numero 3 para obtener un elemento de un array, vamos a acceder al
 elemento del hash llamado C<wilma>.
 
 Estas llaves, son cadenas arbitrarias - usted puede usar cualquier expresión de
-cadena para la llave de un hash. Y estas son cadenas únicas - de igualmanera
-que en un array tenemos un único elemento numérico 3, aqui vamos a tener un
+cadena para la llave de un hash. Y estas son cadenas únicas - de igual manera
+que en un array tenemos un único elemento numérico 3, aquí vamos a tener un
 único elemento del hash llamado C<wilma>. 
 
 Otra forma de pensar en un hash, es compararlo con un barril de datos, donde
@@ -55,10 +55,10 @@ F<figs/barril.png>
 
 Las llaves y los valores son un conjunto de valores escalares ordinarios, pero
 las llaves son siempre convertidas a cadenas. Entonces, si usas la expresión
-numerica C<50/20> como una llave, esto se va a convertir en una cadena de tres
+numérica C<50/20> como una llave, esto se va a convertir en una cadena de tres
 caracteres "2.5". 
 
-Como es usual en Perl,"no existen los límites inecesarios", esto también aplica
+Como es usual en Perl,"no existen los límites innecesarios", esto también aplica
 a un hash, un hash puede ser de cualquier tamaño, desde un hash vacío con cero
 pares llave-valor, hasta cualquier cantidad de valores con los que pueda llena
 su memoria. 
@@ -75,7 +75,7 @@ Vale la pena volver a mencionar de nuevo que las llaves de un hash son siempre
 únicas, aunque los valores pueden estar duplicados. Los valores de un hash
 pueden ser todos números, cadenas, valores C<undef>,  o una mezcla N<En efecto,
 cualquier valor escalar, incluyendo otros typos de datos escalares.>. Pero las
-llaves son simpre arbritariamente cadenas únicas. 
+llaves son siempre arbitrariamente cadenas únicas. 
 
 =head1 ¿ Porque usar un Hash ?    
 
@@ -83,9 +83,9 @@ Z<¿ Porque usar un Hash ?>
 
 Cuando usted escucha por primera vez hablar de hashes, especialmente si usted
 ha vivido gran parte de su vida productiva como programador en otros lenguajes
-que no poseen hashes, podría preguntarse, quien querria  una de estas 
+que no poseen hashes, podría preguntarse, quien querría  una de estas 
 criaturas extrañas. Pues bien, la idea general es que usted tendrá un grupo de
-datos relacionado con otro grupo de datos. Por ejemplo, aquí tenemos algúnos de
+datos relacionado con otro grupo de datos. Por ejemplo, aquí tenemos algunos de
 los hashes que podrá encontrar en aplicaciones típicas de Perl: 
 
 =over 
@@ -108,7 +108,7 @@ puedes buscar por el nombre de host y obtener la dirección ip correspondiente.
 
 =item Palabras, contar el número de veces que una palabra aparece. 
 
-La idea aquí es,  que si usted quiere saber cuantas véces aparece una palabra
+La idea aquí es,  que si usted quiere saber cuantas veces aparece una palabra
 en un documento dado. Puede hacer un hashs que contenga como llaves del hash a
 las palabras y como valor el número de repeticiones de la palabra. 
 
@@ -124,7 +124,7 @@ cédula y como valor el nombre de la persona.
 
 Z<Acceder al elemento de un Hash> 
 
-Para acceder al elemento de un hash usamos la siguiente sintáxis: 
+Para acceder al elemento de un hash usamos la siguiente sintaxis: 
 
 =begin programlisting
 
@@ -132,7 +132,7 @@ Para acceder al elemento de un hash usamos la siguiente sintáxis:
 
 =end programlisting
 
-Es bastante similar a la sintáxis que usamos para acceder a un array, pero en
+Es bastante similar a la sintaxis que usamos para acceder a un array, pero en
 este caso vamos a usar llaves en lugar de corchetes alrededor del subindice
 (llave). N<Aquí daremos un vistazo dentro de la mente de Larry Wall: Larry
 decía, vamos a usar llaves en lugar de corchetes porque estamos haciendo algo
@@ -145,7 +145,7 @@ Podemos asigar los valores de la siguiente manera:
 
     $apellido{"fred"}       = "flintstone";
     $apellido{"barney"}     = "rubble";
-    $apellido{"hugo"}       = "chavez";
+    $apellido{"hugo"}       = "Chávez";
 
 =end programlisting
 
@@ -159,8 +159,8 @@ Con el hash anterior, podríamos usar el siguiente código para accederlo:
 
 =end programlisting
 
-El nombre del hash es de igualmanera otro identificador de Perl (letras,
-dígitos y pisos bájos, pero no puede iniciar con un número). Y son de un
+El nombre del hash es de igual manera otro identificador de Perl (letras,
+dígitos y pisos bajos, pero no puede iniciar con un número). Y son de un
 espacio de nombres separado, lo que significa que no hay conexión entre la
 variable C<$apellido{"walter"}>, la subrutina C<&apellido> o la variable
 C<$apellido>. 
