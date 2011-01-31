@@ -202,7 +202,7 @@ sin necesidad de leerlos de la entrada est·ndar.
 
 =begin programlisting
 
-    @ARGV = qw# larry moe curly #;  # Forza leer estos archivos
+    @ARGV = qw# larry moe curly #;  # Fuerza a leer estos archivos
     while (<>){
         chomp;
         print "$_ Esto fue lo que vi en los archivos tÌteres";
@@ -606,7 +606,7 @@ programa.
 
 Debido a esto, varios programas simples de Perl no cierran los filehandles.
 Pero si quieres ser ordenado, debe haber una llamada a C<close> por cada
-llamada a C<open>. En general, es mejor cerrar cada filehandle pronto despues
+llamada a C<open>. En general, es mejor cerrar cada filehandle pronto despu√©s
 de haber terminado con el. Aun que este cerca del fin del programa. 
 
 
@@ -615,7 +615,7 @@ de haber terminado con el. Aun que este cerca del fin del programa.
 Z<Errores fatales con die> 
 
 Miremos hacia un lado un momento. Necesitamos saber algunas cosas mas que
-aunque no estan relacionadas con los procesos de I/O nos va a permitir salir de
+aunque no est√°n relacionadas con los procesos de I/O nos va a permitir salir de
 un programa antes de lo esperado. 
 
 
@@ -699,7 +699,7 @@ lineas de un archivo passwd de Unix:
 =end programlisting
 
 Un filehandle abierto para escritura puede usarse con C<print> o C<printf>,
-colocandolo inmediatamente despues de la palabra reservada pero antes de la
+coloc√°ndolo inmediatamente despu√©s de la palabra reservada pero antes de la
 lista de argumentos: 
 
 =begin programlisting
@@ -727,12 +727,12 @@ ejemplo, vamos a enviar un par de lineas al filehandle BEDROCK:
 =end programlisting
 
 Hay que tener cuidado con esto, una vez que se termine de usar, se debe
-volver al valor por defecto STDOUT. De igualmanera, por defecto, la salida
+volver al valor por defecto STDOUT. De igual manera, por defecto, la salida
 hacia un filehandle se guarda en el buffer. Configurando la variable especial
 C<$|> a 1, va a hacer que el filehandle selecionado siempre haga flush del
 buffer despues de cada operaciÛn de salida. Entonces si se quiere asegurar que
 los archivos de log tengan los registros a tiempo, en el caso que quieras estar
-lellendo el log para monitorear el progreso del programa, puedes hacer algo
+leyendo el log para monitorear el progreso del programa, puedes hacer algo
 como esto: 
 
 =begin programlisting
@@ -759,7 +759,7 @@ enviar los mensajes de error a un archivo.
 
 =begin programlisting
 
-    # Envia los errores a mi log privado de errores
+    # Env√≠a los errores a mi log privado de errores
     if ( ! open STDERR, ">>/home/elsanto/.error_log"){
         die "No pude abrir el log de errores: $!";
     }
@@ -820,7 +820,7 @@ algunos programadores de Perl que van a querer ahorrase el tener que escribir
 cuatro caracteres extra. (dos del nombre y \n).
 
 
-=for L<ejercicios_04>
+L<ejercicios04>
 
 
 
