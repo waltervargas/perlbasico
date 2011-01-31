@@ -1,116 +1,101 @@
-\chapter{Introducción}
+\chapter{Hashes}
 
-\section*{Sobre Perl}
+En este capítulo, usted va a ver una de las caracteristicas que hacen de Perl uno de los mejores lenguajes del mundo de programación imperativa: Hashes \footnote{En los viejos tiempos, los llamabamos ``arrays asociativos''. Pero la comunidad de Perl decidio por 1995 que eran muchas letras al escribirlas y muchas silabas al pronunciarlo, entones cambiaron el nombre a ``Hashes''}
 
-Sobre Perl
+Aunque los Hashes son una útil y poderosa caracteristica, es probable que hallas usado otros lenguajes poderosos durante años sin haber escuchado sobre los Hashes. Pero usted va a usar hashes en casi todos los programas en Perl que escriba de ahora en adelante.
 
-Perl tiene unos 23 años hasta ahora. El lenguaje ha evolucionado desde una herramienta simple para la administración de sistemas tomando cosas de shell scripting y C (Perl 1) hasta convertirse en un poderoso lenguaje de propósito general (Perl 5), consistente, coherente, cambiando el paradigma de programación en general con la intensión de mantenerse por otros 25 años. (Perl 6)
+\section{¿ Que es un Hash ?}
 
-Aun así, la mayoría de los programas en el mundo, escritos en Perl 5, aprovechan muy poco las características del lenguaje. Usted \texttt{puede} escribir programas en Perl 5 como si estuviera en Perl 4 (o Perl 3 o 2 o 1), pero los programas que aprovechan todo el increíble poder del mundo de Perl 5 que la comunidad ha inventado, y mejorado, son mas cortos, rápidos, mas poderosos, y fáciles de mantener que sus alternativas en anteriores versiones.
+Un hash es una estructura de datos, no es muy diferente a un array, que puede almacenar cualquier número de valores y obtenerlos cuando quiera. Pero en lugar de indexar los valores por un numero, como lo hacemos con los arrays, vamos a indexar los valores por un nombre. Esto signif\mbox{}ica, que los indices (a los que vamos a llamar llaves) no son números, en lugar de esto vamos a usar cadenas arbitrarias únicas.
 
-\section*{¿ Porque Larry creo Perl ?}
+Primero que todo, las llaves son cadenas de caracteres, entonces, en lugar de usar el numero 3 para obtener un elemento de un array, vamos a acceder al elemento del hash llamado \texttt{wilma}.
 
-¿ Porque Larry creo Perl ?
+Estas llaves, son cadenas arbitrarias - usted puede usar cualquier expresión de cadena para la llave de un hash. Y estas son cadenas únicas - de igualmanera que en un array tenemos un único elemento numérico 3, aqui vamos a tener un único elemento del hash llamado \texttt{wilma}.
 
-Larry crea Perl a mediados de 1980, cuando intentaba producir reportes sobre la información ordenada jerárquicamente en archivos de la red de noticias USENET para un sistema de reporte de bugs, y awk no dio la talla. Entonces Larry, como buen programador perezoso que es, decide hacer una herramienta que pueda usar para resolver este problema y que pueda volver a usar para otro problema similar en otro lugar, en otro tiempo.
+Otra forma de pensar en un hash, es compararlo con un barril de datos, donde cada pieza de datos tiene una etiqueta. Tu puedes llegar al barril y sacar una etiqueta y mirar que pieza de datos contiene. Pero no va a ser el ``primer'' elemento del barril. En un array, comenzamos desde el elemento 0, seguido del elemento 1, el elemento 2 y así. Pero en un hash, no hay un orden f\mbox{}ijo, no hay un primer elemento. Es solo una colección de pares llave-valor.
 
-\section*{¿ Porque Larry simplemente no uso otro lenguaje ?}
+\begin{figure}[!h]
+\caption{Hashes}
+\begin{center}
+\label{hashes}
 
-¿ Porque Larry simplemente no uso otro lenguaje ?
 
-En este momento hay gran variedad de lenguajes, pero en esa época Larry no encontró un lenguaje que se adaptara a sus necesidades.
+\includegraphics{hashes}
 
-Si uno de los lenguajes de hoy, hubiese existido para la época, pues tal vez Larry lo hubiera usado para resolver el problema.
+\end{center}
+\end{figure}
+\begin{figure}[!h]
+\caption{Hashes como Barril}
+\begin{center}
+\label{hashes}
 
-Necesitaba algo con la rapidez de codif\mbox{}icación disponible en \textbf{Shell} o \textbf{AWK} y con algo del poder de las herramientas como \textbf{grep}, \textbf{cut}, \textbf{sort}, y \textbf{sed}, sin tener que recurrir a un lenguaje como \textbf{C}.
 
-Perl, intenta llenar la brecha entre los lenguajes de bajo nivel como C, C++, y Assembler, y los lenguajes de alto nivel de la época como Shell Scripting. La programación a bajo nivel, usualmente es difícil y fea de escribir, pero rápida y sin limitaciones, es difícil superar la velocidad de un programa bien escrito a bajo nivel en una máquina dada. Y no hay mucho que se pueda hacer.
+\includegraphics{barril}
 
-En el otro extremo, la programación convencional de alto nivel, tiende a ser lenta, dura, fea y limitada. Hay varias cosas que no puedes hacer con programación en shell o batch.
+\end{center}
+\end{figure}
+Las llaves y los valores son un conjunto de valores escalares ordinarios, pero las llaves son siempre convertidas a cadenas. Entonces, si usas la expresión numerica \texttt{50/20} como una llave, esto se va a convertir en una cadena de tres caracteres ``2.5''.
 
-Perl es fácil, casi ilimitado, muy rápido y solo un poco feo.
+Como es usual en Perl,"no existen los límites inecesarios'', esto también aplica a un hash, un hash puede ser de cualquier tamaño, desde un hash vacío con cero pares llave-valor, hasta cualquier cantidad de valores con los que pueda llena su memoria.
 
-\subsection*{Características principales de Perl}
+Algunas implementaciones de hashes (como originalmente era en el lenguaje awk) cuando los hashes son de gran tamaño tienden a ser lentos. Este no es el caso en Perl, en Perl es un algoritmo ef\mbox{}iciente, bueno y escalable. Entonces, si un hash tiene un solo árbol de pares llave-valor, es muy rápido ``buscar en el barril'' y tomar uno de esos valores. Si un hash tiene tres millones de pares clave-valor, debe ser igual de rápido tomar un valor. No se asuste, los hashs grandes no muerden.
 
-Caracteristicas principales de Perl
+Vale la pena volver a mencionar de nuevo que las llaves de un hash son siempre únicas, aunque los valores pueden estar duplicados. Los valores de un hash pueden ser todos números, cadenas, valores \texttt{undef}, o una mezcla \footnote{En efecto, cualquier valor escalar, incluyendo otros typos de datos escalares.}. Pero las llaves son simpre arbritariamente cadenas únicas.
 
-\subsubsection*{Perl es fácil}
+\section{¿ Porque usar un Hash ?}
 
-Perl es fácil
+\label{--Porque-usar-un-Hash--}
 
-Cuando nos referimos que Perl es fácil, hablamos de que es fácil de usar, no es especialmente fácil de aprender. Si usted conduce un carro, que paso semanas o meses aprendiendo a conducir, entonces luego va a ser fácil de conducir. De igual manera cuando pase la misma o mas cantidad de horas aprendiendo Perl, entonces despues va a ser muy fácil de usar.
+Cuando usted escucha por primera vez hablar de hashes, especialmente si usted ha vivido gran parte de su vida productiva como programador en otros lenguajes que no poseen hashes, podría preguntarse, quien querria una de estas criaturas extrañas. Pues bien, la idea general es que usted tendrá un grupo de datos relacionado con otro grupo de datos. Por ejemplo, aquí tenemos algúnos de los hashes que podrá encontrar en aplicaciones típicas de Perl:
 
-\subsubsection*{Perl es casí ilimitado}
+\vspace{-5pt}
 
-Perl es casí ilimitado
+\begin{description}
 
-Hay muy pocas cosas que no podrás hacer con Perl. Seguramente usted no deseará escribir un controlador de algún dispositivo de interrupción a nivel de micro-kernel (A pesar de que ya alguien hizo esto). Pero la mayoria de las cosas que la gente común y no tan común necesita, la mayoria del tiempo son buenas tareas para Perl, desde scripts muy pequeños, hasta aplicaciones de nivel industrial.
+\setlength{\topsep}{0pt}
+\setlength{\itemsep}{0pt}
+\item[] Nombres y Apellidos
 
-\subsubsection*{Perl es sobre todo rápido}
+En este caso, el primer nombre es la llave, y el apellido es el valor. Este tipo de hash requiere, por supuesto, que los nombres sean únicos. Si tiene dos personas con el mismo nombre, este ejemplo no va a funcionar para usted. Con este hash, puedes buscar a cualquiera por el nombre y obtener su apellido. Si usted busca por el nombre \texttt{Walter}, va a obtener el valor \texttt{Vargas}.
 
-Perl es sobre todo rápido
+\item[] Nombre de Host y dirección IP
 
-Esto es porque no hay nadie en el desarrollo que no lo utilice, de modo que entonces todos queremos que Perl sea rápido. Si alguien quiere añadir una nueva característica que sea genial, pero que introduzca lentitud a otros aspectos, es casí seguro que Larry va a rechazar la nueva característica hasta que no se encuentre una manera de escribirla de manera ef\mbox{}iciente.
+Usted debe saber que cada computadora en Internet tiene un nombre de host y una dirección IP. Esto es porque a las máquinas les gusta trabajar con números, pero a los humanos se les hace mas fácil recordar nombres. Los nombres de hosts son cadenas únicas, entonces pueden usarse para hacer este hash. Con este hash puedes buscar por el nombre de host y obtener la dirección ip correspondiente.
 
-\subsubsection*{Perl es un poco feo}
+\item[] Palabras, contar el número de veces que una palabra aparece.
 
-Perl es un poco feo
+La idea aquí es, que si usted quiere saber cuantas véces aparece una palabra en un documento dado. Puede hacer un hashs que contenga como llaves del hash a las palabras y como valor el número de repeticiones de la palabra.
 
-Esto es cierto, el camello se ha convertido en el simbolo de Perl, desde la cubierta del legendario libro \textbf{The Camel Book}, conocido tambien como \textbf{Programming Perl by Larry Wall, Tom Christianesen, and Jon Orwant}. Los camellos tambien son un poco feos, pero trabajan duro, incluso en condiciones difíciles. Los camellos siempre están ahí siempre para hacer el trabajo a pesar de todas las dif\mbox{}icultades, incluso cuando se ven y huelen mal e incluse le escupen. Perl es un poco así.
+\item[] Cédula y Nombre
 
-\section*{¿ Perl es fácil o difícil ?}
+Este es un ejemplo común, ya sabemos que los números de cédulas son cadenas únicas, entonces podemos tener un hash que contenga como llave el número de cédula y como valor el nombre de la persona.
 
-Perl es fácil o difícil ?
+\end{description}
 
-Perl es fácil de usar, pero a veces difícil de aprender. Esto por su puesto es una gereralización. En el diseño de Perl, Larry tuvo que hacer muchas consideraciones. Cuando ha tenido la oportunidad de hacer algo más fácil para el programador a costa de ser más difícil para el estudiante, ha decidido casi todo el tiempo a favor del programador. Esto es así, porque usted va a aprender Perl una sola vez, pero lo vas a usar una y otra vez. Perl posee cualquier cantidad de comodidades que le permiten al programador ahorrar tiempo. Por ejemplo, la mayoria de las funciones tienen un valor predeterminado, con frecuencia, el valor por defecto es justamente la manera en la que usted desea usar la función. De esta manera, podrás encontra lineas de código en Perl como las siguientes:
+\vspace{-5pt}
+\section{Acceder al elemento de un Hash}
 
-\begin{verbatim}
-    while (<>) { 
-        chomp;
-        print join("\t", (split /:/)[0, 2, 1, 5] ), "\n";
-    }\end{verbatim}
-En su totalidad, sin usar los atajos y los valores por defecto de Perl, este trozo de código seria aproximadamente 10 o 12 veces mas largo, entonces tomaria mas tiempo para escribirlo y leerlo. Va a ser mas duro de mantener y depurar cuando tenga mas variables.
+\label{Acceder-al-elemento-de-un-Hash}
 
-\section*{¿ Como se hizo Perl tan popular ?}
+Para acceder al elemento de un hash usamos la siguiente sintáxis:
 
-¿ Como se hizo Perl tan popular ?
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    $hash\{$alguna_llave_del_hash\}
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+Es bastante similar a la sintáxis que usamos para acceder a un array, pero en este caso vamos a usar llaves en lugar de corchetes alrededor del subindice (llave). \footnote{Aquí daremos un vistazo dentro de la mente de Larry Wall: Larry decía, vamos a usar llaves en lugar de corchetes porque estamos haciendo algo mas sof\mbox{}isticado que acceder a un array, entonces debemos usar un signo de puntuación mas sof\mbox{}isticado.}
 
-Despues de jugar un rato con Perl, agregando cosas aquí y allá, Larry se lanzó a la comunidad de lectores de la Usenet, comunmente conocidad como \textbf{La Red}. Los usuarios de esta f\mbox{}lota fugitiva que trabajaban en sistemas en todo el mundo (decenas de miles de ellos), le dieron retroalimentación, pidiendo a Larry, maneras de hacer esto, aquello o lo otro, muchos de los cuales Larry nunca había imaginado en su hasta el momento poco manejo de Perl.
+Podemos asigar los valores de la siguiente manera:
 
-Pero como resultado, Perl creció, y creció y creció. Creció en características. Creció en portabilidad. Lo que antes era un lenguaje poco disponible en solo un par de sistema tipo Unix, ahora tiene miles de páginas de documentación en linea gratis, docenas de libros, y miles de listas de correo en cientos de idiomas con un número incontable de lectores, e implementaciones en varios sistemas de uso cotidiano hoy en día, y adicionalmente un curso como este.
-
-\section*{¿ Que esta pasando con Perl ahora ?}
-
-¿ Que esta pasando con Perl ahora ?
-
-Durante estos días, Larry Wall no escribe código, pero el sigue guiando el desarrollo y toma las desiciones importantes. Perl es mayormente mantenido por un grupo de resistentes y valientes personas llamadas \textbf{The Perl 5 Porters}. Puede suscribirse a la lista de correo en \textbf{perl5-porters@perl.org} para seguir el trabajo de esta gente y sus debates. Al momento de escribir esta documentación, muchas cosas estan pasando con Perl. Durante los últimos años, muchas personas han estado trabajando en la próxima versión de Perl: Perl 6.
-
-No tire a un lado Perl 5, este sigue siendo la versión actual y estable. No se espera una version estable de Perl 6 durante un rato largo. Perl 5 hace todo lo de siempre, y siempre sera así. Perl 5 no va a desaparecer cuando Perl 6 salga. Y la gente puede seguir usando Perl 5 durante muchos años mas.
-
-\section*{¿ Que es CPAN ?}
-
-¿ Que es CPAN ?
-
-CPAN es \textbf{Comprehensive Perl Archive Network}, su primera parada para Perl. Posee el código fuente de Perl, listo para instalar y los \textbf{ports} para todos los sistemas no Unix, ejemplos, documentación, y extensiones del lenguaje.
-
-CPAN es replicado en cientos de máquinas al rededor del mundo, comenzando en \textbf{http://search.cpan.org} o \textbf{http://kobesearch.cpan.org} para navegar o buscar un paquete. Si no tienes acceso a la red, todo CPAN puede caber en 8 o 10 GB. Es importante mencionar que debido a los cambios diarios en CPAN, un mirror con dos años sin actualizares es def\mbox{}initivamente una antiguedad.
-
-\section*{¿ Como hacer un programa en Perl ?}
-
-¿ Como hacer un programa en Perl ?
-
-Ya es tiempo de hacer esta pregunta (aunque usted no la halla hecho aun), Los programas de Perl son archivos de texto plano, usted puede crearlos y editarlos en su editor de textos preferido, yo personalmente pref\mbox{}iero \textbf{VIM}. (Usted no necesita entornos de desarrollo especiales, aunque hay disponibles editores comerciales de varios proveedores. Nunca hemos utilizado uno de estos lo suf\mbox{}iciente como para recomendarlo). Por lo general debería usar un editor de texto pensado para programadores, en lugar de un editor de textos convencional. ¿ Cual es la diferencia ? Bueno, un editor pensado para programadores le va a permitir hacer cosas que necesitan los programadores, como sangrado automático o subrayado de bloques de código, o indicar automáticamente la llave de cierre de un bloque de código. En sistemas operativos tipo Unix, los editores de texto mas populares son \textbf{Emacs} y \textbf{Vim}. BBEdit y TextMate son buenos para Mac OS X, mucha gente ha hablado muy bien sobre UltraEdit y PFE en Windows. La página del manual perlfaq2 tiene una lista de otros editores que también pueden usarse.
-
-\section*{Un programa simple}
-
-Un programa simple
-
-Según la regla mas antigua de los libros de computación, cualquier libro sobre algún lenguaje de programación que tenga raices Unix, va a comenzar con \textbf{Hola, Mundo}, por ejempo en Perl seria así:
-
-\begin{verbatim}
-    #!/usr/bin/perl 
-    print "Hello, world!\n";\end{verbatim}
-\section*{Sobre los ejercicios y sus respuestas}
-
-Los ejercicios se encuentran al f\mbox{}inal de cada capítulo, una vez que se desarrolle cada capítulo, se tomaran 45 a 50 minutos para resolver los ejercicios correspondientes a cada capítulo.
-
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    $apellido\{"fred"\}       = "flintstone";
+    $apellido\{"barney"\}     = "rubble";
+    $apellido\{"hugo"\}       = "chavez";
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize

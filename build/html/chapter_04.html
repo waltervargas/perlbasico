@@ -1,0 +1,609 @@
+<html>
+<body>
+<link rel='stylesheet' href='style.css' type='text/css'>
+
+<h1>Entrada y Salida</h1>
+
+<p><a name="Entrada y Salida"></p>
+
+<p>Ya hemos visto antes como hacer alguna entrada/salida, con el fin de hacer algunos de los ejercicios. Pero ahora vamos a aprender más acerca de las operaciones que cubren el 80% de la E/S que se necesita para la mayoría de los programas. Por ahora, sólo piense en "entrada estándar" como "el teclado", y "salida estándar" como "la pantalla".</p>
+
+<h2>Entrada desde la Entrada Estándar</h2>
+
+<p><a name="Entrada para Entrada Estándar"></p>
+
+<p>Leer el flujo de datos que viene desde la entrada estándar es fácil. Ya hemos estado haciendo esto antes con el operador line-input STD. Si evaluamos este operador en contexto escalar, obtendremos la próxima linea de la entrada. Por ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    $line = &lt;STDIN&gt;;        # lectura de la siguiente l&iacute;nea
+    chomp($line);           # y chomp 
+    chomp($line = &lt;STDIN&gt;); # lo mismo m&aacute;s idiom&aacute;ticamente
+ </code></pre>
+
+</div>
+
+<p>Dado que del operador de línea de entrada devolverá <code>undef</code> cuando llegue al final del archivo, podemos usar esto para salir de un ciclo:</p>
+
+<div class="programlisting">
+
+<pre><code>    while (defined($line = &lt;STDIN&gt;)) {
+      print &quot;I saw $line&quot;;
+    } </code></pre>
+
+</div>
+
+<p>Muchas cosas ocurren esa primera línea: estamos leyendo la entrada en una variable, se comprueba que este definida, y si lo está (lo que significa que no hemos llegado al final de la entrada) entramos al bucle <code>while</code>. Luego dentro del bucle, vamos a tener cada linea una tras otra en la variable <code>$_</code>. Es importante resaltar que no estamos haciendo <code>chomp</code> de la entrada. En este tipo de bucles, no puedes poner <code>chomp</code> en la expresión condicional, entonces lo que se hace con frecuencia, si es necesario, es poner chomp en la primera linea del cuerpo del bucle. Como es algo que vas a querer hacer con bastante frecuencia, naturalmente como ya hemos visto antes, Perl tiene un atajo para hacer esto. El atajo se ve así:</p>
+
+<div class="programlisting">
+
+<pre><code>    while (&lt;STDIN&gt;){
+        print &quot;Say: $_&quot;; 
+    }</code></pre>
+
+</div>
+
+<p>De esta manera, las lineas leídas de la entrada estándar, automáticamente van a estar contenidas en la variable mágica <code>$_</code> por defecto. Pero tenga cuidado, esto funciona solo cuando no hay mas nada que <code><STDIN></code> en la expresión condicional de un bucle <code>while</code>. Si colocas algo más en la expresión condicional, este atajo no va a funcionar.</p>
+
+<p>Es importante destacar que cuando evaluamos el operador <code>line-input</code> en la expresión condicional de un ciclo while, lo estamos evaluando en un contexto escalar.</p>
+
+<p>De otra manera, evaluando el operador <code>line-input</code> en contexto de lista, obtendremos todas las lineas de la entrada como una lista, cada elemento de la lista es una linea:</p>
+
+<div class="programlisting">
+
+<pre><code>    foreach (&lt;STDIN&gt;){
+        print &quot;Say: $_&quot;; 
+    }</code></pre>
+
+</div>
+
+<p>No existe una conexión entre la variable mágica <code>$_</code> y el operador <code>line-input</code> (STDIN). Para este caso, la variable de control por defecto de un bucle <code>foreach</code> es <code>$_</code>.</p>
+
+<p>Posiblemente no vea la diferencia aun entre como relaciona Perl al operador <code>line-input</code> y la variable mágica <code>$_</code> en el bucle <code>while</code> y el bucle <code>foreach</code>. En el bucle <code>while</code>, Perl lee la linea entrante y la asigna a la variable <code>$_</code>, y luego entra al bucle. Luego regresa, lee la siguiente linea y la asigna de igual manera a la variable mágica <code>$_</code> y entra nuevamente al bucle. Pero en un bucle <code>foreach</code>, el operador <code>line-input</code> es utilizado en un contexto de lista (porque el foreach necesita una lista que iterar). Entonces lee todas las lineas antes de iniciar el bucle. La diferencia la podemos ver en el momento en que tengamos que procesar por ejemplo 400 MB de archivos de registro (logs), en este caso generalmente es mejor usar <code>while</code>, pues va a procesar una linea a la vez.</p>
+
+<h4>El Operador Diamante (La Cometa)</h4>
+
+<p><a name="El Operador Diamante (La Cometa)"></p>
+
+<p>Otra forma de leer la entrada de datos es con el operador diamante (o cometa): <code><></code>. Es muy útil para usar en programas que corren en sistemas operativos tipo Unix, con respecto a la invocación de argumentos. Si desea que sus programas en Perl puedan usarse como utilidades de Unix (cat, sed, sort, grep, lpr, y otras mas), el operador diamante va a ser su amigo.</p>
+
+<p>La invocación de argumentos de un programa normalmente son un numero de "palabras" en la linea de comandos que vienen después del nombre del programa. En este caso, vamos a darle nombres de archivos y su programa va a procesarlos en secuencia:</p>
+
+<div class="screen">
+
+<pre><code>    $ ./my_program fred barney betty</code></pre>
+
+</div>
+
+<p>El comando anterior, correo el <i>comando</i> <code>my_program</code> (que debe estar en el directorio actual ), y el programa va a procesar los archivos fred, barney, y betty</p>
+
+<p>Si no invocamos argumentos, el programa va a procesar la entrada estándar. O, como caso especial, si le da un solo guion (-) como argumento esto también significa leer desde la entrada estándar. Entonces, si la lista de argumentos es: <code>fred - betty</code>, va a leer el archivo fred, luego va a leer la entrada estándar y luego va a leer el archivo betty.</p>
+
+<p>La ventaja de hacer que sus programas funcionen de esta manera es que tu puedes escoger el tipo de entrada de datos en tiempo de ejecución, por ejemplo no necesitas reescribir un programa para usar una tubería (<code>|</code>). Larry puso esta característica en Perl, porque quería que fuera fácil para usted, escribir programas que trabajaran como utilidades estándar de Unix.</p>
+
+<p>El operador diamante, es actualmente un operador especial de <code>line-input</code>. Pero en lugar de obtener la entrada desde el teclado, este toma los datos del tipo de entrada que el usuario escoja:</p>
+
+<div class="programlisting">
+
+<pre><code>    while (defined($line = &lt;&gt;)) {
+        chomp($line);
+        print &quot;It was $line that I saw!\n&quot;;
+    }</code></pre>
+
+</div>
+
+<p>Entonces, con este programa, si le damos los archivos fred, barney, y betty, va a procesar las lineas del archivo fred en la variable $line, luego que termine con el archivo fred va por el archivo barney y luego por el archivo betty. Note que el ciclo no se rompe entre un archivo y otro, cuando usamos el operador diamante, todos los archivos se juntan en un solo archivo grande.</p>
+
+<p>El operador diamante va a retornar <code>undef</code> cuando llegue al final de todo el conjunto de archivos, con lo que se va a terminar el ciclo.</p>
+
+<p>De igual manera el atajo de la variable mágica <code>$_</code> se puede usar con este operador. Por ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    while(&lt;&gt;){
+        chomp;
+        print &Iuml;t was $_ that I saw!\n&quot;;
+    }</code></pre>
+
+</div>
+
+<p>Esto funciona exactamente igual al código anterior, solo que escribimos menos. Y debe haber notado que estamos usando el comportamiento por defecto de <code>chomp</code>; si no le damos argumentos a <code>chomp</code>, va a trabajar con la variable mágica <code>$_</code>.</p>
+
+<p>Cuando el operador de diamante no puede abrir un archivo, muestra un mensaje de diagnostico:</p>
+
+<div class="screen">
+
+<pre><code>    Can&#39;t open maria: No such file or directory</code></pre>
+
+</div>
+
+<h2>Invocación de Argumentos</h2>
+
+<p><a name="Invocación de Argumentos"></p>
+
+<p>Técnicamente, usar el operador de diamante no hace invocación de argumentos. El funciona usando el array <code>@ARGV</code>. Este array es un array especial que esta predefinido en el interprete de Perl como la lista de invocación de argumentos. En otras palabras, este es otro array con un divertido nombre en mayúsculas sostenidas, cuando tu programa inicia, <code>@ARGV</code> ya esta lleno con la lista de argumentos.</p>
+
+<p>Puedes usar el array <code>@ARGV</code> como cualquier otro array, puedes sacar cosas de el con <code>shift</code> o usar un <code>foreach</code> para iterarlo.</p>
+
+<p>El operador de diamante busca en @ARGV para determinar que nombres de archivos debe usar. Si encuentra una lista vacía, usa lo que viene de la entrada estándar. Esto significa que después que el programa inicia y antes de usar el operador de diamante, tienes chance de jugar con <code>@ARGV</code>. Por ejemplo, si sabemos que archivos queremos procesar, podemos poner los nombres en <code>@ARGV</code> sin necesidad de leerlos de la entrada estándar.</p>
+
+<div class="programlisting">
+
+<pre><code>    @ARGV = qw# larry moe curly #;  # Fuerza a leer estos archivos
+    while (&lt;&gt;){
+        chomp;
+        print &quot;$_ Esto fue lo que vi en los archivos t&iacute;teres&quot;;
+    }
+=end programlisting</code></pre>
+
+<h2>Salida hacia la Salida Estándar</h2>
+
+<p><a name="Salida hacia la Salida Estándar"></p>
+
+<p>El operador print, toma un lista de valores y envía cada elemento (como una cadena por supuesto) hacia la salida estándar, uno después del otro. No agrega nada delante, atrás, o entre los elementos. Si quiere algo adicional, como un salto de linea o un espacio, tiene que colocarlo a mano usted mismo.</p>
+
+<p>Por su puesto, esto significa que hay una diferencia entre imprimir un array e interpolar un array:</p>
+
+<div class="programlisting">
+
+<pre><code>    print @array;   # Imprime la lista de elementos
+    print &quot;@array&quot;; # Imprime una cadena (el array interpolado)</code></pre>
+
+</div>
+
+<p>La primera instrucción va a imprimir la lista de elementos, uno tras el otro, sin colocar espacios en el medio ni nada. La segunda instrucción va a imprimir cada elemento con un espacio entre cada elemento. Ejemplo.</p>
+
+<div class="screen">
+
+<pre><code>  D<b>36</b> @a = qw/maria pedro juan/ 
+
+  D<b>38</b> print @a                                                                   mariapedrojuan
+  
+  D<b>39</b> print &quot;@a&quot;;                                                           
+    maria pedro juan</code></pre>
+
+</div>
+
+<p>Dado que <code>print</code> espera una lista de cadenas y las imprime, sus argumentos son evaluados en contexto de lista. Dado que el operador diamante devuelve una lista de lineas en contexto de lista. Podemos reescribir las dos clásicas herramientas de Unix (<b>cat</b> y <b>sort</b>).</p>
+
+<div class="programlisting">
+
+<pre><code>    print &lt;&gt;;           # cat en Perl
+
+    print sort &lt;&gt;;      # sort en Perl</code></pre>
+
+</div>
+
+<p>Claro, para ser honestos, los comandos <code>cat</code> y <code>sort</code> tienen una serie de funcionalidades adicionales que estos pequeños programas no tienen.</p>
+
+<p>Seguro a notado que <code>print</code> al ser una función, puede omitir los paréntesis, recuerde que puede hacer esto siempre y cuando quitar los paréntesis no cambie el significado de la expresión, supongamos que tenemos el siguiente ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    print (2+3);</code></pre>
+
+</div>
+
+<p>Parece una llamada a función y es una llamada a función. Esto imprime 5, y retorna un valor como cualquier otra función. El valor de retorno de <code>print</code> es verdadero o falso, indicando que efectivamente realizo la impresión, a menos que ocurra algún error del tipo I/O, el resultado normal de <code>print</code> va a ser <b>1</b>.</p>
+
+<div class="programlisting">
+
+<pre><code>    $result = print(&quot;Hola mundo\n&quot;);</code></pre>
+
+</div>
+
+<p>Pero supongamos que tenemos el siguiente código:</p>
+
+<div class="programlisting">
+
+<pre><code>    print (2+3)*4;</code></pre>
+
+</div>
+
+<p>¿ Que cree que va a ocurrir con esta instrucción ?, definitivamente no va a salir 20 por la pantalla. Perl va a imprimir 5, y va a multiplicar 1 por 4, y el resultado lo va a tirar a la basura.</p>
+
+<p>Este es un problema típico de los paréntesis opcionales, a veces los humanos olvidamos que los paréntesis realmente importan. Cuando usamos print sin los paréntesis, print es un operador de lista, imprime todos los elementos de esa lista. Pero cuando la primera cosa después de print es un paréntesis, print es una llamada de función, y va a imprimir solo lo que encuentre entre los paréntesis.</p>
+
+<p>Actualmente, esta regla "Si parece una llamada a una función, es una llamada a función, aplica para todas las funciones de lista.</p>
+
+<h2>Formatear la salida con printf</h2>
+
+<p><a name="Formatear la salida con printf"></p>
+
+<p>Puede ser que quiera tener mas control con la salida de lo que ofrece print. En efecto, puede estar acostumbrada a formatear la salida con la función <code>printf</code> de Perl. No se preocupe, Perl provee una operación compatible con el mismo nombre.</p>
+
+<p>El operador <code>printf</code> toma una cadena con formato seguida de una lista de cosas a imprimir. Ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    printf &quot;Hola, %s; su contrase&ntilde;a expira en %d d&iacute;as!\n&quot;, 
+    $user, $dias_para_morir;</code></pre>
+
+</div>
+
+<p>La cadena con formato posee un numero de conversiones, estas conversiones comienzan con un signo de porcentaje (%) y termina con una letra. Debe haber la misma cantidad de elementos en la cadena con formato que en la lista que se pasa como argumento.</p>
+
+<p>Para imprimir números generalmente es bueno usar la conversión <code>%g</code>, que automáticamente escoje entre punto flotante, entero, o notación exponencial, cual sea necesaria.</p>
+
+<div class="programlisting">
+
+<pre><code>    printf &quot;%g %g %g\n&quot;, 5/2, 51/17, 51 ** 17; # 2.5 3 1.0683e+29</code></pre>
+
+</div>
+
+<p>El formato <code>%d</code> indica decimal entero truncado.</p>
+
+<div class="programlisting">
+
+<pre><code>    printf &quot;in %d days!\n&quot;, 17.85; # in 17 days!</code></pre>
+
+</div>
+
+<p>Note que este proceso de truncado no redondea, en un momento vamos a ver como redondear números.</p>
+
+<p>En Perl, <code>printf</code> es usado con frecuencia para datos en columnas, la mayoría de los formatos permiten indicar el ancho del campo. Si los datos no llenan el campo, de igual manera el campo se expande dejando del espacio requerido.</p>
+
+<div class="programlisting">
+
+<pre><code>    printf &quot;%6d\n&quot;, 42; # se ver&iacute;a asi:  ````42 (` representa espacio blanco)
+    printf &quot;%2d\n&quot;, 2e3 + 1.95; # 2001 </code></pre>
+
+</div>
+
+<p>La conversión <code>%s</code> se usa para las cadenas, efectivamente interpola el valor obtenido como una cadena, y también se le puede indicar el tamaño del campo:</p>
+
+<div class="programlisting">
+
+<pre><code>    printf &quot;%10s\n&quot;, &quot;wilma&quot;; # se ver&iacute;a `````wilma</code></pre>
+
+</div>
+
+<p>Un valor negativo en el tamaño del campo, indica justificado a la izquierda:</p>
+
+<div class="programlisting">
+
+<pre><code>    printf &quot;%-15s\n&quot;, &quot;flinstone&quot;;  # se ve flinstone`````</code></pre>
+
+</div>
+
+<p>La conversión <code>%f</code> redondea, y permite indicar cuantos números quiere después del punto decimal.</p>
+
+<div class="programlisting">
+
+<pre><code>    printf &quot;%12f\n&quot;, 6 * 7 + 2/3;   # se ve ```42.666667
+    printf &quot;%12.3f\n&quot;, 6 * 7 + 2/3; # se ve ``````42.667
+    printf &quot;%12.0f\n&quot;, 6 * 7 + 2/3; # se ve ``````````43</code></pre>
+
+</div>
+
+<p>Para imprimir un signo de porcentaje, usamos <code>%%</code>:</p>
+
+<div class="programlisting">
+
+<pre><code>    printf &quot;Inter&eacute;s Mensual : %.2f%%\n&quot;,  5.25/12; # El valor seria &quot;0.44%</code></pre>
+
+</div>
+
+<h2>Arrays y printf</h2>
+
+<p><a name="Arrays y printf"></p>
+
+<p>Generalmente, usted no va a usar un array como argumento para <code>printf</code>. Esto es porque un array almacena cualquier numero de elementos, y la cadena de formato viene dada para trabajar con un numero finito de elementos. Si hay tres conversiones de formato, deben haber exactamente tres elementos.</p>
+
+<p>Pero no hay razón para no hacer la cadena de formato al vuelo, puesto que puede ser cualquier expresión. Este puede ser un truco para hacer esto:</p>
+
+<div class="programlisting">
+
+<pre><code>    my @items = qw( wilma dino pebbles );
+    my $format = &quot;The items are:\n&quot; . (&quot;%10s\n&quot; x @items);
+    ## print &quot;the format is &gt;&gt;$format&lt;&lt;\n&quot;; # for debugging
+    printf $format, @items;</code></pre>
+
+</div>
+
+<p>Aquí usamos el operador <code>x</code> (Que aprendimos en el capítulo 2) para replicar la cadena dada el número de veces dado por <code>@items</code> (en contexto escalar).</p>
+
+<p>Pero podemos hacer esto mas corto y mas mágico:</p>
+
+<div class="programlisting">
+
+<pre><code>    printf &quot;The items are:\n&quot;.(&quot;%10s\n&quot; x @items), @items;</code></pre>
+
+</div>
+
+<p>Note que @items esta siendo usado en contexto escalar, para obtener su longitud, y en contexto de lista para obtener sus valores. El <b>Contexto</b> es importante.</p>
+
+<h2>Filehandles</h2>
+
+<p><a name="Filehandles"></p>
+
+<p>Un Filehandle es el nombre en un programa en Perl para una conexión de E/S entre el proceso Perl y el mundo exterior. Es decir, es el nombre de una conexión, no necesariamente el nombre de un archivo.</p>
+
+<p>Los Filehandle se llaman igual que otros identificadores de Perl (con letras, dígitos y pisos bajos) pero no pueden comenzar con un dígito.</p>
+
+<p>Actualmente hay seis nombres de Filehandle especiales en Perl que se usan para propósitos específicos: STDIN, STDOUT, STDERR, DATA, ARGV, y ARGVOUT. Aunque puede elegir cualquier nombre para un Filehandle, no debería usar ninguno de estos seis nombres, a menos que quiera hacer algo muy especial. <font class="footnote"> (footnote: En algunos casos puede reusar estos nombres sin ningún problema. Pero un programador menos experimentado que mantenga el código va a confundirse)</font>.</p>
+
+<p>Cuando su programa inicia, el Filehandle llamado <code>STDIN</code> es la conexión entre el proceso Perl y lo que sea que el programa tenga como entrada, conocido como entrada estándar o <i>standard input stream</i>. Esto generalmente es el teclado del usuario a menos que el usuario use otra cosa como fuente de datos para la entrada, como un archivo o la salida de otro programa a través de una <i>tubería</i>. También esta la salida estándar o <i>standard output stream</i>, que es es Filehandle <code>STDOUT</code>. Por defecto, esta conectada con la pantalla del usuario, pero el usuario puede enviar la salida a un archivo o a otro programa a través de una <i>tubería</i>. Esto del flujo estándar o <i>standard stream</i> viene de la librería de Unix <i>standard I/O</i>.</p>
+
+<p>La idea general es que el programa lea desde <code>STDIN</code> y escriba en <code>STDOUT</code>, confiando en el usuario (o generalmente un programa que inicie su programa). De esta forma, el usuario puede escribir una linea de comandos en el prompt del shell como esta:</p>
+
+<div class="screen">
+
+<pre><code>    $ ./su_programa &lt;dino &gt;willma </code></pre>
+
+</div>
+
+<p>Esto le dice a la terminal, que la entrada de su programa viene de <i>dino</i> y la salida va a <i>willma</i>. Esto funciona siempre y cuando la entrada de su programa sea STDIN y la salida valla a STDOUT.</p>
+
+<p>Sin ninguna modificación el programa va a trabajar sin problemas con <i>tuberías</i>. Este es otro concepto de Unix, que le permite escribir lineas de comando como la siguiente:</p>
+
+<div class="screen">
+
+<pre><code>    $ cat fred barney | sort | ./su_programa | grep algo | lpr</code></pre>
+
+</div>
+
+<h3>Abrir un Filehandle</h3>
+
+<p><a name="Abrir un Filehandle"></p>
+
+<p>Como ya sabe, Perl provee tres filehandles - STDIN, STDOUT, STDERR, que automáticamente abren archivos o dispositivos establecidos por el programa padre del proceso (probablemente la terminal). Cuando necesita otros filehandles, debe usar el operador <code>open</code> para decirle a Perl, que le pida al sistema operativo que abra una conexión entre su programa y el mundo exterior. Aquí tenemos algunos ejemplos:</p>
+
+<div class="programlisting">
+
+<pre><code>    open CONFIG, &quot;dino&quot;;
+    open CONFIG, &quot;&lt;dino&quot;;
+    open BEDROCK, &quot;&gt;fred&quot;;
+    open LOG, &quot;&gt;&gt;logfile&quot;;</code></pre>
+
+</div>
+
+<p>El primero, abre un filehandles llamado <code>CONFIG</code> a un archivo llamado <code>dino</code>. Esto es, el archivo <i>dino</i> va a ser abierto y lo que sea que tenga en su contenido, va a estar disponible en el programa a través del filehandle llamado <code>CONFIG</code>. El segundo hace exactamente lo mismo que el primero, pero con un signo <i>menor que</i> indicando "Use este nombre de archivo como entrada", a pesar de que eso es lo que hace por defecto.</p>
+
+<p>Para abrir el filehandle BEDROCK para enviar la salida allí, usamos el signo <i>mayor que</i>, esto envía la salida al archivo fred. Si el archivo ya existe y tiene contenido, automáticamente reemplaza el contenido del archivo con la salida que enviamos al filehandle.</p>
+
+<p>El cuarto ejemplo, indica como podemos usar dos signos <i>mayor que</i> para abrir un archivo sin reemplazar su contenido y anexar nuestra salida al final del archivo. Si no existe el archivo, lo crea y agrega el contenido, como si se tratara de un solo signo <i>mayor que</i>. Esta es una forma de manejar los archivos de registro (logfile). El programa puede escribir un grupo de lineas al archivo de registro cada ves que se ejecuta.</p>
+
+<p>Puedes usar una expresión en lugar de un nombre de filehandle específico. Luego solo queda indicar la dirección explícita:</p>
+
+<div class="programlisting">
+
+<pre><code>    my $selected_output = &quot;my_output&quot;; 
+    open LOG,  &quot;&gt; $selected_output&quot;; </code></pre>
+
+</div>
+
+<p>Note que el espacio después del signo <i>mayor que</i>. Perl ignora esto.</p>
+
+<p>En desde la version 5.6 de Perl, puedes usar un tercer argumento extra para <code>open</code>:</p>
+
+<div class="programlisting">
+
+<pre><code>    open CONFIG, &quot;&lt;&quot;, &quot;dino&quot;;
+    open BEDROCK, &quot;&gt;&quot;, $file_name;
+    open LOG, &quot;&gt;&gt;&quot;, &amp;logfile_name();</code></pre>
+
+</div>
+
+<h3>Filehandles Malos</h3>
+
+<p><a name="Filehandles Malos"></p>
+
+<p>Perl actualmente no abre el archivo por el mismo, Perl le pide al sistema operativo que abra el archivo por el. Por su puesto, el sistema operativo puede negarse a hacerlo debido a una configuración de permisos, un nombre de archivo incorrecto u otras razones.</p>
+
+<p>Si intentas leer de un filehandle malo, vas a ver inmediatamente un <code>end-of-file</code> o fin de archivo. <code>end-of-file</code> indica <code>undef</code> en contexto escalar o una lista vacia en contexto de lista.</p>
+
+<p>Si intentas escribir en un filehandle malo, los datos simplemente se perderan.</p>
+
+<p>Afortunadamente, estas consecuencias son fáciles de evitar. Primero que todo, si estamos usando el pragma <code>warnings</code> o el switch <code>-w</code>, Perl va a advertirnos cuando vea que estamos usando un filehandle malo. Pero incluso antes de esto, la llamada <code>open</code> siempre nos indica si puedo hacer el trabajo o fallo, retornando verdadero o falso. Entonces, puedes escribir tu código de la siguiente manera:</p>
+
+<div class="programlisting">
+
+<pre><code>    my $success = open LOG, &quot;&gt;&gt;logfile&quot;; # capture the return value
+    if ( ! $success) {
+        # Fallo Open 
+        ...
+    }</code></pre>
+
+</div>
+
+<h3>Cerrar un Filehandle</h3>
+
+<p><a name="Cerrar un Filehandle"></p>
+
+<p>Cuando termines de trabajar con el Filehandle, puedes cerrarlo con el operador de cierre, de la siguiente forma:</p>
+
+<div class="programlisting">
+
+<pre><code>    close BEDROCK;</code></pre>
+
+</div>
+
+<p>Cerrar un Filehandle le dice al sistema operativo, que hemos terminado la conexión con el archivo, entonces los últimos datos enviados por esa conexión son escritos al disco, si eso es lo que se espera.</p>
+
+<p>Perl, automáticamente cierra un filehandle si lo abres de nuevo (esto ocurre si reusas el nombre del filehandle en otra llamada a <code>open</code>) o si sales del programa.</p>
+
+<p>Debido a esto, varios programas simples de Perl no cierran los filehandles. Pero si quieres ser ordenado, debe haber una llamada a <code>close</code> por cada llamada a <code>open</code>. En general, es mejor cerrar cada filehandle pronto despuÃ©s de haber terminado con el. Aun que este cerca del fin del programa.</p>
+
+<h2>Errores fatales con die</h2>
+
+<p><a name="Errores fatales con die"></p>
+
+<p>Miremos hacia un lado un momento. Necesitamos saber algunas cosas mas que aunque no estÃ¡n relacionadas con los procesos de I/O nos va a permitir salir de un programa antes de lo esperado.</p>
+
+<p>Cuando ocurre un error fatal en Perl (por ejemplo, si haces una division por cero, uso de una expresión regular inválida, o llamar una subrutina que no esta definida), sus programas se rompen con un mensaje de error indicando la razón del porqué <font class="footnote"> (footnote: Bueno, esto pasa por defecto, pero podemos atrapar los errores con la función eval, que vamos a ver mas adelante en otro capítulo)</font>. Esta funcionalidad esta disponible para nosotros a través de la función <code>die</code>, entonces podemos hacer nuestros propios errores fatales.</p>
+
+<p>La función <code>die</code> imprime el mensaje que le pasas como argumento, y se asegura que el programa termine con una salida diferente de cero.</p>
+
+<p>Probablemente no lo sepa, pero cada programa que se corre en Unix tiene un estado de salida, indicando cuando termina satisfactoriamente y cuando no. Programas que corren otros programas (como la utilidad make) mira el estado de salida para saber si todo va bien. El estado de salida es un simple byte, tradicionalmente 0 es <i>termine satisfactoriamente</i> y diferente de 0 es lo contrario.</p>
+
+<p>Entonces, podemos escribir el ejemplo anterior de la siguiente manera:</p>
+
+<div class="programlisting">
+
+<pre><code>    if ( ! open LOG, &quot;&gt;&gt;logfile&quot;) {
+        die &quot;No se pudo crear el archivo de logs: $!&quot;; 
+    }</code></pre>
+
+</div>
+
+<p>Si <code>open</code> falla, <code>die</code> va a terminar el programa diciendo: "No se pudo crear el archivo de logs. Pero, ¿ Que es esa variable $! en el mensaje ?, Esto es, una queja del sistema que un ser humano puede leer. En general, cuando el sistema se niega a hacer algo que le estamos pidendo, en <code>$!</code> esta la razon del porqué.</p>
+
+<p>Hay otra cosa interesante que <code>die</code> puede hacer por nosotros, automáticamente va a indicar el nombre del programa y el número de linea en donde ocurrio el error.</p>
+
+<p>Suponiendo que en el programa anterior no podemos abrir el filehandle por problemas con los permisos, vamos a obtener el siguiente mensaje:</p>
+
+<div class="screen">
+
+<pre><code>    No se pudo crear el archivo de logs: permission denied at your_program line 1234.</code></pre>
+
+</div>
+
+<h2>Mensajes de Advertencia con warn</h2>
+
+<p><a name="Mensajes de Advertencia con warn"></p>
+
+<p>Así como <code>die</code> indica un mensaje de error fatal, puedes usar <code>warn</code> para indicar un advertencia como si fuera una advertencia interna de Perl.</p>
+
+<p>La función <code>warn</code> trabaja igual que la función <code>die</code>, excepto que esta función no termina el programa. Pero si agrega el nombre del programa y la linea e imprime el mensaje hacia la salida estándar de errores (STDERR).</p>
+
+<h2>Usando los Filehandle</h2>
+
+<p><a name="Usando los Filej"></p>
+
+<p>Cuando un filehandle se abre para leer, puedes leer las lineas justo como leemos la entrada estándar con STDIN. Entonces, por ejemplo para leer las lineas de un archivo passwd de Unix:</p>
+
+<div class="programlisting">
+
+<pre><code>    if ( ! open PASSWD, &quot;/etc/passwd&quot;) {
+        die &quot;How did you get logged in? ($!)&quot;; 
+    }
+
+    while (&lt;PASSWD&gt;) {
+        chomp; 
+    }</code></pre>
+
+</div>
+
+<p>Un filehandle abierto para escritura puede usarse con <code>print</code> o <code>printf</code>, colocÃ¡ndolo inmediatamente despuÃ©s de la palabra reservada pero antes de la lista de argumentos:</p>
+
+<div class="programlisting">
+
+<pre><code>    print LOG &quot;Captain&#39;s log, stardate 3.14159\n&quot;; # output goes to LOG
+    printf STDERR &quot;%d percent complete.\n&quot;, $done/$total * 100;</code></pre>
+
+</div>
+
+<h3>Cambiar un Filehandle de salida por defecto</h3>
+
+<p><a name="Cambiar un Filehandle de salida por defecto"></p>
+
+<p>Por defecto, si no le indicas un filehandle a <code>print</code> o a <code>printf</code>, la salida va a ir a STDOUT. Pero esto se puede cambiar con el operador <code>select</code>. Por ejemplo, vamos a enviar un par de lineas al filehandle BEDROCK:</p>
+
+<div class="programlisting">
+
+<pre><code>    select BEDROCK;
+
+    print &quot;Hola esto es una prueba de piedra, o una piedra de prueba&quot;; 
+    print &quot;Willma!\n&quot;;</code></pre>
+
+</div>
+
+<p>Hay que tener cuidado con esto, una vez que se termine de usar, se debe volver al valor por defecto STDOUT. De igual manera, por defecto, la salida hacia un filehandle se guarda en el buffer. Configurando la variable especial <code>$|</code> a 1, va a hacer que el filehandle selecionado siempre haga flush del buffer despues de cada operación de salida. Entonces si se quiere asegurar que los archivos de log tengan los registros a tiempo, en el caso que quieras estar leyendo el log para monitorear el progreso del programa, puedes hacer algo como esto:</p>
+
+<div class="programlisting">
+
+<pre><code>    select LOG;
+    $| = 1;         # No mantenga las entradas de LOG en el buffer.
+    select STDOUT; 
+    # El tiempo pasa, los ni&ntilde;os aprenden a caminar, Chavez no se va  ... 
+    print LOG &quot;Esto es escrito en el log de una vez\n&quot;;</code></pre>
+
+</div>
+
+<h3>Reabrir un Filehandle por defecto</h3>
+
+<p><a name="Reabrir un Filehandle por defecto"></p>
+
+<p>Ya mencionamos antes que si abres un archivo el anterior se cierra automáticamente. Y tambien digimos que no debería reusar uno de los seis nombres de filehandles por defecto, al menos que quiera hacer algo especial. Adicionalmente digimos que los mensajes de error en Perl van a STDERR. Si usa estas tres piezas de información juntas, ahora puedes tener una idea de como enviar los mensajes de error a un archivo.</p>
+
+<div class="programlisting">
+
+<pre><code>    # Env&Atilde;&shy;a los errores a mi log privado de errores
+    if ( ! open STDERR, &quot;&gt;&gt;/home/elsanto/.error_log&quot;){
+        die &quot;No pude abrir el log de errores: $!&quot;;
+    }</code></pre>
+
+</div>
+
+<p>¿ Que pasa si no es posible abrir el archivo de LOGS ?, la operación de reapertura de uno de los tres filehandles (STDIN, STDOUT, STDERR) falla, Perl amablemente restaura al valor original.</p>
+
+<h2>Salida con say</h2>
+
+<p><a name="Salida con say"></p>
+
+<p>Perl 5.10 toma la función <code>say</code> del desarrollo de Perl 6. Es lo mismo que <code>print</code>, con la diferencia de que agrega al final un caracter de nueva linea (<code>\n</code>). Las siguiente sentencias producen la misma salida:</p>
+
+<div class="programlisting">
+
+<pre><code>    use 5.010;
+
+    print &quot;Hello!\n&quot;; 
+    print &quot;Hello!&quot;, &quot;\n&quot;;
+    say &quot;Hello!&quot;;</code></pre>
+
+</div>
+
+<p>Para interpolar una variable escalar o una lista, debe colocarse la variable entre comillas dobles, ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    use 5.010;
+
+    my @array = qw( a b c d );
+
+    say @array;     # &quot;abcd\n&quot;
+
+    say &quot;@array&quot;;   # &quot;a b c d\n&quot;</code></pre>
+
+</div>
+
+<p>Al igual que con <code>print</code>, puedes especificar un filehandle con <code>say</code>:</p>
+
+<div class="programlisting">
+
+<pre><code>    use 5.010;
+
+    say BEDROCK &quot;Hola !&quot;;</code></pre>
+
+</div>
+
+<p>Esta es una nueva caracteristica de Perl 5.10, y nosotros la usamos solo cuando estamos usando alguna otra función de Perl 5.10. La vieja y confiable <code>print</code> sigue siendo tan buena como siempre lo ha sido, pero sospechamos que hay algunos programadores de Perl que van a querer ahorrase el tener que escribir cuatro caracteres extra. (dos del nombre y \n).</p>
+
+<h2>Ejercicios</h2>
+
+<p><a name="ejercicios04"></p>
+
+<ul>
+
+<li>1. Escriba un programa que actué como <code>cat</code>, pero que invierta el orden de las lineas en la salida. (Algunos programas tiene tac). Si corres tu programa como <code>./tac prueba prueba2 prueba3</code>, la salida debe ser todo el archivo prueba3 desde la ultima linea hasta la primera, luego todo el archivo prueba2 desde la última linea hasta la primera y luego el archivo prueba desde la ultima linea hasta la primera.
+
+<li>2. Escriba un programa que pregunte al usuario una lista de cadenas en lineas separadas, imprima cada cadena justificada a la derecha, en una columna de 20 caracteres. Para verificar que la columna tiene esa cantidad de caracteres, imprima una linea guia con los números de las columnas. Asegúrese que las cadenas no tengan mas de 20 caracteres Ejemplo:
+
+<div class="screen">
+
+<pre><code>    123456789012345678901234567890123456789012345678901234567890
+                   hello
+                good-bye</code></pre>
+
+</div>
+
+<li>3. Modifique el programa anterior, para que le permita al usuario indicar el numero del tamaño de la columna en la primera linea, y luego en las otras lineas separadas, las cadenas. Recuerde que ahora la linea guia debe ajustarse a este número.
+
+</ul>
+
+</div>
+
+</body>
+</html>
+

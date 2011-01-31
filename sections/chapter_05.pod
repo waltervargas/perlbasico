@@ -120,7 +120,7 @@ cédula y como valor el nombre de la persona.
 
 =back
 
-=head1 Acceder al elemento de un Hash    
+=head1 Acceder al elemento de un Hash
 
 Z<Acceder al elemento de un Hash> 
 
@@ -148,5 +148,21 @@ Podemos asigar los valores de la siguiente manera:
     $apellido{"hugo"}       = "chavez";
 
 =end programlisting
+
+Con el hash anterior, podríamos usar el siguiente código para accederlo: 
+
+=begin programlisting
+
+    foreach $persona (qw< fred barney hugo >){
+        print "He oído algo sobre $persona $apellido{$persona}.\n"; 
+    }
+
+=end programlisting
+
+El nombre del hash es de igualmanera otro identificador de Perl (letras,
+dígitos y pisos bájos, pero no puede iniciar con un número). Y son de un
+espacio de nombres separado, lo que significa que no hay conexión entre la
+variable C<$apellido{"walter"}>, la subrutina C<&apellido> o la variable
+C<$apellido>. 
 
 
