@@ -165,4 +165,32 @@ espacio de nombres separado, lo que significa que no hay conexión entre la
 variable C<$apellido{"walter"}>, la subrutina C<&apellido> o la variable
 C<$apellido>. 
 
+Por su puesto,  la llave de un hash puede ser una expresión, no solo cadenas
+literales o variables escalares simples. Por ejemplo: 
+
+=begin programlisting
+
+    $foo = "bar";
+    print $apellido{ $foo . "ney"};     # Imprime "rubble"
+
+=end programlisting
+
+Cuando guardamos algo en un elemento que ya existia en el hash, este sobre
+escribe al valor anterior: 
+
+=begin programlisting
+
+    $apellido{"fred"} = "astaire"; 
+
+=end programlisting
+
+Es igual a lo que pasa con los arrays y los escalares. 
+
+Si accede a un elemento que no se encuentra en el hash va a obtener C<undef>: 
+
+=begin programlisting
+
+    $granito = $apellido{"larry"};  # No hay larry: undef
+
+=end programlisting
 
