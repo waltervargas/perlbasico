@@ -15,7 +15,7 @@ capítulo siguiente, vamos a mostrarle donde es que este mundo encaja en el
 mundo de Perl. 
 
 Las expresiones regulares no son exclusivas de Perl, podemos encontrarlas en
-C<sed> y C<awk>, C<procmail>, C<grep>, editores de texto como C<vim> e
+C<sed> y C<awk>, C<]rocmail>, C<grep>, editores de texto como C<vim> e
 C<emacs>.
 
 =head1 ¿ Qué son las expresiones regulares ?
@@ -208,7 +208,7 @@ para los humanos: simplemente cuente el orden de apertura de los paréntesis.
 
 =begin programlisting
 
-    $_ = "yabba dabba doo";
+    $_ = "abba dabba doo";
     if (/y((.)(.)\3\2) d\1/){
         print "Matched\n";
     }
@@ -231,7 +231,7 @@ forma que se observe cada parte por separado:
 =end programlisting
 
 En Perl 5.10 existe una nueva forma para denotar un punto de referencia. En
-lugar de usar un baclslash y un número, usamos C<\g{N}>, donde N es el número
+lugar de usar un backslash y un número, usamos C<\g{N}>, donde N es el número
 del punto de referencia que desea usar.
 
 Supongamos que debe usar un punto de referencia como parte de un patrón que
@@ -253,7 +253,7 @@ crea referencias como sea necesario, entonces el asume que eso significa \111.
 Pero no tenemos 111 grupos de paréntesis, o 11 grupos, Perl va a quejarse
 cuando intente compilar el programa. 
 
-Con la notación \g{N}, evitamos la ambigüedad en la referencia y las partes
+Con la notación \g{N}, evitamos la ambigüedad entre la referencia y las partes
 literales del patrón. 
 
 =begin programlisting
@@ -267,3 +267,105 @@ literales del patrón.
 
 =end programlisting
 
+Con la notación C<\g{N}>, podemos usar números negativos. En lugar de
+especificar un número absoluto del grupo de paréntesis, podemos especificar un
+punto de referencia relativa. Podemos reescribir el ejemplo anterior usando
+C<-1>. 
+
+=begin programlisting
+
+    use 5.010;
+
+    $_ = "aa11bb";
+    if (/(.)\g{-1}11/){
+        print "Esto hace match";
+    }
+
+=end programlisting
+
+
+=head1 Alternación
+
+Z<Alternación> 
+
+La barra vertical (|), normalmente llamada "or", indica que, o hace match el
+lado derecho de la expresión o, hace match el lado izquierdo. Esto significa,
+que si la parte izquierda del patrón falla, la parte de la derecha aun tiene
+una oportunidad par hacer match. Entonces, C</fred|barney|betty/> va a hacer
+match con cualquier cadena que contenga C<fred>, o C<barney>, o C<betty>.
+
+Ahora, usted puede hacer patrónes como C</fred( |\t)+barney>, que hace match si
+C<fred> y C<barney> están separados por espacios, tabs, o una mezcla de ambos.
+
+El patrón C</fred (and|or) barney/> hace match con cualquier cadena que tenga
+una de las dos posibles cadenas: C<fred and barney> o C<fred or barney>.
+
+
+=head1 Clases o Grupos de Caracteres    
+
+Z<Clases o Grupos de Caracteres> 
+
+Una clase o grupo de caracteres, es una lista de caracteres posibles dentro de
+corchetes (C<[]>), entonces cualquier caracterer que este especificado en la
+clase va hacer match. Esto hace match solo para un simple caracterer, y este
+caracterer debe estar en la lista declarada entre los corchetes. 
+
+Por ejemplo, para la clase C<[abcwxyz]> va a hacer match cualquiera de estos siete
+caracteres. Por conveniencia, puedes especificar un rango de caracteres usando
+el guión (-). Entonces se puede escribir la anterior clase de la siguiente
+manera: C<[a-cw-z]>. 
+
+Es usual encontrar esta clase de caracteres: C<[a-zA-Z]> para hacer match de
+cualquier letra que se encuentre en este grupo. 
+
+Por supuesto, una clase de caracteres va a ser siemre parte de un patrón. Por
+ejemplo
+
+=begin programlisting
+
+    $_ = "The HAL-9000 requires authorization to continue.";
+    if (/HAL-[0-9]+/) {
+        print "The string mentions some model of HAL computer.\n";
+    }
+    
+
+=end programlisting
+
+Algunas veces, es mas fácil especificar que grupo de caracteres no va a hacer
+match, en lugar de usar una clase de caracteres permitida. El acento
+circunflejo C<^> al inicio de una clase de caracteres, niega esta clase de
+caracteres. Esto significa, que [^def] va a hacer match con cualquier caracter
+simple excepto para uno de estos tres. Y [^n\-z] va hacer match con cualquier
+caracter excepto con B<n>, guión (-) o B<z>
+
+=head1 Atajos para Clases de Caracteres    
+
+Z<Atajos para Clases de Caracteres> 
+
+Algunas clases de caracteres aparecen con tanta frecuencia que tienen un atajo.
+Por ejemplo, la clase de caracteres de cualquier dígito,  C<[0-9]>,  puede ser
+abreviado como C<\d>. Entonces, el patrón para ejemplo sobre HAL, pudo haberse
+escrito así: C</HAL-\d+/>.
+
+El atajo C<\w>, representa la clase: C<[A-Za-z]>
+
+El atajo C<\s>, representa espacio en blanco. Es común ver C<\s*> para
+cualquier cantidad de espacios en blanco, incluyendo ninguno.
+
+
+=head1 Atajos Negativos    
+
+Z<Atajos Negativos> 
+
+Algunas veces usted va a querer lo opuesto a uno de los atajos. Puede ser que
+quiera [^\d], [^\w] o [^\s], indicando, ningún caracter de tipo dígito, o
+ningún caracter de palabra, o ningún espacio en blanco. Esto es bastante fácil
+de lograr usando sus homólogos en mayúsculas:  C<\D>,  C<\W>, o C<\S>. 
+
+
+Otra composición de clase de caracteres es [\d\D], que contempla cualquier
+dígito y cualquier no dígito incluso una nueva linea. Y esta el patrón
+totalmente inecesario: [^\d\D],  que hace match de cualquier cosa que no sea ni
+un dígito ni un no dígito. Es decir, Nada. 
+
+L<ejercicios06>
