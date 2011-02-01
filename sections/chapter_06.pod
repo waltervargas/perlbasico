@@ -142,5 +142,128 @@ de recordar, diciendo: "La última cosa, ¿ puede estar ?, ¿ o no puede estar ?
 Z<Agrupación de Patrones> 
 
 Como en matemáticas, los parentesis (C<()>) los usabamos para agrupar.
-Entonces, los paréntesis son metacaracteres. Como por ejemplo,  
+Entonces, los paréntesis son metacaracteres. Ejemplo, el patron /fred+/ hace
+match de cadenas como C<fredddddddd>, pero, este tipo de cadenas no son del
+mundo real. Ahora, el patrón C</(fred)+/> hace match de cadenas como
+C<fredfredfred>, que es algo mas parecido a lo que tal vez tu quisieras.
+¿ Y que pasaría con el patrón C</(fred)*/> ?, esto va a hacer match para
+cadenas como "Hola, Mundo". 
+
+Los paréntesis tambien nos dan la posibilidad de reusar parte de la cadena que
+hizo match directamente. Podemos usar puntos de referencias para acceder a una
+cadena que hizo match en los paréntesis. Un punto de referencia se escribe como
+una barra invertida seguida por un número, como \1, \2, \n. El número indica el
+grupo creado con los paréntesis. 
+
+Cuando usamos paréntesis al rededor de un punto, vamos ha hacer match de
+cualquier caracter que no sea una nueva linea. Podemos hacer match de nuevo al
+caracter que hizo match entre los paréntesis usando el punto de referencia \1. 
+
+=begin programlisting
+
+    $_ = "abba";
+    if (/(.)\1/){   # Hace match de 'bb'
+        "Esto hace match para un caracter seguido de si mismo. \n";
+    }
+
+
+=end programlisting
+
+El punto de referencia no tiene que estar precisamete justo a la derecha de el
+grupo de paréntesis. El siguiente patrón,  hace match de cualquier caractere
+que no sea una nueva linea despues del literal B<y>, y luego usamos el punto de
+referencia C<\1> para indicar que queremos hacer match de los mismos cuatro
+caracteres despues de el literal C<d>: 
+
+=begin programlisting
+
+    $_ = "yabba dabba doo";
+    if (/y(....) d\1/){
+        print "Hace match del conjunto de caracteres que estan antes y despues
+        de el caractere literal d! \n";
+    }
+
+=end programlisting
+
+Podemos usar multiples grupos de paréntesis, y cada grupo posee su propio punto
+de referencia. Podemos hacer match de cualquier caracter que no sea una nueva
+linea en grupos de paréntesis, seguido por cualquier otro caracter que no sea
+una nueva linea en otro grupo de paréntesis. Despues de tener estos dos grupos,
+usamos \1 para referirnos al primer grupo y \2 para referirnos al segundo
+grupo. En efecto, con el próximo ejemplo, va ha hacer match si se encuentra el
+palíndrome abba: 
+
+=begin programlisting
+
+    $_ = "yabba dabba doo";
+    if (/y(.)(.)\2\1/){     # Hace match de 'abba'
+        print "Hizo match para los caracteres despues de d y y \n";
+    }
+
+=end programlisting
+
+Ahora, se debe estar haciendo una pregunta, ¿ Como se sabe que grupo obtiene 
+que número ?. Afortunadamente, Larry hizo que esto fuera fácil de comprender
+para los humanos: simplemente cuente el orden de apertura de los paréntesis. 
+
+=begin programlisting
+
+    $_ = "yabba dabba doo";
+    if (/y((.)(.)\3\2) d\1/){
+        print "Matched\n";
+    }
+
+=end programlisting
+
+Probablemente es mas fácil que lo vea, si escribe la expresión regular que
+forma que se observe cada parte por separado: 
+
+
+=begin programlisting
+    
+    (           # Primera apertura de paréntesis
+        (.)     # Seundo apertura de paréntesis
+        (.)     # Tercera apertura de paréntesis 
+        \2
+        \3
+    )
+
+=end programlisting
+
+En Perl 5.10 existe una numa forma para denotar un punto de referencia. En
+lugar de usar un baclslash y un número, usamos C<\g{N}>, donde N es el número
+del punto de referencia que desea usar.
+
+Supongamos que debe usar un punto de referencia como parte de un patrón que
+contiene un número. En esta expresión regular, nosotros vamos a usar C<\1> para
+repetir el caracter que hizo match en los paréntesis seguido por la cadena
+literal 11: 
+
+=begin programlisting
+
+    $_ = "aa11bb";
+    if (/(.)\111/){
+        print "Matched ! \n"; 
+    }
+
+=end programlisting
+
+Perl va a tener que adivinar que significa eso. ¿ Es un \1, \11, o \111 ?. Perl
+crea referencias como sea necesario, entonces el asume que eso significa \111.
+Pero no tenemos 111 grupos de paréntesis, o 11 grupos, Perl va a quejarse
+cuando intente compilar el programa. 
+
+Con la notación \g{N}, evitamos la ambiguedad en la referencia y las partes
+literales del patrón. 
+
+=begin programlisting
+
+    use 5.010;
+
+    $_ = "aa11bb";
+    if (/(.)\g{1}11/){
+        print "Esto hace match \n";
+    }
+
+=end programlisting
 
