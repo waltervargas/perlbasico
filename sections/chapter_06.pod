@@ -1,0 +1,146 @@
+=head0 El mundo de las Expresiones Regulares
+
+Perl posee muchas caracteristicas que lo distinguen de otros lenguajes. De
+todas estas caracteristicas una de las mas importantes es el soporte solido de
+expresiones regulares.  Este permite un manejo de cadenas rápido, flexible y
+confiable.
+
+Este poder tiene un precio. Las expresiones regulares actualmente son pequeños
+programas con su propio lenguaje especial, metidos dentro de Perl. (Si, esta
+pensando correctamente, va a aprender otro lenguaje de programación.)
+
+En este capítulo, va a visitar el mundo de las expresiones regulares, en donde
+probablemente podrás olvidar algunas cosas del mundo de Perl. Luego en un
+capítulo siguiente, vamos a mostrarle donde es que este mundo encaja en el
+mundo de Perl. 
+
+Las expresiones regulares no son exclusivas de Perl, podemos encontrarlas en
+C<sed> y C<awk>, C<procmail>, C<grep>, editores de texto como C<vim> e
+C<emacs>.
+
+=head1 ¿ Qué son las expresiones regulares ?
+
+Una expresion regular, tambien llamada I<patrón> en Perl, es una plantilla en
+donde una cadena determinada encaja o no encaja. Esto es, hay un número
+infinito de cadenas de texto posibles; con un patrón de terminado que las
+divide en dos grupos: las cadenas que encajan o coinciden, y aquellas que no. 
+
+Un patrón puede aplicar a una sola cadena, o solo dos o tres, o a una docena,
+o a cientos, o a un número infinito. O puede aplicar a todas excepto a una, o
+excepto a un grupo, o excepto a un número infinito.  
+
+Nos referimos a las expresiones regulares como pequeños programas con su propio
+lenguaje de programación simple. Es un lenguaje simple porque los programas
+tienen una sola tarea: mirar una cadena y decir "Cumple, esta cadena encaja en
+el patron" o "No cumple, esta cadena no encaja en el patrón". Y esto es todo lo
+que hace. 
+
+Uno de los lugares donde probablemente halla visto las expresiones regulares es
+en el comando de Unix C<grep>. Por ejemplo:
+
+=begin screen
+
+    $ grep 'flint.*stone' chapter*.pod
+    chapter_02.pod:    ($fred, $barney) = qw< flintstone rubble slate granite >;
+    chapter_02.pod:    ($wilma, $dino) = qw[flintstone];       # $dino obtiene undef.
+    chapter_02.pod:    @rocks = qw{ flintstone slate rubble };
+    chapter_05.pod:    $apellido{"fred"}       = "flintstone";
+    chapter_05.pod:        "fred"	=> "flintstone",
+    
+
+=end screen
+
+No debe confundir las expresiones regulares con los patrónes de archivo de la
+shell llamados globs. Un glob tipico es el que usas cuando escribes *.pm en la
+consola de Unix para coincidir con todos los archivos que terminen en .pm. 
+
+=head1 Usando Patrones Simples    
+
+Z<Usando Patrones Simples> 
+
+Para verificar una cadena contra un patrón o expresión regular contenida en la
+variable C<$_>, simplemente colocamos la cadena entre un par de barras, por
+ejemplo: 
+
+=begin programlisting
+
+    $_ = "yabba dabba doo";
+    if (/abba/){
+        print "Matched ! \n";
+    }
+
+=end programlisting
+
+La expresión /abba/ busca estas cuatro letras en la cadena contenida en C<$_>,
+si la encuntra retorna un valor verdadero. En este caso, fue encontrada en mas
+de una oportunidad, pero eso no causa ninguna diferencia. Si la encuentra,
+coincide o hace match; si no la encuentra en toda la expresión, falla. 
+
+Como evaluar una expresión regular devuelve verdadero o falso, esta evaluación
+normalmente se encuentra en expresiones condicionales C<if> o C<while>.
+
+
+Todas las secuencias de escape usuales que pueda colocar entre dobles comillas
+estan disponibles en los patrones de expresiones regulares, entonces podría
+usar el patron /coke\tsprite/ para probar la coincidencia de 11 caracteres de
+coke,  un tab,  y sprite. 
+
+=head1 Sobre los Metacaracteres    
+
+Z<Sobre los Metacaracteres> 
+
+Si los patrones solo verificaran cadenas de caracteres simples, nos serían muy
+útiles en verdad. Esto es porque hay una número de caracteres especiales,
+llamados I<metacaracteres> que tienen un significado especial en las
+expresiones regulares. 
+
+Por ejemplo, el punto (.) es un caracter comodin, hace match de cualquier
+caracter excepto de una nueva linea. Entonces el patrón C</bet.y/> va a hacer
+match para la cadena C<betty>. O va a hacer match de C<betsy>, o de C<bet=y> o
+de cualquier otra cadena que tenga C<bet> seguida por cualquier caracter
+(excepto una nueva linea) seguida por una C<y>. El punto siempre hace match de
+un solo caracter.
+
+Si quisiera usar el punto en un patrón, para evaluar la existencia de el punto
+en la cadena, debe anteponer un backslash o barra invertida. Esta regla aplica
+para todos los metacaracteres de expresiones regulares en Perl. 
+
+=head1 Cuantifiacdores Simples    
+
+Z<Cuantifiacdores Simples> 
+
+Con frecuencia, tendrá algo que se repite en un patrón. El asterisco (*) indica
+hacer match de el item que lo precede cero o mas veces. Entonces,
+C</fred\t*barney/> hace match para cualquier número de caracteres tabs entre
+C<fred> y C<barney>. Entonces,  va a hacer match para C<"fred\tbarney"> con un
+tab,  C<"fred\t\tbarney"> con dos tabs, o C<"fred\t\t\tbarney"> con tres tabs,
+o de C<"fredbarney">. 
+
+Para hacer referencia a cualquier grupo de caracteres, usamos el punto y el
+asterisco. Entonces, C<.*> va a hacer match de cualquier caracter, para
+cualquier número de veces. 
+
+Al asterisco (*) se le llama formalmente I<cuantificador>. Pero no es el unico
+cuantificador; el signo (+) es otro. El signo + indica que va a hacer match de
+el caracter anterior una o mas veces: C</fred +barney/> hace match si fred y
+barney esta separados por uno o mas espacios y solo espacios. (El espacio, no 
+es un metacaracter). Esto no hace match de C<fredbarney>, debido a que el signo
+(+) indica que debe haber uno o mas espacios entre los dos nombres, entonces el
+ultimo espacio es requerido. Puede ayudarle a recordar que el signo (+) indica
+que el carácter que antepone al signo mas (+) puede estar opcionalmente
+repetido. 
+
+Existe un tercer cuantificador como el asterisco (*) y el signo mas (+), pero
+un poco mas limitado. Es el signo de interrogación cerrando (?), el cual indica
+que el elemento que se encuentra antes de él es opcional. Esto es, el item que
+le precede, puede ocurrir una o ninguna vez. Entonces, si tenemos
+C</bamm-?bamm/> hace match para C<bamm-bamm> o para C<bammbamm>. Esto es fácil
+de recordar, diciendo: "La última cosa, ¿ puede estar ?, ¿ o no puede estar ?.
+
+=head1 Agrupación de Patrones    
+
+Z<Agrupación de Patrones> 
+
+Como en matemáticas, los parentesis (C<()>) los usabamos para agrupar.
+Entonces, los paréntesis son metacaracteres. Como por ejemplo,  
+
