@@ -9,14 +9,14 @@ la palabra C<fred>. Haga un archivo de texto que contenga la palabra fred en
 cadenas y nombres que incluyan fred y utilice este archivo como entrada del
 programa.  
 
-=item 2. Modifique el programa anterior, para que tambiÃ©n haga match con
+=item 2. Modifique el programa anterior, para que también haga match con
 C<Fred>.
 
 =item 3. Escriba un programa que imprima cada linea de su entrada que contenga
 el punto (.), ignore las otras lineas. 
 
 =item 4. Escriba un programa que imprima cada linea que tenga la palabras con
-la primera letra en mayÃºscula, pero no mayÃºscula sostenida.  
+la primera letra en mayúscula, pero no mayúscula sostenida.  
 
 =item 5. Escriba un programa que imprima cada linea que tenga dos caracteres
 iguales juntos el uno al otro y que no sea dos espacios en blanco. Debe hacer

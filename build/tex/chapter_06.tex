@@ -1,20 +1,20 @@
 \chapter{El mundo de las Expresiones Regulares}
 
-Perl posee muchas caracterÃ­sticas que lo distinguen de otros lenguajes. De todas estas caracterÃ­sticas una de las mas importantes es el soporte solido de expresiones regulares. Este permite un manejo de cadenas rÃ¡pido, f\mbox{}lexible y conf\mbox{}iable.
+Perl posee muchas características que lo distinguen de otros lenguajes. De todas estas características una de las mas importantes es el soporte solido de expresiones regulares. Este permite un manejo de cadenas rápido, f\mbox{}lexible y conf\mbox{}iable.
 
-Este poder tiene un precio. Las expresiones regulares actualmente son pequeÃ±os programas con su propio lenguaje especial, metidos dentro de Perl. (Si, esta pensando correctamente, va a aprender otro lenguaje de programaciÃ³n.)
+Este poder tiene un precio. Las expresiones regulares actualmente son pequeños programas con su propio lenguaje especial, metidos dentro de Perl. (Si, esta pensando correctamente, va a aprender otro lenguaje de programación.)
 
-En este capÃ­tulo, va a visitar el mundo de las expresiones regulares, en donde probablemente podrÃ¡s olvidar algunas cosas del mundo de Perl. Luego en un capÃ­tulo siguiente, vamos a mostrarle donde es que este mundo encaja en el mundo de Perl.
+En este capítulo, va a visitar el mundo de las expresiones regulares, en donde probablemente podrás olvidar algunas cosas del mundo de Perl. Luego en un capítulo siguiente, vamos a mostrarle donde es que este mundo encaja en el mundo de Perl.
 
-Las expresiones regulares no son exclusivas de Perl, podemos encontrarlas en \texttt{sed} y \texttt{awk}, \texttt{procmail}, \texttt{grep}, editores de texto como \texttt{vim} e \texttt{emacs}.
+Las expresiones regulares no son exclusivas de Perl, podemos encontrarlas en \texttt{sed} y \texttt{awk}, \texttt{]rocmail}, \texttt{grep}, editores de texto como \texttt{vim} e \texttt{emacs}.
 
-\section{Â¿ QuÃ© son las expresiones regulares ?}
+\section{¿ Qué son las expresiones regulares ?}
 
-Una expresiÃ³n regular, tambiÃ©n llamada \emph{patrÃ³n} en Perl, es una plantilla en donde una cadena determinada encaja o no encaja. Esto es, hay un nÃºmero inf\mbox{}inito de cadenas de texto posibles; con un patrÃ³n de terminado que las divide en dos grupos: las cadenas que encajan o coinciden, y aquellas que no.
+Una expresión regular, también llamada \emph{patrón} en Perl, es una plantilla en donde una cadena determinada encaja o no encaja. Esto es, hay un número inf\mbox{}inito de cadenas de texto posibles; con un patrón de terminado que las divide en dos grupos: las cadenas que encajan o coinciden, y aquellas que no.
 
-Un patrÃ³n puede aplicar a una sola cadena, o solo dos o tres, o a una docena, o a cientos, o a un nÃºmero inf\mbox{}inito. O puede aplicar a todas excepto a una, o excepto a un grupo, o excepto a un nÃºmero inf\mbox{}inito.
+Un patrón puede aplicar a una sola cadena, o solo dos o tres, o a una docena, o a cientos, o a un número inf\mbox{}inito. O puede aplicar a todas excepto a una, o excepto a un grupo, o excepto a un número inf\mbox{}inito.
 
-Nos referimos a las expresiones regulares como pequeÃ±os programas con su propio lenguaje de programaciÃ³n simple. Es un lenguaje simple porque los programas tienen una sola tarea: mirar una cadena y decir ``Cumple, esta cadena encaja en el patron'' o ``No cumple, esta cadena no encaja en el patrÃ³n''. Y esto es todo lo que hace.
+Nos referimos a las expresiones regulares como pequeños programas con su propio lenguaje de programación simple. Es un lenguaje simple porque los programas tienen una sola tarea: mirar una cadena y decir ``Cumple, esta cadena encaja en el patron'' o ``No cumple, esta cadena no encaja en el patrón''. Y esto es todo lo que hace.
 
 Uno de los lugares donde probablemente halla visto las expresiones regulares es en el comando de Unix \texttt{grep}. Por ejemplo:
 
@@ -31,13 +31,13 @@ Uno de los lugares donde probablemente halla visto las expresiones regulares es 
 \end{Verbatim}
 \vspace{-6pt}
 \normalsize
-No debe confundir las expresiones regulares con los patrones de archivo de la shell llamados globs. Un glob tÃ­pico es el que usas cuando escribes *.pm en la consola de Unix para coincidir con todos los archivos que terminen en .pm.
+No debe confundir las expresiones regulares con los patrones de archivo de la shell llamados globs. Un glob típico es el que usas cuando escribes *.pm en la consola de Unix para coincidir con todos los archivos que terminen en .pm.
 
 \section{Usando Patrones Simples}
 
 \label{Usando-Patrones-Simples}
 
-Para verif\mbox{}icar una cadena contra un patrÃ³n o expresiÃ³n regular contenida en la variable \texttt{\$\_}, simplemente colocamos la cadena entre un par de barras, por ejemplo:
+Para verif\mbox{}icar una cadena contra un patrón o expresión regular contenida en la variable \texttt{\$\_}, simplemente colocamos la cadena entre un par de barras, por ejemplo:
 
 \vspace{-6pt}
 \small
@@ -49,108 +49,108 @@ Para verif\mbox{}icar una cadena contra un patrÃ³n o expresiÃ³n regular contenid
 \end{Verbatim}
 \vspace{-6pt}
 \normalsize
-La expresiÃ³n /abba/ busca estas cuatro letras en la cadena contenida en \texttt{\$\_}, si la encuentra retorna un valor verdadero. En este caso, fue encontrada en mas de una oportunidad, pero eso no causa ninguna diferencia. Si la encuentra, coincide o hace match; si no la encuentra en toda la expresiÃ³n, falla.
+La expresión /abba/ busca estas cuatro letras en la cadena contenida en \texttt{\$\_}, si la encuentra retorna un valor verdadero. En este caso, fue encontrada en mas de una oportunidad, pero eso no causa ninguna diferencia. Si la encuentra, coincide o hace match; si no la encuentra en toda la expresión, falla.
 
-Como evaluar una expresiÃ³n regular devuelve verdadero o falso, esta evaluaciÃ³n normalmente se encuentra en expresiones condicionales \texttt{if} o \texttt{while}.
+Como evaluar una expresión regular devuelve verdadero o falso, esta evaluación normalmente se encuentra en expresiones condicionales \texttt{if} o \texttt{while}.
 
-Todas las secuencias de escape usuales que pueda colocar entre dobles comillas estÃ¡n disponibles en los patrones de expresiones regulares, entonces podrÃ­a usar el patron /coke$\backslash$tsprite/ para probar la coincidencia de 11 caracteres de coke, un tab, y sprite.
+Todas las secuencias de escape usuales que pueda colocar entre dobles comillas están disponibles en los patrones de expresiones regulares, entonces podría usar el patron /coke$\backslash$tsprite/ para probar la coincidencia de 11 caracteres de coke, un tab, y sprite.
 
 \section{Sobre los Metacaracteres}
 
 \label{Sobre-los-Metacaracteres}
 
-Si los patrones solo verif\mbox{}icaran cadenas de caracteres simples, nos serÃ­an muy Ãºtiles en verdad. Esto es porque hay una nÃºmero de caracteres especiales, llamados \emph{metacaracteres} que tienen un signif\mbox{}icado especial en las expresiones regulares.
+Si los patrones solo verif\mbox{}icaran cadenas de caracteres simples, nos serían muy útiles en verdad. Esto es porque hay una número de caracteres especiales, llamados \emph{metacaracteres} que tienen un signif\mbox{}icado especial en las expresiones regulares.
 
-Por ejemplo, el punto (.) es un carÃ¡cter comodÃ­n, hace match de cualquier carÃ¡cter excepto de una nueva linea. Entonces el patrÃ³n \texttt{/bet.y/} va a hacer match para la cadena \texttt{betty}. O va a hacer match de \texttt{betsy}, o de \texttt{bet=y} o de cualquier otra cadena que tenga \texttt{bet} seguida por cualquier carÃ¡cter (excepto una nueva linea) seguida por una \texttt{y}. El punto siempre hace match de un solo carÃ¡cter.
+Por ejemplo, el punto (.) es un carácter comodín, hace match de cualquier carácter excepto de una nueva linea. Entonces el patrón \texttt{/bet.y/} va a hacer match para la cadena \texttt{betty}. O va a hacer match de \texttt{betsy}, o de \texttt{bet=y} o de cualquier otra cadena que tenga \texttt{bet} seguida por cualquier carácter (excepto una nueva linea) seguida por una \texttt{y}. El punto siempre hace match de un solo carácter.
 
-Si quisiera usar el punto en un patrÃ³n, para evaluar la existencia de el punto en la cadena, debe anteponer un backslash o barra invertida. Esta regla aplica para todos los metacaracteres de expresiones regulares en Perl.
+Si quisiera usar el punto en un patrón, para evaluar la existencia de el punto en la cadena, debe anteponer un backslash o barra invertida. Esta regla aplica para todos los metacaracteres de expresiones regulares en Perl.
 
 \section{Cuantif\mbox{}icadores Simples}
 
 \label{Cuantificadores-Simples}
 
-Con frecuencia, tendrÃ¡ algo que se repite en un patrÃ³n. El asterisco (*) indica hacer match de el item que lo precede cero o mas veces. Entonces, \texttt{/fred$\backslash$t*barney/} hace match para cualquier nÃºmero de caracteres tabs entre \texttt{fred} y \texttt{barney}. Entonces, va a hacer match para \texttt{``fred$\backslash$tbarney''} con un tab, \texttt{``fred$\backslash$t$\backslash$tbarney''} con dos tabs, o \texttt{``fred$\backslash$t$\backslash$t$\backslash$tbarney''} con tres tabs, o de \texttt{``fredbarney''}.
+Con frecuencia, tendrá algo que se repite en un patrón. El asterisco (*) indica hacer match de el item que lo precede cero o mas veces. Entonces, \texttt{/fred$\backslash$t*barney/} hace match para cualquier número de caracteres tabs entre \texttt{fred} y \texttt{barney}. Entonces, va a hacer match para \texttt{``fred$\backslash$tbarney''} con un tab, \texttt{``fred$\backslash$t$\backslash$tbarney''} con dos tabs, o \texttt{``fred$\backslash$t$\backslash$t$\backslash$tbarney''} con tres tabs, o de \texttt{``fredbarney''}.
 
-Para hacer referencia a cualquier grupo de caracteres, usamos el punto y el asterisco. Entonces, \texttt{.*} va a hacer match de cualquier carÃ¡cter, para cualquier nÃºmero de veces.
+Para hacer referencia a cualquier grupo de caracteres, usamos el punto y el asterisco. Entonces, \texttt{.*} va a hacer match de cualquier carácter, para cualquier número de veces.
 
-Al asterisco (*) se le llama formalmente \emph{cuantif\mbox{}icador}. Pero no es el Ãºnico cuantif\mbox{}icador; el signo (+) es otro. El signo + indica que va a hacer match de el carÃ¡cter anterior una o mas veces: \texttt{/fred +barney/} hace match si fred y barney esta separados por uno o mas espacios y solo espacios. (El espacio, no es un metacaracter). Esto no hace match de \texttt{fredbarney}, debido a que el signo (+) indica que debe haber uno o mas espacios entre los dos nombres, entonces el ultimo espacio es requerido. Puede ayudarle a recordar que el signo (+) indica que el carÃ¡cter que antepone al signo mas (+) puede estar opcionalmente repetido.
+Al asterisco (*) se le llama formalmente \emph{cuantif\mbox{}icador}. Pero no es el único cuantif\mbox{}icador; el signo (+) es otro. El signo + indica que va a hacer match de el carácter anterior una o mas veces: \texttt{/fred +barney/} hace match si fred y barney esta separados por uno o mas espacios y solo espacios. (El espacio, no es un metacaracter). Esto no hace match de \texttt{fredbarney}, debido a que el signo (+) indica que debe haber uno o mas espacios entre los dos nombres, entonces el ultimo espacio es requerido. Puede ayudarle a recordar que el signo (+) indica que el carácter que antepone al signo mas (+) puede estar opcionalmente repetido.
 
-Existe un tercer cuantif\mbox{}icador como el asterisco (*) y el signo mas (+), pero un poco mas limitado. Es el signo de interrogaciÃ³n cerrando (?), el cual indica que el elemento que se encuentra antes de Ã©l es opcional. Esto es, el item que le precede, puede ocurrir una o ninguna vez. Entonces, si tenemos \texttt{/bamm-?bamm/} hace match para \texttt{bamm-bamm} o para \texttt{bammbamm}. Esto es fÃ¡cil de recordar, diciendo: ``La Ãºltima cosa, Â¿ puede estar ?, Â¿ o no puede estar ?.
+Existe un tercer cuantif\mbox{}icador como el asterisco (*) y el signo mas (+), pero un poco mas limitado. Es el signo de interrogación cerrando (?), el cual indica que el elemento que se encuentra antes de él es opcional. Esto es, el item que le precede, puede ocurrir una o ninguna vez. Entonces, si tenemos \texttt{/bamm-?bamm/} hace match para \texttt{bamm-bamm} o para \texttt{bammbamm}. Esto es fácil de recordar, diciendo: ``La última cosa, ¿ puede estar ?, ¿ o no puede estar ?.
 
-\section{AgrupaciÃ³n de Patrones}
+\section{Agrupación de Patrones}
 
-\label{Agrupaci--n-de-Patrones}
+\label{Agrupaci-n-de-Patrones}
 
-Como en matemÃ¡ticas, los parÃ©ntesis (\texttt{()}) los usÃ¡bamos para agrupar. Entonces, los parÃ©ntesis son metacaracteres. Ejemplo, el patron /fred+/ hace match de cadenas como \texttt{fredddddddd}, pero, este tipo de cadenas no son del mundo real. Ahora, el patrÃ³n \texttt{/(fred)+/} hace match de cadenas como \texttt{fredfredfred}, que es algo mas parecido a lo que tal vez tu quisieras. Â¿ Y que pasarÃ­a con el patrÃ³n \texttt{/(fred)*/} ?, esto va a hacer match para cadenas como ``Hola, Mundo''.
+Como en matemáticas, los paréntesis (\texttt{()}) los usábamos para agrupar. Entonces, los paréntesis son metacaracteres. Ejemplo, el patron /fred+/ hace match de cadenas como \texttt{fredddddddd}, pero, este tipo de cadenas no son del mundo real. Ahora, el patrón \texttt{/(fred)+/} hace match de cadenas como \texttt{fredfredfred}, que es algo mas parecido a lo que tal vez tu quisieras. ¿ Y que pasaría con el patrón \texttt{/(fred)*/} ?, esto va a hacer match para cadenas como ``Hola, Mundo''.
 
-Los parÃ©ntesis tambiÃ©n nos dan la posibilidad de reusar parte de la cadena que hizo match directamente. Podemos usar puntos de referencias para acceder a una cadena que hizo match en los parÃ©ntesis. Un punto de referencia se escribe como una barra invertida seguida por un nÃºmero, como $\backslash$1, $\backslash$2, $\backslash$n. El nÃºmero indica el grupo creado con los parÃ©ntesis.
+Los paréntesis también nos dan la posibilidad de reusar parte de la cadena que hizo match directamente. Podemos usar puntos de referencias para acceder a una cadena que hizo match en los paréntesis. Un punto de referencia se escribe como una barra invertida seguida por un número, como $\backslash$1, $\backslash$2, $\backslash$n. El número indica el grupo creado con los paréntesis.
 
-Cuando usamos parÃ©ntesis al rededor de un punto, vamos ha hacer match de cualquier carÃ¡cter que no sea una nueva linea. Podemos hacer match de nuevo al carÃ¡cter que hizo match entre los parÃ©ntesis usando el punto de referencia $\backslash$1.
+Cuando usamos paréntesis al rededor de un punto, vamos ha hacer match de cualquier carácter que no sea una nueva linea. Podemos hacer match de nuevo al carácter que hizo match entre los paréntesis usando el punto de referencia $\backslash$1.
 
 \vspace{-6pt}
 \small
 \begin{Verbatim}[commandchars=\\\{\},numbers=left]
     $_ = "abba";
     if (/(.)\textbackslash{}1/)\{   # Hace match de 'bb'
-        "Esto hace match para un carÃ¡cter seguido de si mismo. \textbackslash{}n";
+        "Esto hace match para un carácter seguido de si mismo. \textbackslash{}n";
     \}
 \end{Verbatim}
 \vspace{-6pt}
 \normalsize
-El punto de referencia no tiene que estar precisamente justo a la derecha de el grupo de parÃ©ntesis. El siguiente patrÃ³n, hace match de cualquier caracteres que no sea una nueva linea despuÃ©s del literal \textbf{y}, y luego usamos el punto de referencia \texttt{$\backslash$1} para indicar que queremos hacer match de los mismos cuatro caracteres despuÃ©s de el literal \texttt{d}:
+El punto de referencia no tiene que estar precisamente justo a la derecha de el grupo de paréntesis. El siguiente patrón, hace match de cualquier caracteres que no sea una nueva linea después del literal \textbf{y}, y luego usamos el punto de referencia \texttt{$\backslash$1} para indicar que queremos hacer match de los mismos cuatro caracteres después de el literal \texttt{d}:
 
 \vspace{-6pt}
 \small
 \begin{Verbatim}[commandchars=\\\{\},numbers=left]
     $_ = "yabba dabba doo";
     if (/y(....) d\textbackslash{}1/)\{
-        print "Hace match del conjunto de caracteres que estÃ¡n antes y despuÃ©s
+        print "Hace match del conjunto de caracteres que están antes y después
         de el caracteres literal d! \textbackslash{}n";
     \}
 \end{Verbatim}
 \vspace{-6pt}
 \normalsize
-Podemos usar multiples grupos de parÃ©ntesis, y cada grupo posee su propio punto de referencia. Podemos hacer match de cualquier carÃ¡cter que no sea una nueva linea en grupos de parÃ©ntesis, seguido por cualquier otro carÃ¡cter que no sea una nueva linea en otro grupo de parÃ©ntesis. DespuÃ©s de tener estos dos grupos, usamos $\backslash$1 para referirnos al primer grupo y $\backslash$2 para referirnos al segundo grupo. En efecto, con el prÃ³ximo ejemplo, va ha hacer match si se encuentra el palindrome abba:
+Podemos usar multiples grupos de paréntesis, y cada grupo posee su propio punto de referencia. Podemos hacer match de cualquier carácter que no sea una nueva linea en grupos de paréntesis, seguido por cualquier otro carácter que no sea una nueva linea en otro grupo de paréntesis. Después de tener estos dos grupos, usamos $\backslash$1 para referirnos al primer grupo y $\backslash$2 para referirnos al segundo grupo. En efecto, con el próximo ejemplo, va ha hacer match si se encuentra el palindrome abba:
 
 \vspace{-6pt}
 \small
 \begin{Verbatim}[commandchars=\\\{\},numbers=left]
     $_ = "yabba dabba doo";
     if (/y(.)(.)\textbackslash{}2\textbackslash{}1/)\{     # Hace match de 'abba'
-        print "Hizo match para los caracteres despuÃ©s de d y y \textbackslash{}n";
+        print "Hizo match para los caracteres después de d y y \textbackslash{}n";
     \}
 \end{Verbatim}
 \vspace{-6pt}
 \normalsize
-Ahora, se debe estar haciendo una pregunta, Â¿ Como se sabe que grupo obtiene que nÃºmero ?. Afortunadamente, Larry hizo que esto fuera fÃ¡cil de comprender para los humanos: simplemente cuente el orden de apertura de los parÃ©ntesis.
+Ahora, se debe estar haciendo una pregunta, ¿ Como se sabe que grupo obtiene que número ?. Afortunadamente, Larry hizo que esto fuera fácil de comprender para los humanos: simplemente cuente el orden de apertura de los paréntesis.
 
 \vspace{-6pt}
 \small
 \begin{Verbatim}[commandchars=\\\{\},numbers=left]
-    $_ = "yabba dabba doo";
+    $_ = "abba dabba doo";
     if (/y((.)(.)\textbackslash{}3\textbackslash{}2) d\textbackslash{}1/)\{
         print "Matched\textbackslash{}n";
     \}
 \end{Verbatim}
 \vspace{-6pt}
 \normalsize
-Probablemente es mas fÃ¡cil que lo vea, si escribe la expresiÃ³n regular que forma que se observe cada parte por separado:
+Probablemente es mas fácil que lo vea, si escribe la expresión regular que forma que se observe cada parte por separado:
 
 \vspace{-6pt}
 \small
 \begin{Verbatim}[commandchars=\\\{\},numbers=left]
-    (           # Primera apertura de parÃ©ntesis
-        (.)     # Segundo apertura de parÃ©ntesis
-        (.)     # Tercera apertura de parÃ©ntesis 
+    (           # Primera apertura de paréntesis
+        (.)     # Segundo apertura de paréntesis
+        (.)     # Tercera apertura de paréntesis 
         \textbackslash{}2
         \textbackslash{}3
     )
 \end{Verbatim}
 \vspace{-6pt}
 \normalsize
-En Perl 5.10 existe una nueva forma para denotar un punto de referencia. En lugar de usar un baclslash y un nÃºmero, usamos \texttt{$\backslash$g\{N\}}, donde N es el nÃºmero del punto de referencia que desea usar.
+En Perl 5.10 existe una nueva forma para denotar un punto de referencia. En lugar de usar un backslash y un número, usamos \texttt{$\backslash$g\{N\}}, donde N es el número del punto de referencia que desea usar.
 
-Supongamos que debe usar un punto de referencia como parte de un patrÃ³n que contiene un nÃºmero. En esta expresiÃ³n regular, nosotros vamos a usar \texttt{$\backslash$1} para repetir el carÃ¡cter que hizo match en los parÃ©ntesis seguido por la cadena literal 11:
+Supongamos que debe usar un punto de referencia como parte de un patrón que contiene un número. En esta expresión regular, nosotros vamos a usar \texttt{$\backslash$1} para repetir el carácter que hizo match en los paréntesis seguido por la cadena literal 11:
 
 \vspace{-6pt}
 \small
@@ -162,9 +162,9 @@ Supongamos que debe usar un punto de referencia como parte de un patrÃ³n que con
 \end{Verbatim}
 \vspace{-6pt}
 \normalsize
-Perl va a tener que adivinar que signif\mbox{}ica eso. Â¿ Es un $\backslash$1, $\backslash$11, o $\backslash$111 ?. Perl crea referencias como sea necesario, entonces el asume que eso signif\mbox{}ica $\backslash$111. Pero no tenemos 111 grupos de parÃ©ntesis, o 11 grupos, Perl va a quejarse cuando intente compilar el programa.
+Perl va a tener que adivinar que signif\mbox{}ica eso. ¿ Es un $\backslash$1, $\backslash$11, o $\backslash$111 ?. Perl crea referencias como sea necesario, entonces el asume que eso signif\mbox{}ica $\backslash$111. Pero no tenemos 111 grupos de paréntesis, o 11 grupos, Perl va a quejarse cuando intente compilar el programa.
 
-Con la notaciÃ³n $\backslash$g\{N\}, evitamos la ambigÃ¼edad en la referencia y las partes literales del patrÃ³n.
+Con la notación $\backslash$g\{N\}, evitamos la ambigüedad entre la referencia y las partes literales del patrón.
 
 \vspace{-6pt}
 \small
@@ -178,3 +178,95 @@ Con la notaciÃ³n $\backslash$g\{N\}, evitamos la ambigÃ¼edad en la referencia y 
 \end{Verbatim}
 \vspace{-6pt}
 \normalsize
+Con la notación \texttt{$\backslash$g\{N\}}, podemos usar números negativos. En lugar de especif\mbox{}icar un número absoluto del grupo de paréntesis, podemos especif\mbox{}icar un punto de referencia relativa. Podemos reescribir el ejemplo anterior usando \texttt{-1}.
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    use 5.010;
+
+    $_ = "aa11bb";
+    if (/(.)\textbackslash{}g\{-1\}11/)\{
+        print "Esto hace match";
+    \}
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+\section{Alternación}
+
+\label{Alternaci-n}
+
+La barra vertical (|), normalmente llamada ``or'', indica que, o hace match el lado derecho de la expresión o, hace match el lado izquierdo. Esto signif\mbox{}ica, que si la parte izquierda del patrón falla, la parte de la derecha aun tiene una oportunidad par hacer match. Entonces, \texttt{/fred|barney|betty/} va a hacer match con cualquier cadena que contenga \texttt{fred}, o \texttt{barney}, o \texttt{betty}.
+
+Ahora, usted puede hacer patrónes como \texttt{/fred( |$\backslash$t)+barney}, que hace match si \texttt{fred} y \texttt{barney} están separados por espacios, tabs, o una mezcla de ambos.
+
+El patrón \texttt{/fred (and|or) barney/} hace match con cualquier cadena que tenga una de las dos posibles cadenas: \texttt{fred and barney} o \texttt{fred or barney}.
+
+\section{Clases o Grupos de Caracteres}
+
+\label{Clases-o-Grupos-de-Caracteres}
+
+Una clase o grupo de caracteres, es una lista de caracteres posibles dentro de corchetes (\texttt{[]}), entonces cualquier caracterer que este especif\mbox{}icado en la clase va hacer match. Esto hace match solo para un simple caracterer, y este caracterer debe estar en la lista declarada entre los corchetes.
+
+Por ejemplo, para la clase \texttt{[abcwxyz]} va a hacer match cualquiera de estos siete caracteres. Por conveniencia, puedes especif\mbox{}icar un rango de caracteres usando el guión (-). Entonces se puede escribir la anterior clase de la siguiente manera: \texttt{[a-cw-z]}.
+
+Es usual encontrar esta clase de caracteres: \texttt{[a-zA-Z]} para hacer match de cualquier letra que se encuentre en este grupo.
+
+Por supuesto, una clase de caracteres va a ser siemre parte de un patrón. Por ejemplo
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    $_ = "The HAL-9000 requires authorization to continue.";
+    if (/HAL-[0-9]+/) \{
+        print "The string mentions some model of HAL computer.\textbackslash{}n";
+    \}
+    
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+Algunas veces, es mas fácil especif\mbox{}icar que grupo de caracteres no va a hacer match, en lugar de usar una clase de caracteres permitida. El acento circunf\mbox{}lejo \texttt{\char94{}} al inicio de una clase de caracteres, niega esta clase de caracteres. Esto signif\mbox{}ica, que [\char94{}def] va a hacer match con cualquier caracter simple excepto para uno de estos tres. Y [\char94{}n$\backslash$-z] va hacer match con cualquier caracter excepto con \textbf{n}, guión (-) o \textbf{z}
+
+\section{Atajos para Clases de Caracteres}
+
+\label{Atajos-para-Clases-de-Caracteres}
+
+Algunas clases de caracteres aparecen con tanta frecuencia que tienen un atajo. Por ejemplo, la clase de caracteres de cualquier dígito, \texttt{[0-9]}, puede ser abreviado como \texttt{$\backslash$d}. Entonces, el patrón para ejemplo sobre HAL, pudo haberse escrito así: \texttt{/HAL-$\backslash$d+/}.
+
+El atajo \texttt{$\backslash$w}, representa la clase: \texttt{[A-Za-z]}
+
+El atajo \texttt{$\backslash$s}, representa espacio en blanco. Es común ver \texttt{$\backslash$s*} para cualquier cantidad de espacios en blanco, incluyendo ninguno.
+
+\section{Atajos Negativos}
+
+\label{Atajos-Negativos}
+
+Algunas veces usted va a querer lo opuesto a uno de los atajos. Puede ser que quiera [\char94{}$\backslash$d], [\char94{}$\backslash$w] o [\char94{}$\backslash$s], indicando, ningún caracter de tipo dígito, o ningún caracter de palabra, o ningún espacio en blanco. Esto es bastante fácil de lograr usando sus homólogos en mayúsculas: \texttt{$\backslash$D}, \texttt{$\backslash$W}, o \texttt{$\backslash$S}.
+
+Otra composición de clase de caracteres es [$\backslash$d$\backslash$D], que contempla cualquier dígito y cualquier no dígito incluso una nueva linea. Y esta el patrón totalmente inecesario: [\char94{}$\backslash$d$\backslash$D], que hace match de cualquier cosa que no sea ni un dígito ni un no dígito. Es decir, Nada.
+
+\section{Ejercicios}
+
+\label{ejercicios06}
+
+\vspace{-5pt}
+
+\begin{description}
+
+\setlength{\topsep}{0pt}
+\setlength{\itemsep}{0pt}
+\item[] 1. Escriba un programa que imprima cada linea de la entrada que mencione la palabra \texttt{fred}. Haga un archivo de texto que contenga la palabra fred en cadenas y nombres que incluyan fred y utilice este archivo como entrada del programa.
+
+\item[] 2. Modif\mbox{}ique el programa anterior, para que también haga match con \texttt{Fred}.
+
+\item[] 3. Escriba un programa que imprima cada linea de su entrada que contenga el punto (.), ignore las otras lineas.
+
+\item[] 4. Escriba un programa que imprima cada linea que tenga la palabras con la primera letra en mayúscula, pero no mayúscula sostenida.
+
+\item[] 5. Escriba un programa que imprima cada linea que tenga dos caracteres iguales juntos el uno al otro y que no sea dos espacios en blanco. Debe hacer match de lineas que contengan cosas como \texttt{Mississippi}, \texttt{Bamm-Bamm}, o \texttt{llama}.
+
+\item[] 6. Escriba un programa que imprima cualquier linea de la entrada que contenga los siguientes dos cadenas en la misma linea: \texttt{willma} y \texttt{fred}.
+
+\end{description}
+
+\vspace{-5pt}
