@@ -419,9 +419,9 @@ En desde la version 5.6 de Perl, puedes usar un tercer argumento extra para \tex
 
 Perl actualmente no abre el archivo por el mismo, Perl le pide al sistema operativo que abra el archivo por el. Por su puesto, el sistema operativo puede negarse a hacerlo debido a una conf\mbox{}iguración de permisos, un nombre de archivo incorrecto u otras razones.
 
-Si intentas leer de un f\mbox{}ilehandle malo, vas a ver inmediatamente un \texttt{end-of-f\mbox{}ile} o f\mbox{}in de archivo. \texttt{end-of-f\mbox{}ile} indica \texttt{undef} en contexto escalar o una lista vacia en contexto de lista.
+Si intentas leer de un f\mbox{}ilehandle malo, vas a ver inmediatamente un \texttt{end-of-f\mbox{}ile} o f\mbox{}in de archivo. \texttt{end-of-f\mbox{}ile} indica \texttt{undef} en contexto escalar o una lista vacía en contexto de lista.
 
-Si intentas escribir en un f\mbox{}ilehandle malo, los datos simplemente se perderan.
+Si intentas escribir en un f\mbox{}ilehandle malo, los datos simplemente se perderán.
 
 Afortunadamente, estas consecuencias son fáciles de evitar. Primero que todo, si estamos usando el pragma \texttt{warnings} o el switch \texttt{-w}, Perl va a advertirnos cuando vea que estamos usando un f\mbox{}ilehandle malo. Pero incluso antes de esto, la llamada \texttt{open} siempre nos indica si puedo hacer el trabajo o fallo, retornando verdadero o falso. Entonces, puedes escribir tu código de la siguiente manera:
 
@@ -453,15 +453,15 @@ Cerrar un Filehandle le dice al sistema operativo, que hemos terminado la conexi
 
 Perl, automáticamente cierra un f\mbox{}ilehandle si lo abres de nuevo (esto ocurre si reusas el nombre del f\mbox{}ilehandle en otra llamada a \texttt{open}) o si sales del programa.
 
-Debido a esto, varios programas simples de Perl no cierran los f\mbox{}ilehandles. Pero si quieres ser ordenado, debe haber una llamada a \texttt{close} por cada llamada a \texttt{open}. En general, es mejor cerrar cada f\mbox{}ilehandle pronto despuÃ©s de haber terminado con el. Aun que este cerca del f\mbox{}in del programa.
+Debido a esto, varios programas simples de Perl no cierran los f\mbox{}ilehandles. Pero si quieres ser ordenado, debe haber una llamada a \texttt{close} por cada llamada a \texttt{open}. En general, es mejor cerrar cada f\mbox{}ilehandle pronto después de haber terminado con el. Aun que este cerca del f\mbox{}in del programa.
 
 \section{Errores fatales con die}
 
 \label{Errores-fatales-con-die}
 
-Miremos hacia un lado un momento. Necesitamos saber algunas cosas mas que aunque no estÃ¡n relacionadas con los procesos de I/O nos va a permitir salir de un programa antes de lo esperado.
+Miremos hacia un lado un momento. Necesitamos saber algunas cosas mas que aunque no están relacionadas con los procesos de I/O nos va a permitir salir de un programa antes de lo esperado.
 
-Cuando ocurre un error fatal en Perl (por ejemplo, si haces una division por cero, uso de una expresión regular inválida, o llamar una subrutina que no esta def\mbox{}inida), sus programas se rompen con un mensaje de error indicando la razón del porqué \footnote{Bueno, esto pasa por defecto, pero podemos atrapar los errores con la función eval, que vamos a ver mas adelante en otro capítulo}. Esta funcionalidad esta disponible para nosotros a través de la función \texttt{die}, entonces podemos hacer nuestros propios errores fatales.
+Cuando ocurre un error fatal en Perl (por ejemplo, si haces una division por cero, uso de una expresión regular inválida, o llamar una subrutina que no esta def\mbox{}inida), sus programas se rompen con un mensaje de error indicando la razón del porqué \footnote{Bueno, esto pasa por defecto, pero podemos atrapar los errores con la función \texttt{eval}, que vamos a ver mas adelante en otro capítulo}. Esta funcionalidad esta disponible para nosotros a través de la función \texttt{die}, entonces podemos hacer nuestros propios errores fatales.
 
 La función \texttt{die} imprime el mensaje que le pasas como argumento, y se asegura que el programa termine con una salida diferente de cero.
 
@@ -478,9 +478,9 @@ Entonces, podemos escribir el ejemplo anterior de la siguiente manera:
 \end{Verbatim}
 \vspace{-6pt}
 \normalsize
-Si \texttt{open} falla, \texttt{die} va a terminar el programa diciendo: ``No se pudo crear el archivo de logs. Pero, ¿ Que es esa variable \$! en el mensaje ?, Esto es, una queja del sistema que un ser humano puede leer. En general, cuando el sistema se niega a hacer algo que le estamos pidendo, en \texttt{\$!} esta la razon del porqué.
+Si \texttt{open} falla, \texttt{die} va a terminar el programa diciendo: ``No se pudo crear el archivo de logs. Pero, ¿ Que es esa variable \$! en el mensaje ?, Esto es, una queja del sistema que un ser humano puede leer. En general, cuando el sistema se niega a hacer algo que le estamos pidiendo, en \texttt{\$!} esta la razón del porqué.
 
-Hay otra cosa interesante que \texttt{die} puede hacer por nosotros, automáticamente va a indicar el nombre del programa y el número de linea en donde ocurrio el error.
+Hay otra cosa interesante que \texttt{die} puede hacer por nosotros, automáticamente va a indicar el nombre del programa y el número de linea en donde ocurrió el error.
 
 Suponiendo que en el programa anterior no podemos abrir el f\mbox{}ilehandle por problemas con los permisos, vamos a obtener el siguiente mensaje:
 
@@ -518,7 +518,7 @@ Cuando un f\mbox{}ilehandle se abre para leer, puedes leer las lineas justo como
 \end{Verbatim}
 \vspace{-6pt}
 \normalsize
-Un f\mbox{}ilehandle abierto para escritura puede usarse con \texttt{print} o \texttt{printf}, colocÃ¡ndolo inmediatamente despuÃ©s de la palabra reservada pero antes de la lista de argumentos:
+Un f\mbox{}ilehandle abierto para escritura puede usarse con \texttt{print} o \texttt{printf}, colocándolo inmediatamente después de la palabra reservada pero antes de la lista de argumentos:
 
 \vspace{-6pt}
 \small
@@ -544,7 +544,7 @@ Por defecto, si no le indicas un f\mbox{}ilehandle a \texttt{print} o a \texttt{
 \end{Verbatim}
 \vspace{-6pt}
 \normalsize
-Hay que tener cuidado con esto, una vez que se termine de usar, se debe volver al valor por defecto STDOUT. De igual manera, por defecto, la salida hacia un f\mbox{}ilehandle se guarda en el buf\mbox{}fer. Conf\mbox{}igurando la variable especial \texttt{\$|} a 1, va a hacer que el f\mbox{}ilehandle selecionado siempre haga f\mbox{}lush del buf\mbox{}fer despues de cada operación de salida. Entonces si se quiere asegurar que los archivos de log tengan los registros a tiempo, en el caso que quieras estar leyendo el log para monitorear el progreso del programa, puedes hacer algo como esto:
+Hay que tener cuidado con esto, una vez que se termine de usar, se debe volver al valor por defecto STDOUT. De igual manera, por defecto, la salida hacia un f\mbox{}ilehandle se guarda en el buf\mbox{}fer. Conf\mbox{}igurando la variable especial \texttt{\$|} a 1, va a hacer que el f\mbox{}ilehandle selecionado siempre haga f\mbox{}lush del buf\mbox{}fer después de cada operación de salida. Entonces si se quiere asegurar que los archivos de log tengan los registros a tiempo, en el caso que quieras estar leyendo el log para monitorear el progreso del programa, puedes hacer algo como esto:
 
 \vspace{-6pt}
 \small
@@ -561,12 +561,12 @@ Hay que tener cuidado con esto, una vez que se termine de usar, se debe volver a
 
 \label{Reabrir-un-Filehandle-por-defecto}
 
-Ya mencionamos antes que si abres un archivo el anterior se cierra automáticamente. Y tambien digimos que no debería reusar uno de los seis nombres de f\mbox{}ilehandles por defecto, al menos que quiera hacer algo especial. Adicionalmente digimos que los mensajes de error en Perl van a STDERR. Si usa estas tres piezas de información juntas, ahora puedes tener una idea de como enviar los mensajes de error a un archivo.
+Ya mencionamos antes que si abres un archivo el anterior se cierra automáticamente. Y también dijimos que no debería reusar uno de los seis nombres de f\mbox{}ilehandles por defecto, al menos que quiera hacer algo especial. Adicionalmente dijimos que los mensajes de error en Perl van a STDERR. Si usa estas tres piezas de información juntas, ahora puedes tener una idea de como enviar los mensajes de error a un archivo.
 
 \vspace{-6pt}
 \small
 \begin{Verbatim}[commandchars=\\\{\},numbers=left]
-    # EnvÃ­a los errores a mi log privado de errores
+    # Envía los errores a mi log privado de errores
     if ( ! open STDERR, ">>/home/elsanto/.error_log")\{
         die "No pude abrir el log de errores: $!";
     \}
@@ -579,7 +579,7 @@ Ya mencionamos antes que si abres un archivo el anterior se cierra automáticamen
 
 \label{Salida-con-say}
 
-Perl 5.10 toma la función \texttt{say} del desarrollo de Perl 6. Es lo mismo que \texttt{print}, con la diferencia de que agrega al f\mbox{}inal un caracter de nueva linea (\texttt{$\backslash$n}). Las siguiente sentencias producen la misma salida:
+Perl 5.10 toma la función \texttt{say} del desarrollo de Perl 6. Es lo mismo que \texttt{print}, con la diferencia de que agrega al f\mbox{}inal un carácter de nueva linea (\texttt{$\backslash$n}). Las siguiente sentencias producen la misma salida:
 
 \vspace{-6pt}
 \small
@@ -618,7 +618,7 @@ Al igual que con \texttt{print}, puedes especif\mbox{}icar un f\mbox{}ilehandle 
 \end{Verbatim}
 \vspace{-6pt}
 \normalsize
-Esta es una nueva caracteristica de Perl 5.10, y nosotros la usamos solo cuando estamos usando alguna otra función de Perl 5.10. La vieja y conf\mbox{}iable \texttt{print} sigue siendo tan buena como siempre lo ha sido, pero sospechamos que hay algunos programadores de Perl que van a querer ahorrase el tener que escribir cuatro caracteres extra. (dos del nombre y $\backslash$n).
+Esta es una nueva característica de Perl 5.10, y nosotros la usamos solo cuando estamos usando alguna otra función de Perl 5.10. La vieja y conf\mbox{}iable \texttt{print} sigue siendo tan buena como siempre lo ha sido, pero sospechamos que hay algunos programadores de Perl que van a querer ahorrase el tener que escribir cuatro caracteres extra. (dos del nombre y $\backslash$n).
 
 \section{Ejercicios}
 

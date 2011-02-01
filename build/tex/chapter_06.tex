@@ -1,0 +1,180 @@
+\chapter{El mundo de las Expresiones Regulares}
+
+Perl posee muchas características que lo distinguen de otros lenguajes. De todas estas características una de las mas importantes es el soporte solido de expresiones regulares. Este permite un manejo de cadenas rápido, f\mbox{}lexible y conf\mbox{}iable.
+
+Este poder tiene un precio. Las expresiones regulares actualmente son pequeños programas con su propio lenguaje especial, metidos dentro de Perl. (Si, esta pensando correctamente, va a aprender otro lenguaje de programación.)
+
+En este capítulo, va a visitar el mundo de las expresiones regulares, en donde probablemente podrás olvidar algunas cosas del mundo de Perl. Luego en un capítulo siguiente, vamos a mostrarle donde es que este mundo encaja en el mundo de Perl.
+
+Las expresiones regulares no son exclusivas de Perl, podemos encontrarlas en \texttt{sed} y \texttt{awk}, \texttt{procmail}, \texttt{grep}, editores de texto como \texttt{vim} e \texttt{emacs}.
+
+\section{¿ Qué son las expresiones regulares ?}
+
+Una expresión regular, también llamada \emph{patrón} en Perl, es una plantilla en donde una cadena determinada encaja o no encaja. Esto es, hay un número inf\mbox{}inito de cadenas de texto posibles; con un patrón de terminado que las divide en dos grupos: las cadenas que encajan o coinciden, y aquellas que no.
+
+Un patrón puede aplicar a una sola cadena, o solo dos o tres, o a una docena, o a cientos, o a un número inf\mbox{}inito. O puede aplicar a todas excepto a una, o excepto a un grupo, o excepto a un número inf\mbox{}inito.
+
+Nos referimos a las expresiones regulares como pequeños programas con su propio lenguaje de programación simple. Es un lenguaje simple porque los programas tienen una sola tarea: mirar una cadena y decir ``Cumple, esta cadena encaja en el patron'' o ``No cumple, esta cadena no encaja en el patrón''. Y esto es todo lo que hace.
+
+Uno de los lugares donde probablemente halla visto las expresiones regulares es en el comando de Unix \texttt{grep}. Por ejemplo:
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},frame=single,label=Terminal]
+    $ grep 'flint.*stone' chapter*.pod
+    chapter_02.pod:    ($fred, $barney) = qw< flintstone rubble slate granite >;
+    chapter_02.pod:    ($wilma, $dino) = qw[flintstone];       # $dino obtiene undef.
+    chapter_02.pod:    @rocks = qw\{ flintstone slate rubble \};
+    chapter_05.pod:    $apellido\{"fred"\}       = "flintstone";
+    chapter_05.pod:        "fred"       => "flintstone",
+    
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+No debe confundir las expresiones regulares con los patrones de archivo de la shell llamados globs. Un glob típico es el que usas cuando escribes *.pm en la consola de Unix para coincidir con todos los archivos que terminen en .pm.
+
+\section{Usando Patrones Simples}
+
+\label{Usando-Patrones-Simples}
+
+Para verif\mbox{}icar una cadena contra un patrón o expresión regular contenida en la variable \texttt{\$\_}, simplemente colocamos la cadena entre un par de barras, por ejemplo:
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    $_ = "yabba dabba doo";
+    if (/abba/)\{
+        print "Matched ! \textbackslash{}n";
+    \}
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+La expresión /abba/ busca estas cuatro letras en la cadena contenida en \texttt{\$\_}, si la encuentra retorna un valor verdadero. En este caso, fue encontrada en mas de una oportunidad, pero eso no causa ninguna diferencia. Si la encuentra, coincide o hace match; si no la encuentra en toda la expresión, falla.
+
+Como evaluar una expresión regular devuelve verdadero o falso, esta evaluación normalmente se encuentra en expresiones condicionales \texttt{if} o \texttt{while}.
+
+Todas las secuencias de escape usuales que pueda colocar entre dobles comillas están disponibles en los patrones de expresiones regulares, entonces podría usar el patron /coke$\backslash$tsprite/ para probar la coincidencia de 11 caracteres de coke, un tab, y sprite.
+
+\section{Sobre los Metacaracteres}
+
+\label{Sobre-los-Metacaracteres}
+
+Si los patrones solo verif\mbox{}icaran cadenas de caracteres simples, nos serían muy útiles en verdad. Esto es porque hay una número de caracteres especiales, llamados \emph{metacaracteres} que tienen un signif\mbox{}icado especial en las expresiones regulares.
+
+Por ejemplo, el punto (.) es un carácter comodín, hace match de cualquier carácter excepto de una nueva linea. Entonces el patrón \texttt{/bet.y/} va a hacer match para la cadena \texttt{betty}. O va a hacer match de \texttt{betsy}, o de \texttt{bet=y} o de cualquier otra cadena que tenga \texttt{bet} seguida por cualquier carácter (excepto una nueva linea) seguida por una \texttt{y}. El punto siempre hace match de un solo carácter.
+
+Si quisiera usar el punto en un patrón, para evaluar la existencia de el punto en la cadena, debe anteponer un backslash o barra invertida. Esta regla aplica para todos los metacaracteres de expresiones regulares en Perl.
+
+\section{Cuantif\mbox{}icadores Simples}
+
+\label{Cuantificadores-Simples}
+
+Con frecuencia, tendrá algo que se repite en un patrón. El asterisco (*) indica hacer match de el item que lo precede cero o mas veces. Entonces, \texttt{/fred$\backslash$t*barney/} hace match para cualquier número de caracteres tabs entre \texttt{fred} y \texttt{barney}. Entonces, va a hacer match para \texttt{``fred$\backslash$tbarney''} con un tab, \texttt{``fred$\backslash$t$\backslash$tbarney''} con dos tabs, o \texttt{``fred$\backslash$t$\backslash$t$\backslash$tbarney''} con tres tabs, o de \texttt{``fredbarney''}.
+
+Para hacer referencia a cualquier grupo de caracteres, usamos el punto y el asterisco. Entonces, \texttt{.*} va a hacer match de cualquier carácter, para cualquier número de veces.
+
+Al asterisco (*) se le llama formalmente \emph{cuantif\mbox{}icador}. Pero no es el único cuantif\mbox{}icador; el signo (+) es otro. El signo + indica que va a hacer match de el carácter anterior una o mas veces: \texttt{/fred +barney/} hace match si fred y barney esta separados por uno o mas espacios y solo espacios. (El espacio, no es un metacaracter). Esto no hace match de \texttt{fredbarney}, debido a que el signo (+) indica que debe haber uno o mas espacios entre los dos nombres, entonces el ultimo espacio es requerido. Puede ayudarle a recordar que el signo (+) indica que el carácter que antepone al signo mas (+) puede estar opcionalmente repetido.
+
+Existe un tercer cuantif\mbox{}icador como el asterisco (*) y el signo mas (+), pero un poco mas limitado. Es el signo de interrogación cerrando (?), el cual indica que el elemento que se encuentra antes de él es opcional. Esto es, el item que le precede, puede ocurrir una o ninguna vez. Entonces, si tenemos \texttt{/bamm-?bamm/} hace match para \texttt{bamm-bamm} o para \texttt{bammbamm}. Esto es fácil de recordar, diciendo: ``La última cosa, ¿ puede estar ?, ¿ o no puede estar ?.
+
+\section{Agrupación de Patrones}
+
+\label{Agrupaci--n-de-Patrones}
+
+Como en matemáticas, los paréntesis (\texttt{()}) los usábamos para agrupar. Entonces, los paréntesis son metacaracteres. Ejemplo, el patron /fred+/ hace match de cadenas como \texttt{fredddddddd}, pero, este tipo de cadenas no son del mundo real. Ahora, el patrón \texttt{/(fred)+/} hace match de cadenas como \texttt{fredfredfred}, que es algo mas parecido a lo que tal vez tu quisieras. ¿ Y que pasaría con el patrón \texttt{/(fred)*/} ?, esto va a hacer match para cadenas como ``Hola, Mundo''.
+
+Los paréntesis también nos dan la posibilidad de reusar parte de la cadena que hizo match directamente. Podemos usar puntos de referencias para acceder a una cadena que hizo match en los paréntesis. Un punto de referencia se escribe como una barra invertida seguida por un número, como $\backslash$1, $\backslash$2, $\backslash$n. El número indica el grupo creado con los paréntesis.
+
+Cuando usamos paréntesis al rededor de un punto, vamos ha hacer match de cualquier carácter que no sea una nueva linea. Podemos hacer match de nuevo al carácter que hizo match entre los paréntesis usando el punto de referencia $\backslash$1.
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    $_ = "abba";
+    if (/(.)\textbackslash{}1/)\{   # Hace match de 'bb'
+        "Esto hace match para un carácter seguido de si mismo. \textbackslash{}n";
+    \}
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+El punto de referencia no tiene que estar precisamente justo a la derecha de el grupo de paréntesis. El siguiente patrón, hace match de cualquier caracteres que no sea una nueva linea después del literal \textbf{y}, y luego usamos el punto de referencia \texttt{$\backslash$1} para indicar que queremos hacer match de los mismos cuatro caracteres después de el literal \texttt{d}:
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    $_ = "yabba dabba doo";
+    if (/y(....) d\textbackslash{}1/)\{
+        print "Hace match del conjunto de caracteres que están antes y después
+        de el caracteres literal d! \textbackslash{}n";
+    \}
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+Podemos usar multiples grupos de paréntesis, y cada grupo posee su propio punto de referencia. Podemos hacer match de cualquier carácter que no sea una nueva linea en grupos de paréntesis, seguido por cualquier otro carácter que no sea una nueva linea en otro grupo de paréntesis. Después de tener estos dos grupos, usamos $\backslash$1 para referirnos al primer grupo y $\backslash$2 para referirnos al segundo grupo. En efecto, con el próximo ejemplo, va ha hacer match si se encuentra el palindrome abba:
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    $_ = "yabba dabba doo";
+    if (/y(.)(.)\textbackslash{}2\textbackslash{}1/)\{     # Hace match de 'abba'
+        print "Hizo match para los caracteres después de d y y \textbackslash{}n";
+    \}
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+Ahora, se debe estar haciendo una pregunta, ¿ Como se sabe que grupo obtiene que número ?. Afortunadamente, Larry hizo que esto fuera fácil de comprender para los humanos: simplemente cuente el orden de apertura de los paréntesis.
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    $_ = "yabba dabba doo";
+    if (/y((.)(.)\textbackslash{}3\textbackslash{}2) d\textbackslash{}1/)\{
+        print "Matched\textbackslash{}n";
+    \}
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+Probablemente es mas fácil que lo vea, si escribe la expresión regular que forma que se observe cada parte por separado:
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    (           # Primera apertura de paréntesis
+        (.)     # Segundo apertura de paréntesis
+        (.)     # Tercera apertura de paréntesis 
+        \textbackslash{}2
+        \textbackslash{}3
+    )
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+En Perl 5.10 existe una nueva forma para denotar un punto de referencia. En lugar de usar un baclslash y un número, usamos \texttt{$\backslash$g\{N\}}, donde N es el número del punto de referencia que desea usar.
+
+Supongamos que debe usar un punto de referencia como parte de un patrón que contiene un número. En esta expresión regular, nosotros vamos a usar \texttt{$\backslash$1} para repetir el carácter que hizo match en los paréntesis seguido por la cadena literal 11:
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    $_ = "aa11bb";
+    if (/(.)\textbackslash{}111/)\{
+        print "Matched ! \textbackslash{}n"; 
+    \}
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+Perl va a tener que adivinar que signif\mbox{}ica eso. ¿ Es un $\backslash$1, $\backslash$11, o $\backslash$111 ?. Perl crea referencias como sea necesario, entonces el asume que eso signif\mbox{}ica $\backslash$111. Pero no tenemos 111 grupos de paréntesis, o 11 grupos, Perl va a quejarse cuando intente compilar el programa.
+
+Con la notación $\backslash$g\{N\}, evitamos la ambigüedad en la referencia y las partes literales del patrón.
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    use 5.010;
+
+    $_ = "aa11bb";
+    if (/(.)\textbackslash{}g\{1\}11/)\{
+        print "Esto hace match \textbackslash{}n";
+    \}
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize

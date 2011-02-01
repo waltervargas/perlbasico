@@ -24,7 +24,7 @@ Para def\mbox{}inir su propia subrutina, use la palabra reservada \texttt{sub}, 
 \normalsize
 Las subrutinas se pueden def\mbox{}inir en cualquier lugar del programa, pero los programadores que vienen de lenguajes como C o Pascal, les gusta colocar las subrutinas al inicio del archivo. Otros pref\mbox{}ieren poner las subrutinas al f\mbox{}inal del archivo, entonces la parte principal del programa queda al principio. Esto depende de usted. En cualquier caso, normalmente no va a necesitar ningún tipo de declaración previa \footnote{A menos que tu subrutina valla a ser particularmente compleja y declare un prototipo, que indica como el compilador va a parsear e interpretar la invocación de los argumentos. Esto no es común, vea la página del manual \texttt{perlsub} para mas información.}
 
-La def\mbox{}inición de la subrutina es global; sin hechiceria no hay subrutina privadas. Si tiene dos subrutinas def\mbox{}inidas con el mismo nombre, la última subrutina sobre escribe la primera. Esto es generalmente considerado como una mala práctica, o una señal de que el programador de mantenimiento esta confundido.
+La def\mbox{}inición de la subrutina es global; sin hechicería no hay subrutina privadas. Si tiene dos subrutinas def\mbox{}inidas con el mismo nombre, la última subrutina sobre escribe la primera. Esto es generalmente considerado como una mala práctica, o una señal de que el programador de mantenimiento esta confundido.
 
 Como pudo notarlo en el ejemplo previo, puedes usar variables globales dentro de el cuerpo de una subrutina. De hecho, todas las variables que hemos visto hasta ahora son globales; esto signif\mbox{}ica, que podemos acceder a ellas desde cualquier parte del programa. Esto horroriza a los puristas del lenguaje, pero no se preocupe, el equipo de desarrollo de Perl formo una turba iracunda con antorchas y corrió fuera de la ciudad hace años. Mas adelante veremos como hacer variables privadas en ``Variables Privadas en Subrutinas''.
 
@@ -32,7 +32,7 @@ Como pudo notarlo en el ejemplo previo, puedes usar variables globales dentro de
 
 \label{Invocando-una-Subrutina}
 
-Puede invocar o llamar una subrutina desde cualquier expresión usando el nombre de la subrutina (con el signo \&) \footnote{Y frecuentemente un par de paréntesis, incluso si estan vacios}.
+Puede invocar o llamar una subrutina desde cualquier expresión usando el nombre de la subrutina (con el signo \&) \footnote{Y frecuentemente un par de paréntesis, incluso si están vacíos}.
 
 \vspace{-6pt}
 \small
@@ -129,7 +129,7 @@ Perl tiene argumentos para subrutinas. Para pasar una lista de argumentos a una 
 \end{Verbatim}
 \vspace{-6pt}
 \normalsize
-Una vez que lista es enviada a la subrutina, va a estar disponible en la subrutina para hacer lo que sea necesario. Por supuesto, usted tiene que guardar esta lista en algún lugar, Perl automáticamente la lista de parámetros (este es otro nombre para la lista de argumentos) en una variable de tipo array especial llamada \texttt{@\_} durante el tiempo de existencia de la subrutina. La subruina puede acceder a esta variable para determinar o el número de argumentos y el valor de los argumentos.
+Una vez que lista es enviada a la subrutina, va a estar disponible en la subrutina para hacer lo que sea necesario. Por supuesto, usted tiene que guardar esta lista en algún lugar, Perl automáticamente la lista de parámetros (este es otro nombre para la lista de argumentos) en una variable de tipo array especial llamada \texttt{@\_} durante el tiempo de existencia de la subrutina. La subrutina puede acceder a esta variable para determinar o el número de argumentos y el valor de los argumentos.
 
 Esto signif\mbox{}ica que el primer parámetro de la subrutina es guardado en \texttt{\$\_[0]}, el segundo es guardado en \texttt{\$\_[1]} y así sucesivamente. Pero, he aquí una nota importante, estas variables no tienen nada que ver con la variable \texttt{\$\_}, es solo que la lista de parámetros debe ser almacenada en una variable array para que la subrutina pueda utilizarlos, y Perl llama a esta variable \texttt{@\_}.
 
@@ -174,7 +174,7 @@ Por defecto, todas las variables en Perl son variables globales; lo que signif\m
 \normalsize
 Estas variables son privadas (o de ámbito local) al bloque que las contiene, ningún otro código puede acceder o modif\mbox{}icar estas variables privadas, por accidente o por diseño \footnote{Programadores mas avanzados puede hacer una variable de ámbito local accesible por referencia desde fuera de su ámbito, pero nunca por el nombre de la variable}.
 
-También es importante señalar que, en el bloque \texttt{if}, no fue necesario un punto y coma después de la expresión del valor de retorno. Aunque Perl permíte omitir el último punto y coma de un bloque, en la práctica tu puedes omitirlo solo cuando el código es tan simple que puedas escribirlo en un bloque de una sola linea.
+También es importante señalar que, en el bloque \texttt{if}, no fue necesario un punto y coma después de la expresión del valor de retorno. Aunque Perl permite omitir el último punto y coma de un bloque, en la práctica tu puedes omitirlo solo cuando el código es tan simple que puedas escribirlo en un bloque de una sola linea.
 
 La subrutina en el ejemplo previo puede ser mas simple aún. Debe haber notado que la lista (\$m, \$n) fue escrita dos veces, el operador \texttt{my} puede ser aplicado a una lista de variables encerradas en paréntesis, entonces se pueden combinar las dos primeras sentencias de la subrutina de la siguiente manera:
 
@@ -185,13 +185,13 @@ La subrutina en el ejemplo previo puede ser mas simple aún. Debe haber notado qu
 \end{Verbatim}
 \vspace{-6pt}
 \normalsize
-Una sola sentencia crea las variables privadas y def\mbox{}ine sus valores. Casí todas las subrutinas van a comenzar con una linea muy parecida a esta, nombres entre paréntesis. Cuando vea esta linea, va a saber que la subrutina espera dos parámetros escalares, que vas a llamar \$m y \$n dentro de la subrutina.
+Una sola sentencia crea las variables privadas y def\mbox{}ine sus valores. Casi todas las subrutinas van a comenzar con una linea muy parecida a esta, nombres entre paréntesis. Cuando vea esta linea, va a saber que la subrutina espera dos parámetros escalares, que vas a llamar \$m y \$n dentro de la subrutina.
 
 \section{Longitud de la lista de parámetros}
 
 \label{Longitud-de-la-lista-de-par-metros}
 
-En el mundo real, las subrutinas no poseen un valor arbritario para la longitud de la lista de parámetros. Esto es porque en Perl no hay límites innecesarios. Es agradable que Perl sea tan f\mbox{}lexible, pero puede haber problemas cuando se llama a la subrutina con una cantidad diferente de parámetros que espera el autor.
+En el mundo real, las subrutinas no poseen un valor arbitrario para la longitud de la lista de parámetros. Esto es porque en Perl no hay límites innecesarios. Es agradable que Perl sea tan f\mbox{}lexible, pero puede haber problemas cuando se llama a la subrutina con una cantidad diferente de parámetros que espera el autor.
 
 Por su puesto, la subrutina puede fácilmente probar si el número de argumentos es correcto examinando el array @\_. Por ejemplo, podemos escribir la función \&max de cierta forma para que revise la lista de argumentos:
 
@@ -312,7 +312,7 @@ Para decirle a Perl que quieres ser mas restrictivo, coloque \texttt{use strict}
 \vspace{-6pt}
 \small
 \begin{Verbatim}[commandchars=\\\{\},numbers=left]
-    use strict;     # Forza algunas buenas reglas de programación.
+    use strict;     # Forzar algunas buenas reglas de programación.
 \end{Verbatim}
 \vspace{-6pt}
 \normalsize
@@ -396,7 +396,7 @@ Si el compilador interno de perl ya ha visto la def\mbox{}inición de la subrutin
 \normalsize
 Esto funciona por la regla de que los paréntesis pueden ser omitidos.
 
-Pero no ponga la declaración de la subrutina despues de la llamada, o el compilador no sabrá de que se trata la llamada de \texttt{division}. Sin embargo esta no es la trampa, el problema en si es el siguiente: Si la subrutina tiene el mismo nombre que una función propia de Perl, usted \emph{debe} usar el ampersand (\&) para hacer la llamada a la subrutina. Al usar el ampersand, nos aseguramos de que estamos llamando a una subrutina; sin el; usted puede hacer la llamada solo si la subrutina no tiene el mismo nombre que una función propia de Perl. Por ejemplo:
+Pero no ponga la declaración de la subrutina después de la llamada, o el compilador no sabrá de que se trata la llamada de \texttt{division}. Sin embargo esta no es la trampa, el problema en si es el siguiente: Si la subrutina tiene el mismo nombre que una función propia de Perl, usted \emph{debe} usar el ampersand (\&) para hacer la llamada a la subrutina. Al usar el ampersand, nos aseguramos de que estamos llamando a una subrutina; sin el; usted puede hacer la llamada solo si la subrutina no tiene el mismo nombre que una función propia de Perl. Por ejemplo:
 
 \vspace{-6pt}
 \small
@@ -447,7 +447,7 @@ Finalmente, puedes retornar nada. Cuando usamos \texttt{return} sin argumentos v
 
 \label{Variables-Privadas-Persistentes}
 
-Con \texttt{my} podemos hacer variables privadas en una subrutina, sin embargo cada vez que llamamos a la subrutina va a re-def\mbox{}inir los valores una vez mas. Con \texttt{state}, podemos tener variables privadas del ambito de una subrutina pero Perl va a mantener sus valores entre las llamadas.
+Con \texttt{my} podemos hacer variables privadas en una subrutina, sin embargo cada vez que llamamos a la subrutina va a re-def\mbox{}inir los valores una vez mas. Con \texttt{state}, podemos tener variables privadas del ámbito de una subrutina pero Perl va a mantener sus valores entre las llamadas.
 
 En el primer ejemplo de este capítulo, vimos una subrutina llamada marino, que incrementaba una variable:
 
@@ -461,7 +461,7 @@ En el primer ejemplo de este capítulo, vimos una subrutina llamada marino, que i
 \end{Verbatim}
 \vspace{-6pt}
 \normalsize
-Ahora que debemos usar \texttt{strict}, el uso de la variable gobal \$n no esta permitido. No podemos hacer de \$n una variable léxica con \texttt{my} porque entonces no va a mantener el valor.
+Ahora que debemos usar \texttt{strict}, el uso de la variable global \$n no esta permitido. No podemos hacer de \$n una variable léxica con \texttt{my} porque entonces no va a mantener el valor.
 
 Declarando nuestra variable con \texttt{state} le decimos a Perl que retenga el valor de esta variable entre las llamadas a la subrutina y hace que la variable sea una variable privada de la subrutina.
 
@@ -524,7 +524,7 @@ Sin embargo, hay una ligera restricción en arrays y hashes como variables de est
 \end{Verbatim}
 \vspace{-6pt}
 \normalsize
-Esto nos dara un error que sugiere que podríamos usar esto en una versión futura de Perl:
+Esto nos dará un error que sugiere que podríamos usar esto en una versión futura de Perl:
 
 \vspace{-6pt}
 \small

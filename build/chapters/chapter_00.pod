@@ -57,7 +57,7 @@ Perl es fácil, casi ilimitado, muy rápido y solo un poco feo.
 
 =head2 Características principales de Perl    
 
-Z<Caracteristicas principales de Perl> 
+Z<Características principales de Perl> 
 
 =head3 Perl es fácil    
 
@@ -67,16 +67,16 @@ Cuando nos referimos que Perl es fácil, hablamos de que es fácil de usar, no es
 especialmente fácil de aprender. Si usted conduce un carro, que paso semanas o
 meses aprendiendo a conducir, entonces luego va a ser fácil de conducir. De
 igual manera cuando pase la misma o mas cantidad de horas aprendiendo Perl,
-entonces despues va a ser muy fácil de usar.  
+entonces después va a ser muy fácil de usar.  
 
-=head3 Perl es casí ilimitado
+=head3 Perl es casi ilimitado
 
-Z<Perl es casí ilimitado> 
+Z<Perl es casi ilimitado> 
 
 Hay muy pocas cosas que no podrás hacer con Perl. Seguramente usted no deseará
 escribir un controlador de algún dispositivo de interrupción a nivel de
-micro-kernel (A pesar de que ya alguien hizo esto). Pero la mayoria de las
-cosas que la gente común y no tan común necesita,  la mayoria del tiempo son
+micro-kernel (A pesar de que ya alguien hizo esto). Pero la mayoría de las
+cosas que la gente común y no tan común necesita,  la mayoría del tiempo son
 buenas tareas para Perl, desde scripts muy pequeños, hasta aplicaciones de
 nivel industrial. 
 
@@ -87,20 +87,20 @@ Z<Perl es sobre todo rápido>
 Esto es porque no hay nadie en el desarrollo que no lo utilice, de modo que
 entonces todos queremos que Perl sea rápido. Si alguien quiere añadir una nueva
 característica que sea genial, pero que introduzca lentitud a otros aspectos,
-es casí seguro que Larry va a rechazar la nueva característica hasta que no se
+es casi seguro que Larry va a rechazar la nueva característica hasta que no se
 encuentre una manera de escribirla de manera eficiente. 
 
 =head3 Perl es un poco feo    
 
 Z<Perl es un poco feo> 
 
-Esto es cierto, el camello se ha convertido en el simbolo de Perl, desde la
-cubierta del legendario libro B<The Camel Book>, conocido tambien como
+Esto es cierto, el camello se ha convertido en el símbolo de Perl, desde la
+cubierta del legendario libro B<The Camel Book>, conocido también como
 B<Programming Perl by Larry Wall, Tom Christianesen,  and Jon Orwant>. 
-Los camellos tambien son un poco feos, pero trabajan duro, incluso en
+Los camellos también son un poco feos, pero trabajan duro, incluso en
 condiciones difíciles. Los camellos siempre están ahí siempre para hacer el
-trabajo a pesar de todas las dificultades, incluso cuando se ven y huelen mal e
-incluse le escupen. Perl es un poco así.
+trabajo a pesar de todas las dificultades, incluso cuando se ven y huelen mal
+le escupen. Perl es un poco así.
 
 
 =head1 ¿ Perl es fácil o difícil ?  
@@ -108,15 +108,15 @@ incluse le escupen. Perl es un poco así.
 Z<Perl es fácil o difícil ?> 
 
 Perl es fácil de usar, pero a veces difícil de aprender. Esto por su puesto es
-una gereralización. En el diseño de Perl, Larry tuvo que hacer muchas
+una generalización. En el diseño de Perl, Larry tuvo que hacer muchas
 consideraciones. Cuando ha tenido la oportunidad de hacer algo más fácil para
 el programador a costa de ser más difícil para el estudiante, ha decidido casi
 todo el tiempo a favor del programador. Esto es así, porque usted va a aprender
 Perl una sola vez, pero lo vas a usar una y otra vez. Perl posee cualquier
 cantidad de comodidades que le permiten al programador ahorrar tiempo. Por
-ejemplo,  la mayoria de las funciones tienen un valor predeterminado,  con
+ejemplo,  la mayoría de las funciones tienen un valor predeterminado,  con
 frecuencia,  el valor por defecto es justamente la manera en la que usted desea
-usar la función. De esta manera,  podrás encontra lineas de código en Perl como
+usar la función. De esta manera,  podrás encontrar lineas de código en Perl como
 las siguientes: 
 
 =begin programlisting
@@ -129,7 +129,7 @@ las siguientes:
 =end programlisting
 
 En su totalidad, sin usar los atajos y los valores por defecto de Perl, este
-trozo de código seria aproximadamente 10 o 12 veces mas largo, entonces tomaria
+trozo de código seria aproximadamente 10 o 12 veces mas largo, entonces tomaría
 mas tiempo para escribirlo y leerlo. Va a ser mas duro de mantener y depurar
 cuando tenga mas variables. 
 
@@ -138,8 +138,8 @@ cuando tenga mas variables.
 
 Z<¿ Como se hizo Perl tan popular ?> 
 
-Despues de jugar un rato con Perl, agregando cosas aquí y allá, Larry se lanzó
-a la comunidad de lectores de la Usenet,  comunmente conocidad como B<La Red>.
+Después de jugar un rato con Perl, agregando cosas aquí y allá, Larry se lanzó
+a la comunidad de lectores de la Usenet,  comúnmente conocida como B<La Red>.
 Los usuarios de esta flota fugitiva que trabajaban en sistemas en todo el
 mundo (decenas de miles de ellos), le dieron retroalimentación, pidiendo a
 Larry, maneras de hacer esto, aquello o lo otro, muchos de los cuales Larry
@@ -157,11 +157,11 @@ sistemas de uso cotidiano hoy en día, y adicionalmente un curso como este.
 Z<¿ Que esta pasando con Perl ahora ?> 
 
 Durante estos días, Larry Wall no escribe código, pero el sigue guiando el
-desarrollo y toma las desiciones importantes. Perl es mayormente mantenido por
+desarrollo y toma las decisiones importantes. Perl es mayormente mantenido por
 un grupo de resistentes y valientes personas llamadas B<The Perl 5 Porters>.
 Puede suscribirse a la lista de correo en B<perl5-porters@perl.org> para seguir
 el trabajo de esta gente y sus debates. Al momento de escribir esta
-documentación,  muchas cosas estan pasando con Perl. Durante los últimos años,
+documentación,  muchas cosas están pasando con Perl. Durante los últimos años,
 muchas personas han estado trabajando en la próxima versión de Perl: Perl 6.
 
 No tire a un lado Perl 5, este sigue siendo la versión actual y estable. No se
@@ -181,7 +181,7 @@ CPAN es replicado en cientos de máquinas al rededor del mundo, comenzando en
 B<http://search.cpan.org> o B<http://kobesearch.cpan.org> para navegar o buscar
 un paquete. Si no tienes acceso a la red, todo CPAN puede caber en 8 o 10 GB.
 Es importante mencionar que debido a los cambios diarios en CPAN, un mirror con
-dos años sin actualizares es definitivamente una antiguedad. 
+dos años sin actualizares es definitivamente una antigüedad. 
 
 =head1 ¿ Como hacer un programa en Perl ?    
 
@@ -208,8 +208,8 @@ lista de otros editores que también pueden usarse.
 Z<Un programa simple> 
 
 Según la regla mas antigua de los libros de computación, cualquier libro sobre
-algún lenguaje de programación que tenga raices Unix, va a comenzar con 
-B<Hola, Mundo>,  por ejempo en Perl seria así: 
+algún lenguaje de programación que tenga raíces Unix, va a comenzar con 
+B<Hola, Mundo>,  por ejemplo en Perl seria así: 
 
 =begin programlisting
 

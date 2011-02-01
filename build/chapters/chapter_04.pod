@@ -562,9 +562,9 @@ incorrecto u otras razones.
 
 Si intentas leer de un filehandle malo, vas a ver inmediatamente un
 C<end-of-file> o fin de archivo. C<end-of-file> indica C<undef> en contexto
-escalar o una lista vacia en contexto de lista. 
+escalar o una lista vacía en contexto de lista. 
 
-Si intentas escribir en un filehandle malo, los datos simplemente se perderan. 
+Si intentas escribir en un filehandle malo, los datos simplemente se perderán. 
 
 Afortunadamente, estas consecuencias son fáciles de evitar. Primero que todo,
 si estamos usando el pragma C<warnings> o el switch C<-w>, Perl va a
@@ -606,7 +606,7 @@ programa.
 
 Debido a esto, varios programas simples de Perl no cierran los filehandles.
 Pero si quieres ser ordenado, debe haber una llamada a C<close> por cada
-llamada a C<open>. En general, es mejor cerrar cada filehandle pronto despuÃ©s
+llamada a C<open>. En general, es mejor cerrar cada filehandle pronto después
 de haber terminado con el. Aun que este cerca del fin del programa. 
 
 
@@ -615,7 +615,7 @@ de haber terminado con el. Aun que este cerca del fin del programa.
 Z<Errores fatales con die> 
 
 Miremos hacia un lado un momento. Necesitamos saber algunas cosas mas que
-aunque no estÃ¡n relacionadas con los procesos de I/O nos va a permitir salir de
+aunque no están relacionadas con los procesos de I/O nos va a permitir salir de
 un programa antes de lo esperado. 
 
 
@@ -623,7 +623,7 @@ Cuando ocurre un error fatal en Perl (por ejemplo, si haces una division por
 cero, uso de una expresión regular inválida, o llamar una subrutina que no esta
 definida), sus programas se rompen con un mensaje de error indicando la razón
 del porqué N<Bueno, esto pasa por defecto, pero podemos atrapar los errores con
-la función eval, que vamos a ver mas adelante en otro capítulo>. Esta
+la función C<eval>, que vamos a ver mas adelante en otro capítulo>. Esta
 funcionalidad esta disponible para nosotros a través de la función C<die>,
 entonces podemos hacer nuestros propios errores fatales. 
 
@@ -650,11 +650,11 @@ Entonces, podemos escribir el ejemplo anterior de la siguiente manera:
 Si C<open> falla, C<die> va a terminar el programa diciendo: "No se pudo crear
 el archivo de logs. Pero, ¿ Que es esa variable $! en el mensaje ?, Esto es,
 una queja del sistema que un ser humano puede leer. En general, cuando el
-sistema se niega a hacer algo que le estamos pidendo, en C<$!> esta la razon
+sistema se niega a hacer algo que le estamos pidiendo, en C<$!> esta la razón
 del porqué.  
 
 Hay otra cosa interesante que C<die> puede hacer por nosotros, automáticamente
-va a indicar el nombre del programa y el número de linea en donde ocurrio el
+va a indicar el nombre del programa y el número de linea en donde ocurrió el
 error. 
 
 Suponiendo que en el programa anterior no podemos abrir el filehandle por
@@ -699,7 +699,7 @@ lineas de un archivo passwd de Unix:
 =end programlisting
 
 Un filehandle abierto para escritura puede usarse con C<print> o C<printf>,
-colocÃ¡ndolo inmediatamente despuÃ©s de la palabra reservada pero antes de la
+colocándolo inmediatamente después de la palabra reservada pero antes de la
 lista de argumentos: 
 
 =begin programlisting
@@ -730,7 +730,7 @@ Hay que tener cuidado con esto, una vez que se termine de usar, se debe
 volver al valor por defecto STDOUT. De igual manera, por defecto, la salida
 hacia un filehandle se guarda en el buffer. Configurando la variable especial
 C<$|> a 1, va a hacer que el filehandle selecionado siempre haga flush del
-buffer despues de cada operación de salida. Entonces si se quiere asegurar que
+buffer después de cada operación de salida. Entonces si se quiere asegurar que
 los archivos de log tengan los registros a tiempo, en el caso que quieras estar
 leyendo el log para monitorear el progreso del programa, puedes hacer algo
 como esto: 
@@ -751,15 +751,15 @@ como esto:
 Z<Reabrir un Filehandle por defecto> 
 
 Ya mencionamos antes que si abres un archivo el anterior se cierra
-automáticamente. Y tambien digimos que no debería reusar uno de los seis
+automáticamente. Y también dijimos que no debería reusar uno de los seis
 nombres de filehandles por defecto, al menos que quiera hacer algo especial.
-Adicionalmente digimos que los mensajes de error en Perl van a STDERR. Si usa
+Adicionalmente dijimos que los mensajes de error en Perl van a STDERR. Si usa
 estas tres piezas de información juntas, ahora puedes tener una idea de como
 enviar los mensajes de error a un archivo. 
 
 =begin programlisting
 
-    # EnvÃ­a los errores a mi log privado de errores
+    # Envía los errores a mi log privado de errores
     if ( ! open STDERR, ">>/home/elsanto/.error_log"){
         die "No pude abrir el log de errores: $!";
     }
@@ -775,7 +775,7 @@ amablemente restaura al valor original.
 Z<Salida con say> 
 
 Perl 5.10 toma la función C<say> del desarrollo de Perl 6. Es lo mismo que
-C<print>, con la diferencia de que agrega al final un caracter de nueva linea
+C<print>, con la diferencia de que agrega al final un carácter de nueva linea
 (C<\n>). Las siguiente sentencias producen la misma salida: 
 
 =begin programlisting
@@ -813,7 +813,7 @@ Al igual que con C<print>, puedes especificar un filehandle con C<say>:
 
 =end programlisting
 
-Esta es una nueva caracteristica de Perl 5.10, y nosotros la usamos solo cuando
+Esta es una nueva característica de Perl 5.10, y nosotros la usamos solo cuando
 estamos usando alguna otra función de Perl 5.10. La vieja y confiable C<print>
 sigue siendo tan buena como siempre lo ha sido, pero sospechamos que hay
 algunos programadores de Perl que van a querer ahorrase el tener que escribir

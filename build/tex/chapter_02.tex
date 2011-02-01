@@ -191,7 +191,7 @@ Los espacios en blanco (caracteres como espacios, tabs, y nuevas lineas) son des
 \end{Verbatim}
 \vspace{-6pt}
 \normalsize
-El ejemplo anterior usa paréntesis como delimitador, pero Perl actualmente permite que uses cualquier caracter de puntuación como delimitador. Algunos ejemplos mas comunes son:
+El ejemplo anterior usa paréntesis como delimitador, pero Perl actualmente permite que uses cualquier carácter de puntuación como delimitador. Algunos ejemplos mas comunes son:
 
 \vspace{-6pt}
 \small
@@ -269,13 +269,13 @@ Ahora que puedes asignar listas, puedes crear un array de cadenas con una linea 
 \end{Verbatim}
 \vspace{-6pt}
 \normalsize
-Podemos referirnos a toda una matriz a través de una notación simple que posee Perl. Solo tiene que usar una arroba (@) antes del nombre del array (y sin corchetes de indices) para referirse a toda la matriz. Este sígil funciona a ambos lados del operador de asignación.
+Podemos referirnos a toda una matriz a través de una notación simple que posee Perl. Solo tiene que usar una arroba (@) antes del nombre del array (y sin corchetes de indices) para referirse a toda la matriz. Este símil funciona a ambos lados del operador de asignación.
 
 \vspace{-6pt}
 \small
 \begin{Verbatim}[commandchars=\\\{\},numbers=left]
     @rocks  = qw/ bedrock slate lava /;
-    @tiny   = ( );                      # una lista vacia 
+    @tiny   = ( );                      # una lista vacía 
     @giant  = 1..1e5;                   # una lista de 100.000 elementos
     @stuff  = (@giant, undef, @giant);  # una lista de 200.001 elementos
 \end{Verbatim}
@@ -382,7 +382,7 @@ Si de casualidad olvida que los array se interpolan entre dobles comillas, se va
 \end{Verbatim}
 \vspace{-6pt}
 \normalsize
-Para poder hacer esto, deberá usar comillas simples o escapar el caracter @.
+Para poder hacer esto, deberá usar comillas simples o escapar el carácter @.
 
 \vspace{-6pt}
 \small
@@ -645,16 +645,16 @@ De manera contraria, no hay una función que force el contexto de lista, conf\mbo
 
 \label{STDIN-en-contexto-de-lista-}
 
-En un capítulo anterior vimos que STDIN en un contexto escalar devuelve la ultima linea leida de la entrada estándar. En contexto de lista, este operador devuelve todas las lineas desde el principio hasta el f\mbox{}inal del archivo. Cada linea es retornada como un elemento separado de la lista. Por ejemplo:
+En un capítulo anterior vimos que STDIN en un contexto escalar devuelve la ultima linea leída de la entrada estándar. En contexto de lista, este operador devuelve todas las lineas desde el principio hasta el f\mbox{}inal del archivo. Cada linea es retornada como un elemento separado de la lista. Por ejemplo:
 
 \vspace{-6pt}
 \small
 \begin{Verbatim}[commandchars=\\\{\},numbers=left]
-    @lines = <STDIN>; # lee la entrada estandar en el contexto de lista
+    @lines = <STDIN>; # lee la entrada estándar en el contexto de lista
 \end{Verbatim}
 \vspace{-6pt}
 \normalsize
-Cuando la entrada estandar es un archivo, esto va a leer el archivo completo hasta el f\mbox{}inal. Pero cuando se lee de la entrada estándar en Unix, debe usar Ctrol + D.
+Cuando la entrada estándar es un archivo, esto va a leer el archivo completo hasta el f\mbox{}inal. Pero cuando se lee de la entrada estándar en Unix, debe usar Control + D.
 
 \section{Ejercicios}
 

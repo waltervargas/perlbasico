@@ -242,7 +242,7 @@ lista de la siguiente forma:
 =end programlisting
 
 El ejemplo anterior usa paréntesis como delimitador,  pero Perl actualmente
-permite que uses cualquier caracter de puntuación como delimitador. Algunos
+permite que uses cualquier carácter de puntuación como delimitador. Algunos
 ejemplos mas comunes son: 
 
 =begin programlisting
@@ -331,13 +331,13 @@ de código como esta:
 
 Podemos referirnos a toda una matriz a través de una notación simple que posee
 Perl. Solo tiene que usar una arroba (@) antes del nombre del array (y sin
-corchetes de indices) para referirse a toda la matriz. Este sígil funciona a
+corchetes de indices) para referirse a toda la matriz. Este símil funciona a
 ambos lados del operador de asignación. 
 
 =begin programlisting
 
     @rocks  = qw/ bedrock slate lava /;
-    @tiny   = ( );                      # una lista vacia 
+    @tiny   = ( );                      # una lista vacía 
     @giant  = 1..1e5;                   # una lista de 100.000 elementos
     @stuff  = (@giant, undef, @giant);  # una lista de 200.001 elementos
 
@@ -472,7 +472,7 @@ cadena.
 
 =end programlisting
 
-Para poder hacer esto, deberá usar comillas simples o escapar el caracter @. 
+Para poder hacer esto, deberá usar comillas simples o escapar el carácter @. 
 
 
 =begin programlisting
@@ -781,19 +781,19 @@ en nosotros, no la va a necesitar.
 Z<STDIN en contexto de lista > 
 
 En un capítulo anterior vimos que STDIN en un contexto escalar devuelve la
-ultima linea leida de la entrada estándar. En contexto de lista, este operador
+ultima linea leída de la entrada estándar. En contexto de lista, este operador
 devuelve todas las lineas desde el principio hasta el final del archivo. Cada
 linea es retornada como un elemento separado de la lista. Por ejemplo: 
 
 =begin programlisting
 
-    @lines = <STDIN>; # lee la entrada estandar en el contexto de lista
+    @lines = <STDIN>; # lee la entrada estándar en el contexto de lista
 
 =end programlisting
 
-Cuando la entrada estandar es un archivo, esto va a leer el archivo completo
+Cuando la entrada estándar es un archivo, esto va a leer el archivo completo
 hasta el final. Pero cuando se lee de la entrada estándar en Unix, debe usar
-Ctrol + D. 
+Control + D. 
 
 =encoding utf8
 
