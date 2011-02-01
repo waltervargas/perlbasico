@@ -1,7 +1,7 @@
 =head0 El mundo de las Expresiones Regulares
 
-Perl posee muchas caracteristicas que lo distinguen de otros lenguajes. De
-todas estas caracteristicas una de las mas importantes es el soporte solido de
+Perl posee muchas características que lo distinguen de otros lenguajes. De
+todas estas características una de las mas importantes es el soporte solido de
 expresiones regulares.  Este permite un manejo de cadenas rápido, flexible y
 confiable.
 
@@ -20,7 +20,7 @@ C<emacs>.
 
 =head1 ¿ Qué son las expresiones regulares ?
 
-Una expresion regular, tambien llamada I<patrón> en Perl, es una plantilla en
+Una expresión regular, también llamada I<patrón> en Perl, es una plantilla en
 donde una cadena determinada encaja o no encaja. Esto es, hay un número
 infinito de cadenas de texto posibles; con un patrón de terminado que las
 divide en dos grupos: las cadenas que encajan o coinciden, y aquellas que no. 
@@ -50,8 +50,8 @@ en el comando de Unix C<grep>. Por ejemplo:
 
 =end screen
 
-No debe confundir las expresiones regulares con los patrónes de archivo de la
-shell llamados globs. Un glob tipico es el que usas cuando escribes *.pm en la
+No debe confundir las expresiones regulares con los patrones de archivo de la
+shell llamados globs. Un glob típico es el que usas cuando escribes *.pm en la
 consola de Unix para coincidir con todos los archivos que terminen en .pm. 
 
 =head1 Usando Patrones Simples    
@@ -72,7 +72,7 @@ ejemplo:
 =end programlisting
 
 La expresión /abba/ busca estas cuatro letras en la cadena contenida en C<$_>,
-si la encuntra retorna un valor verdadero. En este caso, fue encontrada en mas
+si la encuentra retorna un valor verdadero. En este caso, fue encontrada en mas
 de una oportunidad, pero eso no causa ninguna diferencia. Si la encuentra,
 coincide o hace match; si no la encuentra en toda la expresión, falla. 
 
@@ -81,7 +81,7 @@ normalmente se encuentra en expresiones condicionales C<if> o C<while>.
 
 
 Todas las secuencias de escape usuales que pueda colocar entre dobles comillas
-estan disponibles en los patrones de expresiones regulares, entonces podría
+están disponibles en los patrones de expresiones regulares, entonces podría
 usar el patron /coke\tsprite/ para probar la coincidencia de 11 caracteres de
 coke,  un tab,  y sprite. 
 
@@ -94,20 +94,20 @@ Si los patrones solo verificaran cadenas de caracteres simples, nos serían muy
 llamados I<metacaracteres> que tienen un significado especial en las
 expresiones regulares. 
 
-Por ejemplo, el punto (.) es un caracter comodin, hace match de cualquier
-caracter excepto de una nueva linea. Entonces el patrón C</bet.y/> va a hacer
+Por ejemplo, el punto (.) es un carácter comodín, hace match de cualquier
+carácter excepto de una nueva linea. Entonces el patrón C</bet.y/> va a hacer
 match para la cadena C<betty>. O va a hacer match de C<betsy>, o de C<bet=y> o
-de cualquier otra cadena que tenga C<bet> seguida por cualquier caracter
+de cualquier otra cadena que tenga C<bet> seguida por cualquier carácter
 (excepto una nueva linea) seguida por una C<y>. El punto siempre hace match de
-un solo caracter.
+un solo carácter.
 
 Si quisiera usar el punto en un patrón, para evaluar la existencia de el punto
 en la cadena, debe anteponer un backslash o barra invertida. Esta regla aplica
 para todos los metacaracteres de expresiones regulares en Perl. 
 
-=head1 Cuantifiacdores Simples    
+=head1 Cuantificadores Simples    
 
-Z<Cuantifiacdores Simples> 
+Z<Cuantificadores Simples> 
 
 Con frecuencia, tendrá algo que se repite en un patrón. El asterisco (*) indica
 hacer match de el item que lo precede cero o mas veces. Entonces,
@@ -117,12 +117,12 @@ tab,  C<"fred\t\tbarney"> con dos tabs, o C<"fred\t\t\tbarney"> con tres tabs,
 o de C<"fredbarney">. 
 
 Para hacer referencia a cualquier grupo de caracteres, usamos el punto y el
-asterisco. Entonces, C<.*> va a hacer match de cualquier caracter, para
+asterisco. Entonces, C<.*> va a hacer match de cualquier carácter, para
 cualquier número de veces. 
 
-Al asterisco (*) se le llama formalmente I<cuantificador>. Pero no es el unico
+Al asterisco (*) se le llama formalmente I<cuantificador>. Pero no es el único
 cuantificador; el signo (+) es otro. El signo + indica que va a hacer match de
-el caracter anterior una o mas veces: C</fred +barney/> hace match si fred y
+el carácter anterior una o mas veces: C</fred +barney/> hace match si fred y
 barney esta separados por uno o mas espacios y solo espacios. (El espacio, no 
 es un metacaracter). Esto no hace match de C<fredbarney>, debido a que el signo
 (+) indica que debe haber uno o mas espacios entre los dos nombres, entonces el
@@ -141,7 +141,7 @@ de recordar, diciendo: "La última cosa, ¿ puede estar ?, ¿ o no puede estar ?
 
 Z<Agrupación de Patrones> 
 
-Como en matemáticas, los parentesis (C<()>) los usabamos para agrupar.
+Como en matemáticas, los paréntesis (C<()>) los usábamos para agrupar.
 Entonces, los paréntesis son metacaracteres. Ejemplo, el patron /fred+/ hace
 match de cadenas como C<fredddddddd>, pero, este tipo de cadenas no son del
 mundo real. Ahora, el patrón C</(fred)+/> hace match de cadenas como
@@ -149,55 +149,55 @@ C<fredfredfred>, que es algo mas parecido a lo que tal vez tu quisieras.
 ¿ Y que pasaría con el patrón C</(fred)*/> ?, esto va a hacer match para
 cadenas como "Hola, Mundo". 
 
-Los paréntesis tambien nos dan la posibilidad de reusar parte de la cadena que
+Los paréntesis también nos dan la posibilidad de reusar parte de la cadena que
 hizo match directamente. Podemos usar puntos de referencias para acceder a una
 cadena que hizo match en los paréntesis. Un punto de referencia se escribe como
 una barra invertida seguida por un número, como \1, \2, \n. El número indica el
 grupo creado con los paréntesis. 
 
 Cuando usamos paréntesis al rededor de un punto, vamos ha hacer match de
-cualquier caracter que no sea una nueva linea. Podemos hacer match de nuevo al
-caracter que hizo match entre los paréntesis usando el punto de referencia \1. 
+cualquier carácter que no sea una nueva linea. Podemos hacer match de nuevo al
+carácter que hizo match entre los paréntesis usando el punto de referencia \1. 
 
 =begin programlisting
 
     $_ = "abba";
     if (/(.)\1/){   # Hace match de 'bb'
-        "Esto hace match para un caracter seguido de si mismo. \n";
+        "Esto hace match para un carácter seguido de si mismo. \n";
     }
 
 
 =end programlisting
 
-El punto de referencia no tiene que estar precisamete justo a la derecha de el
-grupo de paréntesis. El siguiente patrón,  hace match de cualquier caractere
-que no sea una nueva linea despues del literal B<y>, y luego usamos el punto de
+El punto de referencia no tiene que estar precisamente justo a la derecha de el
+grupo de paréntesis. El siguiente patrón,  hace match de cualquier caracteres
+que no sea una nueva linea después del literal B<y>, y luego usamos el punto de
 referencia C<\1> para indicar que queremos hacer match de los mismos cuatro
-caracteres despues de el literal C<d>: 
+caracteres después de el literal C<d>: 
 
 =begin programlisting
 
     $_ = "yabba dabba doo";
     if (/y(....) d\1/){
-        print "Hace match del conjunto de caracteres que estan antes y despues
-        de el caractere literal d! \n";
+        print "Hace match del conjunto de caracteres que están antes y después
+        de el caracteres literal d! \n";
     }
 
 =end programlisting
 
 Podemos usar multiples grupos de paréntesis, y cada grupo posee su propio punto
-de referencia. Podemos hacer match de cualquier caracter que no sea una nueva
-linea en grupos de paréntesis, seguido por cualquier otro caracter que no sea
-una nueva linea en otro grupo de paréntesis. Despues de tener estos dos grupos,
+de referencia. Podemos hacer match de cualquier carácter que no sea una nueva
+linea en grupos de paréntesis, seguido por cualquier otro carácter que no sea
+una nueva linea en otro grupo de paréntesis. Después de tener estos dos grupos,
 usamos \1 para referirnos al primer grupo y \2 para referirnos al segundo
 grupo. En efecto, con el próximo ejemplo, va ha hacer match si se encuentra el
-palíndrome abba: 
+palindrome abba: 
 
 =begin programlisting
 
     $_ = "yabba dabba doo";
     if (/y(.)(.)\2\1/){     # Hace match de 'abba'
-        print "Hizo match para los caracteres despues de d y y \n";
+        print "Hizo match para los caracteres después de d y y \n";
     }
 
 =end programlisting
@@ -222,7 +222,7 @@ forma que se observe cada parte por separado:
 =begin programlisting
     
     (           # Primera apertura de paréntesis
-        (.)     # Seundo apertura de paréntesis
+        (.)     # Segundo apertura de paréntesis
         (.)     # Tercera apertura de paréntesis 
         \2
         \3
@@ -230,13 +230,13 @@ forma que se observe cada parte por separado:
 
 =end programlisting
 
-En Perl 5.10 existe una numa forma para denotar un punto de referencia. En
+En Perl 5.10 existe una nueva forma para denotar un punto de referencia. En
 lugar de usar un baclslash y un número, usamos C<\g{N}>, donde N es el número
 del punto de referencia que desea usar.
 
 Supongamos que debe usar un punto de referencia como parte de un patrón que
 contiene un número. En esta expresión regular, nosotros vamos a usar C<\1> para
-repetir el caracter que hizo match en los paréntesis seguido por la cadena
+repetir el carácter que hizo match en los paréntesis seguido por la cadena
 literal 11: 
 
 =begin programlisting
@@ -253,7 +253,7 @@ crea referencias como sea necesario, entonces el asume que eso significa \111.
 Pero no tenemos 111 grupos de paréntesis, o 11 grupos, Perl va a quejarse
 cuando intente compilar el programa. 
 
-Con la notación \g{N}, evitamos la ambiguedad en la referencia y las partes
+Con la notación \g{N}, evitamos la ambigüedad en la referencia y las partes
 literales del patrón. 
 
 =begin programlisting
