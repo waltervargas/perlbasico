@@ -5,9 +5,9 @@ Ahora en este capítulo veremos como usarlas en Perl.
 
 =head1 Usando el operador m//
 
-Ya habiamos escrito patrones entre un par de barras, como C</fred/>.
+Ya habíamos escrito patrones entre un par de barras, como C</fred/>.
 Actualmente esto es un atajo para el operador C<m//> (pattern match). Seguro
-recuerda que con el operador C<qw//> podías escojer un par de delimitadores
+recuerda que con el operador C<qw//> podías escoger un par de delimitadores
 para entrecomillar el contenido. Aquí ocurre lo mismo, puedes escribir las
 mismas expresiones como C<m(fred)>, C<<m<fred>>>, C<m{fred}>, o C<m[fred]>
 o también podría usar los siguientes delimitadores: C<m,fred,>, C<m!fred!>,
@@ -16,7 +16,7 @@ C<m^fred^>.
 Como ya debe saberlo, puede omitir la C<m>, pero si lo hace, debe elegir las
 barras como delimitadores para la expresión regular. 
 
-Por su puesto, usted debería escojer un delimitador que no este contenido en la
+Por su puesto, usted debería escoger un delimitador que no este contenido en la
 expresión regular. Si quiere hacer un patrón que haga match con el principio de
 una URL para la web, podría usar C</http:\/\//> para evaluar C<"http://">.
 Ahora, seria mas fácil de leer, escribir y mantener, si cambiara el delimitador
@@ -88,7 +88,7 @@ para que sea más fácil de leer.
 Los espacios literales y los tabs son ignorados. Puede usar \t o \s para
 referirse a espacios o a tabs. 
 
-Recuerde que en perl, puede colocar comentarios como parte de los espacios en
+Recuerde que en Perl, puede colocar comentarios como parte de los espacios en
 blanco. Ahora podemos colocar comentarios en una expresión regular para indicar
 que es exactamente lo que esta haciendo. 
 
@@ -98,7 +98,7 @@ que es exactamente lo que esta haciendo.
         -?      # Un signo menos opcional 
         \d+     # Uno o mas dígitos antes del punto decimal
         \.?     # Un punto decimal opcional
-        \d*     # Dígitos opcionales despues del punto decimal
+        \d*     # Dígitos opcionales después del punto decimal
     /x          # Fin del patrón 
 
 =end programlisting
@@ -116,7 +116,7 @@ importa):
 =begin programlisting
 
     if (/barney.*fred/is){  
-        print "La cadena menciona a Fred despues de Barney \n";
+        print "La cadena menciona a Fred después de Barney \n";
     }
 
 =end programlisting
@@ -132,7 +132,7 @@ O podría escribir el patrón con comentarios.
             fred        # Un hombre fuerte. 
         }six            # /s /i /x
     ){
-        print "La cadena menciona a Fred despues de Barney \n";
+        print "La cadena menciona a Fred después de Barney \n";
     }
 
 =end programlisting
@@ -166,7 +166,7 @@ C<frederick> o C<alfred> o C<manfred>.
 
 El ancla C<\b> hace match de el inicio y final de un grupo de caracteres C<\w>
 
-Las palabras en Perl, son una secuencia de letras, dígitos y pisos bájos, esto
+Las palabras en Perl, son una secuencia de letras, dígitos y pisos bajos, esto
 es, una palabra en este sentido es cualquier cosa que haga match con C</\w+/>. 
 
 El ancla para todo lo que no sea una palabra es C<\B>; esto hace match de
@@ -178,8 +178,8 @@ o C<researching>.
 
 Z<El operador =~> 
 
-Por defecto se evalua lo que esta en la variable C<$_>, este operador le dice a
-Perl que evalue lo que esta contenido en la variable a la izquierda del
+Por defecto se evalúa lo que esta en la variable C<$_>, este operador le dice a
+Perl que evalúe lo que esta contenido en la variable a la izquierda del
 operador. Por ejemplo: 
 
 =begin programlisting
@@ -192,9 +192,9 @@ operador. Por ejemplo:
 =end programlisting
 
 En el siguiente ejemplo (algo inusual), C<$likes_perl> obtiene un valor boleano
-deacuerdo con lo que el usuario tipea en el prompt. Este es un ejemplo tiene un
+de acuerdo con lo que el usuario escribe en el prompt. Este es un ejemplo tiene un
 lado rápido y sucio, debido a que el valor de la entrada del usuario se
-descarta por completo. Este código lee la entrada, evalua la cadena contra el
+descarta por completo. Este código lee la entrada, evalúa la cadena contra el
 patrón,  y descarta el valor de la linea de entrada. 
 
 =begin programlisting
@@ -279,7 +279,7 @@ También puede usar mas de un recuerdo.
 
 =end programlisting
 
-Es importante resaltar, que estas variables pueden estar vacias, miremos el
+Es importante resaltar, que estas variables pueden estar vacías, miremos el
 siguiente ejemplo: 
 
 =begin programlisting
@@ -318,7 +318,7 @@ El valor que necesitamos para este ejemplo, esta contenido en la variable
 C<$1>, en expresiones mas complicadas, esta situación puede ser confusa. 
 
 Afortunadamente, las expresiones regulares en Perl, tienen una forma de
-decirles a los grupos de parentesis que no recuerden nada. A estos paréntesis
+decirles a los grupos de paréntesis que no recuerden nada. A estos paréntesis
 los llamamos I<Paréntesis que no recuerdan>, y los escribimos con una secuencia
 de caracteres especial. Agregando un signo de interrogación cerrando y dos
 puntos al paréntesis que abre, le dice a Perl que use este paréntesis solo para
@@ -334,4 +334,139 @@ agrupar.
 =end programlisting
 
 
+Las expresiones regulares en Perl, tienen otras secuencias de paréntesis
+especiales que hacen cosas interesantes y complicadas como mirar-desde-arriba,
+mirar-desde-atrás, e incluso ejecutar código en medio del patrón. Si lo desea,
+puede mirar en el manual C<perlre> para saber mas. 
+
+
+=head2 Nombres para los recuerdos    
+
+Z<Nombres para los recuerdos> 
+
+Perl 5.10 nos permite darle nombres a los recuerdos de una expresión
+regular. Los recuerdos se guardan en el hash llamado C<%+>, la llave es la
+etiqueta que usamos y el valor es la parte de la cadena que hizo match. Para
+darle nombre a un recuerdo, usamos C<<(?<ETIQUETA>PATRON)>> donde reemplazamos
+C<ETIQUETA> por el nombre que quisiéramos darle. En el siguiente ejemplo vamos
+a etiquetar la primera captura como C<name1> y la segunda como C<name2>, y
+luego vamos a usar C<$+{name1}> y C<$+{name2}> para buscar sus respectivos
+valores.
+
+=begin programlisting
+
+    use 5.010;
+
+    my $names = 'Fred or Barney';
+
+    if ( $names =~ m/(?<name1>\w+) (?:and|or) (?<name2>\w+)/){
+        say "I saw $+{name1} and $+{name2}";
+    }
+
+=end programlisting
+
+Deberíamos ver el siguiente mensaje 
+
+=begin screen
+
+    I saw Fred and Barney 
+
+=end screen
+
+Al colocarle etiquetas a nuestras capturas, no nos importa el orden, podemos
+agregar mas capturas, moverlas de sitio y esto no va a afectar en absoluto
+nuestro código.
+
+=begin programlisting
+
+    use 5.010;
+
+    my $names = 'Fred or Barney';
+
+    if ( $names =~ m/(?<name2>\w+) (?:and|or) (?<name1>\w+)/){
+        say "I saw $+{name1} and $+{name2}";
+    }
+
+=end programlisting
+
+Note que al tener una forma de etiquetar las capturas, necesitamos una forma de
+usarlas como puntos de referencia. Anteriormente usamos C<\1> o C<\g{1}> para
+esto. Con un grupo etiquetado, podemos usar la etiqueta en C<\g{etiqueta}>. Por
+ejemplo: 
+
+
+=begin programlisting
+
+    use 5.010;
+    
+    my $names = 'Fred Flinstone and Wilma Flinstone';
+    
+    if ( $names =~ m/(?<last_name>)\w+) and \w+ \g{last_name}/ ){
+        say "I saw $+{last_name}";
+    }
+
+=end programlisting
+
+Podemos hacer lo mismo, pero con otra sintaxis. En lugar de usar
+C<\g{etiqueta}>, podemos usar C<\k{etiqueta}>
+
+=begin programlisting
+
+    use 5.010;
+
+    my $names = 'Fred Flinstone and Wilma Flinstone';
+
+    if ( $names =~ m/(?<last_name>\w+) and \w+ \k<last_name>/ ){
+        say "I saw $+{last_name}";
+    }
+
+=end programlisting
+
+=head2 Variables Automáticas    
+
+Z<Variables Automáticas> 
+
+Existen tres variables especiales que puede usar libremente, sin importar que
+sea un grupo de paréntesis o no. Esta es la buena noticia, la mala noticia, es
+que estas variables tienen nombres un poco raros.
+
+Ahora, probablemente Larry, habría sido feliz al utilizar nombres un poco menos
+raros para estas variables, como $gazoo o $ozmodiar. Pero estas son nombres de
+variables que podrían estar en su código. Para evitar que los programadores de
+Perl tuvieran que aprenderse todos los nombres de las variables especiales de
+Perl antes de escoger nombres para sus variables, Larry le dio nombres extraños
+a las variables internas de Perl, nombres que incluso rompen las reglas para
+nombrar variables. En este caso, los nombres de estas variables son los signos
+de puntuación C<$&>, C<$`>, y C<$'>. Si, son extraños, feos y raros, pero esos
+son sus nombres. La parte de la cadena que hace match, es automáticamente
+almacenada en la variable C<$&>: 
+
+=begin programlisting
+
+    if ("Hello there, neighbor" =~ /\s(\w+),/){
+        print "Lo que actualmente hizo match es: '$&'. \n";
+    }
+
+=end programlisting
+
+Lo que sea que se encuentre antes de la sección que hizo match esta en C<$`>,
+y lo que sea que este después esta en C<$'>. 
+
+Si utiliza estas tres variables en orden, va a obtener la cadena original.
+
+=begin programlisting
+
+    if ("Hello there, neighbor" =~ /\s(\w+),/){
+        print "That was ($`)($&)($').\n";
+    } 
+
+=end programlisting
+
+Ahora en un principio mencionamos que estas tres variables podía usarlas
+libremente. Bueno, la libertad tiene un precio. En este caso, el precio es que
+una vez que hallas usado cualquiera de estas variables automáticas en algún
+lugar del programa, las otras expresiones regulares van a ser un poco mas
+lentas. Ahora, este retardo no es muy grande, pero si lo suficiente como para
+que algunos programadores de Perl simplemente nunca usen estas variables
+automáticas.
 
