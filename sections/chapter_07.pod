@@ -471,4 +471,70 @@ que algunos programadores de Perl simplemente nunca usen estas variables
 automáticas.
 
 
+=head1 Cuantificadores Generales    
+
+Z<Cuantificadores Generales> 
+
+Un cuantificador en un patrón indica la repetición de un item un determinado
+número de veces. Ya vimos tres cuantificadores: C<*>, C<+>, y C<?>. Pero
+tambien puede usar un par de números separados por coma encerrados entre llaves
+(C<{}>) para especificar exactamente de que manera y cuantas repeticiones son 
+permitidas. 
+
+Entonces el patrón C</a{5,15}/> va a hacer match desde 5 hasta 15 repeticiones
+de la letra C<a>. Si aparece repetida tres veces, no hace match. Si aparece
+cinco veces, esto hace match. Si aparece 20 veces, para las primeras 15 va a
+hacer match.
+
+Si omite el segundo número, pero deja la coma, no hay limite superior. 
+
+Si omite también la coma, el número dado, es exactamente la cuenta permitida. 
+
+=head1 Un programa que prueba patrones    
+
+Z<Un programa que prueba patrones> 
+
+Este programa es útil para probar patrones en algunas cadenas, y ver donde hace
+match y donde no: 
+
+=begin programlisting
+
+    #!/usr/bin/perl
+    
+    while (<>) {
+        chomp;
+    
+        if (/YOUR_PATTERN_GOES_HERE/) {
+    	    print "Matched: |$`<$&>$'|\n";
+        } else {
+    	    print "No match: |$_|\n";
+        }
+    
+    }
+
+=end programlisting
+
+
+=head1 Presedencia    
+
+Z<Presedencia> 
+
+La tabla de presedencia de las expresiones regulares es pequeña, en comparación
+con la tabla de presedencias de Perl. 
+
+
+=begin screen
+
+    Expresión                               Ejemplo
+    ----------------------------------------------------------
+    
+    Paréntesis (agrupación o recuerdos)   
+    Cuantificadores                         a* a+ a? a{n, m}
+    Anclas y secuencias                     abc ^a a$ 
+    Alternación                             a|b|c 
+    Átomos                                  a [abc] \d \1 
+
+=end screen
+
+
 L<ejercicios07>
