@@ -1,0 +1,235 @@
+=head0 Trabajando con Expresiones Regulares
+
+En el capítulo anterior vimos un poco del mundo de las expresiones regulares.
+Ahora en este capítulo veremos como usarlas en Perl. 
+
+=head1 Usando el operador m//
+
+Ya habiamos escrito patrones entre un par de barras, como C</fred/>.
+Actualmente esto es un atajo para el operador C<m//> (pattern match). Seguro
+recuerda que con el operador C<qw//> podías escojer un par de delimitadores
+para entrecomillar el contenido. Aquí ocurre lo mismo, puedes escribir las
+mismas expresiones como C<m(fred)>, C<<m<fred>>>, C<m{fred}>, o C<m[fred]>
+o también podría usar los siguientes delimitadores: C<m,fred,>, C<m!fred!>,
+C<m^fred^>. 
+
+Como ya debe saberlo, puede omitir la C<m>, pero si lo hace, debe elegir las
+barras como delimitadores para la expresión regular. 
+
+Por su puesto, usted debería escojer un delimitador que no este contenido en la
+expresión regular. Si quiere hacer un patrón que haga match con el principio de
+una URL para la web, podría usar C</http:\/\//> para evaluar C<"http://">.
+Ahora, seria mas fácil de leer, escribir y mantener, si cambiara el delimitador
+por : C<m%http://%>. 
+
+=head2 Modificadores    
+
+Z<Modificadores> 
+
+Existen varios modificadores del comportamiento por defecto del operador
+C<m//>, estos modificadores son letras que se pueden agregar al final de la
+expresión regular como un grupo de modificadores. 
+
+
+=head3 Evaluación no sensible a mayúsculas y minúsculas con /i    
+
+Z<Evaluación sensible a mayúsculas y minúsculas> 
+
+Para escribir un patrón que no sea sensible a mayúsculas y minúsculas, 
+en el que puedas evaluar C<FRED> de la misma forma que evaluar C<fred> o
+C<Fred>, utilice el modificador C</i>.
+
+=begin programlisting
+
+    print "Would you like to play a game? "; 
+    chomp($_ = <STDIN>); 
+    if (/yes/i) { # case-insensitive match
+        print "In that case, I recommend that you go bowling.\n";
+    }
+    
+
+=end programlisting
+
+=head3 Evaluar cualquier caracter con /s    
+
+Z<Evaluar cualquier caracter con /s> 
+
+Por defecto, el operador punt (C<.>) no hace match con el caracter de nueva
+linea, y esto tiene sentido cuando tenemos que mirar dentro de una sola linea.
+Si quiere evaluar caracteres de nueva linea puede usar el modificador C</s>.
+Esto causa que el operador punto (C<.>) se comporte como la clase de
+caracteres C<[\d\D]>.  
+
+=begin programlisting
+
+    $_ = "I saw Barney\ndown at the bowling alley\nwith Fred\nlast night.\n";
+    if (/Barney.*Fred/s) {
+        print "That string mentions Fred after Barney!\n";
+    }
+
+=end programlisting
+
+Sin el modificador C</s>, la evaluación falla. 
+
+=head3 Agregando espacios al patrón con /x    
+
+Z<Agregando espacios al patrón con /x> 
+
+Este modificador, le va a permitir agregar espacios en blanco en el patrón,
+para que sea más fácil de leer. 
+
+=begin programlisting
+
+    /-?\d+\.?\d*/           # ¿ Que esta haciendo esto ? 
+    / -? \d+ \.? \d* /x     # Un poco mas fácil de entender (aunque no para mi)
+
+=end programlisting
+
+Los espacios literales y los tabs son ignorados. Puede usar \t o \s para
+referirse a espacios o a tabs. 
+
+Recuerde que en perl, puede colocar comentarios como parte de los espacios en
+blanco. Ahora podemos colocar comentarios en una expresión regular para indicar
+que es exactamente lo que esta haciendo. 
+
+=begin programlisting
+
+    /
+        -?      # Un signo menos opcional 
+        \d+     # Uno o mas dígitos antes del punto decimal
+        \.?     # Un punto decimal opcional
+        \d*     # Dígitos opcionales despues del punto decimal
+    /x          # Fin del patrón 
+
+=end programlisting
+
+Tenga cuidado de no colocar los signos delimitadores en los comentarios, esto
+va a terminar prematuramente el patrón. 
+
+=head3 Combinar los modificadores    
+
+Z<Combinar los modificadores> 
+
+Si tiene mas de un modificador, puede usarlos uno tras el otro (el orden no
+importa): 
+
+=begin programlisting
+
+    if (/barney.*fred/is){  
+        print "La cadena menciona a Fred despues de Barney \n";
+    }
+
+=end programlisting
+
+O podría escribir el patrón con comentarios.
+
+=begin programlisting
+
+    if (
+        m{
+            barney      # un hombre pequeño. 
+            .*          # Algo en el medio.
+            fred        # Un hombre fuerte. 
+        }six            # /s /i /x
+    ){
+        print "La cadena menciona a Fred despues de Barney \n";
+    }
+
+=end programlisting
+
+
+=head1 Anclajes    
+
+Z<Anclajes> 
+
+Por defecto, si en un patron no hace match al inicio de la cadena, este puede
+"flotar" hasta el final de la cadena, intentando hacer match en algún lado.
+Existe un conjunto de anclajes que puede utilizarse para mantener al patron
+anclado a un punto de la cadena. 
+
+El acento circunflejo (B<^>) marca el principio de la cadena, mientras que el
+signo dolar (B<$>) marca el final de la cadena N<Actualmente hace match con el
+final de la cadena, o con un salto de linea al final de la cadena, entonces va
+a hacer match con C<fred> o con C<fred\n> de igual manera.>. 
+
+Entonces, el patrón C</^fred/> va a hacer match con C<fred> solo si se
+encuentra al principio de la cadena. Y el patrón C</rock$/> va a hacer match de
+C<rock> solo al final de la cadena. 
+
+=head1 Anclaje de palabras    
+
+Z<Anclaje de palabras> 
+
+El ancla de palabras (C<\b>) determina el fin de una palabra. Entonces puede
+usar C</\bfred\b/> para hacer match de la palabra C<fred> pero no de
+C<frederick> o C<alfred> o C<manfred>. 
+
+El ancla C<\b> hace match de el inicio y final de un grupo de caracteres C<\w>
+
+Las palabras en Perl, son una secuencia de letras, dígitos y pisos bájos, esto
+es, una palabra en este sentido es cualquier cosa que haga match con C</\w+/>. 
+
+El ancla para todo lo que no sea una palabra es C<\B>; esto hace match de
+cualquier cosa que C<\b> no haga match. Entonces, el patrón C</\bsearch\B/> va
+a hacer match de C<searches>, C<searching> y C<searched>, pero no de C<search>
+o C<researching>.
+
+=head1 El operador =~    
+
+Z<El operador =~> 
+
+Por defecto se evalua lo que esta en la variable C<$_>, este operador le dice a
+Perl que evalue lo que esta contenido en la variable a la izquierda del
+operador. Por ejemplo: 
+
+=begin programlisting
+
+    my $alguna_cosa = "I dream of betty rubble.";
+    if ($alguna_cosa =~ /\brub/){
+        print "Match";
+    }
+
+=end programlisting
+
+En el siguiente ejemplo (algo inusual), C<$likes_perl> obtiene un valor boleano
+deacuerdo con lo que el usuario tipea en el prompt. Este es un ejemplo tiene un
+lado rápido y sucio, debido a que el valor de la entrada del usuario se
+descarta por completo. Este código lee la entrada, evalua la cadena contra el
+patrón,  y descarta el valor de la linea de entrada. 
+
+=begin programlisting
+
+    print "¿ Te gusta Perl ?"; 
+    my $likes_perl = (<STDIN> =~ /(\bsi\b)|(\byes\b)/i);
+    # .... time pass ...
+    if ($likes_perl){
+        print "Usted ha dicho que le gusta Perl, entonces ....\n";
+    
+    }
+
+=end programlisting
+
+
+=head1 Interpolación en Patrones    
+
+Z<Interpolación en Patrones> 
+
+Una expresión regular es una interpolación en comillas dobles, como si se
+tratara de una cadena entre comillas dobles. Esto permite que usted escriba un
+programa parecido a C<grep>: 
+
+=begin programlisting
+
+    #!/usr/bin/perl -w 
+    my #what = "larry";
+
+    while (<>){
+        if (/^($what)/){ 
+            print "Se ha dicho $what al principio de $_\n"; 
+        }
+    }
+
+=end programlisting
+
+No es necesario definir C<$what> con una cadena literal; 
+
