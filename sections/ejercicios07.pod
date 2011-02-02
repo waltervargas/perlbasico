@@ -1,6 +1,6 @@
 =head1 Ejercicios    
 
-Z<ejercicios06> 
+Z<ejercicios07> 
 
 =over 
 
