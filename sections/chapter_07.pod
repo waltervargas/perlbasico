@@ -231,5 +231,107 @@ programa parecido a C<grep>:
 
 =end programlisting
 
-No es necesario definir C<$what> con una cadena literal; 
+No es necesario definir C<$what> con una cadena literal; podemos leer el valor
+desde los argumentos de la linea de comandos con C<@ARGV> 
+
+=begin programlisting
+
+    my $what = shift @ARGV;
+
+=end programlisting
+
+=head1 Recuerdos de una Expresión Regular
+
+Z<Recuerdos de una Expresión Regular>
+
+En una nueva ciudad que no conocemos, caminamos por la calle, prestando
+atención a algunos detalles, que luego se convierten en recuerdos, que ademas
+podemos usar para hacer match de una dirección en el futuro. 
+
+De la misma forma, las expresiones regulares tienen recuerdos, cuando usamos
+paréntesis para la creación de grupos en una expresión regular, se crean
+espacios de memoria al vuelo que recuerdan a la cadena que hizo match en ese
+grupo. 
+
+Como estos recuerdos contienen cadenas, son variables escalares. En Perl, estas
+variables tienen nombres especiales como C<$1> y C<$2>. Estas son las variables
+correspondientes a los grupos creados con paréntesis en la expresión regular.
+Como es de esperarse,  C<$4> contiene la cadena que hizo match en el cuarto
+grupo de paréntesis. Por ejemplo: 
+
+=begin programlisting
+
+    $_ = "Adios Mundo, Cruel";
+    if (/\s(\w+),/){     # Memoriza la palabra entre espacio y coma
+        print "la palabra fue: $1\n";   # La palabra fue Adios
+    }
+
+=end programlisting
+
+También puede usar mas de un recuerdo.
+
+=begin programlisting
+
+    $_ = "Corre que nos cogen, frodo!";
+    if (/(\S+) (\S+) (\S+) (\S+), (\S+)!/){
+        print "Las palabras fueron: $1 $2 $3 $4 $5\n";
+    }
+
+=end programlisting
+
+Es importante resaltar, que estas variables pueden estar vacias, miremos el
+siguiente ejemplo: 
+
+=begin programlisting
+
+    my $dino = "I fear that I'll be extinct after 1000 years.";
+    if ($dino =~ /(\d*) years/) {
+        print "That said '$1' years.\n"; # 1000
+    }
+
+    my $dino = "I fear that I'll be extinct after a few million years";
+    if ($dino =~ /(\d*) years/) {
+        print "That said '$1' years.\n"; # 1000
+    }
+
+=end programlisting
+
+=head2 Paréntesis que no recuerdan    
+
+Z<Paréntesis que no recuerdan> 
+
+Ya se sabe que al usar paréntesis para agrupar, automáticamente creamos
+recuerdos que pueden usarse en variables escalares del tipo C<$1>, C<$2>.
+Ahora, supongamos que usted quiere agrupar pero no recordar. Considere el 
+siguiente ejemplo: 
+
+=begin programlisting
+    
+    $_= "brontosaurus burguer";
+    if (/(bronto)?saurus (steak|burguer)/){
+        print "Fred wants a $2\n";
+    }
+
+=end programlisting
+
+El valor que necesitamos para este ejemplo, esta contenido en la variable
+C<$1>, en expresiones mas complicadas, esta situación puede ser confusa. 
+
+Afortunadamente, las expresiones regulares en Perl, tienen una forma de
+decirles a los grupos de parentesis que no recuerden nada. A estos paréntesis
+los llamamos I<Paréntesis que no recuerdan>, y los escribimos con una secuencia
+de caracteres especial. Agregando un signo de interrogación cerrando y dos
+puntos al paréntesis que abre, le dice a Perl que use este paréntesis solo para
+agrupar. 
+
+=begin programlisting
+
+    
+    if (/(?:bronto)?saurus (steak|burguer)/){
+        print "Fred wants a $1\n";
+    }
+
+=end programlisting
+
+
 
