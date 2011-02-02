@@ -181,7 +181,7 @@
 
 </div>
 
-<p>El ejemplo anterior usa paréntesis como delimitador, pero Perl actualmente permite que uses cualquier caracter de puntuación como delimitador. Algunos ejemplos mas comunes son:</p>
+<p>El ejemplo anterior usa paréntesis como delimitador, pero Perl actualmente permite que uses cualquier carácter de puntuación como delimitador. Algunos ejemplos mas comunes son:</p>
 
 <div class="programlisting">
 
@@ -252,12 +252,12 @@
 
 </div>
 
-<p>Podemos referirnos a toda una matriz a través de una notación simple que posee Perl. Solo tiene que usar una arroba (@) antes del nombre del array (y sin corchetes de indices) para referirse a toda la matriz. Este sígil funciona a ambos lados del operador de asignación.</p>
+<p>Podemos referirnos a toda una matriz a través de una notación simple que posee Perl. Solo tiene que usar una arroba (@) antes del nombre del array (y sin corchetes de indices) para referirse a toda la matriz. Este símil funciona a ambos lados del operador de asignación.</p>
 
 <div class="programlisting">
 
 <pre><code>    @rocks  = qw/ bedrock slate lava /;
-    @tiny   = ( );                      # una lista vacia 
+    @tiny   = ( );                      # una lista vac&iacute;a 
     @giant  = 1..1e5;                   # una lista de 100.000 elementos
     @stuff  = (@giant, undef, @giant);  # una lista de 200.001 elementos</code></pre>
 
@@ -358,7 +358,7 @@
 
 </div>
 
-<p>Para poder hacer esto, deberá usar comillas simples o escapar el caracter @.</p>
+<p>Para poder hacer esto, deberá usar comillas simples o escapar el carácter @.</p>
 
 <div class="programlisting">
 
@@ -603,15 +603,15 @@
 
 <p><a name="STDIN en contexto de lista "></p>
 
-<p>En un capítulo anterior vimos que STDIN en un contexto escalar devuelve la ultima linea leida de la entrada estándar. En contexto de lista, este operador devuelve todas las lineas desde el principio hasta el final del archivo. Cada linea es retornada como un elemento separado de la lista. Por ejemplo:</p>
+<p>En un capítulo anterior vimos que STDIN en un contexto escalar devuelve la ultima linea leída de la entrada estándar. En contexto de lista, este operador devuelve todas las lineas desde el principio hasta el final del archivo. Cada linea es retornada como un elemento separado de la lista. Por ejemplo:</p>
 
 <div class="programlisting">
 
-<pre><code>    @lines = &lt;STDIN&gt;; # lee la entrada estandar en el contexto de lista</code></pre>
+<pre><code>    @lines = &lt;STDIN&gt;; # lee la entrada est&aacute;ndar en el contexto de lista</code></pre>
 
 </div>
 
-<p>Cuando la entrada estandar es un archivo, esto va a leer el archivo completo hasta el final. Pero cuando se lee de la entrada estándar en Unix, debe usar Ctrol + D.</p>
+<p>Cuando la entrada estándar es un archivo, esto va a leer el archivo completo hasta el final. Pero cuando se lee de la entrada estándar en Unix, debe usar Control + D.</p>
 
 <h2>Ejercicios</h2>
 

@@ -1,0 +1,462 @@
+\chapter{Trabajando con Expresiones Regulares}
+
+En el capítulo anterior vimos un poco del mundo de las expresiones regulares. Ahora en este capítulo veremos como usarlas en Perl.
+
+\section{Usando el operador m//}
+
+Ya habíamos escrito patrones entre un par de barras, como \texttt{/fred/}. Actualmente esto es un atajo para el operador \texttt{m//} (pattern match). Seguro recuerda que con el operador \texttt{qw//} podías escoger un par de delimitadores para entrecomillar el contenido. Aquí ocurre lo mismo, puedes escribir las mismas expresiones como \texttt{m(fred)}, \texttt{\textless{}m\textless{}fred}\textgreater{}\textgreater{}, \texttt{m\{fred\}}, o \texttt{m[fred]} o también podría usar los siguientes delimitadores: \texttt{m,fred,}, \texttt{m!fred!}, \texttt{m\char94{}fred\char94{}}.
+
+Como ya debe saberlo, puede omitir la \texttt{m}, pero si lo hace, debe elegir las barras como delimitadores para la expresión regular.
+
+Por su puesto, usted debería escoger un delimitador que no este contenido en la expresión regular. Si quiere hacer un patrón que haga match con el principio de una URL para la web, podría usar \texttt{/http:$\backslash$/$\backslash$//} para evaluar \texttt{``http://''}. Ahora, seria mas fácil de leer, escribir y mantener, si cambiara el delimitador por : \texttt{m\%http://\%}.
+
+\subsection{Modif\mbox{}icadores}
+
+\label{Modificadores}
+
+Existen varios modif\mbox{}icadores del comportamiento por defecto del operador \texttt{m//}, estos modif\mbox{}icadores son letras que se pueden agregar al f\mbox{}inal de la expresión regular como un grupo de modif\mbox{}icadores.
+
+\subsubsection{Evaluación no sensible a mayúsculas y minúsculas con /i}
+
+\label{Evaluaci-n-sensible-a-may-sculas-y-min-sculas}
+
+Para escribir un patrón que no sea sensible a mayúsculas y minúsculas, en el que puedas evaluar \texttt{FRED} de la misma forma que evaluar \texttt{fred} o \texttt{Fred}, utilice el modif\mbox{}icador \texttt{/i}.
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    print "Would you like to play a game? "; 
+    chomp($_ = <STDIN>); 
+    if (/yes/i) \{ # case-insensitive match
+        print "In that case, I recommend that you go bowling.\textbackslash{}n";
+    \}
+    
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+\subsubsection{Evaluar cualquier caracter con /s}
+
+\label{Evaluar-cualquier-caracter-con--s}
+
+Por defecto, el operador punt (\texttt{.}) no hace match con el caracter de nueva linea, y esto tiene sentido cuando tenemos que mirar dentro de una sola linea. Si quiere evaluar caracteres de nueva linea puede usar el modif\mbox{}icador \texttt{/s}. Esto causa que el operador punto (\texttt{.}) se comporte como la clase de caracteres \texttt{[$\backslash$d$\backslash$D]}.
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    $_ = "I saw Barney\textbackslash{}ndown at the bowling alley\textbackslash{}nwith Fred\textbackslash{}nlast night.\textbackslash{}n";
+    if (/Barney.*Fred/s) \{
+        print "That string mentions Fred after Barney!\textbackslash{}n";
+    \}
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+Sin el modif\mbox{}icador \texttt{/s}, la evaluación falla.
+
+\subsubsection{Agregando espacios al patrón con /x}
+
+\label{Agregando-espacios-al-patr-n-con--x}
+
+Este modif\mbox{}icador, le va a permitir agregar espacios en blanco en el patrón, para que sea más fácil de leer.
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    /-?\textbackslash{}d+\textbackslash{}.?\textbackslash{}d*/           # ¿ Que esta haciendo esto ? 
+    / -? \textbackslash{}d+ \textbackslash{}.? \textbackslash{}d* /x     # Un poco mas fácil de entender (aunque no para mi)
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+Los espacios literales y los tabs son ignorados. Puede usar $\backslash$t o $\backslash$s para referirse a espacios o a tabs.
+
+Recuerde que en Perl, puede colocar comentarios como parte de los espacios en blanco. Ahora podemos colocar comentarios en una expresión regular para indicar que es exactamente lo que esta haciendo.
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    /
+        -?      # Un signo menos opcional 
+        \textbackslash{}d+     # Uno o mas dígitos antes del punto decimal
+        \textbackslash{}.?     # Un punto decimal opcional
+        \textbackslash{}d*     # Dígitos opcionales después del punto decimal
+    /x          # Fin del patrón 
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+Tenga cuidado de no colocar los signos delimitadores en los comentarios, esto va a terminar prematuramente el patrón.
+
+\subsubsection{Combinar los modif\mbox{}icadores}
+
+\label{Combinar-los-modificadores}
+
+Si tiene mas de un modif\mbox{}icador, puede usarlos uno tras el otro (el orden no importa):
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    if (/barney.*fred/is)\{  
+        print "La cadena menciona a Fred después de Barney \textbackslash{}n";
+    \}
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+O podría escribir el patrón con comentarios.
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    if (
+        m\{
+            barney      # un hombre pequeño. 
+            .*          # Algo en el medio.
+            fred        # Un hombre fuerte. 
+        \}six            # /s /i /x
+    )\{
+        print "La cadena menciona a Fred después de Barney \textbackslash{}n";
+    \}
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+\section{Anclajes}
+
+\label{Anclajes}
+
+Por defecto, si en un patron no hace match al inicio de la cadena, este puede ``f\mbox{}lotar'' hasta el f\mbox{}inal de la cadena, intentando hacer match en algún lado. Existe un conjunto de anclajes que puede utilizarse para mantener al patron anclado a un punto de la cadena.
+
+El acento circunf\mbox{}lejo (\textbf{\char94{}}) marca el principio de la cadena, mientras que el signo dolar (\textbf{\$}) marca el f\mbox{}inal de la cadena \footnote{Actualmente hace match con el f\mbox{}inal de la cadena, o con un salto de linea al f\mbox{}inal de la cadena, entonces va a hacer match con \texttt{fred} o con \texttt{fred$\backslash$n} de igual manera.}.
+
+Entonces, el patrón \texttt{/\char94{}fred/} va a hacer match con \texttt{fred} solo si se encuentra al principio de la cadena. Y el patrón \texttt{/rock\$/} va a hacer match de \texttt{rock} solo al f\mbox{}inal de la cadena.
+
+\section{Anclaje de palabras}
+
+\label{Anclaje-de-palabras}
+
+El ancla de palabras (\texttt{$\backslash$b}) determina el f\mbox{}in de una palabra. Entonces puede usar \texttt{/$\backslash$bfred$\backslash$b/} para hacer match de la palabra \texttt{fred} pero no de \texttt{frederick} o \texttt{alfred} o \texttt{manfred}.
+
+El ancla \texttt{$\backslash$b} hace match de el inicio y f\mbox{}inal de un grupo de caracteres \texttt{$\backslash$w}
+
+Las palabras en Perl, son una secuencia de letras, dígitos y pisos bajos, esto es, una palabra en este sentido es cualquier cosa que haga match con \texttt{/$\backslash$w+/}.
+
+El ancla para todo lo que no sea una palabra es \texttt{$\backslash$B}; esto hace match de cualquier cosa que \texttt{$\backslash$b} no haga match. Entonces, el patrón \texttt{/$\backslash$bsearch$\backslash$B/} va a hacer match de \texttt{searches}, \texttt{searching} y \texttt{searched}, pero no de \texttt{search} o \texttt{researching}.
+
+\section{El operador =$\sim$}
+
+\label{El-operador---}
+
+Por defecto se evalúa lo que esta en la variable \texttt{\$\_}, este operador le dice a Perl que evalúe lo que esta contenido en la variable a la izquierda del operador. Por ejemplo:
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    my $alguna_cosa = "I dream of betty rubble.";
+    if ($alguna_cosa =~ /\textbackslash{}brub/)\{
+        print "Match";
+    \}
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+En el siguiente ejemplo (algo inusual), \texttt{\$likes\_perl} obtiene un valor boleano de acuerdo con lo que el usuario escribe en el prompt. Este es un ejemplo tiene un lado rápido y sucio, debido a que el valor de la entrada del usuario se descarta por completo. Este código lee la entrada, evalúa la cadena contra el patrón, y descarta el valor de la linea de entrada.
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    print "¿ Te gusta Perl ?"; 
+    my $likes_perl = (<STDIN> =~ /(\textbackslash{}bsi\textbackslash{}b)|(\textbackslash{}byes\textbackslash{}b)/i);
+    # .... time pass ...
+    if ($likes_perl)\{
+        print "Usted ha dicho que le gusta Perl, entonces ....\textbackslash{}n";
+    
+    \}
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+\section{Interpolación en Patrones}
+
+\label{Interpolaci-n-en-Patrones}
+
+Una expresión regular es una interpolación en comillas dobles, como si se tratara de una cadena entre comillas dobles. Esto permite que usted escriba un programa parecido a \texttt{grep}:
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    #!/usr/bin/perl -w 
+    my #what = "larry";
+
+    while (<>)\{
+        if (/^($what)/)\{ 
+            print "Se ha dicho $what al principio de $_\textbackslash{}n"; 
+        \}
+    \}
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+No es necesario def\mbox{}inir \texttt{\$what} con una cadena literal; podemos leer el valor desde los argumentos de la linea de comandos con \texttt{@ARGV}
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    my $what = shift @ARGV;
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+\section{Recuerdos de una Expresión Regular}
+
+\label{Recuerdos-de-una-Expresi-n-Regular}
+
+En una nueva ciudad que no conocemos, caminamos por la calle, prestando atención a algunos detalles, que luego se convierten en recuerdos, que ademas podemos usar para hacer match de una dirección en el futuro.
+
+De la misma forma, las expresiones regulares tienen recuerdos, cuando usamos paréntesis para la creación de grupos en una expresión regular, se crean espacios de memoria al vuelo que recuerdan a la cadena que hizo match en ese grupo.
+
+Como estos recuerdos contienen cadenas, son variables escalares. En Perl, estas variables tienen nombres especiales como \texttt{\$1} y \texttt{\$2}. Estas son las variables correspondientes a los grupos creados con paréntesis en la expresión regular. Como es de esperarse, \texttt{\$4} contiene la cadena que hizo match en el cuarto grupo de paréntesis. Por ejemplo:
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    $_ = "Adios Mundo, Cruel";
+    if (/\textbackslash{}s(\textbackslash{}w+),/)\{     # Memoriza la palabra entre espacio y coma
+        print "la palabra fue: $1\textbackslash{}n";   # La palabra fue Adios
+    \}
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+También puede usar mas de un recuerdo.
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    $_ = "Corre que nos cogen, frodo!";
+    if (/(\textbackslash{}S+) (\textbackslash{}S+) (\textbackslash{}S+) (\textbackslash{}S+), (\textbackslash{}S+)!/)\{
+        print "Las palabras fueron: $1 $2 $3 $4 $5\textbackslash{}n";
+    \}
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+Es importante resaltar, que estas variables pueden estar vacías, miremos el siguiente ejemplo:
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    my $dino = "I fear that I'll be extinct after 1000 years.";
+    if ($dino =~ /(\textbackslash{}d*) years/) \{
+        print "That said '$1' years.\textbackslash{}n"; # 1000
+    \}
+
+    my $dino = "I fear that I'll be extinct after a few million years";
+    if ($dino =~ /(\textbackslash{}d*) years/) \{
+        print "That said '$1' years.\textbackslash{}n"; # 1000
+    \}
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+\subsection{Paréntesis que no recuerdan}
+
+\label{Par-ntesis-que-no-recuerdan}
+
+Ya se sabe que al usar paréntesis para agrupar, automáticamente creamos recuerdos que pueden usarse en variables escalares del tipo \texttt{\$1}, \texttt{\$2}. Ahora, supongamos que usted quiere agrupar pero no recordar. Considere el siguiente ejemplo:
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    $_= "brontosaurus burguer";
+    if (/(bronto)?saurus (steak|burguer)/)\{
+        print "Fred wants a $2\textbackslash{}n";
+    \}
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+El valor que necesitamos para este ejemplo, esta contenido en la variable \texttt{\$1}, en expresiones mas complicadas, esta situación puede ser confusa.
+
+Afortunadamente, las expresiones regulares en Perl, tienen una forma de decirles a los grupos de paréntesis que no recuerden nada. A estos paréntesis los llamamos \emph{Paréntesis que no recuerdan}, y los escribimos con una secuencia de caracteres especial. Agregando un signo de interrogación cerrando y dos puntos al paréntesis que abre, le dice a Perl que use este paréntesis solo para agrupar.
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    if (/(?:bronto)?saurus (steak|burguer)/)\{
+        print "Fred wants a $1\textbackslash{}n";
+    \}
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+Las expresiones regulares en Perl, tienen otras secuencias de paréntesis especiales que hacen cosas interesantes y complicadas como mirar-desde-arriba, mirar-desde-atrás, e incluso ejecutar código en medio del patrón. Si lo desea, puede mirar en el manual \texttt{perlre} para saber mas.
+
+\subsection{Nombres para los recuerdos}
+
+\label{Nombres-para-los-recuerdos}
+
+Perl 5.10 nos permite darle nombres a los recuerdos de una expresión regular. Los recuerdos se guardan en el hash llamado \texttt{\%+}, la llave es la etiqueta que usamos y el valor es la parte de la cadena que hizo match. Para darle nombre a un recuerdo, usamos \texttt{\textless{}(?\textless{}ETIQUETA}PATRON)\textgreater{}\textgreater{} donde reemplazamos \texttt{ETIQUETA} por el nombre que quisiéramos darle. En el siguiente ejemplo vamos a etiquetar la primera captura como \texttt{name1} y la segunda como \texttt{name2}, y luego vamos a usar \texttt{\$+\{name1\}} y \texttt{\$+\{name2\}} para buscar sus respectivos valores.
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    use 5.010;
+
+    my $names = 'Fred or Barney';
+
+    if ( $names =~ m/(?<name1>\textbackslash{}w+) (?:and|or) (?<name2>\textbackslash{}w+)/)\{
+        say "I saw $+\{name1\} and $+\{name2\}";
+    \}
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+Deberíamos ver el siguiente mensaje
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},frame=single,label=Terminal]
+    I saw Fred and Barney 
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+Al colocarle etiquetas a nuestras capturas, no nos importa el orden, podemos agregar mas capturas, moverlas de sitio y esto no va a afectar en absoluto nuestro código.
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    use 5.010;
+
+    my $names = 'Fred or Barney';
+
+    if ( $names =~ m/(?<name2>\textbackslash{}w+) (?:and|or) (?<name1>\textbackslash{}w+)/)\{
+        say "I saw $+\{name1\} and $+\{name2\}";
+    \}
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+Note que al tener una forma de etiquetar las capturas, necesitamos una forma de usarlas como puntos de referencia. Anteriormente usamos \texttt{$\backslash$1} o \texttt{$\backslash$g\{1\}} para esto. Con un grupo etiquetado, podemos usar la etiqueta en \texttt{$\backslash$g\{etiqueta\}}. Por ejemplo:
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    use 5.010;
+    
+    my $names = 'Fred Flinstone and Wilma Flinstone';
+    
+    if ( $names =~ m/(?<last_name>)\textbackslash{}w+) and \textbackslash{}w+ \textbackslash{}g\{last_name\}/ )\{
+        say "I saw $+\{last_name\}";
+    \}
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+Podemos hacer lo mismo, pero con otra sintaxis. En lugar de usar \texttt{$\backslash$g\{etiqueta\}}, podemos usar \texttt{$\backslash$k\{etiqueta\}}
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    use 5.010;
+
+    my $names = 'Fred Flinstone and Wilma Flinstone';
+
+    if ( $names =~ m/(?<last_name>\textbackslash{}w+) and \textbackslash{}w+ \textbackslash{}k<last_name>/ )\{
+        say "I saw $+\{last_name\}";
+    \}
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+\subsection{Variables Automáticas}
+
+\label{Variables-Autom-ticas}
+
+Existen tres variables especiales que puede usar libremente, sin importar que sea un grupo de paréntesis o no. Esta es la buena noticia, la mala noticia, es que estas variables tienen nombres un poco raros.
+
+Ahora, probablemente Larry, habría sido feliz al utilizar nombres un poco menos raros para estas variables, como \$gazoo o \$ozmodiar. Pero estas son nombres de variables que podrían estar en su código. Para evitar que los programadores de Perl tuvieran que aprenderse todos los nombres de las variables especiales de Perl antes de escoger nombres para sus variables, Larry le dio nombres extraños a las variables internas de Perl, nombres que incluso rompen las reglas para nombrar variables. En este caso, los nombres de estas variables son los signos de puntuación \texttt{\$\&}, \texttt{\$`}, y \texttt{\$'}. Si, son extraños, feos y raros, pero esos son sus nombres. La parte de la cadena que hace match, es automáticamente almacenada en la variable \texttt{\$\&}:
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    if ("Hello there, neighbor" =~ /\textbackslash{}s(\textbackslash{}w+),/)\{
+        print "Lo que actualmente hizo match es: '$&'. \textbackslash{}n";
+    \}
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+Lo que sea que se encuentre antes de la sección que hizo match esta en \texttt{\$`}, y lo que sea que este después esta en \texttt{\$'}.
+
+Si utiliza estas tres variables en orden, va a obtener la cadena original.
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    if ("Hello there, neighbor" =~ /\textbackslash{}s(\textbackslash{}w+),/)\{
+        print "That was ($`)($&)($').\textbackslash{}n";
+    \} 
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+Ahora en un principio mencionamos que estas tres variables podía usarlas libremente. Bueno, la libertad tiene un precio. En este caso, el precio es que una vez que hallas usado cualquiera de estas variables automáticas en algún lugar del programa, las otras expresiones regulares van a ser un poco mas lentas. Ahora, este retardo no es muy grande, pero si lo suf\mbox{}iciente como para que algunos programadores de Perl simplemente nunca usen estas variables automáticas.
+
+\section{Cuantif\mbox{}icadores Generales}
+
+\label{Cuantificadores-Generales}
+
+Un cuantif\mbox{}icador en un patrón indica la repetición de un item un determinado número de veces. Ya vimos tres cuantif\mbox{}icadores: \texttt{*}, \texttt{+}, y \texttt{?}. Pero tambien puede usar un par de números separados por coma encerrados entre llaves (\texttt{\{\}}) para especif\mbox{}icar exactamente de que manera y cuantas repeticiones son permitidas.
+
+Entonces el patrón \texttt{/a\{5,15\}/} va a hacer match desde 5 hasta 15 repeticiones de la letra \texttt{a}. Si aparece repetida tres veces, no hace match. Si aparece cinco veces, esto hace match. Si aparece 20 veces, para las primeras 15 va a hacer match.
+
+Si omite el segundo número, pero deja la coma, no hay limite superior.
+
+Si omite también la coma, el número dado, es exactamente la cuenta permitida.
+
+\section{Un programa que prueba patrones}
+
+\label{Un-programa-que-prueba-patrones}
+
+Este programa es útil para probar patrones en algunas cadenas, y ver donde hace match y donde no:
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},numbers=left]
+    #!/usr/bin/perl
+    
+    while (<>) \{
+        chomp;
+    
+        if (/YOUR_PATTERN_GOES_HERE/) \{
+            print "Matched: |$`<$&>$'|\textbackslash{}n";
+        \} else \{
+            print "No match: |$_|\textbackslash{}n";
+        \}
+    
+    \}
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+\section{Presedencia}
+
+\label{Presedencia}
+
+La tabla de presedencia de las expresiones regulares es pequeña, en comparación con la tabla de presedencias de Perl.
+
+\vspace{-6pt}
+\small
+\begin{Verbatim}[commandchars=\\\{\},frame=single,label=Terminal]
+    Expresión                               Ejemplo
+    ----------------------------------------------------------
+    
+    Paréntesis (agrupación o recuerdos)     (), (?:...), (?<LABEL>..) 
+    Cuantificadores                         a* a+ a? a\{n, m\}
+    Anclas y secuencias                     abc ^a a$ 
+    Alternación                             a|b|c 
+    Átomos                                  a [abc] \textbackslash{}d \textbackslash{}1 
+\end{Verbatim}
+\vspace{-6pt}
+\normalsize
+\section{Ejercicios}
+
+\label{ejercicios07}
+
+\vspace{-5pt}
+
+\begin{description}
+
+\setlength{\topsep}{0pt}
+\setlength{\itemsep}{0pt}
+\item[] 1. Utilizando el programa para probar patrones, escriba un patron que haga match de la cadena \texttt{match}. Pruebe el programa con la cadena \texttt{beforematchafter}. Haga que la salida muestre las tres partes del match en el orden correcto.
+
+\item[] 2. Utilizando el programa para probar patrones, escriba un patron que haga match si cualquier palabra (en el sentido de las palabras $\backslash$w) termina con una letra \texttt{a}. Esto hace match de \texttt{wilma} pero no de \texttt{barney}.
+
+\item[] 3. Modif\mbox{}ique el programa de el ejercicio anterior de manera que la palabra que termine con la letra \texttt{a}, se almacene en \texttt{\$1}. Arregle el código para imprimir el contenido de las variables, algo como: \texttt{\$1} contiene \texttt{'Willma'}
+
+\item[] 4. Modif\mbox{}ique el programa anterior, para que utilice nombres en las capturas en lugar de usar \texttt{\$1}. Actualice el código que muestra el contenido de las variables.
+
+\end{description}
+
+\vspace{-5pt}

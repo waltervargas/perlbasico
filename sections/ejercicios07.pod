@@ -6,7 +6,7 @@ Z<ejercicios07>
 
 =item 1. Utilizando el programa para probar patrones, escriba un patron que haga
 match de la cadena C<match>. Pruebe el programa con la cadena
-C<beforematchafter. Haga que la salida muestre las tres partes del match en el
+C<beforematchafter>. Haga que la salida muestre las tres partes del match en el
 orden correcto. 
 
 =item 2. Utilizando el programa para probar patrones, escriba un patron que haga

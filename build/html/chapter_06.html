@@ -1,0 +1,263 @@
+<html>
+<body>
+<link rel='stylesheet' href='style.css' type='text/css'>
+
+<h1>El mundo de las Expresiones Regulares</h1>
+
+<p>Perl posee muchas características que lo distinguen de otros lenguajes. De todas estas características una de las mas importantes es el soporte solido de expresiones regulares. Este permite un manejo de cadenas rápido, flexible y confiable.</p>
+
+<p>Este poder tiene un precio. Las expresiones regulares actualmente son pequeños programas con su propio lenguaje especial, metidos dentro de Perl. (Si, esta pensando correctamente, va a aprender otro lenguaje de programación.)</p>
+
+<p>En este capítulo, va a visitar el mundo de las expresiones regulares, en donde probablemente podrás olvidar algunas cosas del mundo de Perl. Luego en un capítulo siguiente, vamos a mostrarle donde es que este mundo encaja en el mundo de Perl.</p>
+
+<p>Las expresiones regulares no son exclusivas de Perl, podemos encontrarlas en <code>sed</code> y <code>awk</code>, <code>]rocmail</code>, <code>grep</code>, editores de texto como <code>vim</code> e <code>emacs</code>.</p>
+
+<h2>¿ Qué son las expresiones regulares ?</h2>
+
+<p>Una expresión regular, también llamada <i>patrón</i> en Perl, es una plantilla en donde una cadena determinada encaja o no encaja. Esto es, hay un número infinito de cadenas de texto posibles; con un patrón de terminado que las divide en dos grupos: las cadenas que encajan o coinciden, y aquellas que no.</p>
+
+<p>Un patrón puede aplicar a una sola cadena, o solo dos o tres, o a una docena, o a cientos, o a un número infinito. O puede aplicar a todas excepto a una, o excepto a un grupo, o excepto a un número infinito.</p>
+
+<p>Nos referimos a las expresiones regulares como pequeños programas con su propio lenguaje de programación simple. Es un lenguaje simple porque los programas tienen una sola tarea: mirar una cadena y decir "Cumple, esta cadena encaja en el patron" o "No cumple, esta cadena no encaja en el patrón". Y esto es todo lo que hace.</p>
+
+<p>Uno de los lugares donde probablemente halla visto las expresiones regulares es en el comando de Unix <code>grep</code>. Por ejemplo:</p>
+
+<div class="screen">
+
+<pre><code>    $ grep &#39;flint.*stone&#39; chapter*.pod
+    chapter_02.pod:    ($fred, $barney) = qw&lt; flintstone rubble slate granite &gt;;
+    chapter_02.pod:    ($wilma, $dino) = qw[flintstone];       # $dino obtiene undef.
+    chapter_02.pod:    @rocks = qw{ flintstone slate rubble };
+    chapter_05.pod:    $apellido{&quot;fred&quot;}       = &quot;flintstone&quot;;
+    chapter_05.pod:        &quot;fred&quot;       =&gt; &quot;flintstone&quot;,
+    </code></pre>
+
+</div>
+
+<p>No debe confundir las expresiones regulares con los patrones de archivo de la shell llamados globs. Un glob típico es el que usas cuando escribes *.pm en la consola de Unix para coincidir con todos los archivos que terminen en .pm.</p>
+
+<h2>Usando Patrones Simples</h2>
+
+<p><a name="Usando Patrones Simples"></p>
+
+<p>Para verificar una cadena contra un patrón o expresión regular contenida en la variable <code>$_</code>, simplemente colocamos la cadena entre un par de barras, por ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    $_ = &quot;yabba dabba doo&quot;;
+    if (/abba/){
+        print &quot;Matched ! \n&quot;;
+    }</code></pre>
+
+</div>
+
+<p>La expresión /abba/ busca estas cuatro letras en la cadena contenida en <code>$_</code>, si la encuentra retorna un valor verdadero. En este caso, fue encontrada en mas de una oportunidad, pero eso no causa ninguna diferencia. Si la encuentra, coincide o hace match; si no la encuentra en toda la expresión, falla.</p>
+
+<p>Como evaluar una expresión regular devuelve verdadero o falso, esta evaluación normalmente se encuentra en expresiones condicionales <code>if</code> o <code>while</code>.</p>
+
+<p>Todas las secuencias de escape usuales que pueda colocar entre dobles comillas están disponibles en los patrones de expresiones regulares, entonces podría usar el patron /coke\tsprite/ para probar la coincidencia de 11 caracteres de coke, un tab, y sprite.</p>
+
+<h2>Sobre los Metacaracteres</h2>
+
+<p><a name="Sobre los Metacaracteres"></p>
+
+<p>Si los patrones solo verificaran cadenas de caracteres simples, nos serían muy útiles en verdad. Esto es porque hay una número de caracteres especiales, llamados <i>metacaracteres</i> que tienen un significado especial en las expresiones regulares.</p>
+
+<p>Por ejemplo, el punto (.) es un carácter comodín, hace match de cualquier carácter excepto de una nueva linea. Entonces el patrón <code>/bet.y/</code> va a hacer match para la cadena <code>betty</code>. O va a hacer match de <code>betsy</code>, o de <code>bet=y</code> o de cualquier otra cadena que tenga <code>bet</code> seguida por cualquier carácter (excepto una nueva linea) seguida por una <code>y</code>. El punto siempre hace match de un solo carácter.</p>
+
+<p>Si quisiera usar el punto en un patrón, para evaluar la existencia de el punto en la cadena, debe anteponer un backslash o barra invertida. Esta regla aplica para todos los metacaracteres de expresiones regulares en Perl.</p>
+
+<h2>Cuantificadores Simples</h2>
+
+<p><a name="Cuantificadores Simples"></p>
+
+<p>Con frecuencia, tendrá algo que se repite en un patrón. El asterisco (*) indica hacer match de el item que lo precede cero o mas veces. Entonces, <code>/fred\t*barney/</code> hace match para cualquier número de caracteres tabs entre <code>fred</code> y <code>barney</code>. Entonces, va a hacer match para <code>"fred\tbarney"</code> con un tab, <code>"fred\t\tbarney"</code> con dos tabs, o <code>"fred\t\t\tbarney"</code> con tres tabs, o de <code>"fredbarney"</code>.</p>
+
+<p>Para hacer referencia a cualquier grupo de caracteres, usamos el punto y el asterisco. Entonces, <code>.*</code> va a hacer match de cualquier carácter, para cualquier número de veces.</p>
+
+<p>Al asterisco (*) se le llama formalmente <i>cuantificador</i>. Pero no es el único cuantificador; el signo (+) es otro. El signo + indica que va a hacer match de el carácter anterior una o mas veces: <code>/fred +barney/</code> hace match si fred y barney esta separados por uno o mas espacios y solo espacios. (El espacio, no es un metacaracter). Esto no hace match de <code>fredbarney</code>, debido a que el signo (+) indica que debe haber uno o mas espacios entre los dos nombres, entonces el ultimo espacio es requerido. Puede ayudarle a recordar que el signo (+) indica que el carácter que antepone al signo mas (+) puede estar opcionalmente repetido.</p>
+
+<p>Existe un tercer cuantificador como el asterisco (*) y el signo mas (+), pero un poco mas limitado. Es el signo de interrogación cerrando (?), el cual indica que el elemento que se encuentra antes de él es opcional. Esto es, el item que le precede, puede ocurrir una o ninguna vez. Entonces, si tenemos <code>/bamm-?bamm/</code> hace match para <code>bamm-bamm</code> o para <code>bammbamm</code>. Esto es fácil de recordar, diciendo: "La última cosa, ¿ puede estar ?, ¿ o no puede estar ?.</p>
+
+<h2>Agrupación de Patrones</h2>
+
+<p><a name="Agrupación de Patrones"></p>
+
+<p>Como en matemáticas, los paréntesis (<code>()</code>) los usábamos para agrupar. Entonces, los paréntesis son metacaracteres. Ejemplo, el patron /fred+/ hace match de cadenas como <code>fredddddddd</code>, pero, este tipo de cadenas no son del mundo real. Ahora, el patrón <code>/(fred)+/</code> hace match de cadenas como <code>fredfredfred</code>, que es algo mas parecido a lo que tal vez tu quisieras. ¿ Y que pasaría con el patrón <code>/(fred)*/</code> ?, esto va a hacer match para cadenas como "Hola, Mundo".</p>
+
+<p>Los paréntesis también nos dan la posibilidad de reusar parte de la cadena que hizo match directamente. Podemos usar puntos de referencias para acceder a una cadena que hizo match en los paréntesis. Un punto de referencia se escribe como una barra invertida seguida por un número, como \1, \2, \n. El número indica el grupo creado con los paréntesis.</p>
+
+<p>Cuando usamos paréntesis al rededor de un punto, vamos ha hacer match de cualquier carácter que no sea una nueva linea. Podemos hacer match de nuevo al carácter que hizo match entre los paréntesis usando el punto de referencia \1.</p>
+
+<div class="programlisting">
+
+<pre><code>    $_ = &quot;abba&quot;;
+    if (/(.)\1/){   # Hace match de &#39;bb&#39;
+        &quot;Esto hace match para un car&aacute;cter seguido de si mismo. \n&quot;;
+    }</code></pre>
+
+</div>
+
+<p>El punto de referencia no tiene que estar precisamente justo a la derecha de el grupo de paréntesis. El siguiente patrón, hace match de cualquier caracteres que no sea una nueva linea después del literal <b>y</b>, y luego usamos el punto de referencia <code>\1</code> para indicar que queremos hacer match de los mismos cuatro caracteres después de el literal <code>d</code>:</p>
+
+<div class="programlisting">
+
+<pre><code>    $_ = &quot;yabba dabba doo&quot;;
+    if (/y(....) d\1/){
+        print &quot;Hace match del conjunto de caracteres que est&aacute;n antes y despu&eacute;s
+        de el caracteres literal d! \n&quot;;
+    }</code></pre>
+
+</div>
+
+<p>Podemos usar multiples grupos de paréntesis, y cada grupo posee su propio punto de referencia. Podemos hacer match de cualquier carácter que no sea una nueva linea en grupos de paréntesis, seguido por cualquier otro carácter que no sea una nueva linea en otro grupo de paréntesis. Después de tener estos dos grupos, usamos \1 para referirnos al primer grupo y \2 para referirnos al segundo grupo. En efecto, con el próximo ejemplo, va ha hacer match si se encuentra el palindrome abba:</p>
+
+<div class="programlisting">
+
+<pre><code>    $_ = &quot;yabba dabba doo&quot;;
+    if (/y(.)(.)\2\1/){     # Hace match de &#39;abba&#39;
+        print &quot;Hizo match para los caracteres despu&eacute;s de d y y \n&quot;;
+    }</code></pre>
+
+</div>
+
+<p>Ahora, se debe estar haciendo una pregunta, ¿ Como se sabe que grupo obtiene que número ?. Afortunadamente, Larry hizo que esto fuera fácil de comprender para los humanos: simplemente cuente el orden de apertura de los paréntesis.</p>
+
+<div class="programlisting">
+
+<pre><code>    $_ = &quot;abba dabba doo&quot;;
+    if (/y((.)(.)\3\2) d\1/){
+        print &quot;Matched\n&quot;;
+    }</code></pre>
+
+</div>
+
+<p>Probablemente es mas fácil que lo vea, si escribe la expresión regular que forma que se observe cada parte por separado:</p>
+
+<div class="programlisting">
+
+<pre><code>    (           # Primera apertura de par&eacute;ntesis
+        (.)     # Segundo apertura de par&eacute;ntesis
+        (.)     # Tercera apertura de par&eacute;ntesis 
+        \2
+        \3
+    )</code></pre>
+
+</div>
+
+<p>En Perl 5.10 existe una nueva forma para denotar un punto de referencia. En lugar de usar un backslash y un número, usamos <code>\g{N}</code>, donde N es el número del punto de referencia que desea usar.</p>
+
+<p>Supongamos que debe usar un punto de referencia como parte de un patrón que contiene un número. En esta expresión regular, nosotros vamos a usar <code>\1</code> para repetir el carácter que hizo match en los paréntesis seguido por la cadena literal 11:</p>
+
+<div class="programlisting">
+
+<pre><code>    $_ = &quot;aa11bb&quot;;
+    if (/(.)\111/){
+        print &quot;Matched ! \n&quot;; 
+    }</code></pre>
+
+</div>
+
+<p>Perl va a tener que adivinar que significa eso. ¿ Es un \1, \11, o \111 ?. Perl crea referencias como sea necesario, entonces el asume que eso significa \111. Pero no tenemos 111 grupos de paréntesis, o 11 grupos, Perl va a quejarse cuando intente compilar el programa.</p>
+
+<p>Con la notación \g{N}, evitamos la ambigüedad entre la referencia y las partes literales del patrón.</p>
+
+<div class="programlisting">
+
+<pre><code>    use 5.010;
+
+    $_ = &quot;aa11bb&quot;;
+    if (/(.)\g{1}11/){
+        print &quot;Esto hace match \n&quot;;
+    }</code></pre>
+
+</div>
+
+<p>Con la notación <code>\g{N}</code>, podemos usar números negativos. En lugar de especificar un número absoluto del grupo de paréntesis, podemos especificar un punto de referencia relativa. Podemos reescribir el ejemplo anterior usando <code>-1</code>.</p>
+
+<div class="programlisting">
+
+<pre><code>    use 5.010;
+
+    $_ = &quot;aa11bb&quot;;
+    if (/(.)\g{-1}11/){
+        print &quot;Esto hace match&quot;;
+    }</code></pre>
+
+</div>
+
+<h2>Alternación</h2>
+
+<p><a name="Alternación"></p>
+
+<p>La barra vertical (|), normalmente llamada "or", indica que, o hace match el lado derecho de la expresión o, hace match el lado izquierdo. Esto significa, que si la parte izquierda del patrón falla, la parte de la derecha aun tiene una oportunidad par hacer match. Entonces, <code>/fred|barney|betty/</code> va a hacer match con cualquier cadena que contenga <code>fred</code>, o <code>barney</code>, o <code>betty</code>.</p>
+
+<p>Ahora, usted puede hacer patrónes como <code>/fred( |\t)+barney</code>, que hace match si <code>fred</code> y <code>barney</code> están separados por espacios, tabs, o una mezcla de ambos.</p>
+
+<p>El patrón <code>/fred (and|or) barney/</code> hace match con cualquier cadena que tenga una de las dos posibles cadenas: <code>fred and barney</code> o <code>fred or barney</code>.</p>
+
+<h2>Clases o Grupos de Caracteres</h2>
+
+<p><a name="Clases o Grupos de Caracteres"></p>
+
+<p>Una clase o grupo de caracteres, es una lista de caracteres posibles dentro de corchetes (<code>[]</code>), entonces cualquier caracterer que este especificado en la clase va hacer match. Esto hace match solo para un simple caracterer, y este caracterer debe estar en la lista declarada entre los corchetes.</p>
+
+<p>Por ejemplo, para la clase <code>[abcwxyz]</code> va a hacer match cualquiera de estos siete caracteres. Por conveniencia, puedes especificar un rango de caracteres usando el guión (-). Entonces se puede escribir la anterior clase de la siguiente manera: <code>[a-cw-z]</code>.</p>
+
+<p>Es usual encontrar esta clase de caracteres: <code>[a-zA-Z]</code> para hacer match de cualquier letra que se encuentre en este grupo.</p>
+
+<p>Por supuesto, una clase de caracteres va a ser siemre parte de un patrón. Por ejemplo</p>
+
+<div class="programlisting">
+
+<pre><code>    $_ = &quot;The HAL-9000 requires authorization to continue.&quot;;
+    if (/HAL-[0-9]+/) {
+        print &quot;The string mentions some model of HAL computer.\n&quot;;
+    }
+    </code></pre>
+
+</div>
+
+<p>Algunas veces, es mas fácil especificar que grupo de caracteres no va a hacer match, en lugar de usar una clase de caracteres permitida. El acento circunflejo <code>^</code> al inicio de una clase de caracteres, niega esta clase de caracteres. Esto significa, que [^def] va a hacer match con cualquier caracter simple excepto para uno de estos tres. Y [^n\-z] va hacer match con cualquier caracter excepto con <b>n</b>, guión (-) o <b>z</b></p>
+
+<h2>Atajos para Clases de Caracteres</h2>
+
+<p><a name="Atajos para Clases de Caracteres"></p>
+
+<p>Algunas clases de caracteres aparecen con tanta frecuencia que tienen un atajo. Por ejemplo, la clase de caracteres de cualquier dígito, <code>[0-9]</code>, puede ser abreviado como <code>\d</code>. Entonces, el patrón para ejemplo sobre HAL, pudo haberse escrito así: <code>/HAL-\d+/</code>.</p>
+
+<p>El atajo <code>\w</code>, representa la clase: <code>[A-Za-z]</code></p>
+
+<p>El atajo <code>\s</code>, representa espacio en blanco. Es común ver <code>\s*</code> para cualquier cantidad de espacios en blanco, incluyendo ninguno.</p>
+
+<h2>Atajos Negativos</h2>
+
+<p><a name="Atajos Negativos"></p>
+
+<p>Algunas veces usted va a querer lo opuesto a uno de los atajos. Puede ser que quiera [^\d], [^\w] o [^\s], indicando, ningún caracter de tipo dígito, o ningún caracter de palabra, o ningún espacio en blanco. Esto es bastante fácil de lograr usando sus homólogos en mayúsculas: <code>\D</code>, <code>\W</code>, o <code>\S</code>.</p>
+
+<p>Otra composición de clase de caracteres es [\d\D], que contempla cualquier dígito y cualquier no dígito incluso una nueva linea. Y esta el patrón totalmente inecesario: [^\d\D], que hace match de cualquier cosa que no sea ni un dígito ni un no dígito. Es decir, Nada.</p>
+
+<h2>Ejercicios</h2>
+
+<p><a name="ejercicios06"></p>
+
+<ul>
+
+<li>1. Escriba un programa que imprima cada linea de la entrada que mencione la palabra <code>fred</code>. Haga un archivo de texto que contenga la palabra fred en cadenas y nombres que incluyan fred y utilice este archivo como entrada del programa.
+
+<li>2. Modifique el programa anterior, para que también haga match con <code>Fred</code>.
+
+<li>3. Escriba un programa que imprima cada linea de su entrada que contenga el punto (.), ignore las otras lineas.
+
+<li>4. Escriba un programa que imprima cada linea que tenga la palabras con la primera letra en mayúscula, pero no mayúscula sostenida.
+
+<li>5. Escriba un programa que imprima cada linea que tenga dos caracteres iguales juntos el uno al otro y que no sea dos espacios en blanco. Debe hacer match de lineas que contengan cosas como <code>Mississippi</code>, <code>Bamm-Bamm</code>, o <code>llama</code>.
+
+<li>6. Escriba un programa que imprima cualquier linea de la entrada que contenga los siguientes dos cadenas en la misma linea: <code>willma</code> y <code>fred</code>.
+
+</ul>
+
+</body>
+</html>
+

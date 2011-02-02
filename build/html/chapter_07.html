@@ -1,0 +1,440 @@
+<html>
+<body>
+<link rel='stylesheet' href='style.css' type='text/css'>
+
+<h1>Trabajando con Expresiones Regulares</h1>
+
+<p>En el capítulo anterior vimos un poco del mundo de las expresiones regulares. Ahora en este capítulo veremos como usarlas en Perl.</p>
+
+<h2>Usando el operador m//</h2>
+
+<p>Ya habíamos escrito patrones entre un par de barras, como <code>/fred/</code>. Actualmente esto es un atajo para el operador <code>m//</code> (pattern match). Seguro recuerda que con el operador <code>qw//</code> podías escoger un par de delimitadores para entrecomillar el contenido. Aquí ocurre lo mismo, puedes escribir las mismas expresiones como <code>m(fred)</code>, <code><m<fred</code>>>, <code>m{fred}</code>, o <code>m[fred]</code> o también podría usar los siguientes delimitadores: <code>m,fred,</code>, <code>m!fred!</code>, <code>m^fred^</code>.</p>
+
+<p>Como ya debe saberlo, puede omitir la <code>m</code>, pero si lo hace, debe elegir las barras como delimitadores para la expresión regular.</p>
+
+<p>Por su puesto, usted debería escoger un delimitador que no este contenido en la expresión regular. Si quiere hacer un patrón que haga match con el principio de una URL para la web, podría usar <code>/http:\/\//</code> para evaluar <code>"http://"</code>. Ahora, seria mas fácil de leer, escribir y mantener, si cambiara el delimitador por : <code>m%http://%</code>.</p>
+
+<h3>Modificadores</h3>
+
+<p><a name="Modificadores"></p>
+
+<p>Existen varios modificadores del comportamiento por defecto del operador <code>m//</code>, estos modificadores son letras que se pueden agregar al final de la expresión regular como un grupo de modificadores.</p>
+
+<h4>Evaluación no sensible a mayúsculas y minúsculas con /i</h4>
+
+<p><a name="Evaluación sensible a mayúsculas y minúsculas"></p>
+
+<p>Para escribir un patrón que no sea sensible a mayúsculas y minúsculas, en el que puedas evaluar <code>FRED</code> de la misma forma que evaluar <code>fred</code> o <code>Fred</code>, utilice el modificador <code>/i</code>.</p>
+
+<div class="programlisting">
+
+<pre><code>    print &quot;Would you like to play a game? &quot;; 
+    chomp($_ = &lt;STDIN&gt;); 
+    if (/yes/i) { # case-insensitive match
+        print &quot;In that case, I recommend that you go bowling.\n&quot;;
+    }
+    </code></pre>
+
+</div>
+
+<h4>Evaluar cualquier caracter con /s</h4>
+
+<p><a name="Evaluar cualquier caracter con /s"></p>
+
+<p>Por defecto, el operador punt (<code>.</code>) no hace match con el caracter de nueva linea, y esto tiene sentido cuando tenemos que mirar dentro de una sola linea. Si quiere evaluar caracteres de nueva linea puede usar el modificador <code>/s</code>. Esto causa que el operador punto (<code>.</code>) se comporte como la clase de caracteres <code>[\d\D]</code>.</p>
+
+<div class="programlisting">
+
+<pre><code>    $_ = &quot;I saw Barney\ndown at the bowling alley\nwith Fred\nlast night.\n&quot;;
+    if (/Barney.*Fred/s) {
+        print &quot;That string mentions Fred after Barney!\n&quot;;
+    }</code></pre>
+
+</div>
+
+<p>Sin el modificador <code>/s</code>, la evaluación falla.</p>
+
+<h4>Agregando espacios al patrón con /x</h4>
+
+<p><a name="Agregando espacios al patrón con /x"></p>
+
+<p>Este modificador, le va a permitir agregar espacios en blanco en el patrón, para que sea más fácil de leer.</p>
+
+<div class="programlisting">
+
+<pre><code>    /-?\d+\.?\d*/           # &iquest; Que esta haciendo esto ? 
+    / -? \d+ \.? \d* /x     # Un poco mas f&aacute;cil de entender (aunque no para mi)</code></pre>
+
+</div>
+
+<p>Los espacios literales y los tabs son ignorados. Puede usar \t o \s para referirse a espacios o a tabs.</p>
+
+<p>Recuerde que en Perl, puede colocar comentarios como parte de los espacios en blanco. Ahora podemos colocar comentarios en una expresión regular para indicar que es exactamente lo que esta haciendo.</p>
+
+<div class="programlisting">
+
+<pre><code>    /
+        -?      # Un signo menos opcional 
+        \d+     # Uno o mas d&iacute;gitos antes del punto decimal
+        \.?     # Un punto decimal opcional
+        \d*     # D&iacute;gitos opcionales despu&eacute;s del punto decimal
+    /x          # Fin del patr&oacute;n </code></pre>
+
+</div>
+
+<p>Tenga cuidado de no colocar los signos delimitadores en los comentarios, esto va a terminar prematuramente el patrón.</p>
+
+<h4>Combinar los modificadores</h4>
+
+<p><a name="Combinar los modificadores"></p>
+
+<p>Si tiene mas de un modificador, puede usarlos uno tras el otro (el orden no importa):</p>
+
+<div class="programlisting">
+
+<pre><code>    if (/barney.*fred/is){  
+        print &quot;La cadena menciona a Fred despu&eacute;s de Barney \n&quot;;
+    }</code></pre>
+
+</div>
+
+<p>O podría escribir el patrón con comentarios.</p>
+
+<div class="programlisting">
+
+<pre><code>    if (
+        m{
+            barney      # un hombre peque&ntilde;o. 
+            .*          # Algo en el medio.
+            fred        # Un hombre fuerte. 
+        }six            # /s /i /x
+    ){
+        print &quot;La cadena menciona a Fred despu&eacute;s de Barney \n&quot;;
+    }</code></pre>
+
+</div>
+
+<h2>Anclajes</h2>
+
+<p><a name="Anclajes"></p>
+
+<p>Por defecto, si en un patron no hace match al inicio de la cadena, este puede "flotar" hasta el final de la cadena, intentando hacer match en algún lado. Existe un conjunto de anclajes que puede utilizarse para mantener al patron anclado a un punto de la cadena.</p>
+
+<p>El acento circunflejo (<b>^</b>) marca el principio de la cadena, mientras que el signo dolar (<b>$</b>) marca el final de la cadena <font class="footnote"> (footnote: Actualmente hace match con el final de la cadena, o con un salto de linea al final de la cadena, entonces va a hacer match con <code>fred</code> o con <code>fred\n</code> de igual manera.)</font>.</p>
+
+<p>Entonces, el patrón <code>/^fred/</code> va a hacer match con <code>fred</code> solo si se encuentra al principio de la cadena. Y el patrón <code>/rock$/</code> va a hacer match de <code>rock</code> solo al final de la cadena.</p>
+
+<h2>Anclaje de palabras</h2>
+
+<p><a name="Anclaje de palabras"></p>
+
+<p>El ancla de palabras (<code>\b</code>) determina el fin de una palabra. Entonces puede usar <code>/\bfred\b/</code> para hacer match de la palabra <code>fred</code> pero no de <code>frederick</code> o <code>alfred</code> o <code>manfred</code>.</p>
+
+<p>El ancla <code>\b</code> hace match de el inicio y final de un grupo de caracteres <code>\w</code></p>
+
+<p>Las palabras en Perl, son una secuencia de letras, dígitos y pisos bajos, esto es, una palabra en este sentido es cualquier cosa que haga match con <code>/\w+/</code>.</p>
+
+<p>El ancla para todo lo que no sea una palabra es <code>\B</code>; esto hace match de cualquier cosa que <code>\b</code> no haga match. Entonces, el patrón <code>/\bsearch\B/</code> va a hacer match de <code>searches</code>, <code>searching</code> y <code>searched</code>, pero no de <code>search</code> o <code>researching</code>.</p>
+
+<h2>El operador =~</h2>
+
+<p><a name="El operador =~"></p>
+
+<p>Por defecto se evalúa lo que esta en la variable <code>$_</code>, este operador le dice a Perl que evalúe lo que esta contenido en la variable a la izquierda del operador. Por ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    my $alguna_cosa = &quot;I dream of betty rubble.&quot;;
+    if ($alguna_cosa =~ /\brub/){
+        print &quot;Match&quot;;
+    }</code></pre>
+
+</div>
+
+<p>En el siguiente ejemplo (algo inusual), <code>$likes_perl</code> obtiene un valor boleano de acuerdo con lo que el usuario escribe en el prompt. Este es un ejemplo tiene un lado rápido y sucio, debido a que el valor de la entrada del usuario se descarta por completo. Este código lee la entrada, evalúa la cadena contra el patrón, y descarta el valor de la linea de entrada.</p>
+
+<div class="programlisting">
+
+<pre><code>    print &quot;&iquest; Te gusta Perl ?&quot;; 
+    my $likes_perl = (&lt;STDIN&gt; =~ /(\bsi\b)|(\byes\b)/i);
+    # .... time pass ...
+    if ($likes_perl){
+        print &quot;Usted ha dicho que le gusta Perl, entonces ....\n&quot;;
+    
+    }</code></pre>
+
+</div>
+
+<h2>Interpolación en Patrones</h2>
+
+<p><a name="Interpolación en Patrones"></p>
+
+<p>Una expresión regular es una interpolación en comillas dobles, como si se tratara de una cadena entre comillas dobles. Esto permite que usted escriba un programa parecido a <code>grep</code>:</p>
+
+<div class="programlisting">
+
+<pre><code>    #!/usr/bin/perl -w 
+    my #what = &quot;larry&quot;;
+
+    while (&lt;&gt;){
+        if (/^($what)/){ 
+            print &quot;Se ha dicho $what al principio de $_\n&quot;; 
+        }
+    }</code></pre>
+
+</div>
+
+<p>No es necesario definir <code>$what</code> con una cadena literal; podemos leer el valor desde los argumentos de la linea de comandos con <code>@ARGV</code></p>
+
+<div class="programlisting">
+
+<pre><code>    my $what = shift @ARGV;</code></pre>
+
+</div>
+
+<h2>Recuerdos de una Expresión Regular</h2>
+
+<p><a name="Recuerdos de una Expresión Regular"></p>
+
+<p>En una nueva ciudad que no conocemos, caminamos por la calle, prestando atención a algunos detalles, que luego se convierten en recuerdos, que ademas podemos usar para hacer match de una dirección en el futuro.</p>
+
+<p>De la misma forma, las expresiones regulares tienen recuerdos, cuando usamos paréntesis para la creación de grupos en una expresión regular, se crean espacios de memoria al vuelo que recuerdan a la cadena que hizo match en ese grupo.</p>
+
+<p>Como estos recuerdos contienen cadenas, son variables escalares. En Perl, estas variables tienen nombres especiales como <code>$1</code> y <code>$2</code>. Estas son las variables correspondientes a los grupos creados con paréntesis en la expresión regular. Como es de esperarse, <code>$4</code> contiene la cadena que hizo match en el cuarto grupo de paréntesis. Por ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    $_ = &quot;Adios Mundo, Cruel&quot;;
+    if (/\s(\w+),/){     # Memoriza la palabra entre espacio y coma
+        print &quot;la palabra fue: $1\n&quot;;   # La palabra fue Adios
+    }</code></pre>
+
+</div>
+
+<p>También puede usar mas de un recuerdo.</p>
+
+<div class="programlisting">
+
+<pre><code>    $_ = &quot;Corre que nos cogen, frodo!&quot;;
+    if (/(\S+) (\S+) (\S+) (\S+), (\S+)!/){
+        print &quot;Las palabras fueron: $1 $2 $3 $4 $5\n&quot;;
+    }</code></pre>
+
+</div>
+
+<p>Es importante resaltar, que estas variables pueden estar vacías, miremos el siguiente ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    my $dino = &quot;I fear that I&#39;ll be extinct after 1000 years.&quot;;
+    if ($dino =~ /(\d*) years/) {
+        print &quot;That said &#39;$1&#39; years.\n&quot;; # 1000
+    }
+
+    my $dino = &quot;I fear that I&#39;ll be extinct after a few million years&quot;;
+    if ($dino =~ /(\d*) years/) {
+        print &quot;That said &#39;$1&#39; years.\n&quot;; # 1000
+    }</code></pre>
+
+</div>
+
+<h3>Paréntesis que no recuerdan</h3>
+
+<p><a name="Paréntesis que no recuerdan"></p>
+
+<p>Ya se sabe que al usar paréntesis para agrupar, automáticamente creamos recuerdos que pueden usarse en variables escalares del tipo <code>$1</code>, <code>$2</code>. Ahora, supongamos que usted quiere agrupar pero no recordar. Considere el siguiente ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    $_= &quot;brontosaurus burguer&quot;;
+    if (/(bronto)?saurus (steak|burguer)/){
+        print &quot;Fred wants a $2\n&quot;;
+    }</code></pre>
+
+</div>
+
+<p>El valor que necesitamos para este ejemplo, esta contenido en la variable <code>$1</code>, en expresiones mas complicadas, esta situación puede ser confusa.</p>
+
+<p>Afortunadamente, las expresiones regulares en Perl, tienen una forma de decirles a los grupos de paréntesis que no recuerden nada. A estos paréntesis los llamamos <i>Paréntesis que no recuerdan</i>, y los escribimos con una secuencia de caracteres especial. Agregando un signo de interrogación cerrando y dos puntos al paréntesis que abre, le dice a Perl que use este paréntesis solo para agrupar.</p>
+
+<div class="programlisting">
+
+<pre><code>    if (/(?:bronto)?saurus (steak|burguer)/){
+        print &quot;Fred wants a $1\n&quot;;
+    }</code></pre>
+
+</div>
+
+<p>Las expresiones regulares en Perl, tienen otras secuencias de paréntesis especiales que hacen cosas interesantes y complicadas como mirar-desde-arriba, mirar-desde-atrás, e incluso ejecutar código en medio del patrón. Si lo desea, puede mirar en el manual <code>perlre</code> para saber mas.</p>
+
+<h3>Nombres para los recuerdos</h3>
+
+<p><a name="Nombres para los recuerdos"></p>
+
+<p>Perl 5.10 nos permite darle nombres a los recuerdos de una expresión regular. Los recuerdos se guardan en el hash llamado <code>%+</code>, la llave es la etiqueta que usamos y el valor es la parte de la cadena que hizo match. Para darle nombre a un recuerdo, usamos <code><(?<ETIQUETA</code>PATRON)>> donde reemplazamos <code>ETIQUETA</code> por el nombre que quisiéramos darle. En el siguiente ejemplo vamos a etiquetar la primera captura como <code>name1</code> y la segunda como <code>name2</code>, y luego vamos a usar <code>$+{name1}</code> y <code>$+{name2}</code> para buscar sus respectivos valores.</p>
+
+<div class="programlisting">
+
+<pre><code>    use 5.010;
+
+    my $names = &#39;Fred or Barney&#39;;
+
+    if ( $names =~ m/(?&lt;name1&gt;\w+) (?:and|or) (?&lt;name2&gt;\w+)/){
+        say &quot;I saw $+{name1} and $+{name2}&quot;;
+    }</code></pre>
+
+</div>
+
+<p>Deberíamos ver el siguiente mensaje</p>
+
+<div class="screen">
+
+<pre><code>    I saw Fred and Barney </code></pre>
+
+</div>
+
+<p>Al colocarle etiquetas a nuestras capturas, no nos importa el orden, podemos agregar mas capturas, moverlas de sitio y esto no va a afectar en absoluto nuestro código.</p>
+
+<div class="programlisting">
+
+<pre><code>    use 5.010;
+
+    my $names = &#39;Fred or Barney&#39;;
+
+    if ( $names =~ m/(?&lt;name2&gt;\w+) (?:and|or) (?&lt;name1&gt;\w+)/){
+        say &quot;I saw $+{name1} and $+{name2}&quot;;
+    }</code></pre>
+
+</div>
+
+<p>Note que al tener una forma de etiquetar las capturas, necesitamos una forma de usarlas como puntos de referencia. Anteriormente usamos <code>\1</code> o <code>\g{1}</code> para esto. Con un grupo etiquetado, podemos usar la etiqueta en <code>\g{etiqueta}</code>. Por ejemplo:</p>
+
+<div class="programlisting">
+
+<pre><code>    use 5.010;
+    
+    my $names = &#39;Fred Flinstone and Wilma Flinstone&#39;;
+    
+    if ( $names =~ m/(?&lt;last_name&gt;)\w+) and \w+ \g{last_name}/ ){
+        say &quot;I saw $+{last_name}&quot;;
+    }</code></pre>
+
+</div>
+
+<p>Podemos hacer lo mismo, pero con otra sintaxis. En lugar de usar <code>\g{etiqueta}</code>, podemos usar <code>\k{etiqueta}</code></p>
+
+<div class="programlisting">
+
+<pre><code>    use 5.010;
+
+    my $names = &#39;Fred Flinstone and Wilma Flinstone&#39;;
+
+    if ( $names =~ m/(?&lt;last_name&gt;\w+) and \w+ \k&lt;last_name&gt;/ ){
+        say &quot;I saw $+{last_name}&quot;;
+    }</code></pre>
+
+</div>
+
+<h3>Variables Automáticas</h3>
+
+<p><a name="Variables Automáticas"></p>
+
+<p>Existen tres variables especiales que puede usar libremente, sin importar que sea un grupo de paréntesis o no. Esta es la buena noticia, la mala noticia, es que estas variables tienen nombres un poco raros.</p>
+
+<p>Ahora, probablemente Larry, habría sido feliz al utilizar nombres un poco menos raros para estas variables, como $gazoo o $ozmodiar. Pero estas son nombres de variables que podrían estar en su código. Para evitar que los programadores de Perl tuvieran que aprenderse todos los nombres de las variables especiales de Perl antes de escoger nombres para sus variables, Larry le dio nombres extraños a las variables internas de Perl, nombres que incluso rompen las reglas para nombrar variables. En este caso, los nombres de estas variables son los signos de puntuación <code>$&</code>, <code>$`</code>, y <code>$'</code>. Si, son extraños, feos y raros, pero esos son sus nombres. La parte de la cadena que hace match, es automáticamente almacenada en la variable <code>$&</code>:</p>
+
+<div class="programlisting">
+
+<pre><code>    if (&quot;Hello there, neighbor&quot; =~ /\s(\w+),/){
+        print &quot;Lo que actualmente hizo match es: &#39;$&amp;&#39;. \n&quot;;
+    }</code></pre>
+
+</div>
+
+<p>Lo que sea que se encuentre antes de la sección que hizo match esta en <code>$`</code>, y lo que sea que este después esta en <code>$'</code>.</p>
+
+<p>Si utiliza estas tres variables en orden, va a obtener la cadena original.</p>
+
+<div class="programlisting">
+
+<pre><code>    if (&quot;Hello there, neighbor&quot; =~ /\s(\w+),/){
+        print &quot;That was ($`)($&amp;)($&#39;).\n&quot;;
+    } </code></pre>
+
+</div>
+
+<p>Ahora en un principio mencionamos que estas tres variables podía usarlas libremente. Bueno, la libertad tiene un precio. En este caso, el precio es que una vez que hallas usado cualquiera de estas variables automáticas en algún lugar del programa, las otras expresiones regulares van a ser un poco mas lentas. Ahora, este retardo no es muy grande, pero si lo suficiente como para que algunos programadores de Perl simplemente nunca usen estas variables automáticas.</p>
+
+<h2>Cuantificadores Generales</h2>
+
+<p><a name="Cuantificadores Generales"></p>
+
+<p>Un cuantificador en un patrón indica la repetición de un item un determinado número de veces. Ya vimos tres cuantificadores: <code>*</code>, <code>+</code>, y <code>?</code>. Pero tambien puede usar un par de números separados por coma encerrados entre llaves (<code>{}</code>) para especificar exactamente de que manera y cuantas repeticiones son permitidas.</p>
+
+<p>Entonces el patrón <code>/a{5,15}/</code> va a hacer match desde 5 hasta 15 repeticiones de la letra <code>a</code>. Si aparece repetida tres veces, no hace match. Si aparece cinco veces, esto hace match. Si aparece 20 veces, para las primeras 15 va a hacer match.</p>
+
+<p>Si omite el segundo número, pero deja la coma, no hay limite superior.</p>
+
+<p>Si omite también la coma, el número dado, es exactamente la cuenta permitida.</p>
+
+<h2>Un programa que prueba patrones</h2>
+
+<p><a name="Un programa que prueba patrones"></p>
+
+<p>Este programa es útil para probar patrones en algunas cadenas, y ver donde hace match y donde no:</p>
+
+<div class="programlisting">
+
+<pre><code>    #!/usr/bin/perl
+    
+    while (&lt;&gt;) {
+        chomp;
+    
+        if (/YOUR_PATTERN_GOES_HERE/) {
+            print &quot;Matched: |$`&lt;$&amp;&gt;$&#39;|\n&quot;;
+        } else {
+            print &quot;No match: |$_|\n&quot;;
+        }
+    
+    }</code></pre>
+
+</div>
+
+<h2>Presedencia</h2>
+
+<p><a name="Presedencia"></p>
+
+<p>La tabla de presedencia de las expresiones regulares es pequeña, en comparación con la tabla de presedencias de Perl.</p>
+
+<div class="screen">
+
+<pre><code>    Expresi&oacute;n                               Ejemplo
+    ----------------------------------------------------------
+    
+    Par&eacute;ntesis (agrupaci&oacute;n o recuerdos)     (), (?:...), (?&lt;LABEL&gt;..) 
+    Cuantificadores                         a* a+ a? a{n, m}
+    Anclas y secuencias                     abc ^a a$ 
+    Alternaci&oacute;n                             a|b|c 
+    &Aacute;tomos                                  a [abc] \d \1 </code></pre>
+
+</div>
+
+<h2>Ejercicios</h2>
+
+<p><a name="ejercicios07"></p>
+
+<ul>
+
+<li>1. Utilizando el programa para probar patrones, escriba un patron que haga match de la cadena <code>match</code>. Pruebe el programa con la cadena <code>beforematchafter</code>. Haga que la salida muestre las tres partes del match en el orden correcto.
+
+<li>2. Utilizando el programa para probar patrones, escriba un patron que haga match si cualquier palabra (en el sentido de las palabras \w) termina con una letra <code>a</code>. Esto hace match de <code>wilma</code> pero no de <code>barney</code>.
+
+<li>3. Modifique el programa de el ejercicio anterior de manera que la palabra que termine con la letra <code>a</code>, se almacene en <code>$1</code>. Arregle el código para imprimir el contenido de las variables, algo como: <code>$1</code> contiene <code>'Willma'</code>
+
+<li>4. Modifique el programa anterior, para que utilice nombres en las capturas en lugar de usar <code>$1</code>. Actualice el código que muestra el contenido de las variables.
+
+</ul>
+
+</body>
+</html>
+

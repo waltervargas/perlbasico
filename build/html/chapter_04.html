@@ -391,9 +391,9 @@
 
 <p>Perl actualmente no abre el archivo por el mismo, Perl le pide al sistema operativo que abra el archivo por el. Por su puesto, el sistema operativo puede negarse a hacerlo debido a una configuración de permisos, un nombre de archivo incorrecto u otras razones.</p>
 
-<p>Si intentas leer de un filehandle malo, vas a ver inmediatamente un <code>end-of-file</code> o fin de archivo. <code>end-of-file</code> indica <code>undef</code> en contexto escalar o una lista vacia en contexto de lista.</p>
+<p>Si intentas leer de un filehandle malo, vas a ver inmediatamente un <code>end-of-file</code> o fin de archivo. <code>end-of-file</code> indica <code>undef</code> en contexto escalar o una lista vacía en contexto de lista.</p>
 
-<p>Si intentas escribir en un filehandle malo, los datos simplemente se perderan.</p>
+<p>Si intentas escribir en un filehandle malo, los datos simplemente se perderán.</p>
 
 <p>Afortunadamente, estas consecuencias son fáciles de evitar. Primero que todo, si estamos usando el pragma <code>warnings</code> o el switch <code>-w</code>, Perl va a advertirnos cuando vea que estamos usando un filehandle malo. Pero incluso antes de esto, la llamada <code>open</code> siempre nos indica si puedo hacer el trabajo o fallo, retornando verdadero o falso. Entonces, puedes escribir tu código de la siguiente manera:</p>
 
@@ -423,15 +423,15 @@
 
 <p>Perl, automáticamente cierra un filehandle si lo abres de nuevo (esto ocurre si reusas el nombre del filehandle en otra llamada a <code>open</code>) o si sales del programa.</p>
 
-<p>Debido a esto, varios programas simples de Perl no cierran los filehandles. Pero si quieres ser ordenado, debe haber una llamada a <code>close</code> por cada llamada a <code>open</code>. En general, es mejor cerrar cada filehandle pronto despuÃ©s de haber terminado con el. Aun que este cerca del fin del programa.</p>
+<p>Debido a esto, varios programas simples de Perl no cierran los filehandles. Pero si quieres ser ordenado, debe haber una llamada a <code>close</code> por cada llamada a <code>open</code>. En general, es mejor cerrar cada filehandle pronto después de haber terminado con el. Aun que este cerca del fin del programa.</p>
 
 <h2>Errores fatales con die</h2>
 
 <p><a name="Errores fatales con die"></p>
 
-<p>Miremos hacia un lado un momento. Necesitamos saber algunas cosas mas que aunque no estÃ¡n relacionadas con los procesos de I/O nos va a permitir salir de un programa antes de lo esperado.</p>
+<p>Miremos hacia un lado un momento. Necesitamos saber algunas cosas mas que aunque no están relacionadas con los procesos de I/O nos va a permitir salir de un programa antes de lo esperado.</p>
 
-<p>Cuando ocurre un error fatal en Perl (por ejemplo, si haces una division por cero, uso de una expresión regular inválida, o llamar una subrutina que no esta definida), sus programas se rompen con un mensaje de error indicando la razón del porqué <font class="footnote"> (footnote: Bueno, esto pasa por defecto, pero podemos atrapar los errores con la función eval, que vamos a ver mas adelante en otro capítulo)</font>. Esta funcionalidad esta disponible para nosotros a través de la función <code>die</code>, entonces podemos hacer nuestros propios errores fatales.</p>
+<p>Cuando ocurre un error fatal en Perl (por ejemplo, si haces una division por cero, uso de una expresión regular inválida, o llamar una subrutina que no esta definida), sus programas se rompen con un mensaje de error indicando la razón del porqué <font class="footnote"> (footnote: Bueno, esto pasa por defecto, pero podemos atrapar los errores con la función <code>eval</code>, que vamos a ver mas adelante en otro capítulo)</font>. Esta funcionalidad esta disponible para nosotros a través de la función <code>die</code>, entonces podemos hacer nuestros propios errores fatales.</p>
 
 <p>La función <code>die</code> imprime el mensaje que le pasas como argumento, y se asegura que el programa termine con una salida diferente de cero.</p>
 
@@ -447,9 +447,9 @@
 
 </div>
 
-<p>Si <code>open</code> falla, <code>die</code> va a terminar el programa diciendo: "No se pudo crear el archivo de logs. Pero, ¿ Que es esa variable $! en el mensaje ?, Esto es, una queja del sistema que un ser humano puede leer. En general, cuando el sistema se niega a hacer algo que le estamos pidendo, en <code>$!</code> esta la razon del porqué.</p>
+<p>Si <code>open</code> falla, <code>die</code> va a terminar el programa diciendo: "No se pudo crear el archivo de logs. Pero, ¿ Que es esa variable $! en el mensaje ?, Esto es, una queja del sistema que un ser humano puede leer. En general, cuando el sistema se niega a hacer algo que le estamos pidiendo, en <code>$!</code> esta la razón del porqué.</p>
 
-<p>Hay otra cosa interesante que <code>die</code> puede hacer por nosotros, automáticamente va a indicar el nombre del programa y el número de linea en donde ocurrio el error.</p>
+<p>Hay otra cosa interesante que <code>die</code> puede hacer por nosotros, automáticamente va a indicar el nombre del programa y el número de linea en donde ocurrió el error.</p>
 
 <p>Suponiendo que en el programa anterior no podemos abrir el filehandle por problemas con los permisos, vamos a obtener el siguiente mensaje:</p>
 
@@ -485,7 +485,7 @@
 
 </div>
 
-<p>Un filehandle abierto para escritura puede usarse con <code>print</code> o <code>printf</code>, colocÃ¡ndolo inmediatamente despuÃ©s de la palabra reservada pero antes de la lista de argumentos:</p>
+<p>Un filehandle abierto para escritura puede usarse con <code>print</code> o <code>printf</code>, colocándolo inmediatamente después de la palabra reservada pero antes de la lista de argumentos:</p>
 
 <div class="programlisting">
 
@@ -509,7 +509,7 @@
 
 </div>
 
-<p>Hay que tener cuidado con esto, una vez que se termine de usar, se debe volver al valor por defecto STDOUT. De igual manera, por defecto, la salida hacia un filehandle se guarda en el buffer. Configurando la variable especial <code>$|</code> a 1, va a hacer que el filehandle selecionado siempre haga flush del buffer despues de cada operación de salida. Entonces si se quiere asegurar que los archivos de log tengan los registros a tiempo, en el caso que quieras estar leyendo el log para monitorear el progreso del programa, puedes hacer algo como esto:</p>
+<p>Hay que tener cuidado con esto, una vez que se termine de usar, se debe volver al valor por defecto STDOUT. De igual manera, por defecto, la salida hacia un filehandle se guarda en el buffer. Configurando la variable especial <code>$|</code> a 1, va a hacer que el filehandle selecionado siempre haga flush del buffer después de cada operación de salida. Entonces si se quiere asegurar que los archivos de log tengan los registros a tiempo, en el caso que quieras estar leyendo el log para monitorear el progreso del programa, puedes hacer algo como esto:</p>
 
 <div class="programlisting">
 
@@ -525,11 +525,11 @@
 
 <p><a name="Reabrir un Filehandle por defecto"></p>
 
-<p>Ya mencionamos antes que si abres un archivo el anterior se cierra automáticamente. Y tambien digimos que no debería reusar uno de los seis nombres de filehandles por defecto, al menos que quiera hacer algo especial. Adicionalmente digimos que los mensajes de error en Perl van a STDERR. Si usa estas tres piezas de información juntas, ahora puedes tener una idea de como enviar los mensajes de error a un archivo.</p>
+<p>Ya mencionamos antes que si abres un archivo el anterior se cierra automáticamente. Y también dijimos que no debería reusar uno de los seis nombres de filehandles por defecto, al menos que quiera hacer algo especial. Adicionalmente dijimos que los mensajes de error en Perl van a STDERR. Si usa estas tres piezas de información juntas, ahora puedes tener una idea de como enviar los mensajes de error a un archivo.</p>
 
 <div class="programlisting">
 
-<pre><code>    # Env&Atilde;&shy;a los errores a mi log privado de errores
+<pre><code>    # Env&iacute;a los errores a mi log privado de errores
     if ( ! open STDERR, &quot;&gt;&gt;/home/elsanto/.error_log&quot;){
         die &quot;No pude abrir el log de errores: $!&quot;;
     }</code></pre>
@@ -542,7 +542,7 @@
 
 <p><a name="Salida con say"></p>
 
-<p>Perl 5.10 toma la función <code>say</code> del desarrollo de Perl 6. Es lo mismo que <code>print</code>, con la diferencia de que agrega al final un caracter de nueva linea (<code>\n</code>). Las siguiente sentencias producen la misma salida:</p>
+<p>Perl 5.10 toma la función <code>say</code> del desarrollo de Perl 6. Es lo mismo que <code>print</code>, con la diferencia de que agrega al final un carácter de nueva linea (<code>\n</code>). Las siguiente sentencias producen la misma salida:</p>
 
 <div class="programlisting">
 
@@ -578,7 +578,7 @@
 
 </div>
 
-<p>Esta es una nueva caracteristica de Perl 5.10, y nosotros la usamos solo cuando estamos usando alguna otra función de Perl 5.10. La vieja y confiable <code>print</code> sigue siendo tan buena como siempre lo ha sido, pero sospechamos que hay algunos programadores de Perl que van a querer ahorrase el tener que escribir cuatro caracteres extra. (dos del nombre y \n).</p>
+<p>Esta es una nueva característica de Perl 5.10, y nosotros la usamos solo cuando estamos usando alguna otra función de Perl 5.10. La vieja y confiable <code>print</code> sigue siendo tan buena como siempre lo ha sido, pero sospechamos que hay algunos programadores de Perl que van a querer ahorrase el tener que escribir cuatro caracteres extra. (dos del nombre y \n).</p>
 
 <h2>Ejercicios</h2>
 
