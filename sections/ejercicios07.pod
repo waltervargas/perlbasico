@@ -1,0 +1,25 @@
+=head1 Ejercicios    
+
+Z<ejercicios06> 
+
+=over 
+
+=item 1. Utilizando el programa para probar patrones, escriba un patron que haga
+match de la cadena C<match>. Pruebe el programa con la cadena
+C<beforematchafter. Haga que la salida muestre las tres partes del match en el
+orden correcto. 
+
+=item 2. Utilizando el programa para probar patrones, escriba un patron que haga
+match si cualquier palabra (en el sentido de las palabras \w) termina con una
+letra C<a>. Esto hace match de C<wilma> pero no de C<barney>. 
+
+=item 3. Modifique el programa de el ejercicio anterior de manera que la
+palabra que termine con la letra C<a>, se almacene en C<$1>. Arregle el código
+para imprimir el contenido de las variables, algo como: C<$1> contiene
+C<'Willma'>
+
+=item 4. Modifique el programa anterior, para que utilice nombres en las
+capturas en lugar de usar C<$1>. Actualice el código que muestra el contenido
+de las variables.
+
+=back

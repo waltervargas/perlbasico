@@ -470,3 +470,5 @@ lentas. Ahora, este retardo no es muy grande, pero si lo suficiente como para
 que algunos programadores de Perl simplemente nunca usen estas variables
 automáticas.
 
+
+L<ejercicios07>
