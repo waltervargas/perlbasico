@@ -1,0 +1,100 @@
+Ejercicios Varios...
+
+Nota: Todos los ejercicios deben ser programados activando el pragma 'strict'
+
+1. Escriba un programa que haga la conversion de un monto expresado en bolivares a dolares, tome en cuenta que $1 equivale a 4,3 BsF (como punt adicional haga que el formato de salida de los montos debe ser en notación decimal con punto flotante).
+
+Respuesta:
+
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+print "Conversión de Dolar a Bolivar\n";
+print "*" x 29, "\n\n";
+print "Ingrese el monto en dolares: ";
+my $dolares = <STDIN>;
+chomp $dolares;
+my $bsf = $dolares * 4.3;
+printf ("\$%.2f son %.2f BsF.\n", $dolares, $bsf);
+
+
+2. Escriba un programa que pida el apellido y nombre del usuario separado por líenas y lo imprima en orden reverso con una coma (,) entre ellos (haga uso de reverse y join).
+
+Respuesta:
+
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+my @b;
+print "Ingrese su Apellido y Nombre (por linea):\n";
+chomp(@b = <STDIN>);
+print join(", ", reverse @b), "\n";
+
+3. La utilidad UNIX llamada 'echo' es una utilidad que toma un número de argumentos y los imprime, escriba un programa en Perl que realice una función similar.
+
+Respuesta
+
+#!/usr/bin/perl -w
+use strict;
+
+print "@ARGV"\n";
+
+4. Modifique el programa anterior para hacer uso de subrutinas, cree una subrutina llamada echo que realice la función deseada.
+
+Respuesta:
+
+#!/usr/bin/perl -w
+use strict;
+
+sub echo {
+    print "@_\n";
+}
+
+echo @ARGV;
+
+5. Escriba un programa llamado grep.pl que tome un patrón y una lista de archivos como argumentos desde la línea de comandos, entonces lea el contenido de estos archivos e imprima solo las líneas que coincidan con el patrón dado
+
+Respuesta:
+
+#!/usr/bin/perl -w
+use strict;
+
+my ($patron, @archivos) = @ARGV;
+
+sub grep_file {
+        my $pattern = shift;
+        my $file = shift;
+        open FILE, $file;
+        while (my $line = <FILE>) {
+                if ($line =~ m/$pattern/) { print "$file:", $line }
+        }
+}
+
+foreach my $file (@archivos) {
+        grep_file $patron, $file;
+}
+
+6. Dada una URL sencilla, tal como http://www.dominio.com/index.html, escriba un programa que con expresiones regulares examine la URL y escriba la siguiente salida:
+
+Protocolo: http
+Host: www.dominio.com
+Recurso: index.html
+
+Respuesta
+
+#!/usr/bin/perl -w
+use strict;
+
+my $url = shift @ARGV;
+
+if ($url =~ m{(ftp|http)://(.*?)/(.*)}x) {
+        print "Protocolo: $1\n";
+        print "Host: $2\n";
+        print "Recurso: $3\n";
+}
+
+
