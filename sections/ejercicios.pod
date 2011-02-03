@@ -1,0 +1,36 @@
+=head1 Ejercicios    
+
+Z<ejercicios_01> 
+
+=over 
+
+=item 1. Escriba un programa que lea una lista de caracteres separados por
+lineas e imprima esta lista en modo inverso solo de los números contenidos.
+
+=item 2. Escriba un programa que lea una lista de caracteres separados por
+lineas e imprima esta lista en orden ASCIIbetico, por ejemplo si la entrada fue
+fred, barney, wilma, betty, la salida debe ser, barney, betty, fred, wilma
+
+=item 3. Escriba un programa que imprima cada linea que tenga tres números
+iguales juntos el uno al otro, y si ese número tiene decimales, solo imprima la
+parte entera, a ménos que la parte decimal también sean tres números iguales. 
+
+=item 4. Escriba un programa que lea de la entrada estándar un RIF y verifique
+que esta correctamente escrito. 
+
+=item 5. Escriba un programa que lea un archivo de al ménos 20 números de
+teléfonos celulares y sus respectivos propietarios,  y separe los números telefónicos en archivos por
+proveedor, si un número esta mal escrito, entonces debe guardarlo en un archivo
+para números malos. Tome en cuenta que no pueden haber números repetidos.  
+
+=item 6. Escriba un programa que reciba un conjunto de cédulas, e indique
+cuales de estas cédulas están mal escritas. Por favor tome en cuenta que no
+puede haber cédulas repetidas. 
+(Utilice la nomenclatura 16.612.574)
+
+=item 7. Escriba un programa que reciba como argumento un archivo que contiene
+una lista de palabras y frases, las palabras o frases deben contener al ménos 4
+caracteres y no pueden contener números, evalue cual de estas frases o palabras
+son un palíndromo e imprima al final de procesar todo el archivo cuantos
+palíndromos fueron encontrados e indique cuales. Si no se encuentra ningún
+palíndromo, solo se debe imprimir "Se encontraron 0 palindromos"
