@@ -6,7 +6,7 @@ representada por las listas y los arreglos.
 
 Una lista es una colección ordenada de escalares. Un array es una variable que
 contiene una lista. En Perl, estos dos términos se utilizan a menudo como si
-fueran intercambiables. Pero, para ser precisos, una lista es datos, y un array
+fueran intercambiables. Pero, para ser precisos, una lista es datos y un array
 es una variable. En este sentido, puedes tener una lista de valores que no
 estén contenidos en un array, pero cada variable de tipo array contiene una
 lista (incluso si la lista esta vacía). Por ejemplo: 
@@ -37,10 +37,10 @@ mezcla de diferentes valores escalares. Sin embargo, es más común tener todos
 los elementos del mismo tipo, tales como una lista de títulos de libros (todas
 son cadenas) o una lista de cosenos (todos son números).
 
-Las matrices o listas pueden tener cualquier número de elementos. La lista mas
-pequeña es aquella que no tiene elementos, mientras que la mas grande puede
-llenar toda la memoria disponible. Una vez mas esto es parte de la filosofía de
-Perl "No hay limites innecesarios".
+Las matrices o listas pueden tener cualquier número de elementos. La lista más
+pequeña es aquella que no tiene elementos, mientras que la más grande puede
+llenar toda la memoria disponible. Una vez más esto es parte de la filosofía de
+Perl "No hay límites innecesarios".
 
 =head1 Accediendo los Elementos de un Array    
 
@@ -48,7 +48,7 @@ Z<Accediendo los Elementos de un Array>
 
 Si ha usado arrays en otro lenguaje, no se debe sorprender al encontrar que
 perl provee un mecanismo de subindice del array para referirse a un elemento
-por un indice numérico. 
+por un índice numérico. 
 
 Los elementos de un array son enumerados usando una secuencia de enteros,
 comenzando en cero (0) e incrementando de uno en uno para cada elemento. Por
@@ -64,7 +64,7 @@ ejemplo:
 
 El nombre del array en este caso "prueba", es de un espacio de nombres 
 totalmente separado de los escalares, puedes tener una variable escalar 
-llamada $prueba en el mismo programa, y perl va a tratarlas como cosas
+llamada $prueba en el mismo programa y perl va a tratarlas como cosas
 diferentes y no va a confundirse. 
 
 Puede usar un elemento de un array como por ejemplo $prueba[0] en cualquier
@@ -80,7 +80,7 @@ cortas y prácticas que vimos en el capítulo anterior:
 
 =end programlisting
 
-Por su puesto, el subindice puede ser cualquier expresión que devuelva un valor
+Por su puesto, el subíndice puede ser cualquier expresión que devuelva un valor
 numérico. Si no es un entero, automáticamente va a ser truncado al próximo
 entero menor. Por ejemplo: 
 
@@ -91,7 +91,7 @@ entero menor. Por ejemplo:
 
 =end programlisting
 
-Si se indica un elemento en el subindice que este mas allá del final del
+Si se indica un elemento en el subíndice que este más allá del final del
 array, el valor correspondiente va a ser C<undef>. Al igual que con las
 variables escalares, si nunca ha guardado un valor en una variable escalar,
 pues entonces el valor de esta variable va a ser C<undef>. Por ejemplo: 
