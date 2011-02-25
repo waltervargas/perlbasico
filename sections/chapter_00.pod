@@ -25,7 +25,7 @@ Z<¿ Por qué Larry creo Perl ?>
 Larry crea Perl a mediados de 1980,  cuando intentaba producir reportes sobre 
 la información ordenada jerárquicamente en archivos de  la red de noticias 
 USENET para un sistema de reporte de bugs y awk no dio la talla. Entonces
-Larry, como buen programador perezoso que es,  decide hacer una herramienta que
+Larry, como buen programador perezoso que es, decide hacer una herramienta que
 pueda usar para resolver este problema y que pueda volver a usar para otro
 problema similar en otro lugar,  en otro tiempo. 
 
@@ -66,7 +66,7 @@ Z<Perl es fácil>
 Cuando nos referimos que Perl es fácil, hablamos de que es fácil de usar, no es
 especialmente fácil de aprender. Si usted conduce un carro que paso semanas o
 meses aprendiendo a conducir, entonces luego va a ser fácil de conducir. De
-igual manera cuando pase la misma o mas cantidad de horas aprendiendo Perl,
+igual manera cuando pase la misma o más cantidad de horas aprendiendo Perl,
 entonces después va a ser muy fácil de usar.  
 
 =head3 Perl es casi ilimitado
@@ -130,7 +130,7 @@ las siguientes:
 
 En su totalidad, sin usar los atajos y los valores por defecto de Perl, esta
 sección de código seria aproximadamente 10 o 12 veces más largo, entonces tomaría
-más tiempo para escribirlo y leerlo. Va a ser mas duro de mantener y depurar
+más tiempo para escribirlo y leerlo. Va a ser más duro de mantener y depurar
 cuando tenga más variables. 
 
 
@@ -147,7 +147,7 @@ nunca había imaginado en su hasta el momento poco manejo de Perl.
 
 Pero como resultado, Perl creció, y creció y creció. Creció en características.
 Creció en portabilidad. Lo que antes era un lenguaje poco disponible en sólo un
-par de sistema tipo Unix,  ahora tiene miles de páginas de documentación en
+par de sistemaa tipo Unix,  ahora tiene miles de páginas de documentación en
 línea gratis, docenas de libros, y miles de listas de correo en cientos de
 idiomas con un número incontable de lectores, e implementaciones en varios
 sistemas de uso cotidiano hoy en día y adicionalmente un curso como este. 
@@ -165,7 +165,7 @@ documentación,  muchas cosas están pasando con Perl. Durante los últimos años,
 muchas personas han estado trabajando en la próxima versión de Perl: Perl 6.
 
 No tire a un lado Perl 5, este sigue siendo la versión actual y estable. No se
-espera una version estable de Perl 6 durante un rato largo. Perl 5 hace todo lo
+espera una versión estable de Perl 6 durante un rato largo. Perl 5 hace todo lo
 de siempre, y siempre sera así. Perl 5 no va a desaparecer cuando Perl 6 salga.
 Y la gente puede seguir usando Perl 5 durante muchos años más. 
 
@@ -187,7 +187,7 @@ dos años sin actualizares es definitivamente una antigüedad.
 
 Z<¿ Cómo hacer un programa en Perl ?> 
 
-Ya es tiempo de hacer esta pregunta (aunque usted no la halla hecho aun), Los
+Ya es tiempo de hacer esta pregunta (aunque usted no la haya hecho aun), Los
 programas de Perl son archivos de texto plano, usted puede crearlos y editarlos
 en su editor de textos preferido, en lo personal prefiero B<VIM>. (Usted no
 necesita entornos de desarrollo especiales, aunque hay disponibles editores
