@@ -27,11 +27,11 @@ en este punto>
 Z<Literales de punto flotante> 
 
 Un literal es la forma en que un valor se representa en el código fuente en
-Perl. Un literal no es el resultado de una operación de calculo o de una
+Perl. Un literal no es el resultado de una operación de cálculo o de una
 operación de I/O. Es datos escritos directamente en el código fuente. 
 
 Un literal de coma flotante, ya debe serle familiar. Números con y sin punto
-flotante también son permitidos (incluyendo el prefijo opcional mas y menos),
+flotante también son permitidos (incluyendo el prefijo opcional más y menos),
 y de remate el indicador de notación exponencial E. 
 
 =begin programlisting
