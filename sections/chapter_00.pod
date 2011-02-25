@@ -15,23 +15,23 @@ Aun así, la mayoría de los programas en el mundo, escritos en Perl 5,
 aprovechan muy poco las características del lenguaje. Usted C<puede> escribir
 programas en Perl 5 como si estuviera en Perl 4 (o Perl 3 o 2 o 1), pero los
 programas que aprovechan todo el increíble poder del mundo de Perl 5 que la
-comunidad ha inventado, y mejorado, son mas cortos, rápidos, mas poderosos, y
+comunidad ha inventado y mejorado, son más cortos, rápidos, más poderosos, y
 fáciles de mantener que sus alternativas en anteriores versiones. 
 
-=head1 ¿ Porque Larry creo Perl ?
+=head1 ¿ Por qué Larry creo Perl ?
 
-Z<¿ Porque Larry creo Perl ?> 
+Z<¿ Por qué Larry creo Perl ?> 
 
 Larry crea Perl a mediados de 1980,  cuando intentaba producir reportes sobre 
 la información ordenada jerárquicamente en archivos de  la red de noticias 
-USENET para un sistema de reporte de bugs,  y awk no dio la talla. Entonces
+USENET para un sistema de reporte de bugs y awk no dio la talla. Entonces
 Larry, como buen programador perezoso que es,  decide hacer una herramienta que
 pueda usar para resolver este problema y que pueda volver a usar para otro
 problema similar en otro lugar,  en otro tiempo. 
 
-=head1 ¿ Porque Larry simplemente no uso otro lenguaje ?    
+=head1 ¿ Por qué Larry simplemente no uso otro lenguaje ?    
 
-Z<¿ Porque Larry simplemente no uso otro lenguaje ?> 
+Z<¿ Por qué Larry simplemente no uso otro lenguaje ?> 
 
 En este momento hay gran variedad de lenguajes, pero en esa época Larry no
 encontró un lenguaje que se adaptara a sus necesidades. 
@@ -44,12 +44,12 @@ y con algo del poder de las herramientas como B<grep>, B<cut>, B<sort>, y
 B<sed>,  sin tener que recurrir a un lenguaje como B<C>.
 
 Perl, intenta llenar la brecha entre los lenguajes de bajo nivel como C, C++, y
-Assembler,  y los lenguajes de alto nivel de la época como Shell Scripting. La
+Assembler y los lenguajes de alto nivel de la época como Shell Scripting. La
 programación a bajo nivel, usualmente es difícil y fea de escribir, pero rápida
 y sin limitaciones, es difícil superar la velocidad de un programa bien escrito
 a bajo nivel en una máquina dada. Y no hay mucho que se pueda hacer. 
 
-En el otro extremo, la programación convencional de alto nivel, tiende a ser
+En el otro extremo, la programación convencional de alto nivel tiende a ser
 lenta,  dura, fea y limitada. Hay varias cosas que no puedes hacer con
 programación en shell o batch. 
 
@@ -64,7 +64,7 @@ Z<Características principales de Perl>
 Z<Perl es fácil> 
 
 Cuando nos referimos que Perl es fácil, hablamos de que es fácil de usar, no es
-especialmente fácil de aprender. Si usted conduce un carro, que paso semanas o
+especialmente fácil de aprender. Si usted conduce un carro que paso semanas o
 meses aprendiendo a conducir, entonces luego va a ser fácil de conducir. De
 igual manera cuando pase la misma o mas cantidad de horas aprendiendo Perl,
 entonces después va a ser muy fácil de usar.  
@@ -96,7 +96,7 @@ Z<Perl es un poco feo>
 
 Esto es cierto, el camello se ha convertido en el símbolo de Perl, desde la
 cubierta del legendario libro B<The Camel Book>, conocido también como
-B<Programming Perl by Larry Wall, Tom Christianesen,  and Jon Orwant>. 
+B<Programming Perl by Larry Wall, Tom Christianesen and Jon Orwant>. 
 Los camellos también son un poco feos, pero trabajan duro, incluso en
 condiciones difíciles. Los camellos siempre están ahí siempre para hacer el
 trabajo a pesar de todas las dificultades, incluso cuando se ven y huelen mal
@@ -112,11 +112,11 @@ una generalización. En el diseño de Perl, Larry tuvo que hacer muchas
 consideraciones. Cuando ha tenido la oportunidad de hacer algo más fácil para
 el programador a costa de ser más difícil para el estudiante, ha decidido casi
 todo el tiempo a favor del programador. Esto es así, porque usted va a aprender
-Perl una sola vez, pero lo vas a usar una y otra vez. Perl posee cualquier
+Perl una sola vez, pero lo va a usar una y otra vez. Perl posee cualquier
 cantidad de comodidades que le permiten al programador ahorrar tiempo. Por
 ejemplo,  la mayoría de las funciones tienen un valor predeterminado,  con
 frecuencia,  el valor por defecto es justamente la manera en la que usted desea
-usar la función. De esta manera,  podrás encontrar lineas de código en Perl como
+usar la función. De esta manera, podrá encontrar lineas de código en Perl como
 las siguientes: 
 
 =begin programlisting
@@ -128,13 +128,13 @@ las siguientes:
 
 =end programlisting
 
-En su totalidad, sin usar los atajos y los valores por defecto de Perl, este
-trozo de código seria aproximadamente 10 o 12 veces mas largo, entonces tomaría
-mas tiempo para escribirlo y leerlo. Va a ser mas duro de mantener y depurar
-cuando tenga mas variables. 
+En su totalidad, sin usar los atajos y los valores por defecto de Perl, esta
+sección de código seria aproximadamente 10 o 12 veces más largo, entonces tomaría
+más tiempo para escribirlo y leerlo. Va a ser mas duro de mantener y depurar
+cuando tenga más variables. 
 
 
-=head1 ¿ Como se hizo Perl tan popular ?    
+=head1 ¿ Cómo se hizo Perl tan popular ?    
 
 Z<¿ Como se hizo Perl tan popular ?> 
 
@@ -146,15 +146,15 @@ Larry, maneras de hacer esto, aquello o lo otro, muchos de los cuales Larry
 nunca había imaginado en su hasta el momento poco manejo de Perl. 
 
 Pero como resultado, Perl creció, y creció y creció. Creció en características.
-Creció en portabilidad. Lo que antes era un lenguaje poco disponible en solo un
+Creció en portabilidad. Lo que antes era un lenguaje poco disponible en sólo un
 par de sistema tipo Unix,  ahora tiene miles de páginas de documentación en
-linea gratis, docenas de libros, y miles de listas de correo en cientos de
+línea gratis, docenas de libros, y miles de listas de correo en cientos de
 idiomas con un número incontable de lectores, e implementaciones en varios
-sistemas de uso cotidiano hoy en día, y adicionalmente un curso como este. 
+sistemas de uso cotidiano hoy en día y adicionalmente un curso como este. 
 
-=head1 ¿ Que esta pasando con Perl ahora ?    
+=head1 ¿ Que está pasando con Perl ahora ?    
 
-Z<¿ Que esta pasando con Perl ahora ?> 
+Z<¿ Qué está pasando con Perl ahora ?> 
 
 Durante estos días, Larry Wall no escribe código, pero el sigue guiando el
 desarrollo y toma las decisiones importantes. Perl es mayormente mantenido por
@@ -167,15 +167,15 @@ muchas personas han estado trabajando en la próxima versión de Perl: Perl 6.
 No tire a un lado Perl 5, este sigue siendo la versión actual y estable. No se
 espera una version estable de Perl 6 durante un rato largo. Perl 5 hace todo lo
 de siempre, y siempre sera así. Perl 5 no va a desaparecer cuando Perl 6 salga.
-Y la gente puede seguir usando Perl 5 durante muchos años mas. 
+Y la gente puede seguir usando Perl 5 durante muchos años más. 
 
-=head1 ¿ Que es CPAN ?    
+=head1 ¿ Qué es CPAN ?    
 
-Z<¿ Que es CPAN ?> 
+Z<¿ Qué es CPAN ?> 
 
 CPAN es B<Comprehensive Perl Archive Network>, su primera parada para Perl.
 Posee el código fuente de Perl, listo para instalar y los B<ports> para todos
-los sistemas no Unix, ejemplos, documentación, y extensiones del lenguaje. 
+los sistemas no Unix, ejemplos, documentación y extensiones del lenguaje. 
 
 CPAN es replicado en cientos de máquinas al rededor del mundo, comenzando en
 B<http://search.cpan.org> o B<http://kobesearch.cpan.org> para navegar o buscar
@@ -183,13 +183,13 @@ un paquete. Si no tienes acceso a la red, todo CPAN puede caber en 8 o 10 GB.
 Es importante mencionar que debido a los cambios diarios en CPAN, un mirror con
 dos años sin actualizares es definitivamente una antigüedad. 
 
-=head1 ¿ Como hacer un programa en Perl ?    
+=head1 ¿ Cómo hacer un programa en Perl ?    
 
-Z<¿ Como hacer un programa en Perl ?> 
+Z<¿ Cómo hacer un programa en Perl ?> 
 
 Ya es tiempo de hacer esta pregunta (aunque usted no la halla hecho aun), Los
 programas de Perl son archivos de texto plano, usted puede crearlos y editarlos
-en su editor de textos preferido,  yo personalmente prefiero B<VIM>. (Usted no
+en su editor de textos preferido, en lo personal prefiero B<VIM>. (Usted no
 necesita entornos de desarrollo especiales, aunque hay disponibles editores
 comerciales de varios proveedores. Nunca hemos utilizado uno de estos lo
 suficiente como para recomendarlo). Por lo general debería usar un editor de
