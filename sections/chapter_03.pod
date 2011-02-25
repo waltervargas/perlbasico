@@ -103,7 +103,7 @@ las subrutinas en Perl tiene un valor de retorno B<útil>.
 Puesto que en Perl, las subrutinas siempre deben devolver un valor, sería 
 un poco inútil tener que declarar una sintaxis especial de tipo C<return> 
 para la mayoría de los casos. Entonces Larry hizo algo simple. Cualquier
-calculo que se encuentre de último en una subrutina es automáticamente el valor
+cálculo que se encuentre de último en una subrutina es automáticamente el valor
 de retorno. 
 
 Por ejemplo, vamos a definir esta subrutina: 
@@ -133,7 +133,7 @@ Veamos esto en acción:
 =end programlisting
 
 
-Ahora supongamos que agrega una linea mas a la subrutina, por ejemplo: 
+Ahora supongamos que agrega una línea más a la subrutina, por ejemplo: 
 
 =begin programlisting
 
@@ -148,10 +148,10 @@ Ahora supongamos que agrega una linea mas a la subrutina, por ejemplo:
 En este ejemplo, la última expresión evaluada no es una suma; es la sentencia
 print. Esta retorna normalmente 1, que significa "printing was successful",
 pero no es el valor de retorno que esperaba. Entonces, debe ser cuidadoso
-cuando agrega código adicional a una subrutina, puesto que la ultima expresión
+cuando agrega código adicional a una subrutina, puesto que la última expresión
 evaluada va a ser el valor de retorno. 
 
-Tome en cuenta que no es la última linea de la subrutina, es la última
+Tome en cuenta que no es la última línea de la subrutina, es la última
 expresión evaluada. Por ejemplo, esta subrutina devuelve el valor mas grande,
 entre $fred y $barney: 
 
@@ -179,7 +179,7 @@ subrutina en lugar de depender de variables globales.
 
 Z<Argumentos> 
 
-La subrutina llamada larger_of_fred_or_barney puede ser mas útil si no
+La subrutina llamada larger_of_fred_or_barney puede ser más útil si no
 estuviera forzada a usar variables globales. 
 
 Perl tiene argumentos para subrutinas. Para pasar una lista de argumentos a una
@@ -233,12 +233,12 @@ veremos una mejor forma de hacerlo.
 Hay otro problema con esta subrutina, los parámetros adicionales son ignorados,
 puesto que la subrutina nunca mira en $_[2], a Perl no le importa si allí hay
 algo o no, y la ausencia de un parámetro también es ignorada, simplemente
-obtendrá C<undef> si mira mas allá del final del array C<@_>. En este mismo
-capítulo veremos como hacer esta subrutina mas eficiente. 
+obtendrá C<undef> si mira más allá del final del array C<@_>. En este mismo
+capítulo veremos como hacer esta subrutina más eficiente. 
 
 La variable C<@_> es privada para cada subrutina;<A menos que se coloque un
 signo & delante del nombre de la subrutina en la variable y no se indique
-ningún argumento o paréntesis,  en cuyo caso C<@_> es heredada desde el
+ningún argumento o paréntesis, en cuyo caso C<@_> es heredada desde el
 contexto de la llamada a la subrutina. Generalmente es una mala idea, pero en
 ocasiones es útil> si hay una variable global @_, su valor es conservado antes
 de la invocación de la subrutina, y su valor es restaurado cuando la llamada
@@ -276,9 +276,9 @@ También es importante señalar que, en el bloque C<if>, no fue necesario un
 punto y coma después de la expresión del valor de retorno. Aunque Perl permite
 omitir el último punto y coma de un bloque, en la práctica tu puedes omitirlo
 solo cuando el código es tan simple que puedas escribirlo en un bloque de una
-sola linea. 
+sola línea. 
 
-La subrutina en el ejemplo previo puede ser mas simple aún. Debe haber notado
+La subrutina en el ejemplo previo puede ser más simple aún. Debe haber notado
 que la lista ($m, $n) fue escrita dos veces, el operador C<my> puede ser
 aplicado a una lista de variables encerradas en paréntesis, entonces se pueden
 combinar las dos primeras sentencias de la subrutina de la siguiente manera: 
@@ -290,8 +290,8 @@ combinar las dos primeras sentencias de la subrutina de la siguiente manera:
 =end programlisting
 
 Una sola sentencia crea las variables privadas y define sus valores. Casi todas
-las subrutinas van a comenzar con una linea muy parecida a esta, nombres entre
-paréntesis. Cuando vea esta linea,  va a saber que la subrutina espera dos
+las subrutinas van a comenzar con una línea muy parecida a esta, nombres entre
+paréntesis. Cuando vea esta línea,  va a saber que la subrutina espera dos
 parámetros escalares,  que vas a llamar $m y $n dentro de la subrutina. 
 
 =head1 Longitud de la lista de parámetros    
@@ -421,7 +421,7 @@ usted escribe una linea como esta:
 =end programlisting
 
 Ahora, luego de un rato, escribe un ciclo while. Después de que la linea
-anterior no sea visible en la pantalla, usted tipea una linea para incrementar
+anterior no sea visible en la pantalla, usted tipea una línea para incrementar
 la variable. 
 
 =begin programlisting
@@ -431,10 +431,10 @@ la variable.
 =end programlisting
 
 Puesto que perl ve un nuevo nombre de variable (el guión bajo es significativo)
-crea una nueva variable,  e incrementa su valor en uno. Si eres afortunado e
+crea una nueva variable, e incrementa su valor en uno. Si eres afortunado e
 inteligente, activaste las advertencias (warnings), y Perl te va a decir que
 has usado una o varias variables globales una sola vez en tu programa. Pero si
-eres simplemente inteligente, vas a usar cada variable mas de una vez, y Perl
+eres simplemente inteligente, vas a usar cada variable más de una vez, y Perl
 no va a advertirte nada. 
 
 Para decirle a Perl que quieres ser mas restrictivo, coloque C<use strict> al
@@ -470,7 +470,7 @@ recomendamos ver la documentación oficial. La documentación de los pragmas se
 encuentra en un archivo bajo el nombre del pragma, entonces podemos usar
 C<perldoc strict>.
 
-La mayoría de la gente cree que si un programa es mas largo que la pantalla,
+La mayoría de la gente cree que si un programa es más largo que la pantalla,
 generalmente necesita C<use strict>. En esto estamos de acuerdo. 
 
 
@@ -501,7 +501,7 @@ Esta subrutina es usada para encontrar el índice de "dino" en el array @names.
 
 A algunos programadores les gusta usar return siempre,  como una forma de
 documentar que este es el valor de retorno. Por ejemplo, se puede usar return
-cuando el valor de retorno no es la ultima expresión evaluada de la subrutina.
+cuando el valor de retorno no es la última expresión evaluada de la subrutina.
 
 =head1 Omitir el signo &    
 
@@ -609,7 +609,7 @@ lista. Esto puede ser útil para retornar errores de una subrutina.
 Z<Variables Privadas Persistentes> 
 
 Con C<my> podemos hacer variables privadas en una subrutina,  sin embargo cada
-vez que llamamos a la subrutina va a re-definir los valores una vez mas. Con
+vez que llamamos a la subrutina va a re-definir los valores una vez más. Con
 C<state>, podemos tener variables privadas del ámbito de una subrutina pero
 Perl va a mantener sus valores entre las llamadas. 
 
@@ -620,7 +620,7 @@ incrementaba una variable:
 
     sub marine {
         $n += 1;    # Variable global $n 
-        print "Hola,  marinera numero $n!\n"
+        print "Hola,  marinera número $n!\n"
     }
 
 =end programlisting
@@ -640,7 +640,7 @@ una variable privada de la subrutina.
     sub marino {
         state $n = 0;   # privada, variable persistente $n
         $n += 1;
-        print "Hola, marinera numero $n!\n";
+        print "Hola, marinera número $n!\n";
     }
 
 =end programlisting
